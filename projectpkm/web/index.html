@@ -97,24 +97,23 @@
       loadMainDartJs();
     }
   </script>
-   <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <!-- Add for Cloud Firestore: https://pub.dev/packages/cloud_firestore -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <!-- Firebase Configuration -->
+      <script>
+        var firebaseConfig = {
+            apiKey: "null",
+            authDomain: "si-kia-pkm-sb.firebaseapp.com",
+            projectId: "si-kia-pkm-sb",
+            storageBucket: "si-kia-pkm-sb.appspot.com",
+            messagingSenderId: "297731959736",
+            appId: "1:297731959736:web:edaa55fe03d28f36e3fd4d",
+            measurementId: "G-LR6F3T9BH2"
+        };
 
-   <!-- Firebase Configuration -->
-   <script>
-     var firebaseConfig = {
-        apiKey: "AIzaSyDYX5ATaP7NBGBk2VDkjatA2wOkvPknBWM",
-        authDomain: "si-kia-pkm-sb.firebaseapp.com",
-        projectId: "si-kia-pkm-sb",
-        storageBucket: "si-kia-pkm-sb.appspot.com",
-        messagingSenderId: "297731959736",
-        appId: "1:297731959736:web:edaa55fe03d28f36e3fd4d",
-        measurementId: "G-LR6F3T9BH2"
-     };
-
-     // Initialize Firebase
-     firebase.initializeApp(firebaseConfig);
-   </script>
-
-   <script src="main.dart.js" type="application/javascript"></script>
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+      </script>
 </body>
 </html>
