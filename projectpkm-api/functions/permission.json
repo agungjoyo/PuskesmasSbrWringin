@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "projectpuskesmas",
+  "private_key_id": "92e45d05ad270e87bf232a349e7607c3e957e4d6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDeIygD3vex3DDY\npbbdNc6Qj4pN9DYPmFEmB7xYK1SFwYuZxWSg9NBbEaEnTQtvjISDsYRu1ZCKm1fe\nLn/1KxQ35LBe1CcXoSJWrWGqKTQzETQL8BAXmQihJcCdxmqdtMT39eBW9THhL+3N\nWs7yGon89Uy1za1rZPPxLVZIOwNZUKtbj0v/qwEPqMSHALsGA/UuJv8QF/y6tG2e\n0aM+5H+D8iopzFKkPQzcWLGF7t39LT+wMjTY0SnSWhAjIgN13CfOrM2/JQOTWs3D\nqmSQ3u/iTakUTFj1VW3tOciS/SmsOw5mOOFj7bWBk0GJFYFsRtG1CTzhIDmzUwUj\naNsQ0dhDAgMBAAECggEABCxL5vq204K2m4iiwqLCon5CfmFn7JYTcYVJWVdYYKTj\nVFGxfhaV8sgGK4Cr234byoTjXy5S50+wxbiWPcr/4mbrlfR4AYkiOyz0Uz0v66+s\njHbc49yY8ry3UsofRvQrk8RCNnqnuQ/B8Ll+fsIsinHUmEETZhuWO5clnPjC1i1/\n+P17FEHwG+haTkRX9iEqsr3cfmW1Vg/UWqu8CVJXRWiNaksD3OJ50ojYjqa4ji4e\nTiCsIN6H4RXC4eLyY3wPnU4NXX4yeI0JM6ipaAyEK+u+yzIVBQZA3ImMLAxlJD40\nnXCXRvVVNfSeS4WXSy81cGWL04KDfSPysx92Ya1NNQKBgQD8y9msSj6IyGiDHbOL\nw6sD6Kpv8v2Q8g3JhkGAzWd9sD2y1uAMUoFzkJU8D841xUwMZ3bbxmIzBGMqVjtp\n89r0osvqa5h87CmWCbvTKeOI62GcQSVZOD9CXDFmSILHB0ySXcr2zwGIl0536aeg\nK4y5fckCD/crXU+Ni1zdRv+DzwKBgQDg89a9dnxeqlbFmNo4NLN/lfqWMu3FWL+l\nIrLZ1BLxLNdDIVhvyb5c46h6UFR1bxWaOqG4DdNpzU+59xPNb5z0pWpL1n++4csR\n8ivlBEyfmspa4ZhHEnShTNCmKTrAxkRsyfjW9NxWX1X1kkip4qvlE7trFJk8bi55\nI4BdD9tdTQKBgGgO/XYnRaCGZkb6lerFS4MbZfUZH/lnOfendRUw+BXL00nnm2hX\nGgRZEqUbmHWX1lsQx+NlwQxhFPTbdC+D+rBSxv+i9K0PhXrGXPNqPcghpBdu1ZHp\nTljhnFAPLw4AWiuxwhdgVLBGID3KB38uDgpY1cIskkDecx2/rSVE0W8PAoGBAIWz\nZ+akDbeWNoyrFMhjSmyCj7XF/1xUK1PTE8o0Ki3+INNddlq65dH/3ZsVM524sHZC\ncuwaC5XO2ZwGJlbsB7XAuzToAHVLbo70CPLNY11ZevwZKZDUf01/gmPADZOWRAUE\n5kmcr3kGoOicUWPnvZMh7zrtu0YXlreZSioFyrPhAoGBANvkGrr0e2lnCgJ0Idtc\nJoU++CIPI3jYhqxn7PwQfhtaWOAjw0K0XTJt7l4KD1M9k7XnGqhc2uQnD+OH4iuy\nX/SZ0dFdYDJkRnHwvM/I4rpiUkA1dn+UosruwGtOtFfuP4Uul5OX5NLHWlbUNETz\nXMeItfcBKl/jxn1rOZq08rTZ\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-vc4eq@projectpuskesmas.iam.gserviceaccount.com",
+  "client_id": "111576397742680274369",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-vc4eq%40projectpuskesmas.iam.gserviceaccount.com"
+}
