@@ -73,10 +73,10 @@ app.get('/api/users/read', (req, res) => {
 // end get all user
 
 // get user by id
-app.get('/api/users/read/:userId', (req, res) => {
+app.get('/api/users/read/search/id', (req, res) => {
     (async () => {
         try {
-            const document = db.collection('items').doc(req.body.user_id);
+            const document = db.collection('Auth').doc(req.body.userId);
             let user = await document.get();
             let response = user.data();
             return res.status(200).send(response);
@@ -84,7 +84,43 @@ app.get('/api/users/read/:userId', (req, res) => {
             console.log(error);
             return res.status(500).send(error);
         }
-        })();
-    });
+    })();
+});
 // end get user by id
+
+//get user by username
+app.get('/api/users/read/search/name', (req, res) => {
+    (async () => {
+        try {
+            let query = db.collection('Auth');
+            let response = [];
+            response.slice(0,1);
+            await query.get().then(querySnapshot => {
+                let docs = querySnapshot.docs;
+                    for (let doc of docs) {
+                        const name = req.body.name;
+                        const nameInDatabase = doc.data().Name;
+                            if (name == nameInDatabase) {
+                                const searchName = { 
+                                id: doc.id,
+                                Name: doc.data().Name,
+                                NIP:  doc.data().NIP,
+                                Address:  doc.data().Address,
+                                Position:  doc.data().Position,
+                                PhoneNumber:  doc.data().PhoneNumber,
+                                Password:  doc.data().Password
+                                }
+                                response.push(searchName);
+                            }
+                    }
+            });
+            return res.status(200).send(response);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send(error);
+        }
+        })();
+});
+//end get user by usernaame
+
 exports.app = functions.https.onRequest(app);
