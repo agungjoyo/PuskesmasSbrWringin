@@ -17,7 +17,7 @@ class sideMenu extends StatelessWidget {
           children: [
             InkWell(
               onTap: (){},
-              child: Text('Home', style: GoogleFonts.roboto(
+              child: Text('Home', style: GoogleFonts.mcLaren(
                 fontSize: 22,
                 color: Colors.white
               ),),
@@ -28,14 +28,14 @@ class sideMenu extends StatelessWidget {
 
             InkWell(
               onTap: (){},
-              child: Text('Login', style: GoogleFonts.roboto(
+              child: Text('Login', style: GoogleFonts.mcLaren(
                 fontSize: 22,
                 color: Colors.white
               ),),
             )
 
             Expanded(child: Align(alignment: Alignment.bottomCenter,
-            child: Text("Copyright 2021 | PKM", style: GoogleFonts.roboto(color: Colors.white, fontSize: 14 ),
+            child: Text("Copyright 2021 | PKM", style: GoogleFonts.mcLaren(color: Colors.white, fontSize: 14 ),
             ),
             ),
             ),

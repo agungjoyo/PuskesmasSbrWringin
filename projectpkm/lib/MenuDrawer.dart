@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:projectpkm/view/constants/style.dart';
 
 class MenuDrawer extends StatelessWidget {
   const MenuDrawer({
@@ -20,77 +21,100 @@ class MenuDrawer extends StatelessWidget {
               InkWell(
                 hoverColor: Colors.transparent,
                 onTap: () {},
-                child: Text(
-                  'Home',
-                  style: GoogleFonts.roboto(
-                    color: Colors.black,
-                    fontSize: 22,
-                  ),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                          'Home',
+                          style: GoogleFonts.mcLaren(
+                          color: Colors.green,
+                          fontSize: 16,
+                   ),
+                 ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                padding: const EdgeInsets.only(top: 5.0, bottom: 3.0),
                 child: Divider(
-                  color: Colors.transparent,
-                  thickness: 2,
+                  color: lightGrey,
+                  thickness: 1,
+                  indent: 100,
+                  endIndent: 97
                 ),
               ),
               InkWell(
+                hoverColor: Colors.transparent,
                 onTap: () {},
-                child: Text(
-                  'Tentang Kami',
-                  style: GoogleFonts.roboto(
-                    color: Colors.black,
-                    fontSize: 22,
-                  ),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                          'Tentang Kami',
+                          style: GoogleFonts.mcLaren(
+                          color: Colors.green,
+                          fontSize: 16,
+                   ),
+                 ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                padding: const EdgeInsets.only(top: 5.0, bottom: 3.0),
                 child: Divider(
-                  color: Colors.transparent,
-                  thickness: 2,
+                  color: lightGrey,
+                  thickness: 1,
+                  indent: 85,
+                  endIndent: 82
                 ),
               ),
               InkWell(
+                hoverColor: Colors.transparent,
                 onTap: () {},
-                child: Text(
-                  'Grafik',
-                  style: GoogleFonts.roboto(
-                    color: Colors.black,
-                    fontSize: 22,
-                  ),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                          'Grafik',
+                          style: GoogleFonts.mcLaren(
+                          color: Colors.green,
+                          fontSize: 16,
+                   ),
+                 ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                padding: const EdgeInsets.only(top: 5.0, bottom: 3.0),
                 child: Divider(
-                  color: Colors.transparent,
-                  thickness: 2,
+                  color: lightGrey,
+                  thickness: 1,
+                  indent: 100,
+                  endIndent: 97
                 ),
               ),
               InkWell(
+                hoverColor: Colors.transparent,
                 onTap: () {},
-                child: Text(
-                  'Kontak',
-                  style: GoogleFonts.roboto(
-                    color: Colors.black,
-                    fontSize: 22,
-                  ),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                          'Kontak',
+                          style: GoogleFonts.mcLaren(
+                          color: Colors.green,
+                          fontSize: 16,
+                   ),
+                 ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                padding: const EdgeInsets.only(top: 5.0, bottom: 3.0),
                 child: Divider(
-                  color: Colors.transparent,
-                  thickness: 2,
+                  color: lightGrey,
+                  thickness: 1,
+                  indent: 100,
+                  endIndent: 97
                 ),
               ),
               Expanded(
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
-                    'Copyright © 2021 | PKM',
+                    'Copyright © 2021 | PKM SB',
                     style: TextStyle(
                       color: Colors.greenAccent,
                       fontSize: 14,

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projectpkm/controller/helpers/responsiveness.dart';
 import 'package:projectpkm/top_bar_contents.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'MenuDrawer.dart';
 
@@ -42,10 +43,12 @@ class _HomePageState extends State<HomePage> {
               centerTitle: true,
               title: Text(
                 "SAS-KIA Sumber Wringin",
-                style: TextStyle(
+                style: GoogleFonts.mcLaren(
+                  textStyle: TextStyle(
                     fontSize: 26,
                     color: Color(0xff128612),
                     fontWeight: FontWeight.w900),
+                ) 
               ),
             )
           : PreferredSize(
