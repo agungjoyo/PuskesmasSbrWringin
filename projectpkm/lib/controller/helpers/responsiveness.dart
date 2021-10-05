@@ -1,31 +1,41 @@
 import 'package:flutter/material.dart';
 
-// Declare Screen Size
-const int largeScreenSize = 720;
-const int smallScreenSize = 360;
-
-class ResponsivenessWidgets extends StatelessWidget {
-  // Declare final Widget
+class ResponsiveWidget extends StatelessWidget {
   final Widget largeScreen;
-  final Widget smallScreen;
+  final Widget? mediumScreen;
+  final Widget? smallScreen;
 
-  const ResponsivenessWidgets(
-      {Key? key, required this.largeScreen, required this.smallScreen})
-      : super(key: key);
+  const ResponsiveWidget({
+    Key? key,
+    required this.largeScreen,
+    this.mediumScreen,
+    this.smallScreen,
+  }) : super(key: key);
 
-  static bool isSmallScreen(BuildContext context) =>
-      MediaQuery.of(context).size.width < largeScreenSize;
-  static bool isLargeScreen(BuildContext context) =>
-      MediaQuery.of(context).size.width >= largeScreenSize;
+  static bool isSmallScreen(BuildContext context) {
+    return MediaQuery.of(context).size.width < 800;
+  }
+
+  static bool isLargeScreen(BuildContext context) {
+    return MediaQuery.of(context).size.width > 1200;
+  }
+
+  static bool isMediumScreen(BuildContext context) {
+    return MediaQuery.of(context).size.width >= 800 &&
+        MediaQuery.of(context).size.width <= 1200;
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        double _width = constraints.maxWidth;
-        if (_width >= largeScreenSize) {
+        if (constraints.maxWidth > 1200) {
           return largeScreen;
+        } else if (constraints.maxWidth <= 1200 &&
+            constraints.maxWidth >= 800) {
+          return mediumScreen ?? largeScreen;
         } else {
-          return smallScreen;
+          return smallScreen ?? largeScreen;
         }
       },
     );
