@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:projectpkm/view/constants/style.dart';
 
 class MenuDrawer extends StatelessWidget {
   const MenuDrawer({
@@ -29,7 +30,7 @@ class MenuDrawer extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                padding: const EdgeInsets.only(top: 5.0, bottom: 3.0),
                 child: Divider(
                   color: Colors.white,
                   thickness: 2,
@@ -47,7 +48,7 @@ class MenuDrawer extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                padding: const EdgeInsets.only(top: 5.0, bottom: 3.0),
                 child: Divider(
                   color: Colors.white,
                   thickness: 2,
@@ -65,7 +66,7 @@ class MenuDrawer extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                padding: const EdgeInsets.only(top: 5.0, bottom: 3.0),
                 child: Divider(
                   color: Colors.white,
                   thickness: 2,
@@ -83,7 +84,7 @@ class MenuDrawer extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                padding: const EdgeInsets.only(top: 5.0, bottom: 3.0),
                 child: Divider(
                   color: Colors.white,
                   thickness: 2,
@@ -93,7 +94,7 @@ class MenuDrawer extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
-                    'Copyright © 2021 | PKM',
+                    'Copyright © 2021 | PKM SB',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,

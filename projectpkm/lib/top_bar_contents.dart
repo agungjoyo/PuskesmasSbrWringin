@@ -63,7 +63,8 @@ class _TopBarContentsState extends State<TopBarContents> {
                               ? Color(0xff128612)
                               : Color(0xff128612),
                           fontWeight: FontWeight.bold,
-                          fontSize: 16),
+                          fontSize: 20)
+                      ),
                     ),
                     SizedBox(height: 5),
                     Visibility(
@@ -99,7 +100,8 @@ class _TopBarContentsState extends State<TopBarContents> {
                               ? Color(0xff128612)
                               : Color(0xff128612),
                           fontWeight: FontWeight.bold,
-                          fontSize: 16),
+                          fontSize: 20)
+                      ),
                     ),
                     SizedBox(height: 5),
                     Visibility(
@@ -135,7 +137,8 @@ class _TopBarContentsState extends State<TopBarContents> {
                               ? Color(0xff128612)
                               : Color(0xff128612),
                           fontWeight: FontWeight.bold,
-                          fontSize: 16),
+                          fontSize: 20),
+                      )
                     ),
                     SizedBox(height: 5),
                     Visibility(
@@ -171,7 +174,8 @@ class _TopBarContentsState extends State<TopBarContents> {
                               ? Color(0xff128612)
                               : Color(0xff128612),
                           fontWeight: FontWeight.bold,
-                          fontSize: 16),
+                          fontSize: 20),
+                      ),
                     ),
                     SizedBox(height: 5),
                     Visibility(
