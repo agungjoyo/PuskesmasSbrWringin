@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:projectpkm/controller/helpers/responsiveness.dart';
 import 'package:projectpkm/top_bar_contents.dart';
 
@@ -41,9 +42,9 @@ class _HomePageState extends State<HomePage> {
               elevation: 0,
               centerTitle: true,
               title: Text(
-                "SAS-KIA Sumber Wringin",
-                style: TextStyle(
-                    fontSize: 26,
+                "SAS-KIA PUSWRIN",
+                style: GoogleFonts.roboto(
+                    fontSize: 20,
                     color: Color(0xff128612),
                     fontWeight: FontWeight.w900),
               ),
@@ -64,12 +65,12 @@ class _HomePageState extends State<HomePage> {
                   // child: SizedBox(
                   //   height: screenSize.height * .9,
                   //   width: screenSize.width,
-                  child: Image.asset(
-                    'assets/images/background.png',
-                    fit: BoxFit.cover,
-                  ),
+                  // child: Image.asset(
+                  //   'assets/images/background.png',
+                  //   fit: BoxFit.cover,
+                  
                   // ),
-                  decoration: BoxDecoration(
+            decoration: BoxDecoration(
                       gradient: LinearGradient(
                           begin: Alignment.topRight,
                           end: Alignment.topLeft,

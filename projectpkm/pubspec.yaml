@@ -39,6 +39,14 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+
+dependency_overrides:
+  printing:
+    git:
+      url: https://github.com/DavBfr/dart_pdf
+      path: printing
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -64,8 +72,10 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/background.png
-    - assets/images/KIA.png
-    - assets/images/pkm.png
+    - assets/images/img.png
+    - assets/images/logo.png
+    - assets/images/logopkm.png
+
 
   #   - assets/icons/
   #   - assets/images/KIA.png

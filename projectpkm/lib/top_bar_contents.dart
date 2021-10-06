@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TopBarContents extends StatefulWidget {
   TopBarContents();
@@ -35,11 +36,10 @@ class _TopBarContentsState extends State<TopBarContents> {
               ),
               Image.asset("images/pkm.png"),
               Text(
-                'SAS-KIA Sumber Wringin',
-                style: TextStyle(
+                'SAS-KIA PUSWRIN',
+                style: GoogleFonts.roboto(
                   color: Color(0xff128612),
-                  fontSize: 26,
-                  fontFamily: 'Raleway',
+                  fontSize: 20,
                   fontWeight: FontWeight.w900,
                   letterSpacing: 3,
                 ),
@@ -58,7 +58,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                   children: [
                     Text(
                       'Home',
-                      style: TextStyle(
+                      style: GoogleFonts.roboto(
                           color: _isHovering[0]
                               ? Color(0xff128612)
                               : Color(0xff128612),
@@ -94,7 +94,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                   children: [
                     Text(
                       'Tentang Kami',
-                      style: TextStyle(
+                      style: GoogleFonts.roboto(
                           color: _isHovering[1]
                               ? Color(0xff128612)
                               : Color(0xff128612),
@@ -130,7 +130,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                   children: [
                     Text(
                       'Grafik',
-                      style: TextStyle(
+                      style: GoogleFonts.roboto(
                           color: _isHovering[2]
                               ? Color(0xff128612)
                               : Color(0xff128612),
@@ -166,7 +166,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                   children: [
                     Text(
                       'Kontak',
-                      style: TextStyle(
+                      style: GoogleFonts.roboto(
                           color: _isHovering[3]
                               ? Color(0xff128612)
                               : Color(0xff128612),

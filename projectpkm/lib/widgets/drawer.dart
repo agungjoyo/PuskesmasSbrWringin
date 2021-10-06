@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:projectpkm/helpers/style.dart';
 
-class MenuDrawer extends StatelessWidget {
-  const MenuDrawer({
+class MobileMenu extends StatelessWidget {
+  const MobileMenu({
     Key? key,
   }) : super(key: key);
 
@@ -10,7 +10,7 @@ class MenuDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: Color(0xfffffff),
+        color: bgColor,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -18,82 +18,54 @@ class MenuDrawer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               InkWell(
-                hoverColor: Colors.greenAccent,
+                hoverColor: Colors.transparent,
                 onTap: () {},
                 child: Text(
                   'Home',
-                  style: GoogleFonts.roboto(
-                    color: Colors.black,
-                    fontSize: 17,
-                  ),
+                  style: TextStyle(color: active, fontSize: 22),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                child: Divider(
-                  color: Colors.white,
-                  thickness: 2,
-                ),
+                child: Divider(),
               ),
               InkWell(
-                hoverColor: Colors.greenAccent,
+                hoverColor: Colors.transparent,
                 onTap: () {},
                 child: Text(
                   'Tentang Kami',
-                  style: GoogleFonts.roboto(
-                    color: Colors.black,
-                    fontSize: 17,
-                  ),
+                  style: TextStyle(color: active, fontSize: 22),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                child: Divider(
-                  color: Colors.white,
-                  thickness: 2,
-                ),
+                child: Divider(),
               ),
               InkWell(
-                hoverColor: Colors.greenAccent,
+                hoverColor: Colors.transparent,
                 onTap: () {},
                 child: Text(
                   'Grafik',
-                  style: GoogleFonts.roboto(
-                    color: Colors.black,
-                    fontSize: 17,
-                  ),
+                  style: TextStyle(color: active, fontSize: 22),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                child: Divider(
-                  color: Colors.white,
-                  thickness: 2,
-                ),
+                child: Divider(),
               ),
               InkWell(
-                hoverColor: Colors.greenAccent,
+                hoverColor: Colors.transparent,
                 onTap: () {},
                 child: Text(
                   'Kontak',
-                  style: GoogleFonts.roboto(
-                    color: Colors.black,
-                    fontSize: 17,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                child: Divider(
-                  color: Colors.white,
-                  thickness: 2,
+                  style: TextStyle(color: active, fontSize: 22),
                 ),
               ),
               Expanded(
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
-                    'Copyright © 2021 | PKM',
+                    'Copyright © 2021 | SAS-KIA',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,

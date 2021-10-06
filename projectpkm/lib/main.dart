@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projectpkm/homepage.dart';
+import 'package:projectpkm/pages/home.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'SAS-KIA PUSWRIN',
+      theme: ThemeData(visualDensity: VisualDensity.adaptivePlatformDensity),
       home: HomePage(),
     );
   }
