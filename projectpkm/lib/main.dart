@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'SAS-KIA PUSWRIN',
+      title: 'SAS-KIA SUMBER WRINGIN',
       theme: ThemeData(visualDensity: VisualDensity.adaptivePlatformDensity),
       home: HomePage(),
     );

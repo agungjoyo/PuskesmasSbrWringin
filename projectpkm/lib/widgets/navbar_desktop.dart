@@ -60,7 +60,7 @@ class _NavBarState extends State<NavBar> {
                           Text(
                             'Beranda',
                             style: GoogleFonts.roboto(
-                              fontSize: 16,
+                              fontSize: 17,
                               fontWeight: FontWeight.bold,
                               color: _isHovering[0] ? active : disable,
                             ),
@@ -102,7 +102,7 @@ class _NavBarState extends State<NavBar> {
                           Text(
                             'Tentang Kami',
                             style: GoogleFonts.roboto(
-                              fontSize: 16,
+                              fontSize: 17,
                               fontWeight: FontWeight.bold,
                               color: _isHovering[1] ? active : disable,
                             ),
@@ -144,7 +144,7 @@ class _NavBarState extends State<NavBar> {
                           Text(
                             'Grafik',
                             style: GoogleFonts.roboto(
-                              fontSize: 16,
+                              fontSize: 17,
                               fontWeight: FontWeight.bold,
                               color: _isHovering[2] ? active : disable,
                             ),
@@ -186,7 +186,7 @@ class _NavBarState extends State<NavBar> {
                           Text(
                             'Kontak',
                             style: GoogleFonts.roboto(
-                              fontSize: 16,
+                              fontSize: 17,
                               fontWeight: FontWeight.bold,
                               color: _isHovering[3] ? active : disable,
                             ),
