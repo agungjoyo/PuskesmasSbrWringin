@@ -17,6 +17,7 @@
 */
 import React from "react";
 import { Link } from "react-router-dom";
+import navbarLogo from "assets/img/brand/argon-react.png";
 
 // reactstrap components
 import {
@@ -62,7 +63,7 @@ class Navbars extends React.Component {
                       <Link to="/">
                         <img
                           alt="..."
-                          src={require("assets/img/brand/argon-react.png")}
+                          src={navbarLogo}
                         />
                       </Link>
                     </Col>

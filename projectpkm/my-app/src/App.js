@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import LandingPage from './Landing Page/Carousel'
 
 
 function App() {
@@ -8,7 +9,8 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          belajar <code>code</code> and save to reload.
+          belajar <code>src/App.js</code> and save to reload.
+          <LandingPage />
         </p>
         <a
           className="App-link"
