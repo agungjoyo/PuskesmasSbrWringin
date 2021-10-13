@@ -1,12 +1,15 @@
 @import './default';
+
 header {
   position: absolute;
   width: 100%;
   z-index: 10;
+
   .nav {
     max-width: 424px;
     text-align: center;
     margin: auto;
+
     &-title {
       display: block;
       padding-top: 22px;
@@ -14,6 +17,7 @@ header {
       transition: border .3s @ease-out;
       color: #fff;
       cursor: pointer;
+
       &:hover {
         border-top-color: #fff;
       }
@@ -23,14 +27,16 @@ header {
 
 .header-tip-wrap {
   .ant-tooltip-arrow {
-    border-bottom-color: rgba(1, 24, 116, .96);
+    border-bottom-color: #ED9B59;
   }
+
   .ant-tooltip-inner {
-    background-color: rgba(1, 24, 116, .96);
-    box-shadow: 0 8px 16px #001b72;
+    background-color: #FFFEEFE3;
+    box-shadow: 0 8px 16px #ED9B59;
     padding: 0;
     max-width: none;
     overflow: hidden;
+
     .tip-block {
       display: flex;
       align-items: center;
@@ -38,22 +44,26 @@ header {
       min-width: 296px;
       transition: background .3s @ease-in-out;
       background: rgba(1, 24, 116, 0);
+
       .tip-img {
         display: inline-block;
       }
+
       .tip-content {
         display: inline-block;
         color: #fff;
         margin-left: 16px;
         line-height: 22px;
+
         >div {
           opacity: 0.65;
           font-size: 12px;
           line-height: 20px;
         }
       }
-      &:hover{
-        background-color: rgb(1, 24, 116);
+
+      &:hover {
+        background-color: #ED9B59;
       }
     }
   }

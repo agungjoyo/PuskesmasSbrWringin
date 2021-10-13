@@ -1,28 +1,28 @@
 export const header = [
   {
-    title: '产品',
+    title: 'Beranda',
     children: [
       {
-        title: '云凤蝶', desc: '移动建站平台', img: 'https://gw.alipayobjects.com/zos/rmsportal/fLPzRmwAurHkPDVfHHiQ.svg', link: 'https://fengdie.alipay-eco.com/intro', top: '2px',
+        title: 'dia', desc: 'satu', img: 'https://gw.alipayobjects.com/zos/rmsportal/fLPzRmwAurHkPDVfHHiQ.svg', link: 'https://fengdie.alipay-eco.com/intro', top: '2px',
       },
     ],
   },
   {
-    title: '设计体系',
+    title: 'Tentang Kami',
     children: [
       {
-        title: '设计价值观', desc: 'Design Values', img: 'https://gw.alipayobjects.com/zos/rmsportal/zMeJnhxAtpXPZAUhUKJH.svg', link: 'https://ant.design/docs/spec/values-cn',
+        title: 'lihat', desc: 'Design Values', img: 'https://gw.alipayobjects.com/zos/rmsportal/zMeJnhxAtpXPZAUhUKJH.svg', link: 'https://ant.design/docs/spec/values-cn',
       },
       {
-        title: '视觉', desc: 'Visual', img: 'https://gw.alipayobjects.com/zos/rmsportal/qkNZxQRDqvFJscXVDmKp.svg', link: 'https://ant.design/docs/spec/colors-cn',
+        title: 'bener', desc: 'Visual', img: 'https://gw.alipayobjects.com/zos/rmsportal/qkNZxQRDqvFJscXVDmKp.svg', link: 'https://ant.design/docs/spec/colors-cn',
       },
       {
-        title: '可视化', desc: 'Visualisation', img: 'https://gw.alipayobjects.com/zos/rmsportal/MrUQjZNOJhYJCSZZuJDr.svg', link: 'https://antv.alipay.com/zh-cn/vis/index.html',
+        title: 'atau', desc: 'Visualisation', img: 'https://gw.alipayobjects.com/zos/rmsportal/MrUQjZNOJhYJCSZZuJDr.svg', link: 'https://antv.alipay.com/zh-cn/vis/index.html',
       },
     ],
   },
   {
-    title: '技术方案',
+    title: 'Grafik',
     children: [
       {
         title: 'Ant Design', desc: '蚂蚁 UI 体系', img: 'https://gw.alipayobjects.com/zos/rmsportal/ruHbkzzMKShUpDYMEmHM.svg', link: 'https://ant.design',
@@ -36,47 +36,49 @@ export const header = [
     ],
   },
   {
-    title: '关于',
+    title: 'Kontak',
     children: [
       {
-        title: '蚂蚁金服体验科技专栏', desc: '探索极致用户体验与最佳工程实践', img: 'https://gw.alipayobjects.com/zos/rmsportal/VsVqfjYxPTJaFbPcZqMb.svg', link: 'https://zhuanlan.zhihu.com/xtech',
+        title: '蚂蚁金服体验科技专栏', desc: '探索极致用户体验与最佳工程实践', img: 'https://gw.alipayobjects.com/zos/rmsportal/VsVqfjYxPTJaFbPcZqMb.svg', link: '{footer}',
       },
     ],
   },
 ];
 export const banner = [
   {
-    img: 'https://gw.alipayobjects.com/zos/rmsportal/cTyLQiaRrpzxFAuWwoDQ.svg',
-    imgMobile: 'https://gw.alipayobjects.com/zos/rmsportal/ksMYqrCyhwQNdBKReFIU.svg',
     className: 'seeconf-wrap',
     children: [
-      { children: 'Seeking Experience & Engineering Conference', className: 'seeconf-en-name' },
-      { children: '首届蚂蚁体验科技大会', className: 'seeconf-title', tag: 'h1' },
-      { children: '探索极致用户体验与最佳工程实践', className: 'seeconf-cn-name' },
+      { children: 'Program KIA Juni - Agustus 2021', className: 'seeconf-en-name' },
       {
-        children: '了解详细',
+        children: 'Detail',
         className: 'banner-button',
         tag: 'button',
-        link: 'https://seeconf.alipay.com/',
       },
-      { children: '2018.01.06 / 中国·杭州', className: 'seeconf-time' },
+      { children: '2021.15.06', className: 'seeconf-time' },
     ],
   },
   {
-    img: 'https://gw.alipayobjects.com/zos/rmsportal/cTyLQiaRrpzxFAuWwoDQ.svg',
-    imgMobile: 'https://gw.alipayobjects.com/zos/rmsportal/ksMYqrCyhwQNdBKReFIU.svg',
     className: 'seeconf-wrap',
     children: [
-      { children: 'Seeking Experience & Engineering Conference', className: 'seeconf-en-name' },
-      { children: '首届蚂蚁体验科技大会', className: 'seeconf-title', tag: 'h1' },
-      { children: '探索极致用户体验与最佳工程实践', className: 'seeconf-cn-name' },
+      { children: 'Program Gizi Juni - Agustus 2021', className: 'seeconf-en-name' },
       {
-        children: '了解详细',
+        children: 'Detail',
         className: 'banner-button',
         tag: 'button',
-        link: 'https://seeconf.alipay.com/',
       },
-      { children: '2018.01.06 / 中国·杭州', className: 'seeconf-time' },
+      { children: '2021.15.06', className: 'seeconf-time' },
+    ],
+  },
+  {
+    className: 'seeconf-wrap',
+    children: [
+      { children: 'Program Gizi Juni - Agustus 2021', className: 'seeconf-en-name' },
+      {
+        children: 'Detail',
+        className: 'banner-button',
+        tag: 'button',
+      },
+      { children: '2021.15.06', className: 'seeconf-time' },
     ],
   },
 ];
