@@ -20,11 +20,11 @@ export default function Router() {
       element: <DashboardLayout />,
       children: [
         { element: <Navigate to="/dashboard/app" replace /> },
+        { path: '/dashboard', element: <Navigate to="/dashboard/app" /> },
         { path: 'app', element: <DashboardApp /> },
         { path: 'user', element: <User /> },
         { path: 'products', element: <Products /> },
-        { path: 'blog', element: <Blog /> },
-        { path: '/dashboard', element: <Navigate to="/dashboard/app" /> }
+        { path: 'blog', element: <Blog /> }
       ]
     },
     {
