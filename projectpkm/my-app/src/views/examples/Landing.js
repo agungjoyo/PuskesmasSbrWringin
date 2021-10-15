@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 // reactstrap components
 import {
-  Badge,
+  // Badge,
   Button,
   Card,
   CardBody,
@@ -20,26 +20,35 @@ import {
 } from 'reactstrap';
 
 // core components
-import DemoNavbar from 'src/components/Navbars/DemoNavbar.js';
-import CardsFooter from 'src/components/Footers/CardsFooter.js';
+import DemoNavbar from '../../components/Navbars/DemoNavbar';
+import CardsFooter from '../../components/Footers/CardsFooter';
 
 // index page sections
-import Download from '../IndexSections/Download.js';
+import Download from '../IndexSections/Download';
+
+import team2 from '../../assets/img/theme/team-2-800x800.jpg';
+import team3 from '../../assets/img/theme/team-3-800x800.jpg';
+import team4 from '../../assets/img/theme/team-4-800x800.jpg';
 
 class Landing extends React.Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    // this.myRef = React.createRef()
+    this.state = {};
+  }
 
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
-    this.refs.main.scrollTop = 0;
+    // this.refs.main.scrollTop = 0;
   }
 
   render() {
     return (
       <>
         <DemoNavbar />
-        <main ref="main">
+        {/* <main ref="main"> */}
+        <main>
           <div className="position-relative">
             {/* shape Hero */}
             <section className="section section-lg section-shaped pb-250">
@@ -220,7 +229,7 @@ class Landing extends React.Component {
                     <img
                       alt="..."
                       className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                      src={require('src/assets/img/theme/team-2-800x800.jpg')}
+                      src={team2}
                       style={{ width: '200px' }}
                     />
                     <div className="pt-4 text-center">
@@ -262,7 +271,7 @@ class Landing extends React.Component {
                     <img
                       alt="..."
                       className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                      src={require('src/assets/img/theme/team-3-800x800.jpg')}
+                      src={team3}
                       style={{ width: '200px' }}
                     />
                     <div className="pt-4 text-center">
@@ -304,7 +313,7 @@ class Landing extends React.Component {
                     <img
                       alt="..."
                       className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                      src={require('src/assets/img/theme/team-4-800x800.jpg')}
+                      src={team4}
                       style={{ width: '200px' }}
                     />
                     <div className="pt-4 text-center">
@@ -453,8 +462,8 @@ class Landing extends React.Component {
                           <Input
                             placeholder="Your name"
                             type="text"
-                            onFocus={(e) => this.setState({ nameFocused: true })}
-                            onBlur={(e) => this.setState({ nameFocused: false })}
+                            onFocus={() => this.setState({ nameFocused: true })}
+                            onBlur={() => this.setState({ nameFocused: false })}
                           />
                         </InputGroup>
                       </FormGroup>
@@ -472,8 +481,8 @@ class Landing extends React.Component {
                           <Input
                             placeholder="Email address"
                             type="email"
-                            onFocus={(e) => this.setState({ emailFocused: true })}
-                            onBlur={(e) => this.setState({ emailFocused: false })}
+                            onFocus={() => this.setState({ emailFocused: true })}
+                            onBlur={() => this.setState({ emailFocused: false })}
                           />
                         </InputGroup>
                       </FormGroup>

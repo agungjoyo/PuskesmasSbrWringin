@@ -10,7 +10,7 @@ import {
   DropdownItem,
   DropdownToggle,
   UncontrolledDropdown,
-  Media,
+  // Media,
   NavbarBrand,
   Navbar,
   NavItem,
@@ -22,19 +22,22 @@ import {
   UncontrolledTooltip
 } from 'reactstrap';
 
-import demoLogo from 'src/assets/img/brand/argon-react.png';
+import demoLogo from '../../assets/img/brand/argon-react.png';
 
 class DemoNavbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      collapseClasses: ''
+      // collapseOpen: false
+    };
+  }
+
   componentDidMount() {
     const headroom = new Headroom(document.getElementById('navbar-main'));
     // initialise
     headroom.init();
   }
-
-  state = {
-    collapseClasses: '',
-    collapseOpen: false
-  };
 
   onExiting = () => {
     this.setState({
@@ -61,7 +64,7 @@ class DemoNavbar extends React.Component {
               <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
                 <img alt="..." src={demoLogo} />
               </NavbarBrand>
-              <button className="navbar-toggler" id="navbar_global">
+              <button type="button" className="navbar-toggler" id="navbar_global">
                 <span className="navbar-toggler-icon" />
               </button>
               <UncontrolledCollapse
@@ -79,7 +82,7 @@ class DemoNavbar extends React.Component {
                       </Link>
                     </Col>
                     <Col className="collapse-close" xs="6">
-                      <button className="navbar-toggler" id="navbar_global">
+                      <button type="button" className="navbar-toggler" id="navbar_global">
                         <span />
                         <span />
                       </button>
