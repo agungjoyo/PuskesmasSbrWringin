@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { Component } from 'react';
 import { Outlet } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
@@ -32,16 +32,26 @@ const MainStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function DashboardLayout() {
-  const [open, setOpen] = useState(false);
+export default class DashboardLayout extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false
+    };
+  }
 
-  return (
-    <RootStyle>
-      <DashboardNavbar onOpenSidebar={() => setOpen(true)} />
-      <DashboardSidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
-      <MainStyle>
-        <Outlet />
-      </MainStyle>
-    </RootStyle>
-  );
+  render() {
+    return (
+      <RootStyle>
+        <DashboardNavbar onOpenSidebar={() => this.setState({ open: true })} />
+        <DashboardSidebar
+          isOpenSidebar={this.state.open}
+          onCloseSidebar={() => this.setState({ open: false })}
+        />
+        <MainStyle>
+          <Outlet />
+        </MainStyle>
+      </RootStyle>
+    );
+  }
 }

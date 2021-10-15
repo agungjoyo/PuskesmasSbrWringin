@@ -4,21 +4,22 @@ import React from 'react';
 import { Button, Card, Container, Row, Col } from 'reactstrap';
 
 // core components
-import DemoNavbar from 'components/Navbars/DemoNavbar.js';
-import SimpleFooter from 'components/Footers/SimpleFooter.js';
+import DemoNavbar from '../../components/Navbars/DemoNavbar';
+import SimpleFooter from '../../components/Footers/SimpleFooter';
+import team4 from '../../assets/img/theme/team-4-800x800.jpg';
 
 class Profile extends React.Component {
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
-    this.refs.main.scrollTop = 0;
+    // this.refs.main.scrollTop = 0;
   }
 
   render() {
     return (
       <>
         <DemoNavbar />
-        <main className="profile-page" ref="main">
+        <main className="profile-page">
           <section className="section-profile-cover section-shaped my-0">
             {/* Circles background */}
             <div className="shape shape-style-1 shape-default alpha-4">
@@ -52,11 +53,7 @@ class Profile extends React.Component {
                     <Col className="order-lg-2" lg="3">
                       <div className="card-profile-image">
                         <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                          <img
-                            alt="..."
-                            className="rounded-circle"
-                            src={require('assets/img/theme/team-4-800x800.jpg')}
-                          />
+                          <img alt="..." className="rounded-circle" src={team4} />
                         </a>
                       </div>
                     </Col>

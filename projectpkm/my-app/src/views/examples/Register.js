@@ -35,21 +35,23 @@ import {
 } from 'reactstrap';
 
 // core components
-import DemoNavbar from 'components/Navbars/DemoNavbar.js';
-import SimpleFooter from 'components/Footers/SimpleFooter.js';
+import DemoNavbar from '../../components/Navbars/DemoNavbar';
+import SimpleFooter from '../../components/Footers/SimpleFooter';
+import logoGoogle from '../../assets/img/icons/common/google.svg';
+import logoGithub from '../../assets/img/icons/common/github.svg';
 
 class Register extends React.Component {
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
-    this.refs.main.scrollTop = 0;
+    // this.refs.main.scrollTop = 0;
   }
 
   render() {
     return (
       <>
         <DemoNavbar />
-        <main ref="main">
+        <main>
           <section className="section section-shaped section-lg">
             <div className="shape shape-style-1 bg-gradient-default">
               <span />
@@ -77,7 +79,7 @@ class Register extends React.Component {
                           onClick={(e) => e.preventDefault()}
                         >
                           <span className="btn-inner--icon mr-1">
-                            <img alt="..." src={require('assets/img/icons/common/github.svg')} />
+                            <img alt="..." src={logoGithub} />
                           </span>
                           <span className="btn-inner--text">Github</span>
                         </Button>
@@ -88,7 +90,7 @@ class Register extends React.Component {
                           onClick={(e) => e.preventDefault()}
                         >
                           <span className="btn-inner--icon mr-1">
-                            <img alt="..." src={require('assets/img/icons/common/google.svg')} />
+                            <img alt="..." src={logoGoogle} />
                           </span>
                           <span className="btn-inner--text">Google</span>
                         </Button>

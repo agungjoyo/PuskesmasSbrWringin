@@ -35,14 +35,20 @@ import {
   Col
 } from 'reactstrap';
 
-class Modals extends React.Component {
-  state = {};
+import logoGithub from '../../assets/img/icons/common/github.svg';
+import logoGoogle from '../../assets/img/icons/common/google.svg';
 
-  toggleModal = (state) => {
-    this.setState({
-      [state]: !this.state[state]
-    });
-  };
+class Modals extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  // toggleModal = (state) => {
+  //   this.setState({
+  //     [this.state]: !this.state[state]
+  //   });
+  // };
 
   render() {
     return (
@@ -194,7 +200,7 @@ class Modals extends React.Component {
                         onClick={(e) => e.preventDefault()}
                       >
                         <span className="btn-inner--icon mr-1">
-                          <img alt="..." src={require('assets/img/icons/common/github.svg')} />
+                          <img alt="..." src={logoGithub} />
                         </span>
                         <span className="btn-inner--text">Github</span>
                       </Button>
@@ -205,7 +211,7 @@ class Modals extends React.Component {
                         onClick={(e) => e.preventDefault()}
                       >
                         <span className="btn-inner--icon mr-1">
-                          <img alt="..." src={require('assets/img/icons/common/google.svg')} />
+                          <img alt="..." src={logoGoogle} />
                         </span>
                         <span className="btn-inner--text">Google</span>
                       </Button>
@@ -230,8 +236,8 @@ class Modals extends React.Component {
                           <Input
                             placeholder="Email"
                             type="email"
-                            onFocus={(e) => this.setState({ emailFocused: true })}
-                            onBlur={(e) => this.setState({ emailFocused: false })}
+                            onFocus={() => this.setState({ emailFocused: true })}
+                            onBlur={() => this.setState({ emailFocused: false })}
                           />
                         </InputGroup>
                       </FormGroup>
@@ -250,18 +256,18 @@ class Modals extends React.Component {
                             placeholder="Password"
                             type="password"
                             autoComplete="off"
-                            onFocus={(e) => this.setState({ passwordFocused: true })}
-                            onBlur={(e) => this.setState({ passwordFocused: false })}
+                            onFocus={() => this.setState({ passwordFocused: true })}
+                            onBlur={() => this.setState({ passwordFocused: false })}
                           />
                         </InputGroup>
                       </FormGroup>
                       <div className="custom-control custom-control-alternative custom-checkbox">
-                        <input
-                          className="custom-control-input"
-                          id=" customCheckLogin"
-                          type="checkbox"
-                        />
                         <label className="custom-control-label" htmlFor=" customCheckLogin">
+                          <input
+                            className="custom-control-input"
+                            id=" customCheckLogin"
+                            type="checkbox"
+                          />
                           <span className="text-muted">Remember me</span>
                         </label>
                       </div>

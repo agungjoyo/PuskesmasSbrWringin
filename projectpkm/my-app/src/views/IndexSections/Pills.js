@@ -22,9 +22,12 @@ import classnames from 'classnames';
 import { NavItem, NavLink, Nav, Col } from 'reactstrap';
 
 class Index extends React.Component {
-  state = {
-    circledNavPills: 1
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      circledNavPills: 1
+    };
+  }
 
   toggleNavs = (e, state, index) => {
     e.preventDefault();

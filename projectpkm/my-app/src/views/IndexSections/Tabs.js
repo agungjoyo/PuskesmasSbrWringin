@@ -23,10 +23,13 @@ import classnames from 'classnames';
 import { Card, CardBody, NavItem, NavLink, Nav, TabContent, TabPane, Row, Col } from 'reactstrap';
 
 class TabsSection extends React.Component {
-  state = {
-    iconTabs: 1,
-    plainTabs: 1
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      iconTabs: 1,
+      plainTabs: 1
+    };
+  }
 
   toggleNavs = (e, state, index) => {
     e.preventDefault();

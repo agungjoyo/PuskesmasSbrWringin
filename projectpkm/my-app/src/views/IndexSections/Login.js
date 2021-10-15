@@ -37,8 +37,14 @@ import {
   Col
 } from 'reactstrap';
 
+import logoGithub from '../../assets/img/icons/common/github.svg';
+import logoGoogle from '../../assets/img/icons/common/google.svg';
+
 class Login extends React.Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
   render() {
     return (
@@ -91,7 +97,7 @@ class Login extends React.Component {
                           onClick={(e) => e.preventDefault()}
                         >
                           <span className="btn-inner--icon mr-1">
-                            <img alt="..." src={require('assets/img/icons/common/github.svg')} />
+                            <img alt="..." src={logoGithub} />
                           </span>
                           <span className="btn-inner--text">Github</span>
                         </Button>
@@ -102,7 +108,7 @@ class Login extends React.Component {
                           onClick={(e) => e.preventDefault()}
                         >
                           <span className="btn-inner--icon mr-1">
-                            <img alt="..." src={require('assets/img/icons/common/google.svg')} />
+                            <img alt="..." src={logoGoogle} />
                           </span>
                           <span className="btn-inner--text">Google</span>
                         </Button>
@@ -127,8 +133,8 @@ class Login extends React.Component {
                             <Input
                               placeholder="Email"
                               type="email"
-                              onFocus={(e) => this.setState({ emailFocused: true })}
-                              onBlur={(e) => this.setState({ emailFocused: false })}
+                              onFocus={() => this.setState({ emailFocused: true })}
+                              onBlur={() => this.setState({ emailFocused: false })}
                             />
                           </InputGroup>
                         </FormGroup>
@@ -147,18 +153,18 @@ class Login extends React.Component {
                               placeholder="Password"
                               type="password"
                               autoComplete="off"
-                              onFocus={(e) => this.setState({ passwordFocused: true })}
-                              onBlur={(e) => this.setState({ passwordFocused: false })}
+                              onFocus={() => this.setState({ passwordFocused: true })}
+                              onBlur={() => this.setState({ passwordFocused: false })}
                             />
                           </InputGroup>
                         </FormGroup>
                         <div className="custom-control custom-control-alternative custom-checkbox">
-                          <input
-                            className="custom-control-input"
-                            id="customCheckLogin2"
-                            type="checkbox"
-                          />
                           <label className="custom-control-label" htmlFor="customCheckLogin2">
+                            <input
+                              className="custom-control-input"
+                              id="customCheckLogin2"
+                              type="checkbox"
+                            />
                             <span>Remember me</span>
                           </label>
                         </div>

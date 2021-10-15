@@ -23,7 +23,13 @@ import ReactDatetime from 'react-datetime';
 import { FormGroup, InputGroupAddon, InputGroupText, InputGroup, Row, Col } from 'reactstrap';
 
 class Datepicker extends React.Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {
+      startDate: null,
+      endDate: null
+    };
+  }
 
   handleReactDatetimeChange = (who, date) => {
     if (
@@ -57,8 +63,6 @@ class Datepicker extends React.Component {
   // end-date className which means that this day will only have right border radius
   // this way, the selected dates will look nice and will only be rounded at the ends
   getClassNameReactDatetimeDays = (date) => {
-    if (this.state.startDate && this.state.endDate) {
-    }
     if (
       this.state.startDate &&
       this.state.endDate &&
@@ -121,7 +125,8 @@ class Datepicker extends React.Component {
                       value={this.state.startDate}
                       timeFormat={false}
                       onChange={(e) => this.handleReactDatetimeChange('startDate', e)}
-                      renderDay={(props, currentDate, selectedDate) => {
+                      // renderDay={(props, currentDate, selectedDate) => {
+                      renderDay={(props, currentDate) => {
                         let classes = props.className;
                         classes += this.getClassNameReactDatetimeDays(currentDate);
                         return (
@@ -150,7 +155,8 @@ class Datepicker extends React.Component {
                       value={this.state.endDate}
                       timeFormat={false}
                       onChange={(e) => this.handleReactDatetimeChange('endDate', e)}
-                      renderDay={(props, currentDate, selectedDate) => {
+                      // renderDay={(props, currentDate, selectedDate) => {
+                      renderDay={(props, currentDate) => {
                         let classes = props.className;
                         classes += this.getClassNameReactDatetimeDays(currentDate);
                         return (
