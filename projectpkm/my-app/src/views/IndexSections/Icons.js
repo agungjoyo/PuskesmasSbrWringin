@@ -15,10 +15,10 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react';
 
 // reactstrap components
-import { Button, Container, Row, Col } from "reactstrap";
+import { Button, Container, Row, Col } from 'reactstrap';
 
 class Icons extends React.Component {
   render() {
@@ -30,10 +30,9 @@ class Icons extends React.Component {
               <Col className="text-center" lg="8">
                 <h2 className="display-3">Nucleo Icons</h2>
                 <p className="lead">
-                  The official package contains over 21.000 icons which are
-                  looking great in combination with Argon Design System. Make
-                  sure you check all of them and use those that you like the
-                  most.
+                  The official package contains over 21.000 icons which are looking great in
+                  combination with Argon Design System. Make sure you check all of them and use
+                  those that you like the most.
                 </p>
                 <div className="btn-wrapper">
                   <Button

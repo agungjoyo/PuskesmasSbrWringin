@@ -15,12 +15,12 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react';
 
 // reactstrap components
-import { Button, Container, Row, Col } from "reactstrap";
-import logo from "assets/img/brand/argon-react-white.png";
-import logoBottom from "assets/img/brand/creativetim-white-slim.png";
+import { Button, Container, Row, Col } from 'reactstrap';
+import logo from 'assets/img/brand/argon-react-white.png';
+import logoBottom from 'assets/img/brand/creativetim-white-slim.png';
 
 class Hero extends React.Component {
   render() {
@@ -46,15 +46,9 @@ class Hero extends React.Component {
               <div className="col px-0">
                 <Row className="align-items-center justify-content-center">
                   <Col className="text-center" lg="6">
-                    <img
-                      alt="..."
-                      className="img-fluid"
-                      src={logo}
-                      style={{ width: "200px" }}
-                    />
+                    <img alt="..." className="img-fluid" src={logo} style={{ width: '200px' }} />
                     <p className="lead text-white">
-                      A beautiful Design System for Bootstrap 4. It's Free and
-                      Open Source.
+                      A beautiful Design System for Bootstrap 4. It's Free and Open Source.
                     </p>
                     <div className="btn-wrapper mt-5">
                       <Button
@@ -67,7 +61,7 @@ class Hero extends React.Component {
                           <i className="ni ni-cloud-download-95" />
                         </span>
                         <span className="btn-inner--text">Download React</span>
-                      </Button>{" "}
+                      </Button>{' '}
                       <Button
                         className="btn-icon mb-3 mb-sm-0"
                         color="github"
@@ -88,12 +82,7 @@ class Hero extends React.Component {
                       <small className="text-white font-weight-bold mb-0 mr-2">
                         *proudly coded by
                       </small>
-                      <img
-                        alt="..."
-                        className="ml-1"
-                        style={{ height: "28px" }}
-                        src={logoBottom}
-                      />
+                      <img alt="..." className="ml-1" style={{ height: '28px' }} src={logoBottom} />
                     </div>
                   </Col>
                 </Row>
@@ -109,10 +98,7 @@ class Hero extends React.Component {
                 x="0"
                 y="0"
               >
-                <polygon
-                  className="fill-white"
-                  points="2560 0 2560 100 0 100"
-                />
+                <polygon className="fill-white" points="2560 0 2560 100 0 100" />
               </svg>
             </div>
           </section>

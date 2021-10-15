@@ -15,19 +15,17 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react';
 
 // reactstrap components
-import { Progress, Col } from "reactstrap";
+import { Progress, Col } from 'reactstrap';
 
 class ProgressSection extends React.Component {
   render() {
     return (
       <>
         <Col lg="5">
-          <h3 className="h4 text-success font-weight-bold mb-4">
-            Progress bars
-          </h3>
+          <h3 className="h4 text-success font-weight-bold mb-4">Progress bars</h3>
           <div className="progress-wrapper">
             <div className="progress-info">
               <div className="progress-label">

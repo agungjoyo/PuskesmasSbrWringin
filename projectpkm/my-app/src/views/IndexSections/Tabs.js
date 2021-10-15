@@ -15,34 +15,26 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react';
 // nodejs library that concatenates classes
-import classnames from "classnames";
+import classnames from 'classnames';
 
 // reactstrap components
-import {
-  Card,
-  CardBody,
-  NavItem,
-  NavLink,
-  Nav,
-  TabContent,
-  TabPane,
-  Row,
-  Col
-} from "reactstrap";
+import { Card, CardBody, NavItem, NavLink, Nav, TabContent, TabPane, Row, Col } from 'reactstrap';
 
 class TabsSection extends React.Component {
   state = {
     iconTabs: 1,
     plainTabs: 1
   };
+
   toggleNavs = (e, state, index) => {
     e.preventDefault();
     this.setState({
       [state]: index
     });
   };
+
   render() {
     return (
       <>
@@ -51,9 +43,7 @@ class TabsSection extends React.Component {
           <Col lg="6">
             {/* Tabs with icons */}
             <div className="mb-3">
-              <small className="text-uppercase font-weight-bold">
-                With icons
-              </small>
+              <small className="text-uppercase font-weight-bold">With icons</small>
             </div>
             <div className="nav-wrapper">
               <Nav
@@ -65,10 +55,10 @@ class TabsSection extends React.Component {
                 <NavItem>
                   <NavLink
                     aria-selected={this.state.iconTabs === 1}
-                    className={classnames("mb-sm-3 mb-md-0", {
+                    className={classnames('mb-sm-3 mb-md-0', {
                       active: this.state.iconTabs === 1
                     })}
-                    onClick={e => this.toggleNavs(e, "iconTabs", 1)}
+                    onClick={(e) => this.toggleNavs(e, 'iconTabs', 1)}
                     href="#pablo"
                     role="tab"
                   >
@@ -79,10 +69,10 @@ class TabsSection extends React.Component {
                 <NavItem>
                   <NavLink
                     aria-selected={this.state.iconTabs === 2}
-                    className={classnames("mb-sm-3 mb-md-0", {
+                    className={classnames('mb-sm-3 mb-md-0', {
                       active: this.state.iconTabs === 2
                     })}
-                    onClick={e => this.toggleNavs(e, "iconTabs", 2)}
+                    onClick={(e) => this.toggleNavs(e, 'iconTabs', 2)}
                     href="#pablo"
                     role="tab"
                   >
@@ -93,10 +83,10 @@ class TabsSection extends React.Component {
                 <NavItem>
                   <NavLink
                     aria-selected={this.state.iconTabs === 3}
-                    className={classnames("mb-sm-3 mb-md-0", {
+                    className={classnames('mb-sm-3 mb-md-0', {
                       active: this.state.iconTabs === 3
                     })}
-                    onClick={e => this.toggleNavs(e, "iconTabs", 3)}
+                    onClick={(e) => this.toggleNavs(e, 'iconTabs', 3)}
                     href="#pablo"
                     role="tab"
                   >
@@ -108,35 +98,31 @@ class TabsSection extends React.Component {
             </div>
             <Card className="shadow">
               <CardBody>
-                <TabContent activeTab={"iconTabs" + this.state.iconTabs}>
+                <TabContent activeTab={`iconTabs${this.state.iconTabs}`}>
                   <TabPane tabId="iconTabs1">
                     <p className="description">
-                      Raw denim you probably haven't heard of them jean shorts
-                      Austin. Nesciunt tofu stumptown aliqua, retro synth master
-                      cleanse. Mustache cliche tempor, williamsburg carles vegan
-                      helvetica. Reprehenderit butcher retro keffiyeh
+                      Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu
+                      stumptown aliqua, retro synth master cleanse. Mustache cliche tempor,
+                      williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
                       dreamcatcher synth.
                     </p>
                     <p className="description">
-                      Raw denim you probably haven't heard of them jean shorts
-                      Austin. Nesciunt tofu stumptown aliqua, retro synth master
-                      cleanse.
+                      Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu
+                      stumptown aliqua, retro synth master cleanse.
                     </p>
                   </TabPane>
                   <TabPane tabId="iconTabs2">
                     <p className="description">
-                      Cosby sweater eu banh mi, qui irure terry richardson ex
-                      squid. Aliquip placeat salvia cillum iphone. Seitan
-                      aliquip quis cardigan american apparel, butcher voluptate
-                      nisi qui.
+                      Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat
+                      salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher
+                      voluptate nisi qui.
                     </p>
                   </TabPane>
                   <TabPane tabId="iconTabs3">
                     <p className="description">
-                      Raw denim you probably haven't heard of them jean shorts
-                      Austin. Nesciunt tofu stumptown aliqua, retro synth master
-                      cleanse. Mustache cliche tempor, williamsburg carles vegan
-                      helvetica. Reprehenderit butcher retro keffiyeh
+                      Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu
+                      stumptown aliqua, retro synth master cleanse. Mustache cliche tempor,
+                      williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
                       dreamcatcher synth.
                     </p>
                   </TabPane>
@@ -147,9 +133,7 @@ class TabsSection extends React.Component {
           <Col className="mt-5 mt-lg-0" lg="6">
             {/* Menu */}
             <div className="mb-3">
-              <small className="text-uppercase font-weight-bold">
-                With text
-              </small>
+              <small className="text-uppercase font-weight-bold">With text</small>
             </div>
             <div className="nav-wrapper">
               <Nav
@@ -161,10 +145,10 @@ class TabsSection extends React.Component {
                 <NavItem>
                   <NavLink
                     aria-selected={this.state.plainTabs === 1}
-                    className={classnames("mb-sm-3 mb-md-0", {
+                    className={classnames('mb-sm-3 mb-md-0', {
                       active: this.state.plainTabs === 1
                     })}
-                    onClick={e => this.toggleNavs(e, "plainTabs", 1)}
+                    onClick={(e) => this.toggleNavs(e, 'plainTabs', 1)}
                     href="#pablo"
                     role="tab"
                   >
@@ -174,10 +158,10 @@ class TabsSection extends React.Component {
                 <NavItem>
                   <NavLink
                     aria-selected={this.state.plainTabs === 2}
-                    className={classnames("mb-sm-3 mb-md-0", {
+                    className={classnames('mb-sm-3 mb-md-0', {
                       active: this.state.plainTabs === 2
                     })}
-                    onClick={e => this.toggleNavs(e, "plainTabs", 2)}
+                    onClick={(e) => this.toggleNavs(e, 'plainTabs', 2)}
                     href="#pablo"
                     role="tab"
                   >
@@ -187,10 +171,10 @@ class TabsSection extends React.Component {
                 <NavItem>
                   <NavLink
                     aria-selected={this.state.plainTabs === 3}
-                    className={classnames("mb-sm-3 mb-md-0", {
+                    className={classnames('mb-sm-3 mb-md-0', {
                       active: this.state.plainTabs === 3
                     })}
-                    onClick={e => this.toggleNavs(e, "plainTabs", 3)}
+                    onClick={(e) => this.toggleNavs(e, 'plainTabs', 3)}
                     href="#pablo"
                     role="tab"
                   >
@@ -201,35 +185,31 @@ class TabsSection extends React.Component {
             </div>
             <Card className="shadow">
               <CardBody>
-                <TabContent activeTab={"plainTabs" + this.state.plainTabs}>
+                <TabContent activeTab={`plainTabs${this.state.plainTabs}`}>
                   <TabPane tabId="plainTabs1">
                     <p className="description">
-                      Raw denim you probably haven't heard of them jean shorts
-                      Austin. Nesciunt tofu stumptown aliqua, retro synth master
-                      cleanse. Mustache cliche tempor, williamsburg carles vegan
-                      helvetica. Reprehenderit butcher retro keffiyeh
+                      Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu
+                      stumptown aliqua, retro synth master cleanse. Mustache cliche tempor,
+                      williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
                       dreamcatcher synth.
                     </p>
                     <p className="description">
-                      Raw denim you probably haven't heard of them jean shorts
-                      Austin. Nesciunt tofu stumptown aliqua, retro synth master
-                      cleanse.
+                      Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu
+                      stumptown aliqua, retro synth master cleanse.
                     </p>
                   </TabPane>
                   <TabPane tabId="plainTabs2">
                     <p className="description">
-                      Cosby sweater eu banh mi, qui irure terry richardson ex
-                      squid. Aliquip placeat salvia cillum iphone. Seitan
-                      aliquip quis cardigan american apparel, butcher voluptate
-                      nisi qui.
+                      Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat
+                      salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher
+                      voluptate nisi qui.
                     </p>
                   </TabPane>
                   <TabPane tabId="plainTabs3">
                     <p className="description">
-                      Raw denim you probably haven't heard of them jean shorts
-                      Austin. Nesciunt tofu stumptown aliqua, retro synth master
-                      cleanse. Mustache cliche tempor, williamsburg carles vegan
-                      helvetica. Reprehenderit butcher retro keffiyeh
+                      Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu
+                      stumptown aliqua, retro synth master cleanse. Mustache cliche tempor,
+                      williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
                       dreamcatcher synth.
                     </p>
                   </TabPane>

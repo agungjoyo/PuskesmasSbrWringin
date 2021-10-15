@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 // JavaScript plugin that hides or shows a component based on your scroll
-import Headroom from "headroom.js";
-// reactstrap components
+import Headroom from 'headroom.js';
+
 import {
   Button,
   UncontrolledCollapse,
@@ -20,30 +20,31 @@ import {
   Row,
   Col,
   UncontrolledTooltip
-} from "reactstrap";
+} from 'reactstrap';
 
-import demoLogo from "assets/img/brand/argon-react.png";
+import demoLogo from 'src/assets/img/brand/argon-react.png';
 
 class DemoNavbar extends React.Component {
   componentDidMount() {
-    let headroom = new Headroom(document.getElementById("navbar-main"));
+    const headroom = new Headroom(document.getElementById('navbar-main'));
     // initialise
     headroom.init();
   }
+
   state = {
-    collapseClasses: "",
+    collapseClasses: '',
     collapseOpen: false
   };
 
   onExiting = () => {
     this.setState({
-      collapseClasses: "collapsing-out"
+      collapseClasses: 'collapsing-out'
     });
   };
 
   onExited = () => {
     this.setState({
-      collapseClasses: ""
+      collapseClasses: ''
     });
   };
 
@@ -58,10 +59,7 @@ class DemoNavbar extends React.Component {
           >
             <Container>
               <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
-                <img
-                  alt="..."
-                  src={demoLogo}
-                />
+                <img alt="..." src={demoLogo} />
               </NavbarBrand>
               <button className="navbar-toggler" id="navbar_global">
                 <span className="navbar-toggler-icon" />
@@ -77,10 +75,7 @@ class DemoNavbar extends React.Component {
                   <Row>
                     <Col className="collapse-brand" xs="6">
                       <Link to="/">
-                        <img
-                          alt="..."
-                          src={demoLogo}
-                        />
+                        <img alt="..." src={demoLogo} />
                       </Link>
                     </Col>
                     <Col className="collapse-close" xs="6">
@@ -93,28 +88,48 @@ class DemoNavbar extends React.Component {
                 </div>
                 <Nav className="navbar-nav-hover align-items-lg-center" navbar>
                   <UncontrolledDropdown nav>
-                    <DropdownToggle nav to="/landing-page" tag={Link} lassName="dropdown-menu-inner">
+                    <DropdownToggle
+                      nav
+                      to="/landing-page"
+                      tag={Link}
+                      lassName="dropdown-menu-inner"
+                    >
                       Beranda
                     </DropdownToggle>
                   </UncontrolledDropdown>
                   <UncontrolledDropdown nav>
-                    <DropdownToggle nav to="/register-page" tag={Link} lassName="dropdown-menu-inner">
+                    <DropdownToggle
+                      nav
+                      to="/register-page"
+                      tag={Link}
+                      lassName="dropdown-menu-inner"
+                    >
                       Tentang Kami
                     </DropdownToggle>
                   </UncontrolledDropdown>
                   <UncontrolledDropdown nav>
-                    <DropdownToggle nav to="/profile-page" tag={Link} lassName="dropdown-menu-inner">
+                    <DropdownToggle
+                      nav
+                      to="/profile-page"
+                      tag={Link}
+                      lassName="dropdown-menu-inner"
+                    >
                       Tentang Kami
                     </DropdownToggle>
                   </UncontrolledDropdown>
                   <UncontrolledDropdown nav>
-                    <DropdownToggle nav to="/landing-page" tag={Link} lassName="dropdown-menu-inner">
+                    <DropdownToggle
+                      nav
+                      to="/landing-page"
+                      tag={Link}
+                      lassName="dropdown-menu-inner"
+                    >
                       Grafik
                     </DropdownToggle>
                   </UncontrolledDropdown>
                   <UncontrolledDropdown nav>
                     <DropdownToggle nav className="section-scroll" href="#visi">
-                    Kontak
+                      Kontak
                     </DropdownToggle>
                     <DropdownMenu>
                       <DropdownItem to="/landing-page" tag={Link}>
@@ -141,9 +156,7 @@ class DemoNavbar extends React.Component {
                       target="_blank"
                     >
                       <i className="fa fa-facebook-square" />
-                      <span className="nav-link-inner--text d-lg-none ml-2">
-                        Facebook
-                      </span>
+                      <span className="nav-link-inner--text d-lg-none ml-2">Facebook</span>
                     </NavLink>
                     <UncontrolledTooltip delay={0} target="tooltip333589074">
                       Like us on Facebook
@@ -157,9 +170,7 @@ class DemoNavbar extends React.Component {
                       target="_blank"
                     >
                       <i className="fa fa-instagram" />
-                      <span className="nav-link-inner--text d-lg-none ml-2">
-                        Instagram
-                      </span>
+                      <span className="nav-link-inner--text d-lg-none ml-2">Instagram</span>
                     </NavLink>
                     <UncontrolledTooltip delay={0} target="tooltip356693867">
                       Follow us on Instagram
@@ -173,9 +184,7 @@ class DemoNavbar extends React.Component {
                       target="_blank"
                     >
                       <i className="fa fa-twitter-square" />
-                      <span className="nav-link-inner--text d-lg-none ml-2">
-                        Twitter
-                      </span>
+                      <span className="nav-link-inner--text d-lg-none ml-2">Twitter</span>
                     </NavLink>
                     <UncontrolledTooltip delay={0} target="tooltip184698705">
                       Follow us on Twitter
@@ -185,14 +194,13 @@ class DemoNavbar extends React.Component {
                     <Button
                       className="btn-neutral btn-icon"
                       color="default"
-                      to="/login-page" tag={Link}
+                      to="/login-page"
+                      tag={Link}
                     >
                       <span className="btn-inner--icon">
-                        <i className="fa fa-sign-in" aria-hidden="true"/>
+                        <i className="fa fa-sign-in" aria-hidden="true" />
                       </span>
-                      <span className="nav-link-inner--text ml-1" >
-                        Login
-                      </span>
+                      <span className="nav-link-inner--text ml-1">Login</span>
                     </Button>
                   </NavItem>
                 </Nav>

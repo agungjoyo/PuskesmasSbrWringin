@@ -15,9 +15,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react';
 // nodejs library that concatenates classes
-import classnames from "classnames";
+import classnames from 'classnames';
 // reactstrap components
 import {
   Button,
@@ -33,15 +33,17 @@ import {
   Modal,
   Row,
   Col
-} from "reactstrap";
+} from 'reactstrap';
 
 class Modals extends React.Component {
   state = {};
-  toggleModal = state => {
+
+  toggleModal = (state) => {
     this.setState({
       [state]: !this.state[state]
     });
   };
+
   render() {
     return (
       <>
@@ -56,14 +58,14 @@ class Modals extends React.Component {
               className="mb-3"
               color="primary"
               type="button"
-              onClick={() => this.toggleModal("defaultModal")}
+              onClick={() => this.toggleModal('defaultModal')}
             >
               Default
             </Button>
             <Modal
               className="modal-dialog-centered"
               isOpen={this.state.defaultModal}
-              toggle={() => this.toggleModal("defaultModal")}
+              toggle={() => this.toggleModal('defaultModal')}
             >
               <div className="modal-header">
                 <h6 className="modal-title" id="modal-title-default">
@@ -74,22 +76,21 @@ class Modals extends React.Component {
                   className="close"
                   data-dismiss="modal"
                   type="button"
-                  onClick={() => this.toggleModal("defaultModal")}
+                  onClick={() => this.toggleModal('defaultModal')}
                 >
-                  <span aria-hidden={true}>×</span>
+                  <span aria-hidden>×</span>
                 </button>
               </div>
               <div className="modal-body">
                 <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
-                  Separated they live in Bookmarksgrove right at the coast of
-                  the Semantics, a large language ocean.
+                  Far far away, behind the word mountains, far from the countries Vokalia and
+                  Consonantia, there live the blind texts. Separated they live in Bookmarksgrove
+                  right at the coast of the Semantics, a large language ocean.
                 </p>
                 <p>
-                  A small river named Duden flows by their place and supplies it
-                  with the necessary regelialia. It is a paradisematic country,
-                  in which roasted parts of sentences fly into your mouth.
+                  A small river named Duden flows by their place and supplies it with the necessary
+                  regelialia. It is a paradisematic country, in which roasted parts of sentences fly
+                  into your mouth.
                 </p>
               </div>
               <div className="modal-footer">
@@ -101,7 +102,7 @@ class Modals extends React.Component {
                   color="link"
                   data-dismiss="modal"
                   type="button"
-                  onClick={() => this.toggleModal("defaultModal")}
+                  onClick={() => this.toggleModal('defaultModal')}
                 >
                   Close
                 </Button>
@@ -114,7 +115,7 @@ class Modals extends React.Component {
               className="mb-3"
               color="warning"
               type="button"
-              onClick={() => this.toggleModal("notificationModal")}
+              onClick={() => this.toggleModal('notificationModal')}
             >
               Notification
             </Button>
@@ -122,7 +123,7 @@ class Modals extends React.Component {
               className="modal-dialog-centered modal-danger"
               contentClassName="bg-gradient-danger"
               isOpen={this.state.notificationModal}
-              toggle={() => this.toggleModal("notificationModal")}
+              toggle={() => this.toggleModal('notificationModal')}
             >
               <div className="modal-header">
                 <h6 className="modal-title" id="modal-title-notification">
@@ -133,9 +134,9 @@ class Modals extends React.Component {
                   className="close"
                   data-dismiss="modal"
                   type="button"
-                  onClick={() => this.toggleModal("notificationModal")}
+                  onClick={() => this.toggleModal('notificationModal')}
                 >
-                  <span aria-hidden={true}>×</span>
+                  <span aria-hidden>×</span>
                 </button>
               </div>
               <div className="modal-body">
@@ -143,8 +144,8 @@ class Modals extends React.Component {
                   <i className="ni ni-bell-55 ni-3x" />
                   <h4 className="heading mt-4">You should read this!</h4>
                   <p>
-                    A small river named Duden flows by their place and supplies
-                    it with the necessary regelialia.
+                    A small river named Duden flows by their place and supplies it with the
+                    necessary regelialia.
                   </p>
                 </div>
               </div>
@@ -157,7 +158,7 @@ class Modals extends React.Component {
                   color="link"
                   data-dismiss="modal"
                   type="button"
-                  onClick={() => this.toggleModal("notificationModal")}
+                  onClick={() => this.toggleModal('notificationModal')}
                 >
                   Close
                 </Button>
@@ -169,7 +170,7 @@ class Modals extends React.Component {
               block
               color="default"
               type="button"
-              onClick={() => this.toggleModal("formModal")}
+              onClick={() => this.toggleModal('formModal')}
             >
               Form
             </Button>
@@ -177,7 +178,7 @@ class Modals extends React.Component {
               className="modal-dialog-centered"
               size="sm"
               isOpen={this.state.formModal}
-              toggle={() => this.toggleModal("formModal")}
+              toggle={() => this.toggleModal('formModal')}
             >
               <div className="modal-body p-0">
                 <Card className="bg-secondary shadow border-0">
@@ -190,13 +191,10 @@ class Modals extends React.Component {
                         className="btn-icon mt-2 mb-2"
                         color="neutral"
                         href="#pablo"
-                        onClick={e => e.preventDefault()}
+                        onClick={(e) => e.preventDefault()}
                       >
                         <span className="btn-inner--icon mr-1">
-                          <img
-                            alt="..."
-                            src={require("assets/img/icons/common/github.svg")}
-                          />
+                          <img alt="..." src={require('assets/img/icons/common/github.svg')} />
                         </span>
                         <span className="btn-inner--text">Github</span>
                       </Button>
@@ -204,13 +202,10 @@ class Modals extends React.Component {
                         className="btn-icon mt-2 mb-2 ml-1"
                         color="neutral"
                         href="#pablo"
-                        onClick={e => e.preventDefault()}
+                        onClick={(e) => e.preventDefault()}
                       >
                         <span className="btn-inner--icon mr-1">
-                          <img
-                            alt="..."
-                            src={require("assets/img/icons/common/google.svg")}
-                          />
+                          <img alt="..." src={require('assets/img/icons/common/google.svg')} />
                         </span>
                         <span className="btn-inner--text">Google</span>
                       </Button>
@@ -222,7 +217,7 @@ class Modals extends React.Component {
                     </div>
                     <Form role="form">
                       <FormGroup
-                        className={classnames("mb-3", {
+                        className={classnames('mb-3', {
                           focused: this.state.emailFocused
                         })}
                       >
@@ -235,8 +230,8 @@ class Modals extends React.Component {
                           <Input
                             placeholder="Email"
                             type="email"
-                            onFocus={e => this.setState({ emailFocused: true })}
-                            onBlur={e => this.setState({ emailFocused: false })}
+                            onFocus={(e) => this.setState({ emailFocused: true })}
+                            onBlur={(e) => this.setState({ emailFocused: false })}
                           />
                         </InputGroup>
                       </FormGroup>
@@ -255,12 +250,8 @@ class Modals extends React.Component {
                             placeholder="Password"
                             type="password"
                             autoComplete="off"
-                            onFocus={e =>
-                              this.setState({ passwordFocused: true })
-                            }
-                            onBlur={e =>
-                              this.setState({ passwordFocused: false })
-                            }
+                            onFocus={(e) => this.setState({ passwordFocused: true })}
+                            onBlur={(e) => this.setState({ passwordFocused: false })}
                           />
                         </InputGroup>
                       </FormGroup>
@@ -270,10 +261,7 @@ class Modals extends React.Component {
                           id=" customCheckLogin"
                           type="checkbox"
                         />
-                        <label
-                          className="custom-control-label"
-                          htmlFor=" customCheckLogin"
-                        >
+                        <label className="custom-control-label" htmlFor=" customCheckLogin">
                           <span className="text-muted">Remember me</span>
                         </label>
                       </div>

@@ -15,9 +15,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react';
 // nodejs library that concatenates classes
-import classnames from "classnames";
+import classnames from 'classnames';
 // reactstrap components
 import {
   FormGroup,
@@ -28,10 +28,11 @@ import {
   Container,
   Row,
   Col
-} from "reactstrap";
+} from 'reactstrap';
 
 class Inputs extends React.Component {
   state = {};
+
   render() {
     return (
       <>
@@ -40,9 +41,7 @@ class Inputs extends React.Component {
             {/* Inputs */}
             <h3 className="h4 text-success font-weight-bold mb-4">Inputs</h3>
             <div className="mb-3">
-              <small className="text-uppercase font-weight-bold">
-                Form controls
-              </small>
+              <small className="text-uppercase font-weight-bold">Form controls</small>
             </div>
             <Row>
               <Col lg="4" sm="6">
@@ -63,8 +62,8 @@ class Inputs extends React.Component {
                     <Input
                       placeholder="Search"
                       type="text"
-                      onFocus={e => this.setState({ searchFocused: true })}
-                      onBlur={e => this.setState({ searchFocused: false })}
+                      onFocus={(e) => this.setState({ searchFocused: true })}
+                      onBlur={(e) => this.setState({ searchFocused: false })}
                     />
                   </InputGroup>
                 </FormGroup>
@@ -82,8 +81,8 @@ class Inputs extends React.Component {
                     <Input
                       placeholder="Birthday"
                       type="text"
-                      onFocus={e => this.setState({ birthdayFocused: true })}
-                      onBlur={e => this.setState({ birthdayFocused: false })}
+                      onFocus={(e) => this.setState({ birthdayFocused: true })}
+                      onBlur={(e) => this.setState({ birthdayFocused: false })}
                     />
                     <InputGroupAddon addonType="append">
                       <InputGroupText>
@@ -95,18 +94,10 @@ class Inputs extends React.Component {
               </Col>
               <Col lg="4" sm="6">
                 <FormGroup className="has-success">
-                  <Input
-                    className="is-valid"
-                    placeholder="Success"
-                    type="text"
-                  />
+                  <Input className="is-valid" placeholder="Success" type="text" />
                 </FormGroup>
                 <FormGroup className="has-danger">
-                  <Input
-                    className="is-invalid"
-                    placeholder="Error Input"
-                    type="email"
-                  />
+                  <Input className="is-invalid" placeholder="Error Input" type="email" />
                 </FormGroup>
               </Col>
             </Row>
@@ -122,11 +113,7 @@ class Inputs extends React.Component {
               <Row>
                 <Col lg="4" sm="6">
                   <FormGroup>
-                    <Input
-                      className="form-control-alternative"
-                      placeholder="Regular"
-                      type="text"
-                    />
+                    <Input className="form-control-alternative" placeholder="Regular" type="text" />
                   </FormGroup>
                   <FormGroup
                     className={classnames({
@@ -142,8 +129,8 @@ class Inputs extends React.Component {
                       <Input
                         placeholder="Search"
                         type="text"
-                        onFocus={e => this.setState({ searchAltFocused: true })}
-                        onBlur={e => this.setState({ searchAltFocused: false })}
+                        onFocus={(e) => this.setState({ searchAltFocused: true })}
+                        onBlur={(e) => this.setState({ searchAltFocused: false })}
                       />
                     </InputGroup>
                   </FormGroup>
@@ -166,12 +153,8 @@ class Inputs extends React.Component {
                       <Input
                         placeholder="Birthday"
                         type="text"
-                        onFocus={e =>
-                          this.setState({ birthdayAltFocused: true })
-                        }
-                        onBlur={e =>
-                          this.setState({ birthdayAltFocused: false })
-                        }
+                        onFocus={(e) => this.setState({ birthdayAltFocused: true })}
+                        onBlur={(e) => this.setState({ birthdayAltFocused: false })}
                       />
                       <InputGroupAddon addonType="append">
                         <InputGroupText>
