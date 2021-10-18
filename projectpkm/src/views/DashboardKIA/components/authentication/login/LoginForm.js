@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { connect } from "react-redux";
 import { Icon } from "@iconify/react";
 import eyeFill from "@iconify/icons-eva/eye-fill";
 import eyeOffFill from "@iconify/icons-eva/eye-off-fill";
@@ -17,7 +18,7 @@ import { LoadingButton } from "@mui/lab";
 
 // ----------------------------------------------------------------------
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
   state = {
     email: "",
     password: "",
@@ -43,6 +44,7 @@ export default class LoginForm extends Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <form autoComplete="off" noValidate onSubmit={this.handleSubmit}>
         <Stack spacing={3}>
@@ -107,3 +109,11 @@ export default class LoginForm extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth.absoluteLogin,
+  };
+};
+
+export default connect(mapStateToProps)(LoginForm);

@@ -16,6 +16,7 @@ import Blog from "views/DashboardKIA/pages/Blog";
 import NotFound from "views/DashboardKIA/pages/Page404";
 import Login from "views/DashboardKIA/pages/Login";
 import Register from "views/DashboardKIA/pages/Register";
+import DataCoc from "views/DashboardKIA/pages/DataCoc";
 
 export default function Router() {
   return useRoutes([
@@ -27,6 +28,7 @@ export default function Router() {
         { path: "/dashboard", element: <Navigate to="/dashboard/app" /> },
         { path: "app", element: <DashboardApp /> },
         { path: "user", element: <User /> },
+        { path: "data-coc", element: <DataCoc /> },
         { path: "products", element: <Products /> },
         { path: "blog", element: <Blog /> },
       ],

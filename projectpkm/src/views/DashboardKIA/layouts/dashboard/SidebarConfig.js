@@ -7,6 +7,7 @@ import fileTextFill from "@iconify/icons-eva/file-text-fill";
 import lockFill from "@iconify/icons-eva/lock-fill";
 import personAddFill from "@iconify/icons-eva/person-add-fill";
 import alertTriangleFill from "@iconify/icons-eva/alert-triangle-fill";
+import chartLineData from "@iconify/icons-carbon/chart-line-data";
 
 // ----------------------------------------------------------------------
 
@@ -27,30 +28,36 @@ const sidebarConfig = [
   },
   {
     key: "3",
+    title: "dataCoc",
+    path: "/dashboard/data-coc",
+    icon: getIcon(chartLineData),
+  },
+  {
+    key: "4",
     title: "product",
     path: "/dashboard/products",
     icon: getIcon(shoppingBagFill),
   },
   {
-    key: "4",
+    key: "5",
     title: "blog",
     path: "/dashboard/blog",
     icon: getIcon(fileTextFill),
   },
   {
-    key: "5",
+    key: "6",
     title: "login",
     path: "/login",
     icon: getIcon(lockFill),
   },
   {
-    key: "6",
+    key: "7",
     title: "register",
     path: "/register",
     icon: getIcon(personAddFill),
   },
   {
-    key: "7",
+    key: "8",
     title: "Not found",
     path: "/404",
     icon: getIcon(alertTriangleFill),
