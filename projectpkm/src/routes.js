@@ -2,10 +2,11 @@ import React from "react";
 import { useRoutes, Navigate } from "react-router-dom";
 
 // pages for this product
-import Components from "views/Components/Components.js";
-import LandingPage from "views/LandingPage/LandingPage.js";
-import ProfilePage from "views/ProfilePage/ProfilePage.js";
-import LoginPage from "views/LoginPage/LoginPage.js";
+import Components from "views/Components/Components";
+import LandingPage from "views/LandingPage/LandingPage";
+import ProfilePage from "views/ProfilePage/ProfilePage";
+import LoginPage from "views/LoginPage/LoginPage";
+import LogoOnlyLayout from "views/DashboardKIA/layouts/LogoOnlyLayout";
 
 import DashboardLayout from "views/DashboardKIA/layouts/dashboard";
 import DashboardApp from "views/DashboardKIA/pages/DashboardApp";
@@ -13,6 +14,8 @@ import User from "views/DashboardKIA/pages/User";
 import Products from "views/DashboardKIA/pages/Products";
 import Blog from "views/DashboardKIA/pages/Blog";
 import NotFound from "views/DashboardKIA/pages/Page404";
+import Login from "views/DashboardKIA/pages/Login";
+import Register from "views/DashboardKIA/pages/Register";
 
 export default function Router() {
   return useRoutes([
@@ -30,8 +33,22 @@ export default function Router() {
     },
     {
       path: "/",
+      element: <LogoOnlyLayout />,
+      children: [
+        { element: <Navigate to="/components" /> },
+        { path: "login", element: <Login /> },
+        { path: "register", element: <Register /> },
+        { path: "*", element: <Navigate to="/404" /> },
+      ],
+    },
+    {
+      path: "/components",
       element: <Components />,
-      children: [{ path: "*", element: <Navigate to="/404" /> }],
+      children: [
+        { path: "*", element: <Navigate to="/404" /> },
+        { path: "login", element: <Login /> },
+        { path: "register", element: <Register /> },
+      ],
     },
     {
       path: "/404",

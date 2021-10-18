@@ -62,7 +62,7 @@ export default function Register() {
           </Typography>
           <img
             alt="register"
-            src="/static/illustrations/illustration_register.png"
+            src="/public/static/illustrations/illustration_register.png"
           />
         </SectionStyle>
       </MHidden>

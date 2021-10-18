@@ -1,7 +1,7 @@
 {
-  "name": "material-kit-react",
-  "version": "1.10.0",
-  "description": "Material Kit React. Coded by Creative Tim",
+  "name": "projectpkm-react-firebase",
+  "version": "0.1.0",
+  "description": "Puskesmas Sumber Wringin - CoC",
   "private": true,
   "main": "src/index.js",
   "dependencies": {

@@ -8,7 +8,7 @@ import AuthLayout from "../layouts/AuthLayout";
 // components
 import Page from "../components/Page";
 import { MHidden } from "../components/@material-extend";
-import { LoginForm } from "../components/authentication/login";
+import LoginForm from "../components/authentication/login/LoginForm";
 import AuthSocial from "../components/authentication/AuthSocial";
 
 // ----------------------------------------------------------------------
@@ -60,7 +60,10 @@ export default function Login() {
           <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
             Hi, Welcome Back
           </Typography>
-          <img src="/static/illustrations/illustration_login.png" alt="login" />
+          <img
+            src="/public/static/illustrations/illustration_login.png"
+            alt="login"
+          />
         </SectionStyle>
       </MHidden>
 
