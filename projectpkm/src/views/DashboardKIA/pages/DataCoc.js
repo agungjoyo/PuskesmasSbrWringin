@@ -2,7 +2,7 @@ import React from "react";
 import { filter } from "lodash";
 import { Icon } from "@iconify/react";
 import chartLineData from "@iconify/icons-carbon/chart-line-data";
-import { sentenceCase } from "change-case";
+// import { sentenceCase } from "change-case";
 import { useState } from "react";
 import plusFill from "@iconify/icons-eva/plus-fill";
 import { Link as RouterLink } from "react-router-dom";
@@ -11,7 +11,7 @@ import {
   Card,
   Table,
   Stack,
-  Avatar,
+  //   Avatar,
   Button,
   Checkbox,
   TableRow,
@@ -24,7 +24,7 @@ import {
 } from "@mui/material";
 // components
 import Page from "../components/Page";
-import Label from "../components/Label";
+// import Label from "../components/Label";
 import Scrollbar from "../components/Scrollbar";
 import SearchNotFound from "../components/SearchNotFound";
 import {
@@ -33,16 +33,25 @@ import {
   UserMoreMenu,
 } from "../components/_dashboard/user";
 //
-import USERLIST from "../_mocks_/user";
+import CocExemplar from "../_mocks_/CocExemplar";
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: "name", label: "Name", alignRight: false },
-  { id: "company", label: "Company", alignRight: false },
-  { id: "role", label: "Role", alignRight: false },
-  { id: "isVerified", label: "Verified", alignRight: false },
-  { id: "status", label: "Status", alignRight: false },
+  { id: "monthYear", label: "Bulan", alignRight: false },
+  { id: "pkm", label: "Puskesmas", alignRight: false },
+  { id: "target", label: "Sasaran", alignRight: false },
+  { id: "babyLive", label: "Bayi Lahir Hidup", alignRight: false },
+  { id: "babyDead", label: "Bayi Lahir Mati", alignRight: false },
+  { id: "kn1", label: "KN 1", alignRight: false },
+  { id: "kn2", label: "KN 2", alignRight: false },
+  { id: "fullKn", label: "KN Lengkap", alignRight: false },
+  {
+    id: "complicationNeotal",
+    label: "Neonatal Komplikasi",
+    alignRight: false,
+  },
+  { id: "perfectBaby", label: "Bayi Paripurna", alignRight: false },
   { id: "" },
 ];
 
@@ -74,7 +83,8 @@ function applySortFilter(array, comparator, query) {
   if (query) {
     return filter(
       array,
-      (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1
+      (_user) =>
+        _user.monthYear.toLowerCase().indexOf(query.toLowerCase()) !== -1
     );
   }
   return stabilizedThis.map((el) => el[0]);
@@ -96,7 +106,7 @@ export default function DataCoc() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.name);
+      const newSelecteds = CocExemplar.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -135,10 +145,10 @@ export default function DataCoc() {
   };
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - CocExemplar.length) : 0;
 
   const filteredUsers = applySortFilter(
-    USERLIST,
+    CocExemplar,
     getComparator(order, orderBy),
     filterName
   );
@@ -184,7 +194,7 @@ export default function DataCoc() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={USERLIST.length}
+                  rowCount={CocExemplar.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
@@ -195,14 +205,18 @@ export default function DataCoc() {
                     .map((row) => {
                       const {
                         id,
-                        name,
-                        role,
-                        status,
-                        company,
-                        avatarUrl,
-                        isVerified,
+                        monthYear,
+                        pkm,
+                        target,
+                        babyLive,
+                        babyDead,
+                        kn1,
+                        kn2,
+                        fullKn,
+                        complicationNeotal,
+                        perfectBaby,
                       } = row;
-                      const isItemSelected = selected.indexOf(name) !== -1;
+                      const isItemSelected = selected.indexOf(monthYear) !== -1;
 
                       return (
                         <TableRow
@@ -216,7 +230,9 @@ export default function DataCoc() {
                           <TableCell padding="checkbox">
                             <Checkbox
                               checked={isItemSelected}
-                              onChange={(event) => handleClick(event, name)}
+                              onChange={(event) =>
+                                handleClick(event, monthYear)
+                              }
                             />
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
@@ -225,27 +241,23 @@ export default function DataCoc() {
                               alignItems="center"
                               spacing={2}
                             >
-                              <Avatar alt={name} src={avatarUrl} />
+                              {/* <Avatar alt={name} src={avatarUrl} /> */}
                               <Typography variant="subtitle2" noWrap>
-                                {name}
+                                {monthYear}
                               </Typography>
                             </Stack>
                           </TableCell>
-                          <TableCell align="left">{company}</TableCell>
-                          <TableCell align="left">{role}</TableCell>
+                          <TableCell align="left">{pkm}</TableCell>
+                          <TableCell align="left">{target}</TableCell>
+                          <TableCell align="left">{babyLive}</TableCell>
+                          <TableCell align="left">{babyDead}</TableCell>
+                          <TableCell align="left">{kn1}</TableCell>
+                          <TableCell align="left">{kn2}</TableCell>
+                          <TableCell align="left">{fullKn}</TableCell>
                           <TableCell align="left">
-                            {isVerified ? "Yes" : "No"}
+                            {complicationNeotal}
                           </TableCell>
-                          <TableCell align="left">
-                            <Label
-                              variant="ghost"
-                              color={
-                                (status === "banned" && "error") || "success"
-                              }
-                            >
-                              {sentenceCase(status)}
-                            </Label>
-                          </TableCell>
+                          <TableCell align="left">{perfectBaby}</TableCell>
 
                           <TableCell align="right">
                             <UserMoreMenu />
@@ -275,7 +287,7 @@ export default function DataCoc() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={USERLIST.length}
+            count={CocExemplar.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
