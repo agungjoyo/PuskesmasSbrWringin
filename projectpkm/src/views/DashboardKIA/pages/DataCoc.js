@@ -4,6 +4,7 @@ import { Icon } from "@iconify/react";
 import chartLineData from "@iconify/icons-carbon/chart-line-data";
 // import { sentenceCase } from "change-case";
 import { useState } from "react";
+import { connect } from "react-redux";
 import plusFill from "@iconify/icons-eva/plus-fill";
 import { Link as RouterLink } from "react-router-dom";
 // material
@@ -33,7 +34,6 @@ import {
   UserMoreMenu,
 } from "../components/_dashboard/user";
 //
-import CocExemplar from "../_mocks_/CocExemplar";
 
 // ----------------------------------------------------------------------
 
@@ -90,7 +90,7 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function DataCoc() {
+function DataCoc(props) {
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState("asc");
   const [selected, setSelected] = useState([]);
@@ -106,7 +106,7 @@ export default function DataCoc() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = CocExemplar.map((n) => n.name);
+      const newSelecteds = props.data.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -145,16 +145,16 @@ export default function DataCoc() {
   };
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - CocExemplar.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - props.data.length) : 0;
 
   const filteredUsers = applySortFilter(
-    CocExemplar,
+    props.data,
     getComparator(order, orderBy),
     filterName
   );
 
   const isUserNotFound = filteredUsers.length === 0;
-
+  console.log(props.data);
   return (
     <Page title="Data CoC | Minimal-UI">
       <Container>
@@ -194,7 +194,7 @@ export default function DataCoc() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={CocExemplar.length}
+                  rowCount={props.data.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
@@ -287,7 +287,7 @@ export default function DataCoc() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={CocExemplar.length}
+            count={props.data.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
@@ -298,3 +298,10 @@ export default function DataCoc() {
     </Page>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    data: state.dataCoc.CocExemplar,
+  };
+};
+
+export default connect(mapStateToProps)(DataCoc);
