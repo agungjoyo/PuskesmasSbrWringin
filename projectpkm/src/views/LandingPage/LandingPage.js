@@ -1,9 +1,9 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
+import { Link as RouterLink } from "react-router-dom";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-
 // @material-ui/icons
 
 // core components
@@ -16,6 +16,7 @@ import HeaderLinks from "components/Header/HeaderLinks.js";
 import Parallax from "components/Parallax/Parallax.js";
 
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
+// import bg from "assets/img/img.png";
 
 // Sections for this page
 import ProductSection from "./Sections/ProductSection.js";
@@ -43,29 +44,28 @@ export default function LandingPage(props) {
         }}
         {...rest}
       />
-      <Parallax filter image={require("assets/img/landing-bg.jpg").default}>
+      <Parallax filter image={require("assets/img/bgbaru.png").default}>
         <div className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={12} md={6}>
-              <h1 className={classes.title}>Your Story Starts With Us.</h1>
+              <h1 className={classes.title}>SAS-KIA</h1>
+              <h2>Puskesmas Sumber Wringin</h2>
               <h4>
-                Every landing page needs a small description after the big bold
-                title, that{"'"}s why we added this text here. Add here all the
-                information that can make you or your product create the first
-                impression.
+                Sitem Informasi Kesehatan Ibu dan Anak (SAS-KIA) dibuat untuk
+                memberikan kemudahan kepada petugas KIA dalam mengelola Data.
               </h4>
               <br />
               <Button
-                color="danger"
+                color="success"
                 size="lg"
-                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ref=creativetim"
-                target="_blank"
+                component={RouterLink}
+                to="/login"
                 rel="noopener noreferrer"
               >
-                <i className="fas fa-play" />
-                Watch video
+                <i className="fas fa-sign-in-alt" /> Masuk
               </Button>
             </GridItem>
+            {/* <img src={bg}></img> */}
           </GridContainer>
         </div>
       </Parallax>

@@ -3,9 +3,10 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 // @material-ui/icons
-import Chat from "@material-ui/icons/Chat";
+import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
+import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
 import VerifiedUser from "@material-ui/icons/VerifiedUser";
-import Fingerprint from "@material-ui/icons/Fingerprint";
+import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
 // core components
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
@@ -21,42 +22,49 @@ export default function ProductSection() {
     <div className={classes.section}>
       <GridContainer justify="center">
         <GridItem xs={12} sm={12} md={8}>
-          <h2 className={classes.title}>Let{"'"}s talk product</h2>
+          <h2 className={classes.title}>
+            Visi dan Misi Puskesmas Sumber Wringin
+          </h2>
+          <h3 className={classes.title}>Visi</h3>
           <h5 className={classes.description}>
-            This is the paragraph where you can write more details about your
-            product. Keep you user engaged by providing meaningful information.
-            Remember that by this time, the user is curious, otherwise he wouldn
-            {"'"}t scroll to get here. Add a button if you want the user to see
-            more.
+            {"'"}Mewujudkan Masyarakat Sumber Wringin yang Sehat Mandiri dan
+            Berkelanjutan{"'"}
           </h5>
         </GridItem>
       </GridContainer>
       <div>
+        <h3 className={classes.title}>Misi</h3>
         <GridContainer>
-          <GridItem xs={12} sm={12} md={4}>
+          <GridItem xs={10} sm={10} md={3}>
             <InfoArea
-              title="Free Chat"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
-              icon={Chat}
+              description="Melaksanakan pembangunan berwawasan kesehatan"
+              icon={LocalHospitalIcon}
               iconColor="info"
               vertical
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
+          <GridItem xs={10} sm={10} md={3}>
             <InfoArea
-              title="Verified Users"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
-              icon={VerifiedUser}
+              description="Memberdayakan masyarakat untuk hidup sehat"
+              // description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
+              icon={HealthAndSafetyIcon}
               iconColor="success"
               vertical
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
+          <GridItem xs={10} sm={10} md={3}>
             <InfoArea
-              title="Fingerprint"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
-              icon={Fingerprint}
+              description="Memberikan pelayanan yang bermutu dan merata"
+              icon={VerifiedUser}
               iconColor="danger"
+              vertical
+            />
+          </GridItem>
+          <GridItem xs={10} sm={10} md={3}>
+            <InfoArea
+              description="Memberikan pelayanan individu, keluarga, masyarakat dan lingkungannya"
+              icon={MedicalServicesIcon}
+              iconColor="warning"
               vertical
             />
           </GridItem>

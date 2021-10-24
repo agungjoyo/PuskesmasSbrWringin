@@ -30,8 +30,8 @@ export default function TeamSection() {
     classes.imgFluid
   );
   return (
-    <div className={classes.section}>
-      <h2 className={classes.title}>Here is our team</h2>
+    <div id="grafik" className={classes.section}>
+      <h2 className={classes.title}>Grafik</h2>
       <div>
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
