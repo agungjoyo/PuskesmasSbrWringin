@@ -49,44 +49,24 @@ export default function HeaderLinks(props) {
             </a>,
           ]}
         /> */}
-        <Button
-          href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
-          color="transparent"
-          target="_blank"
-          className={classes.navLink}
-        >
+        <Button href="#home" color="transparent" className="smoothscroll">
           Beranda
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Button
-          href={ProductSection}
-          color="transparent"
-          target="_blank"
-          className={classes.navLink}
-        >
+        <Button href="#about" color="transparent" className="smoothscroll">
           {""}
           tentang Kami
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Button
-          href="https://twitter.com/CreativeTim?ref=creativetim"
-          target="_blank"
-          color="transparent"
-          className={classes.navLink}
-        >
+        <Button href="#grafik" color="transparent" className="smoothscroll">
           {" "}
           Grafik
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Button
-          color="transparent"
-          href="#kontak"
-          target="_blank"
-          className={classes.navLink}
-        >
+        <Button color="transparent" className="smoothscroll" href="#kontak">
           {" "}
           Kontak
         </Button>

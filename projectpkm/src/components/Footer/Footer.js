@@ -47,7 +47,7 @@ export default function Footer(props) {
           {/* &copy; {1900 + new Date().getYear()} , made with{" "} */}
           Sumber Wringin, Darungan, Sumberwringin, Bondowoso, Kabupaten
           Bondowoso, Jawa Timur 68287{" "}
-          <a href={"/LandingPage"} className={aClasses} target="_blank">
+          <a href="#home" className="smoothscroll">
             SAS-KIA
           </a>{" "}
         </div>
