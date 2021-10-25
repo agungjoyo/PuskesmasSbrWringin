@@ -39,7 +39,7 @@ export default function UserListHead({
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
+        <TableCell padding="checkbox" component="th" scope="row">
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
@@ -49,7 +49,8 @@ export default function UserListHead({
         {headLabel.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.alignRight ? "right" : "left"}
+            // align={headCell.alignRight ? "right" : "left"}
+            align={headCell.alignCenter ? "center" : "center"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel

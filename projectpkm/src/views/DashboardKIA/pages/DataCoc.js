@@ -38,20 +38,20 @@ import {
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: "monthYear", label: "Bulan", alignRight: false },
-  { id: "pkm", label: "Puskesmas", alignRight: false },
-  { id: "target", label: "Sasaran", alignRight: false },
-  { id: "babyLive", label: "Bayi Lahir Hidup", alignRight: false },
-  { id: "babyDead", label: "Bayi Lahir Mati", alignRight: false },
-  { id: "kn1", label: "KN 1", alignRight: false },
-  { id: "kn2", label: "KN 2", alignRight: false },
-  { id: "fullKn", label: "KN Lengkap", alignRight: false },
+  { id: "monthYear", label: "Bulan", alignCenter: "center" },
+  { id: "pkm", label: "Puskesmas", alignCenter: "center" },
+  { id: "target", label: "Sasaran", alignCenter: "center" },
+  { id: "babyLive", label: "Bayi Lahir Hidup", alignCenter: "center" },
+  { id: "babyDead", label: "Bayi Lahir Mati", alignCenter: "center" },
+  { id: "kn1", label: "KN 1", alignCenter: "center" },
+  { id: "kn2", label: "KN 2", alignCenter: "center" },
+  { id: "fullKn", label: "KN Lengkap", alignCenter: "center" },
   {
     id: "complicationNeotal",
     label: "Neonatal Komplikasi",
-    alignRight: false,
+    alignCenter: "center",
   },
-  { id: "perfectBaby", label: "Bayi Paripurna", alignRight: false },
+  { id: "perfectBaby", label: "Bayi Paripurna", alignCenter: "center" },
   { id: "" },
 ];
 
@@ -90,7 +90,7 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-function DataCoc(props) {
+function DataCoc(datacoc) {
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState("asc");
   const [selected, setSelected] = useState([]);
@@ -106,7 +106,7 @@ function DataCoc(props) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = props.data.map((n) => n.name);
+      const newSelecteds = datacoc.data.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -145,16 +145,16 @@ function DataCoc(props) {
   };
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - props.data.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datacoc.data.length) : 0;
 
   const filteredUsers = applySortFilter(
-    props.data,
+    datacoc.data,
     getComparator(order, orderBy),
     filterName
   );
 
   const isUserNotFound = filteredUsers.length === 0;
-  console.log(props.data);
+  console.log(datacoc.data);
   return (
     <Page title="Data CoC | Minimal-UI">
       <Container>
@@ -189,12 +189,12 @@ function DataCoc(props) {
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
-              <Table>
+              <Table fixedHeader={false} style={{ tableLayout: "auto" }}>
                 <UserListHead
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={props.data.length}
+                  rowCount={datacoc.data.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
@@ -220,6 +220,7 @@ function DataCoc(props) {
 
                       return (
                         <TableRow
+                          sx={{ maxWidth: 20 }}
                           hover
                           key={id}
                           tabIndex={-1}
@@ -242,22 +243,162 @@ function DataCoc(props) {
                               spacing={2}
                             >
                               {/* <Avatar alt={name} src={avatarUrl} /> */}
-                              <Typography variant="subtitle2" noWrap>
+                              <Typography
+                                variant="subtitle2"
+                                noWrap
+                                style={{ flexGrow: 1, textAlign: "center" }}
+                              >
                                 {monthYear}
                               </Typography>
                             </Stack>
                           </TableCell>
-                          <TableCell align="left">{pkm}</TableCell>
-                          <TableCell align="left">{target}</TableCell>
-                          <TableCell align="left">{babyLive}</TableCell>
-                          <TableCell align="left">{babyDead}</TableCell>
-                          <TableCell align="left">{kn1}</TableCell>
-                          <TableCell align="left">{kn2}</TableCell>
-                          <TableCell align="left">{fullKn}</TableCell>
-                          <TableCell align="left">
-                            {complicationNeotal}
+                          <TableCell
+                            align="center"
+                            style={{ width: "max-content" }}
+                          >
+                            <Stack
+                              direction="row"
+                              alignItems="center"
+                              spacing={2}
+                            >
+                              {/* <Avatar alt={name} src={avatarUrl} /> */}
+                              <Typography
+                                variant="body1"
+                                noWrap
+                                style={{ flexGrow: 1, textAlign: "center" }}
+                              >
+                                {pkm}
+                              </Typography>
+                            </Stack>
                           </TableCell>
-                          <TableCell align="left">{perfectBaby}</TableCell>
+                          <TableCell align="center">
+                            <Stack
+                              direction="row"
+                              alignItems="center"
+                              spacing={2}
+                            >
+                              {/* <Avatar alt={name} src={avatarUrl} /> */}
+                              <Typography
+                                variant="body1"
+                                noWrap
+                                style={{ flexGrow: 1, textAlign: "center" }}
+                              >
+                                {target}
+                              </Typography>
+                            </Stack>
+                          </TableCell>
+                          <TableCell align="center">
+                            <Stack
+                              direction="row"
+                              alignItems="center"
+                              spacing={2}
+                            >
+                              {/* <Avatar alt={name} src={avatarUrl} /> */}
+                              <Typography
+                                variant="body1"
+                                noWrap
+                                style={{ flexGrow: 1, textAlign: "center" }}
+                              >
+                                {babyLive}
+                              </Typography>
+                            </Stack>
+                          </TableCell>
+                          <TableCell align="center">
+                            <Stack
+                              direction="row"
+                              alignItems="center"
+                              spacing={2}
+                            >
+                              {/* <Avatar alt={name} src={avatarUrl} /> */}
+                              <Typography
+                                variant="body1"
+                                noWrap
+                                style={{ flexGrow: 1, textAlign: "center" }}
+                              >
+                                {babyDead}
+                              </Typography>
+                            </Stack>
+                          </TableCell>
+                          <TableCell align="center">
+                            <Stack
+                              direction="row"
+                              alignItems="center"
+                              spacing={2}
+                            >
+                              {/* <Avatar alt={name} src={avatarUrl} /> */}
+                              <Typography
+                                variant="body1"
+                                noWrap
+                                style={{ flexGrow: 1, textAlign: "center" }}
+                              >
+                                {kn1}
+                              </Typography>
+                            </Stack>
+                          </TableCell>
+                          <TableCell align="center">
+                            <Stack
+                              direction="row"
+                              alignItems="center"
+                              spacing={2}
+                            >
+                              {/* <Avatar alt={name} src={avatarUrl} /> */}
+                              <Typography
+                                variant="body1"
+                                noWrap
+                                style={{ flexGrow: 1, textAlign: "center" }}
+                              >
+                                {kn2}
+                              </Typography>
+                            </Stack>
+                          </TableCell>
+                          <TableCell align="center">
+                            <Stack
+                              direction="row"
+                              alignItems="center"
+                              spacing={2}
+                            >
+                              {/* <Avatar alt={name} src={avatarUrl} /> */}
+                              <Typography
+                                variant="body1"
+                                noWrap
+                                style={{ flexGrow: 1, textAlign: "center" }}
+                              >
+                                {fullKn}
+                              </Typography>
+                            </Stack>
+                          </TableCell>
+                          <TableCell align="center">
+                            <Stack
+                              direction="row"
+                              alignItems="center"
+                              spacing={2}
+                            >
+                              {/* <Avatar alt={name} src={avatarUrl} /> */}
+                              <Typography
+                                variant="body1"
+                                noWrap
+                                style={{ flexGrow: 1, textAlign: "center" }}
+                              >
+                                {complicationNeotal}
+                              </Typography>
+                            </Stack>
+                          </TableCell>
+                          <TableCell align="center">
+                            <Stack
+                              direction="row"
+                              alignItems="center"
+                              spacing={2}
+                            >
+                              {/* <Avatar alt={name} src={avatarUrl} /> */}
+                              <Typography
+                                variant="body1"
+                                noWrap
+                                style={{ flexGrow: 1, textAlign: "center" }}
+                              >
+                                {perfectBaby}
+                              </Typography>
+                            </Stack>
+                          </TableCell>
 
                           <TableCell align="right">
                             <UserMoreMenu />
@@ -287,7 +428,7 @@ function DataCoc(props) {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={props.data.length}
+            count={datacoc.data.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
