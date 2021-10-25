@@ -51,7 +51,7 @@ export default function LandingPage(props) {
               <h1 className={classes.title}>SAS-KIA</h1>
               <h2>Puskesmas Sumber Wringin</h2>
               <h4>
-                Sitem Informasi Kesehatan Ibu dan Anak (SAS-KIA) dibuat untuk
+                Sistem Informasi Kesehatan Ibu dan Anak (SAS-KIA) dibuat untuk
                 memberikan kemudahan kepada petugas KIA dalam mengelola Data.
               </h4>
               <br />

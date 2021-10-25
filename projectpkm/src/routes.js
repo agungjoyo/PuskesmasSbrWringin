@@ -37,7 +37,7 @@ export default function Router() {
       path: "/",
       element: <LogoOnlyLayout />,
       children: [
-        { element: <Navigate to="/components" /> },
+        { element: <Navigate to="/landing-page" /> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
         { path: "*", element: <Navigate to="/404" /> },
