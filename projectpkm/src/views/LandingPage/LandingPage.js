@@ -48,7 +48,7 @@ function LandingPage(props) {
         {...rest}
       />
       <Parallax filter image={require("assets/img/bgbaru.png").default}>
-        <div id="home" className={classes.container}>
+        <div className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={12} md={6}>
               <h1 className={classes.title}>SAS-KIA</h1>
