@@ -33,6 +33,7 @@ import {
   UserListToolbar,
   UserMoreMenu,
 } from "../components/_dashboard/user";
+import { addDataCoc } from "views/store/actions/datacocAction";
 //
 
 // ----------------------------------------------------------------------
@@ -189,7 +190,7 @@ function DataCoc(datacoc) {
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
-              <Table fixedHeader={false} style={{ tableLayout: "auto" }}>
+              <Table style={{ tableLayout: "auto" }}>
                 <UserListHead
                   order={order}
                   orderBy={orderBy}
@@ -445,4 +446,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(DataCoc);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addDataCoc: (dataCoc) => dispatch(addDataCoc(dataCoc)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DataCoc);

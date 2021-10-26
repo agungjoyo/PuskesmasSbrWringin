@@ -1,6 +1,7 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
+import { Grid } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,6 +15,7 @@ import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import Parallax from "components/Parallax/Parallax.js";
+import Scroll from "components/Scroll/Scroll.js";
 
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
 // import bg from "assets/img/img.png";
@@ -27,11 +29,12 @@ const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
 
-export default function LandingPage(props) {
+function LandingPage(props) {
   const classes = useStyles();
   const { ...rest } = props;
   return (
     <div>
+      <Scroll showBelow={250} />
       <Header
         color="transparent"
         routes={dashboardRoutes}
@@ -69,14 +72,31 @@ export default function LandingPage(props) {
           </GridContainer>
         </div>
       </Parallax>
-      <div className={classNames(classes.main, classes.mainRaised)}>
+      <Grid className={classNames(classes.main, classes.mainRaised)}>
+        <GridItem className={classes.container}>
+          <ProductSection />
+        </GridItem>
+      </Grid>
+      <Grid className={classNames(classes.main, classes.mainRaised)}>
+        <GridItem className={classes.container}>
+          <TeamSection />
+        </GridItem>
+      </Grid>
+      <Grid className={classNames(classes.main, classes.mainRaised)}>
+        <GridItem className={classes.container}>
+          <WorkSection />
+        </GridItem>
+      </Grid>
+      {/* <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
           <ProductSection />
           <TeamSection />
           <WorkSection />
         </div>
-      </div>
+      </div> */}
       <Footer />
     </div>
   );
 }
+
+export default LandingPage;

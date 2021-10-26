@@ -11,8 +11,8 @@ import {
 
 const infoStyle = {
   infoArea: {
-    maxWidth: "360px",
-    margin: "0 auto",
+    maxWidth: "480px",
+    margin: "auto",
     padding: "0px",
   },
   iconWrapper: {
@@ -57,7 +57,7 @@ const infoStyle = {
     fontSize: "14px",
   },
   iconWrapperVertical: {
-    float: "none",
+    float: "center",
   },
   iconVertical: {
     width: "61px",

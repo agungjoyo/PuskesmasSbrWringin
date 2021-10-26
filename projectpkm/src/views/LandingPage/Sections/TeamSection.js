@@ -17,7 +17,7 @@ import { styled } from "@mui/material/styles";
 // import CardFooter from "components/Card/CardFooter.js";
 
 // import styles from "assets/jss/material-kit-react/views/landingPageSections/teamStyle.js";
-import { BaseOptionChart } from "../../DashboardKIA/components/charts";
+import { BaseOptionChartShowOnly } from "views/DashboardKIA/components/charts";
 
 // import team1 from "assets/img/faces/avatar.jpg";
 // import team2 from "assets/img/faces/christian.jpg";
@@ -47,7 +47,7 @@ const CHART_DATA = [
 ];
 
 export default function TeamSection() {
-  const chartOptions = merge(BaseOptionChart(), {
+  const chartOptions = merge(BaseOptionChartShowOnly(), {
     stroke: { width: [3, 3, 3] },
     plotOptions: { bar: { columnWidth: "20%", borderRadius: 8 } },
     fill: {

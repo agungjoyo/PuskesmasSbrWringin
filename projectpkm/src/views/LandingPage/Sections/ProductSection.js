@@ -40,6 +40,7 @@ export default function ProductSection() {
               description="Melaksanakan pembangunan berwawasan kesehatan"
               icon={LocalHospitalIcon}
               iconColor="info"
+              title=""
               vertical
             />
           </GridItem>
@@ -49,6 +50,7 @@ export default function ProductSection() {
               // description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
               icon={HealthAndSafetyIcon}
               iconColor="success"
+              title=""
               vertical
             />
           </GridItem>
@@ -57,6 +59,7 @@ export default function ProductSection() {
               description="Memberikan pelayanan yang bermutu dan merata"
               icon={VerifiedUser}
               iconColor="danger"
+              title=""
               vertical
             />
           </GridItem>
@@ -65,6 +68,7 @@ export default function ProductSection() {
               description="Memberikan pelayanan individu, keluarga, masyarakat dan lingkungannya"
               icon={MedicalServicesIcon}
               iconColor="warning"
+              title=""
               vertical
             />
           </GridItem>

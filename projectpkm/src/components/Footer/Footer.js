@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from "react";
+import React, { useState, useEffect } from "react";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 // nodejs library that concatenates classes
@@ -12,7 +12,6 @@ import {makeStyles} from "@material-ui/core/styles";
 import Favorite from "@material-ui/icons/Favorite";
 
 import styles from "assets/jss/material-kit-react/components/footerStyle.js";
-import LandingPage from "views/LandingPage/LandingPage";
 
 const useStyles = makeStyles(styles);
 
@@ -27,6 +26,7 @@ export default function Footer(props) {
     [classes.a]: true,
     [classes.footerWhiteFont]: whiteFont,
   });
+  
   return (
     <footer className={footerClasses}>
       <div className={classes.container}>
@@ -34,20 +34,18 @@ export default function Footer(props) {
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="https://www.creative-tim.com/?ref=mkr-footer"
+                href="#"
                 className={classes.block}
                 target="_blank"
               >
-                {" "}
+                {"SAS-KIA - Sumber Wringin, Darungan, Sumberwringin, Bondowoso, Kabupaten Bondowoso, Jawa Timur 68287"}
               </a>
             </ListItem>
           </List>
         </div>
         <div className={classes.right}>
-          {/* &copy; {1900 + new Date().getYear()} , made with{" "} */}
-          Sumber Wringin, Darungan, Sumberwringin, Bondowoso, Kabupaten
-          Bondowoso, Jawa Timur 68287{" "}
-          <a href="#home" className="smoothscroll">
+          &copy; {1900 + new Date().getYear()} , made with{" "}
+          <a href="">
             SAS-KIA
           </a>{" "}
         </div>
