@@ -25,7 +25,7 @@ class WorkSection extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(this.state);
+    console.log(this.state);
     this.props.addAdvice(this.state);
   };
   handleChange = (e) => {
@@ -36,7 +36,7 @@ class WorkSection extends Component {
   render() {
     // const useStyles = makeStyles(styles);
     // const classes = useStyles();
-    console.log(this.props.advice);
+    // console.log(this.props.advice);
     const { classes } = this.props;
     return (
       <div id="kontak" className={classes.section}>
