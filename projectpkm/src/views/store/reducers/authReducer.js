@@ -1,12 +1,28 @@
 const initState = {
-  absoluteLogin: [
-    { id: "1", email: "admin@pkmsb.com", password: "puskesmas-sb" },
-    { id: "2", email: "test@pkmsb.com", password: "test-pkmsb" },
-  ],
+  authError: null,
+  absoluteLogin: [{ id: "1", email: "test@pkmsb.com", password: "test-pkmsb" }],
 };
 
-const authReducer = (state = initState) => {
-  return state;
+const authReducer = (state = initState, action) => {
+  switch (action.type) {
+    case "LOGIN_ERROR":
+      console.log("Login Error");
+      return {
+        ...state,
+        authError: "Login Failed",
+      };
+    case "LOGIN_SUCCESS":
+      console.log("Login Success");
+      return {
+        ...state,
+        authError: null,
+      };
+    case "SIGNOUT_SUCCESS":
+      console.log("Signout Success");
+      return state;
+    default:
+      return state;
+  }
 };
 
 export default authReducer;

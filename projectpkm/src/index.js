@@ -21,7 +21,9 @@ var hist = createBrowserHistory();
 const store = createStore(
   rootReducer,
   compose(
-    applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
+    applyMiddleware(
+      thunk.withExtraArgument({ getFirebase, getFirestore, hist })
+    ),
     reduxFirestore(fbConfig),
     reactReduxFirebase(fbConfig)
   )

@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { Icon } from "@iconify/react";
 import eyeFill from "@iconify/icons-eva/eye-fill";
 import eyeOffFill from "@iconify/icons-eva/eye-off-fill";
 // material
+import { signIn } from "views/store/actions/authAction";
+
 import {
   Link,
   Stack,
@@ -34,7 +36,8 @@ class LoginForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.setState({ loading: true });
-    console.log(this.state);
+    // console.log(this.state);
+    this.props.signIn(this.state);
   };
 
   handleChange = (e) => {
@@ -42,9 +45,10 @@ class LoginForm extends Component {
       [e.target.id]: e.target.value,
     });
   };
-
   render() {
-    console.log(this.props);
+    const { auth } = this.props;
+    console.log(auth);
+    if (auth.uid) return <Navigate to="/" />;
     return (
       <form autoComplete="off" noValidate onSubmit={this.handleSubmit}>
         <Stack spacing={3}>
@@ -112,8 +116,14 @@ class LoginForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth.absoluteLogin,
+    authError: state.auth.authError,
+    auth: state.firebase.auth,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (creds) => dispatch(signIn(creds)),
   };
 };
 
-export default connect(mapStateToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
