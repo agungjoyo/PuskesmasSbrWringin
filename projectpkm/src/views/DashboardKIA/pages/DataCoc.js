@@ -174,10 +174,10 @@ function DataCoc(datacoc) {
             sx={{ justify: "flex-end" }}
             variant="contained"
             component={RouterLink}
-            to="#"
+            to="/dashboard/InsertData"
             startIcon={<Icon icon={plusFill} />}
           >
-            New User
+            New Data
           </Button>
         </Stack>
 

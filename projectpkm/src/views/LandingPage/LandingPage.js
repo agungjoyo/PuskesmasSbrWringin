@@ -1,10 +1,10 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
-import {Grid} from "@mui/material";
-import {Link as RouterLink} from "react-router-dom";
+import { Grid } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 // @material-ui/core components
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 
 // core components
@@ -31,7 +31,7 @@ const useStyles = makeStyles(styles);
 
 function LandingPage(props) {
   const classes = useStyles();
-  const {...rest} = props;
+  const { ...rest } = props;
   return (
     <div>
       <Scroll showBelow={250} />

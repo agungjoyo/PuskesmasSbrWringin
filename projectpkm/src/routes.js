@@ -17,6 +17,7 @@ import NotFound from "views/DashboardKIA/pages/Page404";
 import Login from "views/DashboardKIA/pages/Login";
 import Register from "views/DashboardKIA/pages/Register";
 import DataCoc from "views/DashboardKIA/pages/DataCoc";
+import InsertData from "views/DashboardKIA/pages/InsertData";
 
 export default function Router() {
   return useRoutes([
@@ -31,6 +32,7 @@ export default function Router() {
         { path: "data-coc", element: <DataCoc /> },
         { path: "products", element: <Products /> },
         { path: "blog", element: <Blog /> },
+        { path: "InsertData", element: <InsertData /> },
       ],
     },
     {
