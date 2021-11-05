@@ -34,7 +34,7 @@ export default function Footer(props) {
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="#"
+                href=""
                 className={classes.block}
                 target="_blank"
               >
@@ -45,9 +45,9 @@ export default function Footer(props) {
         </div>
         <div className={classes.right}>
           &copy; {1900 + new Date().getYear()} , made with{" "}
-          <a href="">
+          <i>
             SAS-KIA
-          </a>{" "}
+          </i>
         </div>
       </div>
     </footer>
