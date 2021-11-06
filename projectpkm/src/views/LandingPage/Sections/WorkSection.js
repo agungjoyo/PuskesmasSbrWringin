@@ -92,7 +92,7 @@ class WorkSection extends Component {
                 />
                 <GridItem xs={12} sm={12} md={12}>
                   <Button color="primary" type="Submit" fullWidth>
-                    Kirim Email
+                    Kirim Kritik dan Saran
                   </Button>
                 </GridItem>
               </GridContainer>

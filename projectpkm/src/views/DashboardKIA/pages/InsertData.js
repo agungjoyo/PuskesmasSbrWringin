@@ -27,6 +27,39 @@ class InsertData extends Component {
     super();
     this.state = {
       files: [],
+      Tahun: "",
+      Bulan: "",
+      Puskesmas: "",
+      SasaranKelahiranHidupLK: "",
+      SasaranKelahiranHidupPR: "",
+      SasaranKelahiranHidupTL: "",
+      SasaranBayiRistiLK: "",
+      SasaranBayiRistiPR: "",
+      SasaranBayiRistiTL: "",
+      SasaranBayiLK: "",
+      SasaranBayiPR: "",
+      SasaranBayiTL: "",
+      PencapaianLahirHidupLK: "",
+      PencapaianLahirHidupPR: "",
+      PencapaianLahirHidupTL: "",
+      PencapaianLahirMatiLK: "",
+      PencapaianLahirMatiPR: "",
+      PencapaianLahirMatiTL: "",
+      PencapaianKNPertamaLK: "",
+      PencapaianKNPertamaPR: "",
+      PencapaianKNPertamaTL: "",
+      PencapaianKNKeduaLK: "",
+      PencapaianKNKeduaPR: "",
+      PencapaianKNKeduaTL: "",
+      PencapaianKNLengkapLK: "",
+      PencapaianKNLengkapPR: "",
+      PencapaianKNLengkapTL: "",
+      NeonatalKompLK: "",
+      NeonatalKompPR: "",
+      NeonatalKompTL: "",
+      KunjunganBayiParipurnaLK: "",
+      KunjunganBayiParipurnaPR: "",
+      KunjunganBayiParipurnaTL: "",
     };
   }
   onDrop(files) {
@@ -35,22 +68,62 @@ class InsertData extends Component {
     const reader = new FileReader();
     reader.onload = () => {
       csv.parse(reader.result, (err, data) => {
-        var userList = [];
-        console.log(err);
-        for (var i = 0; i < data.length; i++) {
-          const name = data[i][0];
-          const phoneNumber = data[i][1];
-          const address = data[i][2];
-          const classType = data[i][3];
-          const newUser = {
-            name: name,
-            phoneNumber: phoneNumber,
-            address: address,
-            class: classType,
-          };
-          userList.push(newUser);
-          console.log(newUser);
+        const tahun = data[2][0];
+        const dateSplit = tahun.split(" ");
+        this.setState({
+          Tahun: dateSplit[3],
+          Bulan: dateSplit[1],
+        });
+        // console.log(dateSplit);
+        // var userList = [];
+        console.log(data);
+        for (var i = 7; i < 13; i++) {
+          this.setState({
+            Puskesmas: data[i][2],
+            SasaranKelahiranHidupLK: data[i][4],
+            SasaranKelahiranHidupPR: data[i][6],
+            SasaranKelahiranHidupTL: data[i][8],
+            SasaranBayiRistiLK: data[i][10],
+            SasaranBayiRistiPR: data[i][12],
+            SasaranBayiRistiTL: data[i][14],
+            SasaranBayiLK: data[i][16],
+            SasaranBayiPR: data[i][18],
+            SasaranBayiTL: data[i][20],
+            PencapaianLahirHidupLK: data[i][28],
+            PencapaianLahirHidupPR: data[i][30],
+            PencapaianLahirHidupTL: data[i][32],
+            PencapaianLahirMatiLK: data[i][54],
+            PencapaianLahirMatiPR: data[i][56],
+            PencapaianLahirMatiTL: data[i][58],
+            PencapaianKNPertamaLK: data[i][80],
+            PencapaianKNPertamaPR: data[i][82],
+            PencapaianKNPertamaTL: data[i][84],
+            PencapaianKNKeduaLK: data[i][106],
+            PencapaianKNKeduaPR: data[i][108],
+            PencapaianKNKeduaTL: data[i][110],
+            PencapaianKNLengkapLK: data[i][132],
+            PencapaianKNLengkapPR: data[i][134],
+            PencapaianKNLengkapTL: data[i][136],
+            NeonatalKompLK: data[i][158],
+            NeonatalKompPR: data[i][160],
+            NeonatalKompTL: data[i][162],
+            KunjunganBayiParipurnaLK: data[i][184],
+            KunjunganBayiParipurnaPR: data[i][186],
+            KunjunganBayiParipurnaTL: data[i][188],
+          });
+          //   const name = data[i][0];
+          //   const phoneNumber = data[i][1];
+          //   const address = data[i][2];
+          //   const classType = data[i][3];
+          //   const newUser = {
+          //     name: name,
+          //     phoneNumber: phoneNumber,
+          //     address: address,
+          //     class: classType,
         }
+        //   userList.push(newUser);
+        //   console.log(newUser);
+        // }
       });
     };
     reader.readAsBinaryString(file);
