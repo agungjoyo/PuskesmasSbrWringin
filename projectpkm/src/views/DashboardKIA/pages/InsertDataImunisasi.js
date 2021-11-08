@@ -10,6 +10,7 @@ class InsertDataImunisasi extends Component {
     super();
     this.state = {
       files: [],
+      Tahun: "",
       Bulan: "",
       Puskesmas: "",
       Sasaran: "",
@@ -34,11 +35,15 @@ class InsertDataImunisasi extends Component {
     const reader = new FileReader();
     reader.onload = () => {
       csv.parse({ delimiter: ";" }, reader.result, (err, data) => {
-        // const tahun = data[2][0];
-        // const dateSplit = tahun.split(" ");
-        // this.setState({
-        //   Bulan: dateSplit[1],
-        // });
+        const tahun = data[3][2];
+        const bulan = data[4][2];
+        const tahunSplit = tahun.split(" ");
+        const bulanSplit = bulan.split(" ");
+        console.log(tahunSplit, bulanSplit);
+        this.setState({
+          Tahun: tahunSplit[1],
+          Bulan: bulanSplit[1],
+        });
 
         console.log(data);
       });
