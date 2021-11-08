@@ -67,7 +67,7 @@ class InsertData extends Component {
     var file = files[0];
     const reader = new FileReader();
     reader.onload = () => {
-      csv.parse(reader.result, (err, data) => {
+      csv.parse({ delimiter: ";" }, reader.result, (err, data) => {
         const tahun = data[2][0];
         const dateSplit = tahun.split(" ");
         this.setState({

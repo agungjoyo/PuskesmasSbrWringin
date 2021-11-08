@@ -119,3 +119,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles)(WorkSection));
+
+// import connect (null, mapDispatchToProps)(WorkSection);

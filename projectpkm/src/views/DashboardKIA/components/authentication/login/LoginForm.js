@@ -35,9 +35,9 @@ class LoginForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({ loading: true });
-    // console.log(this.state);
+    console.log(this.state);
     this.props.signIn(this.state);
+    this.setState({ loading: true });
   };
 
   handleChange = (e) => {
@@ -47,7 +47,7 @@ class LoginForm extends Component {
   };
   render() {
     const { auth } = this.props;
-    console.log(auth);
+    // console.log(auth);
     if (auth.uid) return <Navigate to="/" />;
     return (
       <form autoComplete="off" noValidate onSubmit={this.handleSubmit}>
@@ -115,14 +115,25 @@ class LoginForm extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.firebase.auth);
   return {
     authError: state.auth.authError,
     auth: state.firebase.auth,
   };
 };
+
+const showResultSuccess = () => {
+  window.alert("Login Success!");
+};
+
+const showResultFailed = () => {
+  window.alert("Login Failed!");
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: (creds) => dispatch(signIn(creds)),
+    signIn: (creds) =>
+      dispatch(signIn(creds, showResultSuccess, showResultFailed)),
   };
 };
 

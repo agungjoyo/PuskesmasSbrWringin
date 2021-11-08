@@ -1,4 +1,4 @@
-export const signIn = (credentials) => {
+export const signIn = (credentials, showResultSuccess, showResultFailed) => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
     firebase
@@ -6,9 +6,11 @@ export const signIn = (credentials) => {
       .signInWithEmailAndPassword(credentials.email, credentials.password)
       .then(() => {
         dispatch({ type: "LOGIN_SUCCESS" });
+        showResultSuccess();
       })
       .catch((err) => {
         dispatch({ type: "LOGIN_ERROR", err });
+        showResultFailed();
       });
   };
 };
