@@ -18,6 +18,7 @@ import Login from "views/DashboardKIA/pages/Login";
 import Register from "views/DashboardKIA/pages/Register";
 import DataCoc from "views/DashboardKIA/pages/DataCoc";
 import InsertData from "views/DashboardKIA/pages/InsertData";
+import InsertDataImunisasi from "views/DashboardKIA/pages/InsertDataImunisasi";
 
 export default function Router() {
   return useRoutes([
@@ -33,6 +34,7 @@ export default function Router() {
         { path: "products", element: <Products /> },
         { path: "blog", element: <Blog /> },
         { path: "InsertData", element: <InsertData /> },
+        { path: "InsertDataImunisasi", element: <InsertDataImunisasi /> },
       ],
     },
     {
