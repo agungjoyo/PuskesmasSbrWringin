@@ -17,6 +17,7 @@ import NotFound from "views/DashboardKIA/pages/Page404";
 import Login from "views/DashboardKIA/pages/Login";
 import Register from "views/DashboardKIA/pages/Register";
 import DataCoc from "views/DashboardKIA/pages/DataCoc";
+import DataCocImunisasi from "views/DashboardKIA/pages/DataCocImunisasi";
 import InsertData from "views/DashboardKIA/pages/InsertData";
 import InsertDataImunisasi from "views/DashboardKIA/pages/InsertDataImunisasi";
 
@@ -31,6 +32,7 @@ export default function Router() {
         { path: "app", element: <DashboardApp /> },
         { path: "user", element: <User /> },
         { path: "data-coc", element: <DataCoc /> },
+        { path: "data-coc-imun", element: <DataCocImunisasi /> },
         { path: "products", element: <Products /> },
         { path: "blog", element: <Blog /> },
         { path: "InsertData", element: <InsertData /> },
