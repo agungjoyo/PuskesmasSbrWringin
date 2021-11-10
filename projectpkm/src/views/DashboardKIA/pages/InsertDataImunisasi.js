@@ -8,6 +8,7 @@ import Page from "../components/Page";
 //import { initial } from "lodash";
 
 class InsertDataImunisasi extends Component {
+<<<<<<< HEAD
   render() {
     // const [data, setdata] = useState(initialState);
 
@@ -22,6 +23,46 @@ class InsertDataImunisasi extends Component {
           const wb = XLSX.read(bufferArray, { type: "buffer" });
 
           const wsname = wb.SheetNames[0];
+=======
+  constructor() {
+    super();
+    this.state = {
+      files: [],
+      Tahun: "",
+      Bulan: "",
+      Puskesmas: "",
+      Sasaran: "",
+      HBOLess1day: "", //HBo<24jam
+      HBOOneWeek: "", //HBO0-7hari
+      BCG: "",
+      Polio1: "",
+      DPTHB1: "", //DPT-HB1
+      Polio2: "",
+      DPTHB2: "",
+      Polio3: "",
+      DPTHB3: "",
+      Polio4: "",
+      IPV: "",
+      CampakRubella: "",
+      IDL: "",
+    };
+  }
+  onDrop(files) {
+    this.setState({ files });
+    var file = files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      csv.parse({ delimiter: ";" }, reader.result, (err, data) => {
+        const tahun = data[3][2];
+        const bulan = data[4][2];
+        const tahunSplit = tahun.split(" ");
+        const bulanSplit = bulan.split(" ");
+        console.log(tahunSplit, bulanSplit);
+        this.setState({
+          Tahun: tahunSplit[1],
+          Bulan: bulanSplit[1],
+        });
+>>>>>>> cc9df7b97958bc8b5baacf267f8f0a9ff3573c66
 
           const ws = wb.Sheets[wsname];
 
