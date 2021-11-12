@@ -6,7 +6,9 @@ import chartLineData from "@iconify/icons-carbon/chart-line-data";
 import { useState } from "react";
 import { connect } from "react-redux";
 import plusFill from "@iconify/icons-eva/plus-fill";
+import { compose } from "redux";
 import { Link as RouterLink } from "react-router-dom";
+import { firestoreConnect } from "react-redux-firebase";
 // material
 import {
   Card,
@@ -33,17 +35,16 @@ import {
   UserListToolbar,
   UserMoreMenu,
 } from "../components/_dashboard/user";
-import { addDataCoc } from "views/store/actions/datacocAction";
 //
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: "monthYear", label: "Bulan", alignCenter: "center" },
-  { id: "pkm", label: "Puskesmas", alignCenter: "center" },
-  { id: "target", label: "Sasaran", alignCenter: "center" },
-  { id: "babyLive", label: "Bayi Lahir Hidup", alignCenter: "center" },
-  { id: "babyDead", label: "Bayi Lahir Mati", alignCenter: "center" },
+  { id: "Bulan", label: "Bulan", alignCenter: "center" },
+  { id: "Puskesmas", label: "Puskesmas", alignCenter: "center" },
+  { id: "Sasaran", label: "Sasaran", alignCenter: "center" },
+  { id: "BayiLahirHidup", label: "Bayi Lahir Hidup", alignCenter: "center" },
+  { id: "BayiLahirMati", label: "Bayi Lahir Mati", alignCenter: "center" },
   { id: "kn1", label: "KN 1", alignCenter: "center" },
   { id: "kn2", label: "KN 2", alignCenter: "center" },
   { id: "fullKn", label: "KN Lengkap", alignCenter: "center" },
@@ -52,7 +53,7 @@ const TABLE_HEAD = [
     label: "Neonatal Komplikasi",
     alignCenter: "center",
   },
-  { id: "perfectBaby", label: "Bayi Paripurna", alignCenter: "center" },
+  { id: "BayiParipurna", label: "Bayi Paripurna", alignCenter: "center" },
   { id: "" },
 ];
 
@@ -206,18 +207,18 @@ function DataCoc(datacoc) {
                     .map((row) => {
                       const {
                         id,
-                        monthYear,
-                        pkm,
-                        target,
-                        babyLive,
-                        babyDead,
+                        Bulan,
+                        Puskesmas,
+                        Sasaran,
+                        BayiHidup,
+                        BayiMati,
                         kn1,
                         kn2,
                         fullKn,
                         complicationNeotal,
-                        perfectBaby,
+                        BayiParipurna,
                       } = row;
-                      const isItemSelected = selected.indexOf(monthYear) !== -1;
+                      const isItemSelected = selected.indexOf(Bulan) !== -1;
 
                       return (
                         <TableRow
@@ -232,9 +233,7 @@ function DataCoc(datacoc) {
                           <TableCell padding="checkbox">
                             <Checkbox
                               checked={isItemSelected}
-                              onChange={(event) =>
-                                handleClick(event, monthYear)
-                              }
+                              onChange={(event) => handleClick(event, Bulan)}
                             />
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
@@ -249,7 +248,7 @@ function DataCoc(datacoc) {
                                 noWrap
                                 style={{ flexGrow: 1, textAlign: "center" }}
                               >
-                                {monthYear}
+                                {Bulan}
                               </Typography>
                             </Stack>
                           </TableCell>
@@ -268,7 +267,7 @@ function DataCoc(datacoc) {
                                 noWrap
                                 style={{ flexGrow: 1, textAlign: "center" }}
                               >
-                                {pkm}
+                                {Puskesmas}
                               </Typography>
                             </Stack>
                           </TableCell>
@@ -284,7 +283,7 @@ function DataCoc(datacoc) {
                                 noWrap
                                 style={{ flexGrow: 1, textAlign: "center" }}
                               >
-                                {target}
+                                {Sasaran}
                               </Typography>
                             </Stack>
                           </TableCell>
@@ -300,7 +299,7 @@ function DataCoc(datacoc) {
                                 noWrap
                                 style={{ flexGrow: 1, textAlign: "center" }}
                               >
-                                {babyLive}
+                                {BayiHidup}
                               </Typography>
                             </Stack>
                           </TableCell>
@@ -316,7 +315,7 @@ function DataCoc(datacoc) {
                                 noWrap
                                 style={{ flexGrow: 1, textAlign: "center" }}
                               >
-                                {babyDead}
+                                {BayiMati}
                               </Typography>
                             </Stack>
                           </TableCell>
@@ -396,7 +395,7 @@ function DataCoc(datacoc) {
                                 noWrap
                                 style={{ flexGrow: 1, textAlign: "center" }}
                               >
-                                {perfectBaby}
+                                {BayiParipurna}
                               </Typography>
                             </Stack>
                           </TableCell>
@@ -441,15 +440,13 @@ function DataCoc(datacoc) {
   );
 }
 const mapStateToProps = (state) => {
+  // console.log(state);
   return {
-    data: state.dataCoc.CocExemplar,
+    data: state.firestore.ordered.KIA,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addDataCoc: (dataCoc) => dispatch(addDataCoc(dataCoc)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(DataCoc);
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: "KIA" }])
+)(DataCoc);

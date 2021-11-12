@@ -3,6 +3,9 @@ import React, { Component } from "react";
 import { Box, Grid, Container, Typography, Card } from "@mui/material";
 import Dropzone from "react-dropzone";
 import csv from "csv";
+import * as XLSX from "xlsx";
+import { connect } from "react-redux";
+import { addDataCoc } from "views/store/actions/datacocAction";
 // components
 import Page from "../components/Page";
 // import {
@@ -62,6 +65,97 @@ class InsertData extends Component {
       KunjunganBayiParipurnaTL: "",
     };
   }
+  round(value, exp) {
+    if (typeof exp === "undefined" || +exp === 0) return Math.round(value);
+    value = +value;
+    exp = +exp;
+    if (isNaN(value) || !(typeof exp === "number" && exp % 1 === 0)) return NaN;
+    // Shift
+    value = value.toString().split("e");
+    value = Math.round + value[0] + "e" + (value[1] ? +value[1] + exp : exp);
+    // Shift back
+    value = value.toString().split("e");
+    return +value[0] + "e" + (value[1] ? +value[1] - exp : -exp);
+  }
+
+  readExcell = (event) => {
+    this.setState({ files: event });
+    const file = this.state.files[0];
+    const promise = new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsBinaryString(file);
+      fileReader.onload = (e) => {
+        const bufferArray = e.target.result;
+        const wb = XLSX.read(bufferArray, { type: "binary" });
+        const wsname = wb.SheetNames[0];
+        const ws = wb.Sheets[wsname];
+        const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
+        resolve(data);
+        const tahun = data[2][0];
+        const dateSplit = tahun.split(" ");
+        for (var i = 7; i < 13; i++) {
+          const SasaranBayiRistiLKRound = this.round(data[i][5]);
+          const SasaranBayiRistiPRRound = this.round(data[i][6]);
+          const SasaranBayiRistiTLRound = this.round(data[i][7]);
+          this.setState({
+            Tahun: dateSplit[3],
+            Bulan: dateSplit[1],
+            Puskesmas: data[i][1],
+            SasaranKelahiranHidupLK: data[i][2],
+            SasaranKelahiranHidupPR: data[i][3],
+            SasaranKelahiranHidupTL: data[i][4],
+            SasaranBayiRistiLK: SasaranBayiRistiLKRound,
+            SasaranBayiRistiPR: SasaranBayiRistiPRRound,
+            SasaranBayiRistiTL: SasaranBayiRistiTLRound,
+            SasaranBayiLK: data[i][8],
+            SasaranBayiPR: data[i][9],
+            SasaranBayiTL: data[i][10],
+            PencapaianLahirHidupLK: data[i][14],
+            PencapaianLahirHidupPR: data[i][15],
+            PencapaianLahirHidupTL: data[i][16],
+            PencapaianLahirMatiLK: data[i][27],
+            PencapaianLahirMatiPR: data[i][28],
+            PencapaianLahirMatiTL: data[i][29],
+            PencapaianKNPertamaLK: data[i][40],
+            PencapaianKNPertamaPR: data[i][41],
+            PencapaianKNPertamaTL: data[i][42],
+            PencapaianKNKeduaLK: data[i][53],
+            PencapaianKNKeduaPR: data[i][54],
+            PencapaianKNKeduaTL: data[i][55],
+            PencapaianKNLengkapLK: data[i][67],
+            PencapaianKNLengkapPR: data[i][68],
+            PencapaianKNLengkapTL: data[i][69],
+            NeonatalKompLK: data[i][80],
+            NeonatalKompPR: data[i][81],
+            NeonatalKompTL: data[i][82],
+            KunjunganBayiParipurnaLK: data[i][92],
+            KunjunganBayiParipurnaPR: data[i][93],
+            KunjunganBayiParipurnaTL: data[i][94],
+          });
+          //   const name = data[i][0];
+          //   const phoneNumber = data[i][1];
+          //   const address = data[i][2];
+          //   const classType = data[i][3];
+          //   const newUser = {
+          //     name: name,
+          //     phoneNumber: phoneNumber,
+          //     address: address,
+          //     class: classType,
+          const { files, ...finalData } = this.state;
+          console.log(files);
+          this.props.addDataCoc(finalData);
+        }
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+
+    promise.then((d) => {
+      console.log(d);
+    });
+  };
   onDrop(files) {
     this.setState({ files });
     var file = files[0];
@@ -127,6 +221,7 @@ class InsertData extends Component {
       });
     };
     reader.readAsBinaryString(file);
+    // this.props.addDataCoc(this.state);
   }
 
   render() {
@@ -155,7 +250,7 @@ class InsertData extends Component {
                   boxShadow: "3px 3px 10px #9E9E9E",
                 }}
               >
-                <Dropzone onDrop={this.onDrop.bind(this)}>
+                <Dropzone onDrop={this.readExcell.bind(this)}>
                   {({ getRootProps, getInputProps }) => (
                     <section
                       className="container"
@@ -232,4 +327,16 @@ class InsertData extends Component {
   }
 }
 
-export default InsertData;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addDataCoc: (dataCoc) => dispatch(addDataCoc(dataCoc)),
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    dataCoc: state.dataCoc,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(InsertData);

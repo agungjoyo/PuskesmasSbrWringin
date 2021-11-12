@@ -4,7 +4,7 @@ export const addDataCoc = (dataCoc) => {
     // make async call to database
     const firestore = getFirestore();
     firestore
-      .collection("DataCoc")
+      .collection("KIA")
       .add({
         ...dataCoc,
         createdAt: new Date(),
