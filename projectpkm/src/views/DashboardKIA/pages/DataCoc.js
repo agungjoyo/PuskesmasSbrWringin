@@ -6,9 +6,9 @@ import chartLineData from "@iconify/icons-carbon/chart-line-data";
 import { useState } from "react";
 import { connect } from "react-redux";
 import plusFill from "@iconify/icons-eva/plus-fill";
-import { compose } from "redux";
+import { compose } from "redux"; // database
 import { Link as RouterLink } from "react-router-dom";
-import { firestoreConnect } from "react-redux-firebase";
+import { firestoreConnect } from "react-redux-firebase"; //database
 // material
 import {
   Card,
@@ -442,11 +442,11 @@ function DataCoc(datacoc) {
 const mapStateToProps = (state) => {
   // console.log(state);
   return {
-    data: state.firestore.ordered.KIA,
+    data: state.firestore.ordered.KIA, //database
   };
 };
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: "KIA" }])
+  firestoreConnect([{ collection: "KIA" }]) // database
 )(DataCoc);
