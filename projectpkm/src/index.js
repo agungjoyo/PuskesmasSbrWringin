@@ -25,17 +25,19 @@ const store = createStore(
       thunk.withExtraArgument({ getFirebase, getFirestore, hist })
     ),
     reduxFirestore(fbConfig),
-    reactReduxFirebase(fbConfig)
+    reactReduxFirebase(fbConfig, { attachAuthIsReady: true })
   )
 );
 
-ReactDOM.render(
-  <Provider store={store}>
-    <HelmetProvider history={hist}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </HelmetProvider>
-  </Provider>,
-  document.getElementById("root")
-);
+store.firebaseAuthIsReady.then(() => {
+  ReactDOM.render(
+    <Provider store={store}>
+      <HelmetProvider history={hist}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </HelmetProvider>
+    </Provider>,
+    document.getElementById("root")
+  );
+});

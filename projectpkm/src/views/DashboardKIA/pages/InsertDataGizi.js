@@ -8,7 +8,7 @@ import Page from "../components/Page";
 
 //import { initial } from "lodash";
 
-class InsertDataImunisasi extends Component {
+class InsertDataGizi extends Component {
   state = {
     files: [],
   };
@@ -45,7 +45,7 @@ class InsertDataImunisasi extends Component {
       <Page title="Dashboard | Imunisasi">
         <Container maxWidth="xl">
           <Box sx={{ pb: 5 }}>
-            <Typography variant="h4"> Insert Data Imunisasi</Typography>
+            <Typography variant="h4"> Insert Data Gizi</Typography>
           </Box>
           <Grid container spacing={3}>
             <Grid
@@ -101,4 +101,4 @@ class InsertDataImunisasi extends Component {
   }
 }
 
-export default InsertDataImunisasi;
+export default InsertDataGizi;

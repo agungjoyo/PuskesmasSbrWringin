@@ -69,14 +69,14 @@ const columns = [
   },
 ];
 
-function createData(no, code, population, size) {
+function createData(name, code, population, size) {
   const density = population / size;
-  return { no, code, population, size, density };
+  return { name, code, population, size, density };
 }
 
 const rows = [createData("India", "IN", 1324171354, 3287263)];
 
-export default function ColumnGroupingTable() {
+export default function DataCocImun() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 

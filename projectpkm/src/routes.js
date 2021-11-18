@@ -18,8 +18,10 @@ import Login from "views/DashboardKIA/pages/Login";
 import Register from "views/DashboardKIA/pages/Register";
 import DataCoc from "views/DashboardKIA/pages/DataCoc";
 import DataCocImunisasi from "views/DashboardKIA/pages/DataCocImunisasi";
+import DataCocGizi from "views/DashboardKIA/pages/DataCocGizi";
 import InsertData from "views/DashboardKIA/pages/InsertData";
 import InsertDataImunisasi from "views/DashboardKIA/pages/InsertDataImunisasi";
+import InsertDataGizi from "views/DashboardKIA/pages/InsertDataGizi";
 
 export default function Router() {
   return useRoutes([
@@ -33,10 +35,12 @@ export default function Router() {
         { path: "user", element: <User /> },
         { path: "data-coc", element: <DataCoc /> },
         { path: "data-coc-imun", element: <DataCocImunisasi /> },
+        { path: "data-coc-gizi", element: <DataCocGizi /> },
         { path: "products", element: <Products /> },
         { path: "blog", element: <Blog /> },
         { path: "InsertData", element: <InsertData /> },
         { path: "InsertDataImunisasi", element: <InsertDataImunisasi /> },
+        { path: "InsertDataGizi", element: <InsertDataGizi /> },
       ],
     },
     {
