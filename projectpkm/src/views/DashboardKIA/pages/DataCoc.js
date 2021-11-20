@@ -72,15 +72,49 @@ class DataCoc extends Component {
       stabilizedThis.sort((a, b) => {
         const order = comparator(a[0], b[0]);
         if (order !== 0) return order;
+        console.log(a, b, order);
         return a[1] - b[1];
       });
       if (query) {
-        return filter(
-          array,
-          (_user) =>
-            _user.monthYear?.toLowerCase().indexOf(query.toLowerCase()) !== -1
-        );
+        return filter(array, (value) => {
+          return (
+            value.Bulan?.toLowerCase().includes(query.toLowerCase()) ||
+            value.Puskesmas?.toLowerCase().includes(query.toLowerCase()) ||
+            value.SasaranBayiTL?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.PencapaianLahirHidupTL?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.PencapaianLahirMatiTL?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.PencapaianKNPertamaTL?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.PencapaianKNKeduaTL?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.PencapaianKNLengkapTL?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.NeonatalKompTL?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.KunjunganBayiParipurnaTL?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase())
+          );
+        });
+        // const filteredData = data.filter(item => {
+        //   return Object.keys(item).some(key =>
+        //     item[key].toLowerCase().includes(lowercasedFilter)
+        //   );
+        // return filter(array, (_user) => {
+        //   _user.Bulan?.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+        // });
       }
+      // return stabilizedThis.map((el) => el[0]);
       return stabilizedThis.map((el) => el[0]);
     }
     if (data == undefined) {
@@ -125,17 +159,23 @@ class DataCoc extends Component {
       const handleRequestSort = (event, property) => {
         const isAsc =
           this.state.orderBy === property && this.state.order === "asc";
-        this.state.orderBy(isAsc ? "desc" : "asc");
-        this.state.orderBy(property);
+        // this.state.orderBy(isAsc ? "desc" : "asc");
+        const orderBy = isAsc ? "desc" : "asc";
+        console.log(orderBy);
+        isAsc
+          ? this.setState({ order: "desc" })
+          : this.setState({ order: "asc" });
+        // this.state.orderBy(property);
+        this.setState({ orderBy: property });
       };
 
       const handleSelectAllClick = (event) => {
         if (event.target.checked) {
           const newSelecteds = data.map((n) => n.name);
-          this.state.selected(newSelecteds);
+          this.setState({ selected: newSelecteds });
           return;
         }
-        this.state.selected([]);
+        this.setState({ selected: [] });
       };
 
       const handleClick = (event, name) => {
@@ -153,16 +193,21 @@ class DataCoc extends Component {
             this.state.selected.slice(selectedIndex + 1)
           );
         }
-        this.state.selected(newSelected);
+        // this.state.selected(newSelected);
+        this.setState({ selected: newSelected });
       };
 
       const handleChangePage = (event, newPage) => {
-        this.page(newPage);
+        // this.state.page(newPage);
+        this.setState({ page: newPage });
       };
 
       const handleChangeRowsPerPage = (event) => {
-        this.state.page(parseInt(event.target.value, 10));
-        this.state.page(0);
+        this.setState({ rowsPerPage: event.target.value });
+        // this.state.page(parseInt(event.target.value, 10));
+        // this.setState({ page: parseInt(event.target.value, 10) });
+        // this.state.page(0);
+        // this.setState({ page: 0 });
       };
 
       const handleFilterByName = (event) => {
@@ -187,8 +232,7 @@ class DataCoc extends Component {
       );
 
       const isUserNotFound = filteredUsers.length === 0;
-      console.log(data);
-      console.log(this.state);
+      console.log(this.state, filteredUsers);
       return (
         <Page title="Data CoC | Minimal-UI">
           <Container>
