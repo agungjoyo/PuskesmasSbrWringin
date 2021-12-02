@@ -35,9 +35,12 @@ class LoginForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+    console.log(this.props);
     this.props.signIn(this.state);
     this.setState({ loading: true });
+    if (this.props.auth !== undefined) {
+      this.setState({ loading: false });
+    }
   };
 
   handleChange = (e) => {
