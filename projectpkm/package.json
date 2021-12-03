@@ -23,6 +23,7 @@
     "@mui/icons-material": "^5.0.4",
     "@mui/lab": "^5.0.0-alpha.51",
     "@mui/material": "^5.0.4",
+    "@mui/styles": "^5.2.1",
     "@mui/utils": "^5.0.1",
     "apexcharts": "^3.29.0",
     "change-case": "^4.1.2",

@@ -1,99 +1,20 @@
-import React from "react";
+import { Component } from "react";
 // material
-import { alpha, useTheme } from "@mui/material/styles";
-import { GlobalStyles } from "@mui/material";
+import { withTheme } from "@mui/styles";
 
 // ----------------------------------------------------------------------
 
-export function BaseOptionChartStyle() {
-  const theme = useTheme();
-
-  const background = {
-    backdropFilter: "blur(6px)",
-    WebkitBackdropFilter: "blur(6px)", // Fix on Mobile
-    backgroundColor: alpha(theme.palette.background.default, 0.72),
-  };
-
-  return (
-    <GlobalStyles
-      styles={{
-        "&.apexcharts-canvas": {
-          // Tooltip
-          ".apexcharts-xaxistooltip": {
-            ...background,
-            border: 0,
-            boxShadow: theme.customShadows.z24,
-            color: theme.palette.text.primary,
-            borderRadius: theme.shape.borderRadiusSm,
-            "&:before": { borderBottomColor: "transparent" },
-            "&:after": {
-              borderBottomColor: alpha(theme.palette.background.default, 0.72),
-            },
-          },
-          ".apexcharts-tooltip.apexcharts-theme-light": {
-            ...background,
-            border: 0,
-            boxShadow: theme.customShadows.z24,
-            borderRadius: theme.shape.borderRadiusSm,
-            "& .apexcharts-tooltip-title": {
-              border: 0,
-              textAlign: "center",
-              fontWeight: theme.typography.fontWeightBold,
-              backgroundColor: theme.palette.grey[500_16],
-              color:
-                theme.palette.text[
-                  theme.palette.mode === "light" ? "secondary" : "primary"
-                ],
-            },
-          },
-          // Legend
-          ".apexcharts-legend": {
-            padding: 0,
-          },
-          ".apexcharts-legend-series": {
-            display: "flex !important",
-            alignItems: "center",
-          },
-          ".apexcharts-legend-marker": {
-            marginRight: 8,
-          },
-          ".apexcharts-legend-text": {
-            lineHeight: "18px",
-            textTransform: "capitalize",
-          },
-        },
-      }}
-    />
-  );
-}
-
-export default function BaseOptionChart() {
-  const theme = useTheme();
-
-  const LABEL_TOTAL = {
-    show: true,
-    label: "Total",
-    color: theme.palette.text.secondary,
-    ...theme.typography.subtitle2,
-  };
-
-  const LABEL_VALUE = {
-    offsetY: 8,
-    color: theme.palette.text.primary,
-    ...theme.typography.h3,
-  };
-
-  return {
+class BaseOptionChart extends Component {
+  state = {
     // Colors
     colors: [
-      theme.palette.primary.main,
-      theme.palette.chart.yellow[0],
-      theme.palette.chart.blue[0],
-      theme.palette.chart.violet[0],
-      theme.palette.chart.green[0],
-      theme.palette.chart.red[0],
+      this.props.theme.palette.primary.main,
+      this.props.theme.palette.chart.yellow[0],
+      this.props.theme.palette.chart.blue[0],
+      this.props.theme.palette.chart.violet[0],
+      this.props.theme.palette.chart.green[0],
+      this.props.theme.palette.chart.red[0],
     ],
-
     // Chart
     chart: {
       dropShadow: {
@@ -120,8 +41,8 @@ export default function BaseOptionChart() {
           speed: 350,
         },
       },
-      foreColor: theme.palette.text.disabled,
-      fontFamily: theme.typography.fontFamily,
+      foreColor: this.props.theme.palette.text.disabled,
+      fontFamily: this.props.theme.typography.fontFamily,
     },
 
     // States
@@ -165,7 +86,7 @@ export default function BaseOptionChart() {
     // Grid
     grid: {
       strokeDashArray: 3,
-      borderColor: theme.palette.divider,
+      borderColor: this.props.theme.palette.divider,
     },
 
     // Xaxis
@@ -177,7 +98,7 @@ export default function BaseOptionChart() {
     // Markers
     markers: {
       size: 0,
-      strokeColors: theme.palette.background.paper,
+      strokeColors: this.props.theme.palette.background.paper,
     },
 
     // Tooltip
@@ -191,7 +112,7 @@ export default function BaseOptionChart() {
     legend: {
       show: true,
       fontSize: 13,
-      position: "top",
+      position: "bottom",
       horizontalAlign: "right",
       markers: {
         radius: 12,
@@ -199,7 +120,7 @@ export default function BaseOptionChart() {
       fontWeight: 500,
       itemMargin: { horizontal: 12 },
       labels: {
-        colors: theme.palette.text.primary,
+        colors: this.props.theme.palette.text.primary,
       },
     },
 
@@ -215,8 +136,17 @@ export default function BaseOptionChart() {
         donut: {
           labels: {
             show: true,
-            value: LABEL_VALUE,
-            total: LABEL_TOTAL,
+            value: {
+              offsetY: 8,
+              color: this.props.theme.palette.text.primary,
+              ...this.props.theme.typography.h3,
+            },
+            total: {
+              show: true,
+              label: "Total",
+              color: this.props.theme.palette.text.secondary,
+              ...this.props.theme.typography.subtitle2,
+            },
           },
         },
       },
@@ -224,28 +154,37 @@ export default function BaseOptionChart() {
       radialBar: {
         track: {
           strokeWidth: "100%",
-          background: theme.palette.grey[500_16],
+          background: this.props.theme.palette.grey[500_16],
         },
         dataLabels: {
-          value: LABEL_VALUE,
-          total: LABEL_TOTAL,
+          value: {
+            offsetY: 8,
+            color: this.props.theme.palette.text.primary,
+            ...this.props.theme.typography.h3,
+          },
+          total: {
+            show: true,
+            label: "Total",
+            color: this.props.theme.palette.text.secondary,
+            ...this.props.theme.typography.subtitle2,
+          },
         },
       },
       // Radar
       radar: {
         polygons: {
           fill: { colors: ["transparent"] },
-          strokeColors: theme.palette.divider,
-          connectorColors: theme.palette.divider,
+          strokeColors: this.props.theme.palette.divider,
+          connectorColors: this.props.theme.palette.divider,
         },
       },
       // polarArea
       polarArea: {
         rings: {
-          strokeColor: theme.palette.divider,
+          strokeColor: this.props.theme.palette.divider,
         },
         spokes: {
-          connectorColors: theme.palette.divider,
+          connectorColors: this.props.theme.palette.divider,
         },
       },
     },
@@ -254,7 +193,7 @@ export default function BaseOptionChart() {
     responsive: [
       {
         // sm
-        breakpoint: theme.breakpoints.values.sm,
+        breakpoint: this.props.theme.breakpoints.values.sm,
         options: {
           plotOptions: { bar: { columnWidth: "40%", borderRadius: 4 } },
         },
@@ -270,7 +209,7 @@ export default function BaseOptionChart() {
       },
       {
         // md
-        breakpoint: theme.breakpoints.values.md,
+        breakpoint: this.props.theme.breakpoints.values.md,
         options: {
           plotOptions: { bar: { columnWidth: "32%", borderRadius: 4 } },
         },
@@ -318,4 +257,9 @@ export default function BaseOptionChart() {
       },
     ],
   };
+  render() {
+    return this.state;
+  }
 }
+export { default as BaseOptionChartStyle } from "./BaseOptionChartStyle";
+export default withTheme(BaseOptionChart);
