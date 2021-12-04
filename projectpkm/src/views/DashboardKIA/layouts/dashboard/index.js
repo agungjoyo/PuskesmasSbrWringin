@@ -5,6 +5,8 @@ import { styled } from "@mui/material/styles";
 //
 import DashboardNavbar from "./DashboardNavbar";
 import DashboardSidebar from "./DashboardSidebar";
+import { Navigate } from "react-router-dom";
+import { connect } from "react-redux";
 
 // ----------------------------------------------------------------------
 
@@ -32,7 +34,7 @@ const MainStyle = styled("div")(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default class DashboardLayout extends Component {
+class DashboardLayout extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,6 +43,8 @@ export default class DashboardLayout extends Component {
   }
 
   render() {
+    const { auth } = this.props;
+    if (!auth.uid) return <Navigate to="/" />;
     return (
       <RootStyle>
         <DashboardNavbar onOpenSidebar={() => this.setState({ open: true })} />
@@ -55,3 +59,12 @@ export default class DashboardLayout extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  console.log(state.firebase.auth);
+  return {
+    authError: state.auth.authError,
+    auth: state.firebase.auth,
+  };
+};
+
+export default connect(mapStateToProps)(DashboardLayout);

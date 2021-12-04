@@ -91,6 +91,7 @@ class InsertData extends Component {
         const ws = wb.Sheets[wsname];
         const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
         resolve(data);
+        console.log(data);
         const tahun = data[2][0];
         const dateSplit = tahun.split(" ");
         for (var i = 7; i < 13; i++) {

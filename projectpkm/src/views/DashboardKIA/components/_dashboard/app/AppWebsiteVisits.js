@@ -38,21 +38,40 @@ class AppWebsiteVisits extends Component {
   state = {
     options: {
       stroke: { width: [3, 3, 3] },
+      chart: {
+        id: "basic-bar",
+        dropShadow: {
+          enabled: true,
+          enabledOnSeries: undefined,
+          top: 2,
+          left: 3,
+          blur: 2,
+          color: "#9E9E9E",
+          opacity: 0.55,
+        },
+        toolbar: { show: true, offsetY: -25, offsetX: -5 },
+        zoom: { enabled: false },
+        animations: {
+          enabled: true,
+          easing: "easeinout",
+          speed: 1000,
+          animateGradually: {
+            enabled: true,
+            delay: 2000,
+          },
+          dynamicAnimation: {
+            enabled: true,
+            speed: 350,
+          },
+        },
+      },
       plotOptions: { bar: { columnWidth: "45%", borderRadius: 8 } },
       fill: {
         type: ["solid", "solid", "solid"],
       },
-      chart: {
-        id: "basic-bar",
+      dataLabels: {
+        enabled: false,
       },
-      labels: [
-        "Tegaljati",
-        "RejoAgung",
-        "SukoRejo",
-        "Sukosari Kidul",
-        "Sumber Gading",
-        "Sumber Wringin",
-      ],
       grid: {
         show: false,
         padding: {
@@ -63,6 +82,7 @@ class AppWebsiteVisits extends Component {
         },
       },
       xaxis: {
+        type: "category",
         categories: [],
       },
     },
@@ -84,6 +104,22 @@ class AppWebsiteVisits extends Component {
       },
     ],
   };
+  componentDidUpdate() {
+    const { data } = this.props;
+    if (data !== undefined) {
+      for (var i = 0; i < data.length; i++) {
+        console.log(
+          data[i].SasaranBayiTL,
+          data[i].PencapaianLahirHidupTL,
+          data[i].PencapaianLahirMatiTL
+        );
+        this.state.series[0].data.push(data[i].SasaranBayiTL);
+        this.state.series[1].data.push(data[i].PencapaianLahirHidupTL);
+        this.state.series[2].data.push(data[i].PencapaianLahirMatiTL);
+        this.state.options.xaxis.categories.push(data[i].Puskesmas);
+      }
+    }
+  }
   componentDidMount() {
     const { data } = this.props;
     if (data !== undefined) {
@@ -96,6 +132,7 @@ class AppWebsiteVisits extends Component {
         this.state.series[0].data.push(data[i].SasaranBayiTL);
         this.state.series[1].data.push(data[i].PencapaianLahirHidupTL);
         this.state.series[2].data.push(data[i].PencapaianLahirMatiTL);
+        this.state.options.xaxis.categories.push(data[i].Puskesmas);
       }
     }
   }
@@ -156,7 +193,7 @@ class AppWebsiteVisits extends Component {
             />
             <Box sx={{ p: 3, pb: 1 }} dir="ltr">
               <ReactApexChart
-                type="line"
+                type="bar"
                 series={this.state.series}
                 options={this.state.options}
                 height={300}
