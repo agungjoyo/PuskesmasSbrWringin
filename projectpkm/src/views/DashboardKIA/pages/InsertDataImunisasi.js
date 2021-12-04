@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // material
 import { Box, Grid, Container, Typography, Card } from "@mui/material";
 import Dropzone from "react-dropzone";
-import csv from "csv";
+//import csv from "csv";
 import * as XLSX from "xlsx";
 import { connect } from "react-redux";
 import { addDataCocImun } from "views/store/actions/datacocimunAction";
@@ -16,36 +16,36 @@ class InsertDataImunisasi extends Component {
     super();
     this.state = {
       files: [],
-      // Bulan: "",
-      // Puskesmas: "",
-      // SasaranBayiBaruLahir: "",
-      // SasaranSurvivingInfant: "",
-      // HBOLessOneDLM: "",
-      // HBOLessOneDTM: "",
-      // BCGLastMonth: "",
-      // BCGThisMonth: "",
-      // HBOLessOneWLM: "",
-      // HBOLessOneWTM: "",
-      // Polio1LastMonth: "",
-      // Polio1ThisMonth: "",
-      // DPTHB1LastMonth: "",
-      // DPTHB1ThisMonth: "",
-      // Polio2LastMonth: "",
-      // Polio2ThisMonth: "",
-      // DPTHB2LastMonth: "",
-      // DPTHB2ThisMonth: "",
-      // Polio3LastMonth: "",
-      // Polio3ThisMonth: "",
-      // DPTHB3LastMonth: "",
-      // DPTHB3ThisMonth: "",
-      // Polio4LastMonth: "",
-      // Polio4ThisMonth: "",
-      // IPVLastMonth: "",
-      // IPVThisMonth: "",
-      // CampakRubellaLM: "",
-      // CampakRubellaTM: "",
-      // IDLLastMonth: "",
-      // IDLThisMonth: "",
+      Bulan: "",
+      Puskesmas: "",
+      SasaranBayiBaruLahir: "",
+      SasaranSurvivingInfant: "",
+      HBOLessOneDLM: "",
+      HBOLessOneDTM: "",
+      BCGLastMonth: "",
+      BCGThisMonth: "",
+      HBOLessOneWLM: "",
+      HBOLessOneWTM: "",
+      Polio1LastMonth: "",
+      Polio1ThisMonth: "",
+      DPTHB1LastMonth: "",
+      DPTHB1ThisMonth: "",
+      Polio2LastMonth: "",
+      Polio2ThisMonth: "",
+      DPTHB2LastMonth: "",
+      DPTHB2ThisMonth: "",
+      Polio3LastMonth: "",
+      Polio3ThisMonth: "",
+      DPTHB3LastMonth: "",
+      DPTHB3ThisMonth: "",
+      Polio4LastMonth: "",
+      Polio4ThisMonth: "",
+      IPVLastMonth: "",
+      IPVThisMonth: "",
+      CampakRubellaLM: "",
+      CampakRubellaTM: "",
+      IDLLastMonth: "",
+      IDLThisMonth: "",
     };
   }
   round(value, exp) {
@@ -74,13 +74,33 @@ class InsertDataImunisasi extends Component {
         const ws = wb.Sheets[wsname];
         const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
         resolve(data);
-        const bulan = data[2][0];
+
+        const bulan = data[2][2];
         const dateSplit = bulan.split(" ");
-        for (var i = 7; i < 13; i++) {
+        if (dateSplit[2] == undefined) {
           this.setState({
-            Bulan: dateSplit[3],
+            Bulan: dateSplit[1],
+          });
+        } else {
+          this.setState({
+            Bulan: dateSplit[2],
+          });
+        }
+
+        console.log(data, dateSplit, this.state);
+
+        for (var i = 7; i < 13; i++) {
+          if (dateSplit[2] == undefined) {
+            this.setState({
+              Bulan: dateSplit[1],
+            });
+          } else {
+            this.setState({
+              Bulan: dateSplit[2],
+            });
+          }
+          this.setState({
             Puskesmas: data[i][1],
-            Desa: data[i][1],
             SasaranBayiBaruLahir: data[i][2],
             SasaranSurvivingInfant: data[i][3],
             HBOLessOneDLM: data[i][4],
@@ -125,56 +145,6 @@ class InsertDataImunisasi extends Component {
       console.log(d);
     });
   };
-  onDrop(files) {
-    this.setState({ files });
-    var file = files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      csv.parse({ delimiter: ";" }, reader.result, (err, data) => {
-        const bulan = data[2][0];
-        const dateSplit = bulan.split(" ");
-        this.setState({
-          Bulan: dateSplit[3],
-        });
-
-        console.log(data);
-        for (var i = 7; i < 13; i++) {
-          this.setState({
-            Puskesmas: data[i][1],
-            SasaranBayiBaruLahir: data[i][2],
-            SasaranSurvivingInfant: data[i][3],
-            HBOLessOneDLM: data[i][4],
-            HBOLessOneDTM: data[i][5],
-            BCGLastMonth: data[i][8],
-            BCGThisMonth: data[i][9],
-            HBOLessOneWLM: data[i][12],
-            HBOLessOneWTM: data[i][13],
-            Polio1LastMonth: data[i][16],
-            Polio1ThisMonth: data[i][17],
-            DPTHB1LastMonth: data[i][20],
-            DPTHB1ThisMonth: data[i][21],
-            Polio2LastMonth: data[i][24],
-            Polio2ThisMonth: data[i][25],
-            DPTHB2LastMonth: data[i][28],
-            DPTHB2ThisMonth: data[i][29],
-            Polio3LastMonth: data[i][32],
-            Polio3ThisMonth: data[i][33],
-            DPTHB3LastMonth: data[i][36],
-            DPTHB3ThisMonth: data[i][37],
-            Polio4LastMonth: data[i][41],
-            Polio4ThisMonth: data[i][42],
-            IPVLastMonth: data[i][44],
-            IPVThisMonth: data[i][45],
-            CampakRubellaLM: data[i][48],
-            CampakRubellaTM: data[i][49],
-            IDLLastMonth: data[i][52],
-            IDLThisMonth: data[i][53],
-          });
-        }
-      });
-    };
-    reader.readAsBinaryString(file);
-  }
   render() {
     console.log(this.state);
     return (

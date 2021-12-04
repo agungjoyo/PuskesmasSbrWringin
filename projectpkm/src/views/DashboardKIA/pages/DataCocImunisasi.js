@@ -77,13 +77,10 @@ class DataCocImun extends Component {
             value.Puskesmas?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
-            value.Desa?.toString()
+            value.SasaranBayiBarulahir?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
             value.SasaranSurvivingInfant?.toString()
-              .toLowerCase()
-              .includes(query.toLowerCase()) ||
-            value.SasaranBayiBarulahir?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
             value.BCGLastMonth?.toString()
@@ -175,17 +172,14 @@ class DataCocImun extends Component {
       const TABEL_IMUN = [
         { id: "Bulan", label: "Bulan", alignCenter: "center" },
         { id: "Puskesmas", label: "Puskesmas", alignCenter: "center" },
-        { id: "Desa", label: "Desa", alignCenter: "center" },
         {
           id: "SasaranBayiBarulahir",
           label: "Sasaran BBL",
-          minWidth: 70,
           alignCenter: "center",
         },
         {
           id: "SasaranSurvivingInfant",
           label: "Sasaran SI",
-          minWidth: 70,
           alignCenter: "center",
         },
         { id: "BCGLastMonth", label: "Bulan Lalu", alignCenter: "center" },
@@ -340,7 +334,6 @@ class DataCocImun extends Component {
                           const {
                             id,
                             Bulan,
-                            Desa,
                             Puskesmas,
                             SasaranBayiBaruLahir,
                             SasaranSurvivingInfant,
@@ -425,25 +418,6 @@ class DataCocImun extends Component {
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
                                     {Puskesmas}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
-                              <TableCell
-                                align="center"
-                                style={{ width: "max-content" }}
-                              >
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
-                                    {Desa}
                                   </Typography>
                                 </Stack>
                               </TableCell>

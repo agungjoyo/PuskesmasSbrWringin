@@ -80,5 +80,5 @@ RegularButton.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
 };
-
+RegularButton.displayName = "RegularButton";
 export default RegularButton;
