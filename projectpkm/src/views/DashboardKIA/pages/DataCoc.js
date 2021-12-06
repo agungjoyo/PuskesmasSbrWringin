@@ -103,7 +103,8 @@ class DataCoc extends Component {
               .includes(query.toLowerCase()) ||
             value.KunjunganBayiParipurnaTL?.toString()
               .toLowerCase()
-              .includes(query.toLowerCase())
+              .includes(query.toLowerCase()) ||
+            value.Tahun?.toString().toLowerCase().includes(query.toLowerCase())
           );
         });
         // const filteredData = data.filter(item => {

@@ -4,6 +4,13 @@ import ReactApexChart from "react-apexcharts";
 // material
 import { styled } from "@mui/material/styles";
 import { Card, CardHeader, Box } from "@mui/material";
+import { withTheme } from "@material-ui/core/styles";
+// import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+// import Chip from "@mui/material/Chip";
 //
 // import { BaseOptionChart } from "../../charts";
 // database
@@ -36,6 +43,21 @@ const RootStyle = styled(Card)(({ theme }) => ({
 
 class AppWebsiteVisits extends Component {
   state = {
+    monthIndex: "Januari",
+    month: [
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember",
+    ],
     options: {
       stroke: { width: [3, 3, 3] },
       chart: {
@@ -108,35 +130,100 @@ class AppWebsiteVisits extends Component {
     const { data } = this.props;
     if (data !== undefined) {
       for (var i = 0; i < data.length; i++) {
-        console.log(
-          data[i].SasaranBayiTL,
-          data[i].PencapaianLahirHidupTL,
-          data[i].PencapaianLahirMatiTL
-        );
-        this.state.series[0].data.push(data[i].SasaranBayiTL);
-        this.state.series[1].data.push(data[i].PencapaianLahirHidupTL);
-        this.state.series[2].data.push(data[i].PencapaianLahirMatiTL);
-        this.state.options.xaxis.categories.push(data[i].Puskesmas);
+        if (
+          this.state.monthIndex.toLowerCase() === data[i].Bulan.toLowerCase()
+        ) {
+          console.log(
+            this.state.monthIndex.toLowerCase(),
+            data[i].Bulan.toLowerCase(),
+            data[i].SasaranBayiTL,
+            data[i].PencapaianLahirHidupTL,
+            data[i].PencapaianLahirMatiTL
+          );
+          this.state.series[0].data.push(data[i].SasaranBayiTL);
+          this.state.series[1].data.push(data[i].PencapaianLahirHidupTL);
+          this.state.series[2].data.push(data[i].PencapaianLahirMatiTL);
+          this.state.options.xaxis.categories.push(data[i].Puskesmas);
+        }
       }
     }
   }
   componentDidMount() {
     const { data } = this.props;
     if (data !== undefined) {
-      for (var i = 0; i < data.length; i++) {
-        console.log(
-          data[i].SasaranBayiTL,
-          data[i].PencapaianLahirHidupTL,
-          data[i].PencapaianLahirMatiTL
-        );
-        this.state.series[0].data.push(data[i].SasaranBayiTL);
-        this.state.series[1].data.push(data[i].PencapaianLahirHidupTL);
-        this.state.series[2].data.push(data[i].PencapaianLahirMatiTL);
-        this.state.options.xaxis.categories.push(data[i].Puskesmas);
+      for (var i = 0; i < 6; i++) {
+        if (
+          this.state.monthIndex.toLowerCase() === data[i].Bulan.toLowerCase()
+        ) {
+          console.log(
+            this.state.monthIndex.toLowerCase(),
+            data[i].Bulan.toLowerCase(),
+            data[i].SasaranBayiTL,
+            data[i].PencapaianLahirHidupTL,
+            data[i].PencapaianLahirMatiTL
+          );
+          this.state.series[0].data.push(data[i].SasaranBayiTL);
+          this.state.series[1].data.push(data[i].PencapaianLahirHidupTL);
+          this.state.series[2].data.push(data[i].PencapaianLahirMatiTL);
+          this.state.options.xaxis.categories.push(data[i].Puskesmas);
+        } else {
+          this.setState({
+            series: [
+              {
+                name: "Sasaran",
+                type: "column",
+                data: [],
+              },
+              {
+                name: "Lahir Hidup",
+                type: "column",
+                data: [],
+              },
+              {
+                name: "Lahir Mati",
+                type: "column",
+                data: [],
+              },
+            ],
+          });
+        }
       }
     }
   }
   render() {
+    // const ITEM_HEIGHT = 48;
+    // const ITEM_PADDING_TOP = 8;
+    // const MenuProps = {
+    //   PaperProps: {
+    //     style: {
+    //       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+    //       width: 250,
+    //     },
+    //   },
+    // };
+    function getStyles(month, monthIndex, theme) {
+      return {
+        fontWeight:
+          monthIndex?.indexOf(month) === -1
+            ? theme.typography.fontWeightRegular
+            : theme.typography.fontWeightMedium,
+      };
+    }
+    const handleChange = (event) => {
+      this.setState({
+        monthIndex: event.target.value,
+      });
+    };
+    //================================================For Multiple =================================================================
+    // const handleChange = (event) => {
+    //   const {
+    //     target: { value },
+    //   } = event;
+    //   this.setState({
+    //     monthIndex: typeof value === "string" ? value.split(",") : value,
+    //   });
+    // };
+    //===============================================================================================================================
     const { data } = this.props;
     console.log(this.state, data);
     // const getPuskesmas = () => {
@@ -200,6 +287,45 @@ class AppWebsiteVisits extends Component {
               />
             </Box>
           </Card>
+          <FormControl sx={{ m: 1, minWidth: 100 }}>
+            {/* <InputLabel id="demo-multiple-chip-label">Month</InputLabel> */}
+            <InputLabel id="demo-simple-select-helper-label">Month</InputLabel>
+            <Select
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={this.state.monthIndex}
+              onChange={handleChange}
+              label="Month"
+              //========================Multiple========================
+              // labelId="demo-multiple-chip-label"
+              // id="demo-multiple-chip"
+              // multiple
+              // input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+              // renderValue={(selected) => (
+              //   <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+              //     {selected.map((value) => (
+              //       <Chip key={value} label={value} />
+              //     ))}
+              //   </Box>
+              // )}
+              // MenuProps={MenuProps}
+              //=========================================================
+            >
+              {this.state.month.map((month) => (
+                <MenuItem
+                  key={month}
+                  value={month}
+                  style={getStyles(
+                    this.state.month,
+                    this.state.monthIndex,
+                    this.props.theme
+                  )}
+                >
+                  {month}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </RootStyle>
       );
     }
@@ -215,5 +341,6 @@ const mapStateToProps = (state) => {
 export default compose(
   //database
   firestoreConnect([{ collection: "KIA" }]),
-  connect(mapStateToProps)
+  connect(mapStateToProps),
+  withTheme
 )(AppWebsiteVisits);
