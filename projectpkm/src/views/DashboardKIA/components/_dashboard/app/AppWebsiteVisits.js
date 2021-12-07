@@ -43,7 +43,7 @@ const RootStyle = styled(Card)(({ theme }) => ({
 
 class AppWebsiteVisits extends Component {
   state = {
-    monthIndex: "Januari",
+    monthIndex: "",
     month: [
       "Januari",
       "Februari",
@@ -79,7 +79,7 @@ class AppWebsiteVisits extends Component {
           speed: 1000,
           animateGradually: {
             enabled: true,
-            delay: 2000,
+            delay: 1000,
           },
           dynamicAnimation: {
             enabled: true,
@@ -126,70 +126,112 @@ class AppWebsiteVisits extends Component {
       },
     ],
   };
-  componentDidUpdate() {
+  // componentDidUpdate() {
+  //   const { data } = this.props;
+  //   if (data !== undefined) {
+  //     for (var i = 0; i < data.length; i++) {
+  //       if (
+  //         this.state.monthIndex.toLowerCase() === data[i].Bulan.toLowerCase()
+  //       ) {
+  //         console.log(
+  //           this.state.monthIndex.toLowerCase(),
+  //           data[i].Bulan.toLowerCase(),
+  //           data[i].SasaranBayiTL,
+  //           data[i].PencapaianLahirHidupTL,
+  //           data[i].PencapaianLahirMatiTL
+  //         );
+  //         this.state.series[0].data.push(data[i].SasaranBayiTL);
+  //         this.state.series[1].data.push(data[i].PencapaianLahirHidupTL);
+  //         this.state.series[2].data.push(data[i].PencapaianLahirMatiTL);
+  //         this.state.options.xaxis.categories.push(data[i].Puskesmas);
+  //       }
+  //     }
+  //   }
+  // }
+  // componentDidMount() {
+  //   const { data } = this.props;
+  //   if (data !== undefined) {
+  //     for (var i = 0; i < data.length; i++) {
+  //       if (
+  //         this.state.monthIndex.toLowerCase() === data[i].Bulan.toLowerCase()
+  //       ) {
+  //         console.log(
+  //           this.state.monthIndex.toLowerCase(),
+  //           data[i].Bulan.toLowerCase(),
+  //           data[i].SasaranBayiTL,
+  //           data[i].PencapaianLahirHidupTL,
+  //           data[i].PencapaianLahirMatiTL
+  //         );
+  //         this.state.series[0].data.push(data[i].SasaranBayiTL);
+  //         this.state.series[1].data.push(data[i].PencapaianLahirHidupTL);
+  //         this.state.series[2].data.push(data[i].PencapaianLahirMatiTL);
+  //         this.state.options.xaxis.categories.push(data[i].Puskesmas);
+  //       }
+  //     }
+  //   }
+  // }
+  handleChange = (event) => {
     const { data } = this.props;
-    if (data !== undefined) {
-      for (var i = 0; i < data.length; i++) {
-        if (
-          this.state.monthIndex.toLowerCase() === data[i].Bulan.toLowerCase()
-        ) {
-          console.log(
-            this.state.monthIndex.toLowerCase(),
-            data[i].Bulan.toLowerCase(),
-            data[i].SasaranBayiTL,
-            data[i].PencapaianLahirHidupTL,
-            data[i].PencapaianLahirMatiTL
-          );
-          this.state.series[0].data.push(data[i].SasaranBayiTL);
-          this.state.series[1].data.push(data[i].PencapaianLahirHidupTL);
-          this.state.series[2].data.push(data[i].PencapaianLahirMatiTL);
-          this.state.options.xaxis.categories.push(data[i].Puskesmas);
+    const series1 = [];
+    const series2 = [];
+    const series3 = [];
+    const category = [];
+    console.log(series1);
+    console.log(series2);
+    console.log(series3);
+    console.log(category);
+    this.setState(
+      {
+        monthIndex: event.target.value,
+      },
+      () => {
+        for (var i = 0; i < data.length; i++) {
+          if (
+            this.state.monthIndex.toLowerCase() === data[i].Bulan.toLowerCase()
+          ) {
+            console.log(
+              data,
+              this.state.monthIndex.toLowerCase(),
+              data[i].Bulan.toLowerCase(),
+              data[i].SasaranBayiTL,
+              data[i].PencapaianLahirHidupTL,
+              data[i].PencapaianLahirMatiTL
+            );
+            series1.push(data[i].SasaranBayiTL);
+            series2.push(data[i].PencapaianLahirHidupTL);
+            series3.push(data[i].PencapaianLahirMatiTL);
+            category.push(data[i].Puskesmas);
+          }
         }
+        this.setState({
+          series: [
+            {
+              name: "Sasaran",
+              type: "column",
+              data: series1,
+            },
+            {
+              name: "Lahir Hidup",
+              type: "column",
+              data: series2,
+            },
+            {
+              name: "Lahir Mati",
+              type: "column",
+              data: series3,
+            },
+          ],
+          options: {
+            ...this.state.options,
+            xaxis: {
+              ...this.state.options.xaxis,
+              categories: category,
+            },
+          },
+        });
       }
-    }
-  }
-  componentDidMount() {
-    const { data } = this.props;
-    if (data !== undefined) {
-      for (var i = 0; i < 6; i++) {
-        if (
-          this.state.monthIndex.toLowerCase() === data[i].Bulan.toLowerCase()
-        ) {
-          console.log(
-            this.state.monthIndex.toLowerCase(),
-            data[i].Bulan.toLowerCase(),
-            data[i].SasaranBayiTL,
-            data[i].PencapaianLahirHidupTL,
-            data[i].PencapaianLahirMatiTL
-          );
-          this.state.series[0].data.push(data[i].SasaranBayiTL);
-          this.state.series[1].data.push(data[i].PencapaianLahirHidupTL);
-          this.state.series[2].data.push(data[i].PencapaianLahirMatiTL);
-          this.state.options.xaxis.categories.push(data[i].Puskesmas);
-        } else {
-          this.setState({
-            series: [
-              {
-                name: "Sasaran",
-                type: "column",
-                data: [],
-              },
-              {
-                name: "Lahir Hidup",
-                type: "column",
-                data: [],
-              },
-              {
-                name: "Lahir Mati",
-                type: "column",
-                data: [],
-              },
-            ],
-          });
-        }
-      }
-    }
-  }
+    );
+  };
   render() {
     // const ITEM_HEIGHT = 48;
     // const ITEM_PADDING_TOP = 8;
@@ -209,11 +251,6 @@ class AppWebsiteVisits extends Component {
             : theme.typography.fontWeightMedium,
       };
     }
-    const handleChange = (event) => {
-      this.setState({
-        monthIndex: event.target.value,
-      });
-    };
     //================================================For Multiple =================================================================
     // const handleChange = (event) => {
     //   const {
@@ -294,7 +331,7 @@ class AppWebsiteVisits extends Component {
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               value={this.state.monthIndex}
-              onChange={handleChange}
+              onChange={this.handleChange}
               label="Month"
               //========================Multiple========================
               // labelId="demo-multiple-chip-label"
