@@ -51,7 +51,7 @@ const sidebarConfig = [
   },
   {
     key: "7",
-    title: "register",
+    title: "Tambah Pengguna",
     path: "/register",
     icon: getIcon(personAddFill),
   },
