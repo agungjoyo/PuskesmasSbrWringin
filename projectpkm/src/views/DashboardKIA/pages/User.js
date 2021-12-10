@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 import { filter } from "lodash";
 import { Icon } from "@iconify/react";
 import { sentenceCase } from "change-case";
 import plusFill from "@iconify/icons-eva/plus-fill";
 import { Link as RouterLink, Navigate } from "react-router-dom";
-import { useFormik, Form, FormikProvider } from "formik";
+import { withFormik, Form, FormikProvider } from "formik";
 import eyeFill from "@iconify/icons-eva/eye-fill";
 import eyeOffFill from "@iconify/icons-eva/eye-off-fill";
 //import { useNavigate } from "react-router-dom";
@@ -76,9 +76,11 @@ class User extends Component {
     isLoading: true,
     Position: 0,
     showPassword: false,
+    open: false,
   };
   render() {
     const { data, auth } = this.props;
+    console.log(this.props);
     if (!auth.uid) return <Navigate to="/login" />;
     function descendingComparator(a, b, orderBy) {
       if (b[orderBy] < a[orderBy]) {
@@ -200,45 +202,29 @@ class User extends Component {
 
       //const navigate = useNavigate();
 
-      const RegisterSchema = Yup.object().shape({
-        Name: Yup.string()
-          .min(2, "Terlalu Pendek!")
-          .max(50, "Terlalu Panjang!")
-          .required("Masukkan Nama Lengkap"),
-        Address: Yup.string().required("Masukkan Alamat"),
-        Email: Yup.string()
-          .email("Masukkan alamat Email yang valid")
-          .required("Masukkan Email"),
-        Password: Yup.string().required("Password is required"),
-      });
-
-      const formik = useFormik({
-        initialValues: {
-          Name: "",
-          Email: "",
-          Address: "",
-          NIP: "",
-          PhoneNumber: "",
-          Position: "",
-          Password: "",
-        },
-        validationSchema: RegisterSchema,
-        onSubmit: () => {
-          Navigate("/dashboard", { replace: true });
-        },
-      });
+      // const RegisterSchema = Yup.object().shape({
+      //   Name: Yup.string()
+      //     .min(2, "Terlalu Pendek!")
+      //     .max(50, "Terlalu Panjang!")
+      //     .required("Masukkan Nama Lengkap"),
+      //   Address: Yup.string().required("Masukkan Alamat"),
+      //   Email: Yup.string()
+      //     .email("Masukkan alamat Email yang valid")
+      //     .required("Masukkan Email"),
+      //   Password: Yup.string().required("Password is required"),
+      // });
 
       const { errors, touched, handleSubmit, isSubmitting, getFieldProps } =
-        formik;
+        this.props;
 
-      const [open, setOpen] = React.useState(false);
+      // const [open, setOpen] = React.useState(false);
 
       const handleClickOpen = () => {
-        setOpen(true);
+        this.setState({ open: true });
       };
 
       const handleClose = () => {
-        setOpen(false);
+        this.setState({ open: false });
       };
 
       return (
@@ -263,12 +249,12 @@ class User extends Component {
                 Tambah Pengguna
               </Button>
 
-              <Dialog open={open} onClose={handleClose}>
+              <Dialog open={this.state.open} onClose={handleClose}>
                 <DialogContent>
                   <DialogContentText>
                     <DialogTitle>Subscribe</DialogTitle>
 
-                    <FormikProvider value={formik}>
+                    <FormikProvider value={this.props}>
                       <Form
                         autoComplete="off"
                         noValidate
@@ -550,6 +536,21 @@ const mapStateToProps = (state) => {
 };
 
 export default compose(
+  withFormik({
+    mapPropsToValues: () => ({
+      Name: "",
+      Email: "",
+      Address: "",
+      NIP: "",
+      PhoneNumber: "",
+      PositionPKM: "",
+      Password: "",
+    }),
+    validate: () => {},
+    handleSubmit: () => {
+      Navigate("/dashboard", { replace: true });
+    },
+  }),
   //database
   firestoreConnect([{ collection: "Auth" }]),
   connect(mapStateToProps)
