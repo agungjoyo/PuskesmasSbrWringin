@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import * as Yup from "yup";
 import { filter } from "lodash";
 import { Icon } from "@iconify/react";
-import { sentenceCase } from "change-case";
+//import { sentenceCase } from "change-case";
 import plusFill from "@iconify/icons-eva/plus-fill";
 import { Link as RouterLink, Navigate } from "react-router-dom";
 import { withFormik, Form, FormikProvider } from "formik";
@@ -32,7 +32,7 @@ import { TextField, IconButton, InputAdornment } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 //import Box from "@mui/material/Box";
 //import InputLabel from "@mui/material/InputLabel";
-import USERLIST from "../_mocks_/user";
+//import USERLIST from "../_mocks_/user";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -42,7 +42,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 //import FormControl from "@mui/material/FormControl";
 // components
 import Page from "../components/Page";
-import Label from "../components/Label";
+//import Label from "../components/Label";
 import Scrollbar from "../components/Scrollbar";
 import SearchNotFound from "../components/SearchNotFound";
 import {
@@ -106,11 +106,16 @@ class User extends Component {
         return a[1] - b[1];
       });
       if (query) {
-        return filter(
-          array,
-          (_user) =>
-            _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1
-        );
+        return filter(array, (value) => {
+          return (
+            value.Name.toLowerCase().includes(query.toLowerCase()) ||
+            value.Email.toLowerCase().includes(query.toLowerCase()) ||
+            value.NIP.toLowerCase().includes(query.toLowerCase()) |
+              value.PhoneNumber.toLowerCase().includes(query.toLowerCase()) ||
+            value.Address.toLowerCase().includes(query.toLowerCase()) ||
+            value.Position.toLowerCase().includes(query.toLowerCase())
+          );
+        });
       }
       return stabilizedThis.map((el) => el[0]);
     }
@@ -124,7 +129,6 @@ class User extends Component {
         { id: "Position", label: "Posisi", alignRight: false },
         { id: "PhoneNumber", label: "Nomor Telepon", alignRight: false },
         { id: "Address", label: "Alamat", alignRight: false },
-
         { id: "" },
       ];
 
@@ -152,7 +156,7 @@ class User extends Component {
         const selectedIndex = this.state.selected.indexOf(Name);
         let newSelected = [];
         if (selectedIndex === -1) {
-          newSelected = newSelected.concat(this.state.selected, name);
+          newSelected = newSelected.concat(this.state.selected, Name);
         } else if (selectedIndex === 0) {
           newSelected = newSelected.concat(this.state.selected.slice(1));
         } else if (selectedIndex === this.state.selected.length - 1) {
@@ -184,12 +188,12 @@ class User extends Component {
         this.state.page > 0
           ? Math.max(
               0,
-              (1 + this.state.page) * this.state.rowsPerPage - USERLIST.length
+              (1 + this.state.page) * this.state.rowsPerPage - data.length
             )
           : 0;
 
       const filteredUsers = applySortFilter(
-        USERLIST,
+        data,
         getComparator(this.state.order, this.state.orderBy),
         this.state.filterName
       );
@@ -406,7 +410,7 @@ class User extends Component {
                       order={this.state.order}
                       orderBy={this.state.orderBy}
                       headLabel={TABLE_HEAD}
-                      rowCount={USERLIST.length}
+                      rowCount={data.length}
                       numSelected={this.state.selected.length}
                       onRequestSort={handleRequestSort}
                       onSelectAllClick={handleSelectAllClick}
@@ -443,7 +447,7 @@ class User extends Component {
                               <TableCell padding="checkbox">
                                 <Checkbox
                                   checked={isItemSelected}
-                                  onChange={(event) => handleClick(event, name)}
+                                  onChange={(event) => handleClick(event, Name)}
                                 />
                               </TableCell>
                               <TableCell
@@ -462,26 +466,16 @@ class User extends Component {
                                   </Typography>
                                 </Stack>
                               </TableCell>
-                              <TableCell align="left">{Address}</TableCell>
+
                               <TableCell align="left">{Email}</TableCell>
-                              <TableCell align="left">{PhoneNumber}</TableCell>
                               <TableCell align="left">{NIP}</TableCell>
                               <TableCell align="left">{Position}</TableCell>
+                              <TableCell align="left">{PhoneNumber}</TableCell>
+                              <TableCell align="left">{Address}</TableCell>
 
                               {/* <TableCell align="left">
                               {isVerified ? "Yes" : "No"}
                             </TableCell> */}
-                              <TableCell align="left">
-                                <Label
-                                  variant="ghost"
-                                  color={
-                                    (status === "banned" && "error") ||
-                                    "success"
-                                  }
-                                >
-                                  {sentenceCase(status)}
-                                </Label>
-                              </TableCell>
 
                               <TableCell align="right">
                                 <UserMoreMenu />
@@ -513,7 +507,7 @@ class User extends Component {
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25]}
                 component="div"
-                count={USERLIST.length}
+                count={data.length}
                 rowsPerPage={this.state.rowsPerPage}
                 page={this.state.page}
                 onPageChange={handleChangePage}
@@ -543,7 +537,7 @@ export default compose(
       Address: "",
       NIP: "",
       PhoneNumber: "",
-      PositionPKM: "",
+      Position: "",
       Password: "",
     }),
     validate: () => {},
