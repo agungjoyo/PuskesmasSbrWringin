@@ -5,12 +5,12 @@ import ReactApexChart from "react-apexcharts";
 import { styled } from "@mui/material/styles";
 import { Card, CardHeader, Box, Button } from "@mui/material";
 import { withTheme } from "@material-ui/core/styles";
-// import OutlinedInput from "@mui/material/OutlinedInput";
+import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-// import Chip from "@mui/material/Chip";
+import Chip from "@mui/material/Chip";
 //
 // import { BaseOptionChart } from "../../charts";
 // database
@@ -44,8 +44,10 @@ const RootStyle = styled(Card)(({ theme }) => ({
 class AppWebsiteVisits extends Component {
   state = {
     monthIndex: "",
+    quarterIndex: [],
     showBulanGraphic: false,
     showTahunGraphic: false,
+    showChoiceGraphic: false,
     month: [
       "Januari",
       "Februari",
@@ -96,7 +98,7 @@ class AppWebsiteVisits extends Component {
         type: ["solid", "solid", "solid"],
       },
       dataLabels: {
-        enabled: false,
+        enabled: true,
       },
       grid: {
         show: false,
@@ -146,6 +148,37 @@ class AppWebsiteVisits extends Component {
           : theme.typography.fontWeightMedium,
     };
   }
+  handleChangeQuarter = () => {
+    this.setState({
+      series: [
+        {
+          name: "Sasaran",
+          type: "column",
+          data: [],
+        },
+        {
+          name: "Lahir Hidup",
+          type: "column",
+          data: [],
+        },
+        {
+          name: "Lahir Mati",
+          type: "column",
+          data: [],
+        },
+      ],
+      options: {
+        ...this.state.options,
+        xaxis: {
+          ...this.state.options.xaxis,
+          categories: [],
+        },
+      },
+      showBulanGraphic: false,
+      showTahunGraphic: false,
+      showChoiceGraphic: !this.state.showChoiceGraphic,
+    });
+  };
   handleChangeBulan = () => {
     this.setState({
       series: [
@@ -174,6 +207,7 @@ class AppWebsiteVisits extends Component {
       },
       showBulanGraphic: !this.state.showBulanGraphic,
       showTahunGraphic: false,
+      showChoiceGraphic: false,
     });
   };
   handleGraphicTahunControl = (event) => {
@@ -284,6 +318,7 @@ class AppWebsiteVisits extends Component {
         },
         showTahunGraphic: !this.state.showTahunGraphic,
         showBulanGraphic: false,
+        showChoiceGraphic: false,
       },
       () => {
         const year = new Date().getFullYear();
@@ -293,6 +328,150 @@ class AppWebsiteVisits extends Component {
         }
         this.setState({ year: yearList });
       }
+    );
+  };
+  handleQuarterChange = (event) => {
+    this.setState(
+      {
+        quarterIndex: event.target.value,
+      },
+      () => {
+        const { data } = this.props;
+        const dataFinal = _.chain(data)
+          .groupBy("Puskesmas")
+          .map((set, Puskesmas) => ({ set, Puskesmas }))
+          .value();
+        const desaTemp = [];
+        for (let i = 0; i < data.length; i++) {
+          desaTemp.push(data[i].Puskesmas);
+        }
+        const desa = Array.from(new Set(desaTemp));
+        // console.log(dataFinal, this.state, desa);
+        const series = [];
+        const series2 = [];
+        const series3 = [];
+        const category = [];
+        for (let a = 0; a < dataFinal.length; a++) {
+          var lahirHidupQuarter = 0;
+          var lahirMatiQuarter = 0;
+          var sasaran = 0;
+          if (dataFinal[a].Puskesmas == desa[a]) {
+            for (let i = 0; i < dataFinal[i].set.length; i++) {
+              for (let b = 0; b < this.state.quarterIndex.length; b++) {
+                if (
+                  this.state.quarterIndex[b].toLowerCase() ===
+                  dataFinal[a].set[i].Bulan.toLowerCase()
+                ) {
+                  lahirHidupQuarter =
+                    lahirHidupQuarter +
+                    dataFinal[a].set[i].PencapaianLahirHidupTL;
+                  lahirMatiQuarter =
+                    lahirMatiQuarter +
+                    dataFinal[a].set[i].PencapaianLahirMatiTL;
+                  // console.log(a, dataFinal[a].set[i].SasaranBayiTL);
+                  sasaran = dataFinal[a].set[i].SasaranBayiTL;
+                }
+              }
+            }
+            series2.push(lahirHidupQuarter);
+            series3.push(lahirMatiQuarter);
+            series.push(sasaran);
+            category.push(dataFinal[a].Puskesmas);
+            // console.log(series, series2);
+          }
+        }
+        this.setState({
+          series: [
+            {
+              name: "Sasaran",
+              type: "column",
+              data: series,
+            },
+            {
+              name: "Lahir Hidup",
+              type: "column",
+              data: series2,
+            },
+            {
+              name: "Lahir Mati",
+              type: "column",
+              data: series3,
+            },
+          ],
+          options: {
+            ...this.state.options,
+            xaxis: {
+              ...this.state.options.xaxis,
+              categories: category,
+            },
+          },
+        });
+      }
+    );
+  };
+  choiceGraphic = () => {
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+      PaperProps: {
+        style: {
+          maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+          width: 250,
+        },
+      },
+    };
+    return (
+      <div>
+        <CardHeader title="Progress KIA" subheader="(+43%) than last year" />
+        <Box sx={{ p: 3, pb: 1 }} dir="ltr">
+          <ReactApexChart
+            type="bar"
+            series={this.state.series}
+            options={this.state.options}
+            height={300}
+          />
+        </Box>
+        <FormControl sx={{ m: 1, minWidth: 100 }}>
+          <InputLabel id="demo-simple-select-helper-label">Month</InputLabel>
+          <Select
+            // labelId="demo-simple-select-helper-label"
+            // id="demo-simple-select-helper"
+            // value={this.state.monthIndex}
+            // onChange={this.handleChange}
+            // label="Month"
+            //========================Multiple========================
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+            value={this.state.quarterIndex}
+            onChange={this.handleQuarterChange}
+            //=========================================================
+          >
+            {this.state.month.map((month) => (
+              <MenuItem
+                key={month}
+                value={month}
+                style={this.getStyles(
+                  this.state.month,
+                  this.state.monthIndex,
+                  this.props.theme
+                )}
+              >
+                {month}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
     );
   };
   bulanGraphic = () => {
@@ -540,8 +719,12 @@ class AppWebsiteVisits extends Component {
             <Button variant="outlined" onClick={this.handleChangeTahun}>
               Grafik Tahun
             </Button>
+            <Button variant="outlined" onClick={this.handleChangeQuarter}>
+              Grafik Quarter
+            </Button>
             {this.state.showBulanGraphic ? <this.bulanGraphic /> : null}
             {this.state.showTahunGraphic ? <this.tahunGraphic /> : null}
+            {this.state.showChoiceGraphic ? <this.choiceGraphic /> : null}
           </Card>
         </RootStyle>
       );
