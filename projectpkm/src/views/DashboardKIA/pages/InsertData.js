@@ -5,7 +5,11 @@ import Dropzone from "react-dropzone";
 import csv from "csv";
 import * as XLSX from "xlsx";
 import { connect } from "react-redux";
+import { compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { Navigate } from "react-router-dom";
 import { addDataCoc } from "views/store/actions/datacocAction";
+import _ from "lodash";
 // components
 import Page from "../components/Page";
 // import {
@@ -30,6 +34,7 @@ class InsertData extends Component {
     super();
     this.state = {
       files: [],
+      isDuplicate: false,
       Tahun: "",
       Bulan: "",
       Puskesmas: "",
@@ -81,6 +86,7 @@ class InsertData extends Component {
   readExcell = (event) => {
     this.setState({ files: event });
     const file = this.state.files[0];
+    const { dataCoc } = this.props;
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsBinaryString(file);
@@ -133,6 +139,39 @@ class InsertData extends Component {
             KunjunganBayiParipurnaPR: data[i][93],
             KunjunganBayiParipurnaTL: data[i][94],
           });
+          const dataCocFinal = _.filter(dataCoc, {
+            Puskesmas: this.state.Puskesmas,
+          });
+          const dataCocCompare = _.filter(dataCocFinal, {
+            Bulan: this.state.Bulan,
+          });
+          console.log(dataCocCompare);
+          if (dataCocCompare.length == 1) {
+            this.setState({ isDuplicate: true });
+            console.log(this.state.isDuplicate);
+            window.alert(
+              "Duplicate Entry in " +
+                this.state.Bulan +
+                " " +
+                this.state.Tahun +
+                " for " +
+                this.state.Puskesmas
+            );
+          } else {
+            this.setState({ isDuplicate: false });
+            console.log(this.state.isDuplicate);
+            window.alert(
+              "Entry Success in " +
+                this.state.Bulan +
+                " " +
+                this.state.Tahun +
+                " for " +
+                this.state.Puskesmas
+            );
+            const { files, isDuplicate, ...finalData } = this.state;
+            console.log(files, isDuplicate);
+            this.props.addDataCoc(finalData);
+          }
           //   const name = data[i][0];
           //   const phoneNumber = data[i][1];
           //   const address = data[i][2];
@@ -142,10 +181,8 @@ class InsertData extends Component {
           //     phoneNumber: phoneNumber,
           //     address: address,
           //     class: classType,
-          const { files, ...finalData } = this.state;
-          console.log(files);
-          this.props.addDataCoc(finalData);
         }
+        return <Navigate to="./InsertData" />;
       };
 
       fileReader.onerror = (error) => {
@@ -336,8 +373,11 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    dataCoc: state.dataCoc,
+    dataCoc: state.firestore.ordered.KIA,
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InsertData);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect([{ collection: "KIA" }])
+)(InsertData);
