@@ -148,6 +148,30 @@ class AppWebsiteVisits extends Component {
   }
   handleChangeBulan = () => {
     this.setState({
+      series: [
+        {
+          name: "Sasaran",
+          type: "column",
+          data: [],
+        },
+        {
+          name: "Lahir Hidup",
+          type: "column",
+          data: [],
+        },
+        {
+          name: "Lahir Mati",
+          type: "column",
+          data: [],
+        },
+      ],
+      options: {
+        ...this.state.options,
+        xaxis: {
+          ...this.state.options.xaxis,
+          categories: [],
+        },
+      },
       showBulanGraphic: !this.state.showBulanGraphic,
       showTahunGraphic: false,
     });
@@ -198,6 +222,7 @@ class AppWebsiteVisits extends Component {
             series2.push(lahirHidupYear);
             series3.push(lahirMatiYear);
             series.push(sasaran);
+            category.push(dataFinal[a].Puskesmas);
             // console.log(series, series2);
           }
         }
@@ -233,6 +258,30 @@ class AppWebsiteVisits extends Component {
   handleChangeTahun = () => {
     this.setState(
       {
+        series: [
+          {
+            name: "Sasaran",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "Lahir Hidup",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "Lahir Mati",
+            type: "column",
+            data: [],
+          },
+        ],
+        options: {
+          ...this.state.options,
+          xaxis: {
+            ...this.state.options.xaxis,
+            categories: [],
+          },
+        },
         showTahunGraphic: !this.state.showTahunGraphic,
         showBulanGraphic: false,
       },
@@ -494,45 +543,6 @@ class AppWebsiteVisits extends Component {
             {this.state.showBulanGraphic ? <this.bulanGraphic /> : null}
             {this.state.showTahunGraphic ? <this.tahunGraphic /> : null}
           </Card>
-          <FormControl sx={{ m: 1, minWidth: 100 }}>
-            {/* <InputLabel id="demo-multiple-chip -label">Month</InputLabel> */}
-            <InputLabel id="demo-simple-select-helper-label">Month</InputLabel>
-            <Select
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              value={this.state.monthIndex}
-              onChange={this.handleChange}
-              label="Month"
-              //========================Multiple========================
-              // labelId="demo-multiple-chip-label"
-              // id="demo-multiple-chip"
-              // multiple
-              // input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-              // renderValue={(selected) => (
-              //   <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-              //     {selected.map((value) => (
-              //       <Chip key={value} label={value} />
-              //     ))}
-              //   </Box>
-              // )}
-              // MenuProps={MenuProps}
-              //=========================================================
-            >
-              {this.state.month.map((month) => (
-                <MenuItem
-                  key={month}
-                  value={month}
-                  style={getStyles(
-                    this.state.month,
-                    this.state.monthIndex,
-                    this.props.theme
-                  )}
-                >
-                  {month}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
         </RootStyle>
       );
     }
