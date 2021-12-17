@@ -181,6 +181,7 @@ class AppWebsiteVisits extends Component {
   };
   handleChangeBulan = () => {
     this.setState({
+      monthIndex: "",
       series: [
         {
           name: "Sasaran",
