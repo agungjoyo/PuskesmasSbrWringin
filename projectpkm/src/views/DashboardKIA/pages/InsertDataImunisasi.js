@@ -16,6 +16,7 @@ class InsertDataImunisasi extends Component {
     super();
     this.state = {
       files: [],
+      Tahun: "",
       Bulan: "",
       Puskesmas: "",
       SasaranBayiBaruLahir: "",
@@ -74,32 +75,24 @@ class InsertDataImunisasi extends Component {
         const ws = wb.Sheets[wsname];
         const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
         resolve(data);
-
-        const bulan = data[2][2];
-        const dateSplit = bulan.split(" ");
-        if (dateSplit[2] == undefined) {
-          this.setState({
-            Bulan: dateSplit[1],
-          });
-        } else {
-          this.setState({
-            Bulan: dateSplit[2],
-          });
-        }
+        const tahun = data[2][2];
+        const dateSplit = tahun.split(" ");
 
         console.log(data, dateSplit, this.state);
 
         for (var i = 7; i < 13; i++) {
           if (dateSplit[2] == undefined) {
             this.setState({
-              Bulan: dateSplit[1],
+              tahun: dateSplit[4],
             });
           } else {
             this.setState({
-              Bulan: dateSplit[2],
+              tahun: dateSplit[5],
             });
           }
           this.setState({
+            Tahun: dateSplit[4],
+            Bulan: dateSplit[2],
             Puskesmas: data[i][1],
             SasaranBayiBaruLahir: data[i][2],
             SasaranSurvivingInfant: data[i][3],

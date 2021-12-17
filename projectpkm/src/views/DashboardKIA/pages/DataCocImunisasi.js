@@ -83,36 +83,6 @@ class DataCocImun extends Component {
             value.SasaranSurvivingInfant?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
-            value.BCGLastMonth?.toString()
-              .toLowerCase()
-              .includes(query.toLowerCase()) ||
-            value.BCGThisMonth?.toString()
-              .toLowerCase()
-              .includes(query.toLowerCase()) ||
-            value.CampakRubellaLM?.toString()
-              .toLowerCase()
-              .includes(query.toLowerCase()) ||
-            value.CampakRubellaTM?.toString()
-              .toLowerCase()
-              .includes(query.toLowerCase()) ||
-            value.DPTHB1LastMonth?.toString()
-              .toLowerCase()
-              .includes(query.toLowerCase()) ||
-            value.DPTHB1ThisMonth?.toString()
-              .toLowerCase()
-              .includes(query.toLowerCase()) ||
-            value.DPTHB2LastMonth?.toString()
-              .toLowerCase()
-              .includes(query.toLowerCase()) ||
-            value.DPTHB2ThisMonth?.toString()
-              .toLowerCase()
-              .includes(query.toLowerCase()) ||
-            value.DPTHB3LastMonth?.toString()
-              .toLowerCase()
-              .includes(query.toLowerCase()) ||
-            value.DPTHB3ThisMonth?.toString()
-              .toLowerCase()
-              .includes(query.toLowerCase()) ||
             value.HBOLessOneDLM?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
@@ -125,16 +95,10 @@ class DataCocImun extends Component {
             value.HBOLessOneWTM?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
-            value.IDLLastMonth?.toString()
+            value.BCGLastMonth?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
-            value.IDLThisMonth?.toString()
-              .toLowerCase()
-              .includes(query.toLowerCase()) ||
-            value.IPVLastMonth?.toString()
-              .toLowerCase()
-              .includes(query.toLowerCase()) ||
-            value.IPVThisMonth?.toString()
+            value.BCGThisMonth?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
             value.Polio1LastMonth?.toString()
@@ -143,10 +107,22 @@ class DataCocImun extends Component {
             value.Polio1ThisMonth?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
+            value.DPTHB1LastMonth?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.DPTHB1ThisMonth?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
             value.Polio2LastMonth?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
             value.Polio2ThisMonth?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.DPTHB2LastMonth?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.DPTHB2ThisMonth?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
             value.Polio3LastMonth?.toString()
@@ -155,12 +131,37 @@ class DataCocImun extends Component {
             value.Polio3ThisMonth?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
+            value.DPTHB3LastMonth?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.DPTHB3ThisMonth?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
             value.Polio4LastMonth?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
             value.Polio4ThisMonth?.toString()
               .toLowerCase()
-              .includes(query.toLowerCase())
+              .includes(query.toLowerCase()) ||
+            value.IPVLastMonth?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.IPVThisMonth?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.CampakRubellaLM?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.CampakRubellaTM?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.IDLLastMonth?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.IDLThisMonth?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.Tahun?.toString().toLowerCase().includes(query.toLowerCase())
           );
         });
       }
@@ -184,38 +185,120 @@ class DataCocImun extends Component {
         },
         {
           id: "HBOLessOneDLM",
-          label: "Bln Lalu",
+          label: "HBO < 24 Jam Bulan Lalu",
           alignCenter: "center",
         },
         {
           id: "HBOLessOneDTM",
-          label: "Bulan Ini",
+          label: "HBO < 24 Jam Bulan Ini",
           alignCenter: "center",
         },
-        { id: "HBOLessOneWLM", label: "Bulan lalu", alignCenter: "center" },
-        { id: "HBOLessOneWTM", label: "Bulan Ini", alignCenter: "center" },
-        { id: "BCGLastMonth", label: "Bulan Lalu", alignCenter: "center" },
-        { id: "BCGThisMonth", label: "Bulan Ini", alignCenter: "center" },
-        { id: "DPTHB1LastMonth", label: "Bulan Lalu", alignCenter: "center" },
-        { id: "DPTHB1ThisMonth", label: "Bulan Ini", alignCenter: "center" },
-        { id: "Polio1LastMonth", label: "Bulan Lalu", alignCenter: "center" },
-        { id: "Polio1ThisMonth", label: "Bulan Ini", alignCenter: "center" },
-        { id: "DPTHB2LastMonth", label: "Bulan Lalu", alignCenter: "center" },
-        { id: "DPTHB2ThisMonth", label: "Bulan Ini", alignCenter: "center" },
-        { id: "Polio2ThisMonth", label: "Bulan Lalu", alignCenter: "center" },
-        { id: "Polio2ThisMonth", label: "Bulan Ini", alignCenter: "center" },
-        { id: "DPTHB3LastMonth", label: "Bulan Lalu", alignCenter: "center" },
-        { id: "DPTHB3ThisMonth", label: "Bulan Ini", alignCenter: "center" },
-        { id: "Polio3ThisMonth", label: "Bulan Lalu", alignCenter: "center" },
-        { id: "Polio3ThisMonth", label: "Bulan Ini", alignCenter: "center" },
-        { id: "Polio4ThisMonth", label: "Bulan Lalu", alignCenter: "center" },
-        { id: "Polio4ThisMonth", label: "Bulan Ini", alignCenter: "center" },
-        { id: "IPVLastMonth", label: "Bulan Lalu", alignCenter: "center" },
-        { id: "IPVThisMonth", label: "Bulan Ini", alignCenter: "center" },
-        { id: "CampakRubellaLM", label: "Bulan Lalu", alignCenter: "center" },
-        { id: "CampakRubellaTM", label: "Bulan Ini", alignCenter: "center" },
-        { id: "IDLLastMonth", label: "Bulan Lalu", alignCenter: "center" },
-        { id: "IDLThisMonth", label: "Bulan Ini", alignCenter: "center" },
+        {
+          id: "HBOLessOneWLM",
+          label: "HBO 0-7 hari Bulan lalu",
+          alignCenter: "center",
+        },
+        {
+          id: "HBOLessOneWTM",
+          label: "HBO 0-7 hari Bulan Ini",
+          alignCenter: "center",
+        },
+        { id: "BCGLastMonth", label: "BCG Bulan Lalu", alignCenter: "center" },
+        { id: "BCGThisMonth", label: "BCG Bulan Ini", alignCenter: "center" },
+        {
+          id: "Polio1LastMonth",
+          label: "Polio 1 Bulan Lalu",
+          alignCenter: "center",
+        },
+        {
+          id: "Polio1ThisMonth",
+          label: "Polio 1 Bulan Ini",
+          alignCenter: "center",
+        },
+        {
+          id: "DPTHB1LastMonth",
+          label: "DPTHB-1 Bulan Lalu",
+          alignCenter: "center",
+        },
+        {
+          id: "DPTHB1ThisMonth",
+          label: "DPTHB-1 Bulan Ini",
+          alignCenter: "center",
+        },
+        {
+          id: "Polio2ThisMonth",
+          label: "Polio 2 Bulan Lalu",
+          alignCenter: "center",
+        },
+        {
+          id: "Polio2ThisMonth",
+          label: "Polio 2 Bulan Ini",
+          alignCenter: "center",
+        },
+
+        {
+          id: "DPTHB2LastMonth",
+          label: "DPTHB-2 Bulan Lalu",
+          alignCenter: "center",
+        },
+        {
+          id: "DPTHB2ThisMonth",
+          label: "DPTHB-2 Bulan Ini",
+          alignCenter: "center",
+        },
+        {
+          id: "Polio3ThisMonth",
+          label: "Polio 3 Bulan Lalu",
+          alignCenter: "center",
+        },
+        {
+          id: "Polio3ThisMonth",
+          label: "Polio 3 Bulan Ini",
+          alignCenter: "center",
+        },
+
+        {
+          id: "DPTHB3LastMonth",
+          label: "DPTHB-3 Bulan Lalu",
+          alignCenter: "center",
+        },
+        {
+          id: "DPTHB3ThisMonth",
+          label: "DPTHB-3 Bulan Ini",
+          alignCenter: "center",
+        },
+        {
+          id: "Polio4ThisMonth",
+          label: "Polio 4 Bulan Lalu",
+          alignCenter: "center",
+        },
+        {
+          id: "Polio4ThisMonth",
+          label: "Polio 4 Bulan Ini",
+          alignCenter: "center",
+        },
+        { id: "IPVLastMonth", label: "IPV Bulan Lalu", alignCenter: "center" },
+        { id: "IPVThisMonth", label: "IPV Bulan Ini", alignCenter: "center" },
+        {
+          id: "CampakRubellaLM",
+          label: "Campak-Rubella Bulan Lalu",
+          alignCenter: "center",
+        },
+        {
+          id: "CampakRubellaTM",
+          label: "Campak-Rubella Bulan Ini",
+          alignCenter: "center",
+        },
+        {
+          id: "IDLLastMonth",
+          label: "IDL Bulan Lalu",
+          alignCenter: "center",
+        },
+        {
+          id: "IDLThisMonth",
+          label: "IDL Bulan Ini",
+          alignCenter: "center",
+        },
         { id: "" },
       ];
       //
@@ -596,6 +679,44 @@ class DataCocImun extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
+                                    {Polio1LastMonth}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+
+                              <TableCell
+                                align="center"
+                                style={{ width: "max-content" }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {Polio1ThisMonth}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+
+                              <TableCell
+                                align="center"
+                                style={{ width: "max-content" }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
                                     {DPTHB1LastMonth}
                                   </Typography>
                                 </Stack>
@@ -692,44 +813,6 @@ class DataCocImun extends Component {
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
                                     {DPTHB3ThisMonth}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
-                              <TableCell
-                                align="center"
-                                style={{ width: "max-content" }}
-                              >
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
-                                    {Polio1LastMonth}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
-                              <TableCell
-                                align="center"
-                                style={{ width: "max-content" }}
-                              >
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
-                                    {Polio1ThisMonth}
                                   </Typography>
                                 </Stack>
                               </TableCell>
