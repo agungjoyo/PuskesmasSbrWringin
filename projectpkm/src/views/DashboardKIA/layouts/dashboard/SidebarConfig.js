@@ -4,8 +4,8 @@ import pieChart2Fill from "@iconify/icons-eva/pie-chart-2-fill";
 import peopleFill from "@iconify/icons-eva/people-fill";
 import shoppingBagFill from "@iconify/icons-eva/shopping-bag-fill";
 import fileTextFill from "@iconify/icons-eva/file-text-fill";
-import lockFill from "@iconify/icons-eva/lock-fill";
-import personAddFill from "@iconify/icons-eva/person-add-fill";
+// import lockFill from "@iconify/icons-eva/lock-fill";
+// import personAddFill from "@iconify/icons-eva/person-add-fill";
 import chartLineData from "@iconify/icons-carbon/chart-line-data";
 
 // ----------------------------------------------------------------------
@@ -15,50 +15,50 @@ const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 const sidebarConfig = [
   {
     key: "1",
-    title: "dashboard",
+    title: "Dashboard",
     path: "/dashboard/app",
     icon: getIcon(pieChart2Fill),
   },
   {
     key: "2",
-    title: "user",
+    title: "User",
     path: "/dashboard/user",
     icon: getIcon(peopleFill),
   },
   {
     key: "3",
-    title: "dataCoc",
+    title: "DataCoc",
     path: "/dashboard/data-coc",
     icon: getIcon(chartLineData),
   },
   {
     key: "4",
-    title: "product",
+    title: "DataImunisasi",
     path: "/dashboard/products",
     icon: getIcon(shoppingBagFill),
   },
   {
     key: "5",
-    title: "blog",
+    title: "DataGizi",
     path: "/dashboard/blog",
     icon: getIcon(fileTextFill),
   },
   {
     key: "6",
-    title: "login",
-    path: "/login",
-    icon: getIcon(lockFill),
+    title: "Graphic KIA",
+    path: "/dashboard/graphic/kia",
+    icon: getIcon(chartLineData),
   },
   {
     key: "7",
-    title: "Tambah Pengguna",
-    path: "/register",
-    icon: getIcon(personAddFill),
+    title: "Graphic Imunisasi",
+    path: "/dashboard/graphic/imunisasi",
+    icon: getIcon(chartLineData),
   },
   {
     key: "8",
-    title: "Graphic",
-    path: "/dashboard/graphic",
+    title: "Graphic Gizi",
+    path: "/dashboard/app",
     icon: getIcon(chartLineData),
   },
 ];
