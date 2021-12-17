@@ -17,6 +17,7 @@ import {
   AppOrderTimeline,
   // AppCurrentVisits,
   AppWebsiteVisits,
+  AppWebsiteVisitsImun,
   AppTrafficBySite,
   // AppCurrentSubject,
   // AppConversionRates
@@ -50,6 +51,9 @@ function DashboardApp(data) {
 
             <Grid item xs={12} md={12} lg={12}>
               <AppWebsiteVisits />
+            </Grid>
+            <Grid item xs={12} md={12} lg={12}>
+              <AppWebsiteVisitsImun />
             </Grid>
 
             {/* <Grid item xs={12} md={6} lg={4}>

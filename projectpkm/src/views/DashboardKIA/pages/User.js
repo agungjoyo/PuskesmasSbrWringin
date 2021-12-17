@@ -256,7 +256,7 @@ class User extends Component {
               <Dialog open={this.state.open} onClose={handleClose}>
                 <DialogContent>
                   <DialogContentText>
-                    <DialogTitle>Subscribe</DialogTitle>
+                    <DialogTitle>Tambah Pengguna</DialogTitle>
 
                     <FormikProvider value={this.props}>
                       <Form

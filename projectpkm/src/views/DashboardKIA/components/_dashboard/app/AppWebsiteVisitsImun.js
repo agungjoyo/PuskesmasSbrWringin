@@ -1,18 +1,13 @@
 import React, { Component } from "react";
-// import { merge } from "lodash";
 import ReactApexChart from "react-apexcharts";
 // material
 import { styled } from "@mui/material/styles";
 import { Card, CardHeader, Box } from "@mui/material";
 import { withTheme } from "@material-ui/core/styles";
-// import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-// import Chip from "@mui/material/Chip";
-//
-// import { BaseOptionChart } from "../../charts";
 // database
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -23,25 +18,7 @@ const RootStyle = styled(Card)(({ theme }) => ({
   padding: theme.spacing(0, 0),
 }));
 
-// const CHART_DATA = [
-//   {
-//     name: "Target",
-//     type: "column",
-//     data: [23, 72, 22, 27, 53, 27],
-//   },
-//   {
-//     name: "KIA",
-//     type: "column",
-//     data: [44, 52, 40, 67, 90, 21],
-//   },
-//   {
-//     name: "Paripurna",
-//     type: "column",
-//     data: [30, 25, 36, 30, 15, 21],
-//   },
-// ];
-
-class AppWebsiteVisits extends Component {
+class AppWebsiteVisitsImun extends Component {
   state = {
     monthIndex: "",
     month: [
@@ -89,7 +66,18 @@ class AppWebsiteVisits extends Component {
       },
       plotOptions: { bar: { columnWidth: "45%", borderRadius: 8 } },
       fill: {
-        type: ["solid", "solid", "solid"],
+        type: [
+          "solid",
+          "solid",
+          "solid",
+          "solid",
+          "solid",
+          "solid",
+          "solid",
+          "solid",
+          "solid",
+          "solid",
+        ],
       },
       dataLabels: {
         enabled: false,
@@ -110,75 +98,91 @@ class AppWebsiteVisits extends Component {
     },
     series: [
       {
-        name: "Sasaran",
+        name: "Sasaran BBL",
         type: "column",
         data: [],
       },
       {
-        name: "Lahir Hidup",
+        name: "Sasaran SI",
         type: "column",
         data: [],
       },
       {
-        name: "Lahir Mati",
+        name: "HBO < 24 Jam Bulan Lalu",
+        type: "column",
+        data: [],
+      },
+      {
+        name: "HBO < 24 Jam Bulan Ini",
+        type: "column",
+        data: [],
+      },
+      {
+        name: "HBO 0-7 hari Bulan lalu",
+        type: "column",
+        data: [],
+      },
+      {
+        name: "HBO 0-7 hari Bulan Ini",
+        type: "column",
+        data: [],
+      },
+      {
+        name: "BCG Bulan Lalu",
+        type: "column",
+        data: [],
+      },
+      {
+        name: "BCG Bulan Ini",
+        type: "column",
+        data: [],
+      },
+      {
+        name: "BCG Bulan Ini",
+        type: "column",
+        data: [],
+      },
+      {
+        name: "BCG Bulan Ini",
+        type: "column",
+        data: [],
+      },
+      {
+        name: "DPTHB-1 Bulan Lalu",
+        type: "column",
+        data: [],
+      },
+      {
+        name: "DPTHB-1 Bulan Ini",
         type: "column",
         data: [],
       },
     ],
   };
-  // componentDidUpdate() {
-  //   const { data } = this.props;
-  //   if (data !== undefined) {
-  //     for (var i = 0; i < data.length; i++) {
-  //       if (
-  //         this.state.monthIndex.toLowerCase() === data[i].Bulan.toLowerCase()
-  //       ) {
-  //         console.log(
-  //           this.state.monthIndex.toLowerCase(),
-  //           data[i].Bulan.toLowerCase(),
-  //           data[i].SasaranBayiTL,
-  //           data[i].PencapaianLahirHidupTL,
-  //           data[i].PencapaianLahirMatiTL
-  //         );
-  //         this.state.series[0].data.push(data[i].SasaranBayiTL);
-  //         this.state.series[1].data.push(data[i].PencapaianLahirHidupTL);
-  //         this.state.series[2].data.push(data[i].PencapaianLahirMatiTL);
-  //         this.state.options.xaxis.categories.push(data[i].Puskesmas);
-  //       }
-  //     }
-  //   }
-  // }
-  // componentDidMount() {
-  //   const { data } = this.props;
-  //   if (data !== undefined) {
-  //     for (var i = 0; i < data.length; i++) {
-  //       if (
-  //         this.state.monthIndex.toLowerCase() === data[i].Bulan.toLowerCase()
-  //       ) {
-  //         console.log(
-  //           this.state.monthIndex.toLowerCase(),
-  //           data[i].Bulan.toLowerCase(),
-  //           data[i].SasaranBayiTL,
-  //           data[i].PencapaianLahirHidupTL,
-  //           data[i].PencapaianLahirMatiTL
-  //         );
-  //         this.state.series[0].data.push(data[i].SasaranBayiTL);
-  //         this.state.series[1].data.push(data[i].PencapaianLahirHidupTL);
-  //         this.state.series[2].data.push(data[i].PencapaianLahirMatiTL);
-  //         this.state.options.xaxis.categories.push(data[i].Puskesmas);
-  //       }
-  //     }
-  //   }
-  // }
+
   handleChange = (event) => {
     const { data } = this.props;
     const series1 = [];
     const series2 = [];
     const series3 = [];
+    const series4 = [];
+    const series5 = [];
+    const series6 = [];
+    const series7 = [];
+    const series8 = [];
+    const series9 = [];
+    const series10 = [];
     const category = [];
     console.log(series1);
     console.log(series2);
     console.log(series3);
+    console.log(series4);
+    console.log(series5);
+    console.log(series6);
+    console.log(series7);
+    console.log(series8);
+    console.log(series9);
+    console.log(series10);
     console.log(category);
     this.setState(
       {
@@ -193,32 +197,81 @@ class AppWebsiteVisits extends Component {
               data,
               this.state.monthIndex.toLowerCase(),
               data[i].Bulan.toLowerCase(),
-              data[i].SasaranBayiTL,
-              data[i].PencapaianLahirHidupTL,
-              data[i].PencapaianLahirMatiTL
+              data[i].SasaranBayiBarulahir,
+              data[i].SasaranSurvivingInfant,
+              data[i].HBOLessOneDLM,
+              data[i].HBOLessOneDTM,
+              data[i].HBOLessOneWLM,
+              data[i].HBOLessOneWTM,
+              data[i].BCGLastMonth,
+              data[i].BCGThisMonth,
+              data[i].DPTHB1LastMonth,
+              data[i].DPTHB1ThisMonth
             );
-            series1.push(data[i].SasaranBayiTL);
-            series2.push(data[i].PencapaianLahirHidupTL);
-            series3.push(data[i].PencapaianLahirMatiTL);
+            series1.push(data[i].SasaranBayiBarulahir);
+            series2.push(data[i].SasaranSurvivingInfant);
+            series3.push(data[i].HBOLessOneDLM);
+            series4.push(data[i].HBOLessOneDTM);
+            series5.push(data[i].HBOLessOneWLM);
+            series6.push(data[i].HBOLessOneWTM);
+            series7.push(data[i].BCGLastMonth);
+            series8.push(data[i].BCGThisMonth);
+            series9.push(data[i].DPTHB1LastMonth);
+            series10.push(data[i].DPTHB1ThisMonth);
             category.push(data[i].Puskesmas);
           }
         }
         this.setState({
           series: [
             {
-              name: "Sasaran",
+              name: "Sasaran BBL",
               type: "column",
               data: series1,
             },
             {
-              name: "Lahir Hidup",
+              name: "Sasaran SI",
               type: "column",
               data: series2,
             },
             {
-              name: "Lahir Mati",
+              name: "HBO < 24 Jam",
               type: "column",
               data: series3,
+            },
+            {
+              name: "HBO < 24 Jam",
+              type: "column",
+              data: series4,
+            },
+            {
+              name: "HBO 0-7 hari",
+              type: "column",
+              data: series5,
+            },
+            {
+              name: "HBO 0-7 hari",
+              type: "column",
+              data: series6,
+            },
+            {
+              name: "BCG",
+              type: "column",
+              data: series7,
+            },
+            {
+              name: "BCG",
+              type: "column",
+              data: series8,
+            },
+            {
+              name: "DPTHB1",
+              type: "column",
+              data: series9,
+            },
+            {
+              name: "DPTHB1",
+              type: "column",
+              data: series10,
             },
           ],
           options: {
@@ -233,16 +286,6 @@ class AppWebsiteVisits extends Component {
     );
   };
   render() {
-    // const ITEM_HEIGHT = 48;
-    // const ITEM_PADDING_TOP = 8;
-    // const MenuProps = {
-    //   PaperProps: {
-    //     style: {
-    //       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-    //       width: 250,
-    //     },
-    //   },
-    // };
     function getStyles(month, monthIndex, theme) {
       return {
         fontWeight:
@@ -251,70 +294,16 @@ class AppWebsiteVisits extends Component {
             : theme.typography.fontWeightMedium,
       };
     }
-    //================================================For Multiple =================================================================
-    // const handleChange = (event) => {
-    //   const {
-    //     target: { value },
-    //   } = event;
-    //   this.setState({
-    //     monthIndex: typeof value === "string" ? value.split(",") : value,
-    //   });
-    // };
     //===============================================================================================================================
     const { data } = this.props;
     console.log(this.state, data);
-    // const getPuskesmas = () => {
-    //   for (var i = 0; i < data.length; i++) {
-    //     console.log(data[i].Puskesmas, i);
-    //     this.setState({ Puskesmas: data[i].Puskesmas });
-    //   }
-    // };
     if (data == undefined) {
       return <div>Loading...</div>;
     } else {
-      // const chartOptions = merge(BaseOptionChart, {
-      //   stroke: { width: [3, 3, 3] },
-      //   plotOptions: { bar: { columnWidth: "20%", borderRadius: 8 } },
-      //   fill: {
-      //     type: ["solid", "solid", "solid"],
-      //   },
-      // labels: [this.state.puskesmas[0]],
-      // xaxis: {
-      //   type: "category",
-      //   labels: {
-      //     format: "MM yyyy",
-      //   },
-      // },
-      //   grid: {
-      //     show: false,
-      //     padding: {
-      //       top: 0,
-      //       right: 50,
-      //       bottom: 0,
-      //       left: 35,
-      //     },
-      //   },
-      //   tooltip: {
-      //     shared: false,
-      //     intersect: false,
-      //     y: {
-      //       formatter: (y) => {
-      //         if (typeof y !== "undefined") {
-      //           return `${y.toFixed(0)} visits`;
-      //         }
-      //         return y;
-      //       },
-      //     },
-      //   },
-      // });
-
       return (
         <RootStyle>
           <Card>
-            <CardHeader
-              title="Progress KIA"
-              subheader="(+43%) than last year"
-            />
+            <CardHeader title="Program Imunisasi" />
             <Box sx={{ p: 3, pb: 1 }} dir="ltr">
               <ReactApexChart
                 type="bar"
@@ -325,7 +314,7 @@ class AppWebsiteVisits extends Component {
             </Box>
           </Card>
           <FormControl sx={{ m: 1, minWidth: 100 }}>
-            {/* <InputLabel id="demo-multiple-chip -label">Month</InputLabel> */}
+            {/* <InputLabel id="demo-multiple-chip-label">Month</InputLabel> */}
             <InputLabel id="demo-simple-select-helper-label">Month</InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
@@ -333,19 +322,6 @@ class AppWebsiteVisits extends Component {
               value={this.state.monthIndex}
               onChange={this.handleChange}
               label="Month"
-              //========================Multiple========================
-              // labelId="demo-multiple-chip-label"
-              // id="demo-multiple-chip"
-              // multiple
-              // input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-              // renderValue={(selected) => (
-              //   <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-              //     {selected.map((value) => (
-              //       <Chip key={value} label={value} />
-              //     ))}
-              //   </Box>
-              // )}
-              // MenuProps={MenuProps}
               //=========================================================
             >
               {this.state.month.map((month) => (
@@ -370,14 +346,14 @@ class AppWebsiteVisits extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    data: state.firestore.ordered.KIA, //database
+    data: state.firestore.ordered.Imunisasi, //database
     auth: state.firebase.auth,
   };
 };
 
 export default compose(
   //database
-  firestoreConnect([{ collection: "KIA" }]),
+  firestoreConnect([{ collection: "Imunisasi" }]),
   connect(mapStateToProps),
   withTheme
-)(AppWebsiteVisits);
+)(AppWebsiteVisitsImun);
