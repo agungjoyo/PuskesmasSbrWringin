@@ -586,31 +586,41 @@ class AppWebsiteVisits extends Component {
     const series2 = [];
     const series3 = [];
     const category = [];
-    console.log(series1);
-    console.log(series2);
-    console.log(series3);
-    console.log(category);
+    const dataFinal = _.chain(data)
+      .groupBy("Puskesmas")
+      .map((set, Puskesmas) => ({ set, Puskesmas }))
+      .value();
+    const desaTemp = [];
+    for (let i = 0; i < data.length; i++) {
+      desaTemp.push(data[i].Puskesmas);
+    }
+    const desa = Array.from(new Set(desaTemp));
     this.setState(
       {
         monthIndex: event.target.value,
       },
       () => {
-        for (var i = 0; i < data.length; i++) {
-          if (
-            this.state.monthIndex.toLowerCase() === data[i].Bulan.toLowerCase()
-          ) {
-            console.log(
-              data,
-              this.state.monthIndex.toLowerCase(),
-              data[i].Bulan.toLowerCase(),
-              data[i].SasaranBayiTL,
-              data[i].PencapaianLahirHidupTL,
-              data[i].PencapaianLahirMatiTL
-            );
-            series1.push(data[i].SasaranBayiTL);
-            series2.push(data[i].PencapaianLahirHidupTL);
-            series3.push(data[i].PencapaianLahirMatiTL);
-            category.push(data[i].Puskesmas);
+        for (let a = 0; a < dataFinal.length; a++) {
+          var lahirHidupBulan = 0;
+          var lahirMatiBulan = 0;
+          var sasaran = 0;
+          if (dataFinal[a].Puskesmas == desa[a]) {
+            for (let i = 0; i < dataFinal[i].set.length; i++) {
+              if (
+                this.state.monthIndex.toLowerCase() ===
+                dataFinal[a].set[i].Bulan.toLowerCase()
+              ) {
+                lahirHidupBulan = dataFinal[a].set[i].PencapaianLahirHidupTL;
+                lahirMatiBulan = dataFinal[a].set[i].PencapaianLahirMatiTL;
+                // console.log(a, dataFinal[a].set[i].SasaranBayiTL);
+                sasaran = dataFinal[a].set[i].SasaranBayiTL;
+              }
+            }
+            series2.push(lahirHidupBulan);
+            series3.push(lahirMatiBulan);
+            series1.push(sasaran);
+            category.push(dataFinal[a].Puskesmas);
+            // console.log(series, series2);
           }
         }
         this.setState({
