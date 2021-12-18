@@ -2,12 +2,16 @@ import React, { Component } from "react";
 // material
 import { Box, Grid, Container, Typography, Card } from "@mui/material";
 import Dropzone from "react-dropzone";
-//import csv from "csv";
+import csv from "csv";
 import * as XLSX from "xlsx";
 import { connect } from "react-redux";
 import { addDataCocImun } from "views/store/actions/datacocimunAction";
+import _ from "lodash";
 // components
 import Page from "../components/Page";
+import { Navigate } from "react-router";
+import { compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
 
 //import { initial } from "lodash";
 
@@ -65,6 +69,7 @@ class InsertDataImunisasi extends Component {
   readExcell = (event) => {
     this.setState({ files: event });
     const file = this.state.files[0];
+    const { dataCocImun } = this.props;
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsBinaryString(file);
@@ -77,19 +82,31 @@ class InsertDataImunisasi extends Component {
         resolve(data);
         const tahun = data[2][2];
         const dateSplit = tahun.split(" ");
-
+        const year = [];
+        const yearTemp = new Date().getFullYear();
+        for (let c = 0; c < 5; c++) {
+          year.push("" + (yearTemp + 1));
+        }
         console.log(data, dateSplit, this.state);
 
         for (var i = 7; i < 13; i++) {
-          if (dateSplit[2] == undefined) {
-            this.setState({
-              tahun: dateSplit[4],
-            });
-          } else {
-            this.setState({
-              tahun: dateSplit[5],
-            });
+          for (let a = 0; a < dateSplit.length; a++) {
+            console.log(dateSplit[a]);
+            if (dateSplit[a] == year) {
+              this.setState({
+                Tahun: dateSplit[a],
+              });
+            }
           }
+          // if (dateSplit[2] == undefined) {
+          //   this.setState({
+          //     Tahun: dateSplit[4],
+          //   });
+          // } else {
+          //   this.setState({
+          //     Tahun: dateSplit[5],
+          //   });
+          // }
           this.setState({
             Tahun: dateSplit[4],
             Bulan: dateSplit[2],
@@ -123,10 +140,41 @@ class InsertDataImunisasi extends Component {
             IDLLastMonth: data[i][52],
             IDLThisMonth: data[i][53],
           });
-          const { files, ...finalData } = this.state;
-          console.log(files);
-          this.props.addDataCocImun(finalData);
+          const dataCocFinal = _.filter(dataCocImun, {
+            Puskesmas: this.state.Puskesmas,
+          });
+          const dataCocCompare = _.filter(dataCocFinal, {
+            Bulan: this.state.Bulan,
+          });
+          console.log(dataCocCompare);
+          if (dataCocCompare.length == 1) {
+            this.setState({ isDuplicate: true });
+            console.log(this.state.isDuplicate);
+            window.alert(
+              "Data yang Anda masukkan sudah ada " +
+                this.state.Bulan +
+                " " +
+                this.state.Tahun +
+                " for " +
+                this.state.Puskesmas
+            );
+          } else {
+            this.setState({ isDuplicate: false });
+            console.log(this.state.isDuplicate);
+            window.alert(
+              "Entry Success in " +
+                this.state.Bulan +
+                " " +
+                this.state.Tahun +
+                " for " +
+                this.state.Puskesmas
+            );
+            const { files, ...finalData } = this.state;
+            console.log(files);
+            this.props.addDataCocImun(finalData);
+          }
         }
+        return <Navigate to="./InsertDataImun" />;
       };
 
       fileReader.onerror = (error) => {
@@ -138,6 +186,61 @@ class InsertDataImunisasi extends Component {
       console.log(d);
     });
   };
+
+  onDrop(files) {
+    this.setState({ files });
+    var file = files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      csv.parse({ delimiter: ";" }, reader.result, (err, data) => {
+        const tahun = data[2][0];
+        const dateSplit = tahun.split(" ");
+        this.setState({
+          Tahun: dateSplit[3],
+          Bulan: dateSplit[1],
+        });
+        // console.log(dateSplit);
+        // var userList = [];
+        console.log(data);
+        for (var i = 7; i < 13; i++) {
+          this.setState({
+            Puskesmas: data[i][1],
+            SasaranBayiBaruLahir: data[i][2],
+            SasaranSurvivingInfant: data[i][3],
+            HBOLessOneDLM: data[i][4],
+            HBOLessOneDTM: data[i][5],
+            BCGLastMonth: data[i][8],
+            BCGThisMonth: data[i][9],
+            HBOLessOneWLM: data[i][12],
+            HBOLessOneWTM: data[i][13],
+            Polio1LastMonth: data[i][16],
+            Polio1ThisMonth: data[i][17],
+            DPTHB1LastMonth: data[i][20],
+            DPTHB1ThisMonth: data[i][21],
+            Polio2LastMonth: data[i][24],
+            Polio2ThisMonth: data[i][25],
+            DPTHB2LastMonth: data[i][28],
+            DPTHB2ThisMonth: data[i][29],
+            Polio3LastMonth: data[i][32],
+            Polio3ThisMonth: data[i][33],
+            DPTHB3LastMonth: data[i][36],
+            DPTHB3ThisMonth: data[i][37],
+            Polio4LastMonth: data[i][41],
+            Polio4ThisMonth: data[i][42],
+            IPVLastMonth: data[i][44],
+            IPVThisMonth: data[i][45],
+            CampakRubellaLM: data[i][48],
+            CampakRubellaTM: data[i][49],
+            IDLLastMonth: data[i][52],
+            IDLThisMonth: data[i][53],
+          });
+        }
+      });
+    };
+    reader.readAsBinaryString(file);
+    // this.props.addDataCoc(this.state);
+  }
+
   render() {
     console.log(this.state);
     return (
@@ -210,11 +313,11 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    dataCocImun: state.dataCocImun,
+    dataCocImun: state.firestore.ordered.Imunisasi,
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect([{ collection: "Imunisasi" }])
 )(InsertDataImunisasi);

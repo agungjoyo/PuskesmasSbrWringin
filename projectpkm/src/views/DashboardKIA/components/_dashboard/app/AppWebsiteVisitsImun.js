@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import _ from "lodash";
+import _, { set } from "lodash";
 import ReactApexChart from "react-apexcharts";
 // material
 import { styled } from "@mui/material/styles";
@@ -44,6 +44,8 @@ class AppWebsiteVisitsImun extends Component {
     ],
     yearIndex: "",
     year: [],
+    desaIndex: "",
+    desa: [],
     options: {
       stroke: { width: [3, 3, 3] },
       chart: {
@@ -198,6 +200,14 @@ class AppWebsiteVisitsImun extends Component {
     return {
       fontWeight:
         monthIndex?.indexOf(month) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
+  getStylesDesa(desa, desaIndex, theme) {
+    return {
+      fontWeight:
+        desaIndex?.indexOf(desa) === -1
           ? theme.typography.fontWeightRegular
           : theme.typography.fontWeightMedium,
     };
@@ -406,102 +416,121 @@ class AppWebsiteVisitsImun extends Component {
     });
   };
   handleChangeBulan = () => {
-    this.setState({
-      monthIndex: "",
-      series: [
-        {
-          name: "Sasaran BBL",
-          type: "column",
-          data: [],
-        },
-        {
-          name: "Sasaran SI",
-          type: "column",
-          data: [],
-        },
-        {
-          name: "HBO < 24 Jam Bulan Ini",
-          type: "column",
-          data: [],
-        },
+    const { data } = this.props;
+    const desaTemp = [];
+    for (let i = 0; i < data.length; i++) {
+      desaTemp.push(data[i].Puskesmas);
+    }
+    const desa = Array.from(new set(desaTemp));
+    this.setState(
+      {
+        monthIndex: "",
+        desaIndex: desa,
+        yearIndex: "",
+        desa: desa,
+        series: [
+          {
+            name: "Sasaran BBL",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "Sasaran SI",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "HBO < 24 Jam Bulan Ini",
+            type: "column",
+            data: [],
+          },
 
-        {
-          name: "HBO 0-7 hari Bulan Ini",
-          type: "column",
-          data: [],
+          {
+            name: "HBO 0-7 hari Bulan Ini",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "BCG Bulan Ini",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "BCG Bulan Ini",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "Polio-1 Bulan Ini",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "DPTHB-1 Bulan Ini",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "Polio-2 Bulan Ini",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "DPTHB-2 Bulan Ini",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "Polio-3 Bulan Ini",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "DPTHB-3 Bulan Ini",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "Polio-4 Bulan Ini",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "IPV Bulan Ini",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "Campak-Rubella Bulan Ini",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "IDL Bulan Ini",
+            type: "column",
+            data: [],
+          },
+        ],
+        options: {
+          ...this.state.options,
+          xaxis: {
+            ...this.state.options.xaxis,
+            categories: [],
+          },
         },
-        {
-          name: "BCG Bulan Ini",
-          type: "column",
-          data: [],
-        },
-        {
-          name: "BCG Bulan Ini",
-          type: "column",
-          data: [],
-        },
-        {
-          name: "Polio-1 Bulan Ini",
-          type: "column",
-          data: [],
-        },
-        {
-          name: "DPTHB-1 Bulan Ini",
-          type: "column",
-          data: [],
-        },
-        {
-          name: "Polio-2 Bulan Ini",
-          type: "column",
-          data: [],
-        },
-        {
-          name: "DPTHB-2 Bulan Ini",
-          type: "column",
-          data: [],
-        },
-        {
-          name: "Polio-3 Bulan Ini",
-          type: "column",
-          data: [],
-        },
-        {
-          name: "DPTHB-3 Bulan Ini",
-          type: "column",
-          data: [],
-        },
-        {
-          name: "Polio-4 Bulan Ini",
-          type: "column",
-          data: [],
-        },
-        {
-          name: "IPV Bulan Ini",
-          type: "column",
-          data: [],
-        },
-        {
-          name: "Campak-Rubella Bulan Ini",
-          type: "column",
-          data: [],
-        },
-        {
-          name: "IDL Bulan Ini",
-          type: "column",
-          data: [],
-        },
-      ],
-      options: {
-        ...this.state.options,
-        xaxis: {
-          ...this.state.options.xaxis,
-          categories: [],
-        },
+        showBulanGraphic: !this.state.showBulanGraphic,
+        showTahunGraphic: false,
+        showChoiceGraphic: false,
       },
-      showBulanGraphic: !this.state.showBulanGraphic,
-      showTahunGraphic: false,
-      showChoiceGraphic: false,
-    });
+      () => {
+        const year = new Date().getFullYear();
+        const yearList = [];
+        for (let i = 0; i < 5; i++) {
+          yearList.push("" + (year + i));
+        }
+        this.setState({ year: yearList });
+      }
+    );
   };
   handleGraphicTahunControl = (event) => {
     this.setState(
@@ -1085,6 +1114,16 @@ class AppWebsiteVisitsImun extends Component {
     );
   };
   bulanGraphic = () => {
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+      PaperProps: {
+        style: {
+          maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+          width: 250,
+        },
+      },
+    };
     return (
       <div>
         <CardHeader title="Program Imunisasi" />
@@ -1102,6 +1141,7 @@ class AppWebsiteVisitsImun extends Component {
             labelId="demo-simple-select-helper-label"
             id="demo-simple-select-helper"
             value={this.state.monthIndex}
+            name="monthIndex"
             onChange={this.handleChange}
             label="Month"
           >
@@ -1116,6 +1156,70 @@ class AppWebsiteVisitsImun extends Component {
                 )}
               >
                 {month}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl sx={{ m: 1, minWidth: 100 }}>
+          <InputLabel id="demo-simple-select-helper-label">Year</InputLabel>
+          <Select
+            labelId="demo-simple-select-helper-label"
+            id="demo-simple-select-helper"
+            name="yearIndex"
+            value={this.state.yearIndex}
+            onChange={this.handleChange}
+            label="Year"
+          >
+            {this.state.year.map((year) => (
+              <MenuItem
+                key={year}
+                value={year}
+                style={this.getStylesTahun(
+                  this.state.year,
+                  this.state.yearIndex,
+                  this.props.theme
+                )}
+              >
+                {year}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl sx={{ m: 1, minWidth: 100 }}>
+          <InputLabel id="demo-simple-select-helper-label">Desa</InputLabel>
+          <Select
+            // labelId="demo-simple-select-helper-label"
+            // id="demo-simple-select-helper"
+            value={this.state.desaIndex}
+            onChange={this.handleChange}
+            name="desaIndex"
+            label="Desa"
+            //========================Multiple========================
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+            //=========================================================
+          >
+            {this.state.desa.map((desa) => (
+              <MenuItem
+                key={desa}
+                value={desa}
+                style={this.getStylesDesa(
+                  this.state.desa,
+                  this.state.desaIndex,
+                  this.props.theme
+                )}
+              >
+                {desa}
               </MenuItem>
             ))}
           </Select>
@@ -1185,14 +1289,14 @@ class AppWebsiteVisitsImun extends Component {
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
-    const desaTemp = [];
-    for (let i = 0; i < data.length; i++) {
-      desaTemp.push(data[i].Puskesmas);
-    }
-    const desa = Array.from(new Set(desaTemp));
+    // const desaTemp = [];
+    // for (let i = 0; i < data.length; i++) {
+    //   desaTemp.push(data[i].Puskesmas);
+    // }
+    // const desa = Array.from(new Set(desaTemp));
     this.setState(
       {
-        monthIndex: event.target.value,
+        [event.target.name]: event.target.value,
       },
       () => {
         for (let a = 0; a < dataFinal.length; a++) {
@@ -1211,68 +1315,67 @@ class AppWebsiteVisitsImun extends Component {
           var IPVThisMonthBulan = 0;
           var IDLThisMonthBulan = 0;
           var SasaranBayiBaruLahirBulan = 0;
-          if (dataFinal[a].Puskesmas == desa[a]) {
-            for (let i = 0; i < dataFinal[i].set.length; i++) {
-              // console.log(
-              //   this.state.BulanIndex.toLowerCase(),
-              //   dataFinal[a].set[i].Tahun.toLowerCase()
-              // );
-              if (
-                this.state.monthIndex.toLowerCase() ===
-                dataFinal[a].set[i].Bulan.toLowerCase()
-              ) {
-                // console.log(a, dataFinal[a].set[i].SasaranBayiTL);
-                SasaranSurvivingInfantBulan =
-                  SasaranSurvivingInfantBulan +
-                  dataFinal[a].set[i].SasaranSurvivingInfant;
-                HBOLessOneDTMBulan =
-                  HBOLessOneDTMBulan + dataFinal[a].set[i].HBOLessOneDTM;
-                HBOLessOneWTMBulan =
-                  HBOLessOneWTMBulan + dataFinal[a].set[i].HBOLessOneWTM;
-                BCGThisMonthBulan =
-                  BCGThisMonthBulan + dataFinal[a].set[i].BCGThisMonth;
-                CampakRubellaTMBulan =
-                  CampakRubellaTMBulan + dataFinal[a].set[i].CampakRubellaTM;
-                Polio1ThisMonthBulan =
-                  Polio1ThisMonthBulan + dataFinal[a].set[i].Polio1ThisMonth;
-                DPTHB1ThisMonthBulan =
-                  DPTHB1ThisMonthBulan + dataFinal[a].set[i].DPTHB1ThisMonth;
-                Polio2ThisMonthBulan =
-                  Polio2ThisMonthBulan + dataFinal[a].set[i].Polio2ThisMonth;
-                DPTHB2ThisMonthBulan =
-                  DPTHB2ThisMonthBulan + dataFinal[a].set[i].DPTHB2ThisMonth;
-                Polio3ThisMonthBulan =
-                  Polio3ThisMonthBulan + dataFinal[a].set[i].Polio3ThisMonth;
-                DPTHB3ThisMonthBulan =
-                  DPTHB3ThisMonthBulan + dataFinal[a].set[i].DPTHB3ThisMonth;
-                Polio4ThisMonthBulan =
-                  Polio4ThisMonthBulan + dataFinal[a].set[i].Polio4ThisMonth;
-                IPVThisMonthBulan =
-                  IPVThisMonthBulan + dataFinal[a].set[i].IPVThisMonth;
-                IDLThisMonthBulan =
-                  IDLThisMonthBulan + dataFinal[a].set[i].IDLThisMonth;
-                SasaranBayiBaruLahirBulan =
-                  SasaranBayiBaruLahirBulan +
-                  dataFinal[a].set[i].SasaranBayiBarulahir;
+          for (let b = 0; b < this.state.desaIndex.length; b++) {
+            if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
+              for (let i = 0; i < dataFinal[i].set.length; i++) {
+                if (
+                  this.state.monthIndex.toLowerCase() ===
+                    dataFinal[a].set[i].Bulan.toLowerCase() &&
+                  this.state.yearIndex === dataFinal[a].set[i].Tahun
+                ) {
+                  // console.log(a, dataFinal[a].set[i].SasaranBayiTL);
+                  SasaranSurvivingInfantBulan =
+                    SasaranSurvivingInfantBulan +
+                    dataFinal[a].set[i].SasaranSurvivingInfant;
+                  HBOLessOneDTMBulan =
+                    HBOLessOneDTMBulan + dataFinal[a].set[i].HBOLessOneDTM;
+                  HBOLessOneWTMBulan =
+                    HBOLessOneWTMBulan + dataFinal[a].set[i].HBOLessOneWTM;
+                  BCGThisMonthBulan =
+                    BCGThisMonthBulan + dataFinal[a].set[i].BCGThisMonth;
+                  CampakRubellaTMBulan =
+                    CampakRubellaTMBulan + dataFinal[a].set[i].CampakRubellaTM;
+                  Polio1ThisMonthBulan =
+                    Polio1ThisMonthBulan + dataFinal[a].set[i].Polio1ThisMonth;
+                  DPTHB1ThisMonthBulan =
+                    DPTHB1ThisMonthBulan + dataFinal[a].set[i].DPTHB1ThisMonth;
+                  Polio2ThisMonthBulan =
+                    Polio2ThisMonthBulan + dataFinal[a].set[i].Polio2ThisMonth;
+                  DPTHB2ThisMonthBulan =
+                    DPTHB2ThisMonthBulan + dataFinal[a].set[i].DPTHB2ThisMonth;
+                  Polio3ThisMonthBulan =
+                    Polio3ThisMonthBulan + dataFinal[a].set[i].Polio3ThisMonth;
+                  DPTHB3ThisMonthBulan =
+                    DPTHB3ThisMonthBulan + dataFinal[a].set[i].DPTHB3ThisMonth;
+                  Polio4ThisMonthBulan =
+                    Polio4ThisMonthBulan + dataFinal[a].set[i].Polio4ThisMonth;
+                  IPVThisMonthBulan =
+                    IPVThisMonthBulan + dataFinal[a].set[i].IPVThisMonth;
+                  IDLThisMonthBulan =
+                    IDLThisMonthBulan + dataFinal[a].set[i].IDLThisMonth;
+                  SasaranBayiBaruLahirBulan =
+                    SasaranBayiBaruLahirBulan +
+                    dataFinal[a].set[i].SasaranBayiBarulahir;
+                }
               }
+              series2.push(SasaranSurvivingInfantBulan);
+              series3.push(HBOLessOneDTMBulan);
+              series4.push(HBOLessOneWTMBulan);
+              series5.push(BCGThisMonthBulan);
+              series6.push(CampakRubellaTMBulan);
+              series7.push(Polio1ThisMonthBulan);
+              series8.push(DPTHB1ThisMonthBulan);
+              series9.push(Polio2ThisMonthBulan);
+              series10.push(DPTHB2ThisMonthBulan);
+              series11.push(Polio3ThisMonthBulan);
+              series12.push(DPTHB3ThisMonthBulan);
+              series13.push(Polio4ThisMonthBulan);
+              series14.push(IPVThisMonthBulan);
+              series15.push(IDLThisMonthBulan);
+              series1.push(SasaranBayiBaruLahirBulan);
+              category.push(dataFinal[a].Puskesmas);
+              // console.log(series, series2);
             }
-            series2.push(SasaranSurvivingInfantBulan);
-            series3.push(HBOLessOneDTMBulan);
-            series4.push(HBOLessOneWTMBulan);
-            series5.push(BCGThisMonthBulan);
-            series6.push(CampakRubellaTMBulan);
-            series7.push(Polio1ThisMonthBulan);
-            series8.push(DPTHB1ThisMonthBulan);
-            series9.push(Polio2ThisMonthBulan);
-            series10.push(DPTHB2ThisMonthBulan);
-            series11.push(Polio3ThisMonthBulan);
-            series12.push(DPTHB3ThisMonthBulan);
-            series13.push(Polio4ThisMonthBulan);
-            series14.push(IPVThisMonthBulan);
-            series15.push(IDLThisMonthBulan);
-            series1.push(SasaranBayiBaruLahirBulan);
-            category.push(dataFinal[a].Puskesmas);
-            // console.log(series, series2);
           }
         }
         this.setState({
