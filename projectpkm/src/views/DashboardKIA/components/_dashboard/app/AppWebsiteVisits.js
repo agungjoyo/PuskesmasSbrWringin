@@ -64,6 +64,8 @@ class AppWebsiteVisits extends Component {
     ],
     yearIndex: "",
     year: [],
+    desaIndex: [],
+    desa: [],
     options: {
       stroke: { width: [3, 3, 3] },
       chart: {
@@ -140,6 +142,14 @@ class AppWebsiteVisits extends Component {
           : theme.typography.fontWeightMedium,
     };
   }
+  getStylesDesa(desa, desaIndex, theme) {
+    return {
+      fontWeight:
+        desaIndex?.indexOf(desa) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
   getStylesTahun(year, yearIndex, theme) {
     return {
       fontWeight:
@@ -180,36 +190,55 @@ class AppWebsiteVisits extends Component {
     });
   };
   handleChangeBulan = () => {
-    this.setState({
-      monthIndex: "",
-      series: [
-        {
-          name: "Sasaran",
-          type: "column",
-          data: [],
+    const { data } = this.props;
+    const desaTemp = [];
+    for (let i = 0; i < data.length; i++) {
+      desaTemp.push(data[i].Puskesmas);
+    }
+    const desa = Array.from(new Set(desaTemp));
+    this.setState(
+      {
+        monthIndex: "",
+        desaIndex: desa,
+        yearIndex: "",
+        desa: desa,
+        series: [
+          {
+            name: "Sasaran",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "Lahir Hidup",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "Lahir Mati",
+            type: "column",
+            data: [],
+          },
+        ],
+        options: {
+          ...this.state.options,
+          xaxis: {
+            ...this.state.options.xaxis,
+            categories: [],
+          },
         },
-        {
-          name: "Lahir Hidup",
-          type: "column",
-          data: [],
-        },
-        {
-          name: "Lahir Mati",
-          type: "column",
-          data: [],
-        },
-      ],
-      options: {
-        ...this.state.options,
-        xaxis: {
-          ...this.state.options.xaxis,
-          categories: [],
-        },
+        showBulanGraphic: !this.state.showBulanGraphic,
+        showTahunGraphic: false,
+        showChoiceGraphic: false,
       },
-      showBulanGraphic: !this.state.showBulanGraphic,
-      showTahunGraphic: false,
-      showChoiceGraphic: false,
-    });
+      () => {
+        const year = new Date().getFullYear();
+        const yearList = [];
+        for (let i = 0; i < 5; i++) {
+          yearList.push("" + (year + i));
+        }
+        this.setState({ year: yearList });
+      }
+    );
   };
   handleGraphicTahunControl = (event) => {
     this.setState(
@@ -476,6 +505,16 @@ class AppWebsiteVisits extends Component {
     );
   };
   bulanGraphic = () => {
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+      PaperProps: {
+        style: {
+          maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+          width: 250,
+        },
+      },
+    };
     return (
       <div>
         <CardHeader title="Progress KIA" subheader="(+43%) than last year" />
@@ -493,6 +532,7 @@ class AppWebsiteVisits extends Component {
             labelId="demo-simple-select-helper-label"
             id="demo-simple-select-helper"
             value={this.state.monthIndex}
+            name="monthIndex"
             onChange={this.handleChange}
             label="Month"
             //========================Multiple========================
@@ -521,6 +561,84 @@ class AppWebsiteVisits extends Component {
                 )}
               >
                 {month}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl sx={{ m: 1, minWidth: 100 }}>
+          <InputLabel id="demo-simple-select-helper-label">Year</InputLabel>
+          <Select
+            labelId="demo-simple-select-helper-label"
+            id="demo-simple-select-helper"
+            name="yearIndex"
+            value={this.state.yearIndex}
+            onChange={this.handleChange}
+            label="Year"
+            //========================Multiple========================
+            // labelId="demo-multiple-chip-label"
+            // id="demo-multiple-chip"
+            // multiple
+            // input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+            // renderValue={(selected) => (
+            //   <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+            //     {selected.map((value) => (
+            //       <Chip key={value} label={value} />
+            //     ))}
+            //   </Box>
+            // )}
+            // MenuProps={MenuProps}
+            //=========================================================
+          >
+            {this.state.year.map((year) => (
+              <MenuItem
+                key={year}
+                value={year}
+                style={this.getStylesTahun(
+                  this.state.year,
+                  this.state.yearIndex,
+                  this.props.theme
+                )}
+              >
+                {year}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl sx={{ m: 1, minWidth: 100 }}>
+          <InputLabel id="demo-simple-select-helper-label">Desa</InputLabel>
+          <Select
+            // labelId="demo-simple-select-helper-label"
+            // id="demo-simple-select-helper"
+            value={this.state.desaIndex}
+            onChange={this.handleChange}
+            name="desaIndex"
+            label="Desa"
+            //========================Multiple========================
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+            //=========================================================
+          >
+            {this.state.desa.map((desa) => (
+              <MenuItem
+                key={desa}
+                value={desa}
+                style={this.getStylesDesa(
+                  this.state.desa,
+                  this.state.desaIndex,
+                  this.props.theme
+                )}
+              >
+                {desa}
               </MenuItem>
             ))}
           </Select>
@@ -591,37 +709,41 @@ class AppWebsiteVisits extends Component {
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
-    const desaTemp = [];
-    for (let i = 0; i < data.length; i++) {
-      desaTemp.push(data[i].Puskesmas);
-    }
-    const desa = Array.from(new Set(desaTemp));
+    // const desaTemp = [];
+    // for (let i = 0; i < data.length; i++) {
+    //   desaTemp.push(data[i].Puskesmas);
+    // }
+    // const desa = Array.from(new Set(desaTemp));
+    // console.log(event.target);
     this.setState(
       {
-        monthIndex: event.target.value,
+        [event.target.name]: event.target.value,
       },
       () => {
         for (let a = 0; a < dataFinal.length; a++) {
           var lahirHidupBulan = 0;
           var lahirMatiBulan = 0;
           var sasaran = 0;
-          if (dataFinal[a].Puskesmas == desa[a]) {
-            for (let i = 0; i < dataFinal[i].set.length; i++) {
-              if (
-                this.state.monthIndex.toLowerCase() ===
-                dataFinal[a].set[i].Bulan.toLowerCase()
-              ) {
-                lahirHidupBulan = dataFinal[a].set[i].PencapaianLahirHidupTL;
-                lahirMatiBulan = dataFinal[a].set[i].PencapaianLahirMatiTL;
-                // console.log(a, dataFinal[a].set[i].SasaranBayiTL);
-                sasaran = dataFinal[a].set[i].SasaranBayiTL;
+          for (let b = 0; b < this.state.desaIndex.length; b++) {
+            if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
+              for (let i = 0; i < dataFinal[i].set.length; i++) {
+                if (
+                  this.state.monthIndex.toLowerCase() ===
+                    dataFinal[a].set[i].Bulan.toLowerCase() &&
+                  this.state.yearIndex === dataFinal[a].set[i].Tahun
+                ) {
+                  lahirHidupBulan = dataFinal[a].set[i].PencapaianLahirHidupTL;
+                  lahirMatiBulan = dataFinal[a].set[i].PencapaianLahirMatiTL;
+                  // console.log(a, dataFinal[a].set[i].SasaranBayiTL);
+                  sasaran = dataFinal[a].set[i].SasaranBayiTL;
+                }
               }
+              series2.push(lahirHidupBulan);
+              series3.push(lahirMatiBulan);
+              series1.push(sasaran);
+              category.push(dataFinal[a].Puskesmas);
+              // console.log(series, series2);
             }
-            series2.push(lahirHidupBulan);
-            series3.push(lahirMatiBulan);
-            series1.push(sasaran);
-            category.push(dataFinal[a].Puskesmas);
-            // console.log(series, series2);
           }
         }
         this.setState({
