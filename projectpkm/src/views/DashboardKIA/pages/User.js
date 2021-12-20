@@ -5,12 +5,18 @@ import { Icon } from "@iconify/react";
 //import { sentenceCase } from "change-case";
 import plusFill from "@iconify/icons-eva/plus-fill";
 import { Link as RouterLink, Navigate } from "react-router-dom";
-import { withFormik, Form, FormikProvider } from "formik";
 import eyeFill from "@iconify/icons-eva/eye-fill";
 import eyeOffFill from "@iconify/icons-eva/eye-off-fill";
+import InputLabel from "@mui/material/InputLabel";
+import { withTheme } from "@material-ui/core/styles";
 //import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import FormControl from "@mui/material/FormControl";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import Select from "@mui/material/Select";
+// import Chip from "@mui/material/Chip";
+import MenuItem from "@mui/material/MenuItem";
 // material
 import {
   Card,
@@ -34,7 +40,7 @@ import { LoadingButton } from "@mui/lab";
 //import InputLabel from "@mui/material/InputLabel";
 //import USERLIST from "../_mocks_/user";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
+// import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -54,20 +60,11 @@ import {
 //
 
 // ----------------------------------------------------------------------
-const positions = [
-  {
-    value: "b",
-    label: "Kepala Puskesmas",
-  },
-  {
-    value: "USD",
-    label: "Penanggung Jawab KIA",
-  },
-];
 
 class User extends Component {
   state = {
     page: 0,
+    positionList: ["Kepala Puskesmas", "KIA", "Gizi", "Imunisasi"],
     order: "asc",
     selected: [],
     orderBy: "name",
@@ -77,10 +74,47 @@ class User extends Component {
     Position: 0,
     showPassword: false,
     open: false,
+    Name: "",
+    Email: "",
+    Address: "",
+    NIP: "",
+    Nomor: "",
+    PositionIndex: "",
+    Password: "",
+    isSubmitting: false,
+  };
+  getStyles(Position, PositionIndex, theme) {
+    return {
+      fontWeight:
+        PositionIndex?.indexOf(Position) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
+  handleChangeRegister = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
+  handleShowPassword = () => {
+    this.setState({ showPassword: !this.state.showPassword });
+  };
+  handleSubmit = () => {
+    this.setState({ isSubmitting: true });
   };
   render() {
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+      PaperProps: {
+        style: {
+          maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+          width: 250,
+        },
+      },
+    };
     const { data, auth } = this.props;
-    console.log(this.props);
+    console.log(this.state);
     if (!auth.uid) return <Navigate to="/login" />;
     function descendingComparator(a, b, orderBy) {
       if (b[orderBy] < a[orderBy]) {
@@ -198,10 +232,6 @@ class User extends Component {
         this.state.filterName
       );
 
-      const handleChange = (event) => {
-        this.setState({ position: event.target.value });
-      };
-
       const isUserNotFound = filteredUsers.length === 0;
 
       //const navigate = useNavigate();
@@ -218,8 +248,7 @@ class User extends Component {
       //   Password: Yup.string().required("Password is required"),
       // });
 
-      const { errors, touched, handleSubmit, isSubmitting, getFieldProps } =
-        this.props;
+      // const { handleSubmit, isSubmitting } = this.props;
 
       // const [open, setOpen] = React.useState(false);
 
@@ -252,148 +281,146 @@ class User extends Component {
               >
                 Tambah Pengguna
               </Button>
-
-              <Dialog open={this.state.open} onClose={handleClose}>
-                <DialogContent>
-                  <DialogContentText>
-                    <DialogTitle>Tambah Pengguna</DialogTitle>
-
-                    <FormikProvider value={this.props}>
-                      <Form
-                        autoComplete="off"
-                        noValidate
-                        onSubmit={handleSubmit}
-                      >
-                        <Stack spacing={3}>
-                          <Stack
-                            direction={{ xs: "column", sm: "row" }}
-                            spacing={2}
-                          >
-                            <TextField
-                              fullWidth
-                              label="Nama Lengkap"
-                              {...getFieldProps("Name")}
-                              error={Boolean(touched.Name && errors.Name)}
-                              helperText={touched.Name && errors.Name}
-                            />
-
-                            <TextField
-                              fullWidth
-                              autoComplete="username"
-                              type="email"
-                              label="Email"
-                              {...getFieldProps("Email")}
-                              error={Boolean(touched.Email && errors.Email)}
-                              helperText={touched.Email && errors.Email}
-                            />
-                          </Stack>
-
+              <form autoComplete="off" onSubmit={this.handleSubmit}>
+                <Dialog open={this.state.open} onClose={handleClose}>
+                  <DialogContent>
+                    <DialogContentText>
+                      <DialogTitle>Tambah Pengguna</DialogTitle>
+                      <Stack spacing={3}>
+                        <Stack
+                          direction={{ xs: "column", sm: "row" }}
+                          spacing={2}
+                        >
                           <TextField
                             fullWidth
-                            label="Alamat"
-                            {...getFieldProps("Address")}
-                            error={Boolean(touched.Address && errors.Address)}
-                            helperText={touched.Address && errors.Address}
+                            label="Nama Lengkap"
+                            name="Name"
+                            onChange={this.handleChangeRegister}
                           />
-
                           <TextField
+                            onChange={this.handleChangeRegister}
                             fullWidth
-                            label="NIP"
-                            {...getFieldProps("NIP")}
-                            error={Boolean(touched.NIP && errors.NIP)}
-                            helperText={touched.NIP && errors.NIP}
+                            autoComplete="username"
+                            name="Email"
+                            type="email"
+                            label="Email"
                           />
-
-                          <TextField
-                            fullWidth
-                            type="number"
-                            label="Nomor Telepon"
-                            {...getFieldProps("phonenum", {
-                              required: {
-                                value: true,
-                                message: "Please fill this field",
-                              },
-                              pattern: {
-                                value: /^[1-9]\d*(\d+)?$/i,
-                                message: "Please enter an integer",
-                              },
-                              min: {
-                                value: 1,
-                                message: "Value should be atleast 1",
-                              },
-                            })}
-                            error={errors?.index ? true : false}
-                            helperText={errors?.index?.message}
-                          />
-
-                          <TextField
-                            fullWidth
-                            select
-                            label="Jabatan"
-                            value={this.state.Position}
-                            onChange={handleChange}
-                            SelectProps={{
-                              native: true,
-                            }}
-                            helperText="Pilih Posisi/Jabatan Anda"
-                          >
-                            {positions.map((option) => (
-                              <option key={option.value} value={option.value}>
-                                {option.label}
-                              </option>
-                            ))}
-                          </TextField>
-
-                          <TextField
-                            fullWidth
-                            autoComplete="current-password"
-                            type={this.state.showPassword ? "text" : "password"}
-                            label="Password"
-                            id="password"
-                            onSubmit={this.handleSubmit}
-                            onChange={this.handleChange}
-                            InputProps={{
-                              endAdornment: (
-                                <InputAdornment position="end">
-                                  <IconButton
-                                    onClick={this.handleShowPassword}
-                                    edge="end"
-                                  >
-                                    <Icon
-                                      icon={
-                                        this.state.showPassword
-                                          ? eyeFill
-                                          : eyeOffFill
-                                      }
-                                    />
-                                  </IconButton>
-                                </InputAdornment>
-                              ),
-                            }}
-                            error={Boolean(touched.Password && errors.Password)}
-                            helperText={touched.Password && errors.Password}
-                          />
-
-                          <LoadingButton
-                            fullWidth
-                            size="large"
-                            type="submit"
-                            variant="contained"
-                            loading={isSubmitting}
-                          >
-                            Simpan
-                          </LoadingButton>
                         </Stack>
-                      </Form>
-                    </FormikProvider>
-
-                    <DialogActions>
-                      <Button onClick={handleClose}>Batal</Button>
-                      <Button onClick={handleClose}>Simpan</Button>
-                    </DialogActions>
-                  </DialogContentText>
-                </DialogContent>
-              </Dialog>
+                        <TextField
+                          fullWidth
+                          label="Alamat"
+                          name="Address"
+                          onChange={this.handleChangeRegister}
+                        />
+                        <TextField
+                          fullWidth
+                          label="NIP"
+                          name="NIP"
+                          onChange={this.handleChangeRegister}
+                        />
+                        <TextField
+                          onChange={this.handleChangeRegister}
+                          fullWidth
+                          name="Nomor"
+                          type="number"
+                          label="Nomor Telepon"
+                        />
+                        <FormControl sx={{ m: 1, minWidth: 100 }}>
+                          <InputLabel id="demo-simple-select-helper-label">
+                            Position
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-helper-label"
+                            id="demo-simple-select-helper"
+                            // value={this.state.monthIndex}
+                            // onChange={this.handleChange}
+                            // label="Month"
+                            //========================Multiple========================
+                            // labelId="demo-multiple-chip-label"
+                            // id="demo-multiple-chip"
+                            // multiple
+                            name="PositionIndex"
+                            input={
+                              <OutlinedInput
+                                id="select-multiple-chip"
+                                label="Chip"
+                              />
+                            }
+                            // renderValue={(selected) => (
+                            //   <Box
+                            //     sx={{
+                            //       display: "flex",
+                            //       flexWrap: "wrap",
+                            //       gap: 0.5,
+                            //     }}
+                            //   >
+                            //     {selected.map((value) => (
+                            //       <Chip key={value} label={value} />
+                            //     ))}
+                            //   </Box>
+                            // )}
+                            MenuProps={MenuProps}
+                            value={this.state.PositionIndex}
+                            onChange={this.handleChangeRegister}
+                            //=========================================================
+                          >
+                            {this.state.positionList.map((position) => (
+                              <MenuItem
+                                key={position}
+                                value={position}
+                                style={this.getStyles(
+                                  this.state.Position,
+                                  this.state.PositionIndex,
+                                  this.props.theme
+                                )}
+                              >
+                                {position}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                        <TextField
+                          fullWidth
+                          type={this.state.showPassword ? "text" : "password"}
+                          label="Password"
+                          name="Password"
+                          id="password"
+                          onSubmit={this.handleSubmit}
+                          onChange={this.handleChangeRegister}
+                          InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <IconButton
+                                  onClick={this.handleShowPassword}
+                                  edge="end"
+                                >
+                                  <Icon
+                                    icon={
+                                      this.state.showPassword
+                                        ? eyeFill
+                                        : eyeOffFill
+                                    }
+                                  />
+                                </IconButton>
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                        <LoadingButton
+                          fullWidth
+                          size="large"
+                          type="submit"
+                          onClick={this.handleSubmit}
+                          variant="contained"
+                          loading={this.state.isSubmitting}
+                        >
+                          Simpan
+                        </LoadingButton>
+                      </Stack>
+                    </DialogContentText>
+                  </DialogContent>
+                </Dialog>
+              </form>
             </Stack>
 
             <Card>
@@ -522,7 +549,7 @@ class User extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  // console.log(state);
   return {
     data: state.firestore.ordered.Auth, //database
     auth: state.firebase.auth,
@@ -530,22 +557,8 @@ const mapStateToProps = (state) => {
 };
 
 export default compose(
-  withFormik({
-    mapPropsToValues: () => ({
-      Name: "",
-      Email: "",
-      Address: "",
-      NIP: "",
-      PhoneNumber: "",
-      Position: "",
-      Password: "",
-    }),
-    validate: () => {},
-    handleSubmit: () => {
-      Navigate("/dashboard", { replace: true });
-    },
-  }),
   //database
   firestoreConnect([{ collection: "Auth" }]),
-  connect(mapStateToProps)
+  connect(mapStateToProps),
+  withTheme
 )(User);

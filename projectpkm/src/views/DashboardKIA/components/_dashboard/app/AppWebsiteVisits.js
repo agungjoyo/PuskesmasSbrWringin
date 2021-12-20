@@ -3,7 +3,7 @@ import _ from "lodash";
 import ReactApexChart from "react-apexcharts";
 // material
 import { styled } from "@mui/material/styles";
-import { Card, CardHeader, Box, Button } from "@mui/material";
+import { Card, CardHeader, Box, Button, Grid } from "@mui/material";
 import { withTheme } from "@material-ui/core/styles";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -20,7 +20,9 @@ import { firestoreConnect } from "react-redux-firebase";
 // ----------------------------------------------------------------------
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: "3px 3px 10px #9E9E9E",
-  padding: theme.spacing(2, 2, 2, 2),
+  padding: theme.spacing(0, 0, 2, 0),
+  background:
+    "linear-gradient(to bottom, #b0d0ff, #bbdbff, #c8e5ff, #d8eeff, #eaf7ff);",
 }));
 
 // const CHART_DATA = [
@@ -452,7 +454,6 @@ class AppWebsiteVisits extends Component {
     };
     return (
       <div>
-        <CardHeader title="Progress KIA" subheader="(+43%) than last year" />
         <Box sx={{ p: 3, pb: 1 }} dir="ltr">
           <ReactApexChart
             type="bar"
@@ -517,7 +518,6 @@ class AppWebsiteVisits extends Component {
     };
     return (
       <div>
-        <CardHeader title="Progress KIA" subheader="(+43%) than last year" />
         <Box sx={{ p: 3, pb: 1 }} dir="ltr">
           <ReactApexChart
             type="bar"
@@ -649,7 +649,6 @@ class AppWebsiteVisits extends Component {
   tahunGraphic = () => {
     return (
       <div>
-        <CardHeader title="Progress KIA" subheader="(+43%) than last year" />
         <Box sx={{ p: 3, pb: 1 }} dir="ltr">
           <ReactApexChart
             type="bar"
@@ -845,20 +844,51 @@ class AppWebsiteVisits extends Component {
 
       return (
         <RootStyle>
-          <Card>
-            <Button variant="outlined" onClick={this.handleChangeBulan}>
-              Grafik Bulan
-            </Button>
-            <Button variant="outlined" onClick={this.handleChangeTahun}>
-              Grafik Tahun
-            </Button>
-            <Button variant="outlined" onClick={this.handleChangeQuarter}>
-              Grafik Quarter
-            </Button>
-            {this.state.showBulanGraphic ? <this.bulanGraphic /> : null}
-            {this.state.showTahunGraphic ? <this.tahunGraphic /> : null}
-            {this.state.showChoiceGraphic ? <this.choiceGraphic /> : null}
-          </Card>
+          <CardHeader
+            title="KIA"
+            sx={{ typography: "caption" }}
+            style={{
+              marginBottom: 20,
+              textAlign: "center",
+              color: "black",
+              paddingTop: 5,
+              height: 50,
+            }}
+          />
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6} lg={6}>
+              <Button
+                variant="outlined"
+                onClick={this.handleChangeBulan}
+                style={{ justifyContent: "center" }}
+                sx={{ width: 1, ml: 2 }}
+              >
+                Grafik Bulan
+              </Button>
+            </Grid>
+            <Grid item xs={12} md={6} lg={6}>
+              <Button
+                color="secondary"
+                variant="outlined"
+                onClick={this.handleChangeTahun}
+                style={{ justifyContent: "center" }}
+                sx={{ width: 1, mr: 2 }}
+              >
+                Grafik Tahun
+              </Button>
+            </Grid>
+          </Grid>
+          {/* <Button
+            variant="outlined"
+            onClick={this.handleChangeQuarter}
+            style={{ justifyContent: "center" }}
+            sx={{ margin: 1 }}
+          >
+            Grafik Quarter
+          </Button> */}
+          {this.state.showBulanGraphic ? <this.bulanGraphic /> : null}
+          {this.state.showTahunGraphic ? <this.tahunGraphic /> : null}
+          {this.state.showChoiceGraphic ? <this.choiceGraphic /> : null}
         </RootStyle>
       );
     }
