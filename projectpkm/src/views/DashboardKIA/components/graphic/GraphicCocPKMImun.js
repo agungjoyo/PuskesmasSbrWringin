@@ -623,7 +623,7 @@ class GraphicCocPKMImun extends Component {
                   IDLThisMonthYear + dataFinal[a].set[i].IDLThisMonth;
                 SasaranBayiBaruLahirYear =
                   SasaranBayiBaruLahirYear +
-                  dataFinal[a].set[i].SasaranBayiBarulahir;
+                  dataFinal[a].set[i].SasaranBayiBaruLahir;
               }
             }
 
@@ -939,7 +939,7 @@ class GraphicCocPKMImun extends Component {
                     IDLThisMonthQuarter + dataFinal[a].set[i].IDLThisMonth;
                   SasaranBayiBaruLahirQuarter =
                     SasaranBayiBaruLahirQuarter +
-                    dataFinal[a].set[i].SasaranBayiBarulahir;
+                    dataFinal[a].set[i].SasaranBayiBaruLahir;
                 }
               }
             }
@@ -1355,7 +1355,7 @@ class GraphicCocPKMImun extends Component {
                     IDLThisMonthBulan + dataFinal[a].set[i].IDLThisMonth;
                   SasaranBayiBaruLahirBulan =
                     SasaranBayiBaruLahirBulan +
-                    dataFinal[a].set[i].SasaranBayiBarulahir;
+                    dataFinal[a].set[i].SasaranBayiBaruLahir;
                 }
               }
               series2.push(SasaranSurvivingInfantBulan);

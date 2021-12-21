@@ -389,7 +389,7 @@ class DataCocImun extends Component {
                 sx={{ justify: "flex-end" }}
                 variant="contained"
                 component={RouterLink}
-                to="/dashboard/InsertData"
+                to="/dashboard/InsertDataImunisasi"
                 startIcon={<Icon icon={plusFill} />}
               >
                 Tambah Data
