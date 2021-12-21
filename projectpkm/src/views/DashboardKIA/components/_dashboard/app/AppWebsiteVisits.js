@@ -69,7 +69,7 @@ class AppWebsiteVisits extends Component {
     desaIndex: [],
     desa: [],
     options: {
-      stroke: { width: [3, 3, 3] },
+      stroke: { width: [3, 3, 3, 3] },
       chart: {
         id: "basic-bar",
         dropShadow: {
@@ -99,7 +99,7 @@ class AppWebsiteVisits extends Component {
       },
       plotOptions: { bar: { columnWidth: "45%", borderRadius: 8 } },
       fill: {
-        type: ["solid", "solid", "solid"],
+        type: ["solid", "solid", "solid", "solid"],
       },
       dataLabels: {
         enabled: true,
@@ -131,6 +131,11 @@ class AppWebsiteVisits extends Component {
       },
       {
         name: "Lahir Mati",
+        type: "column",
+        data: [],
+      },
+      {
+        name: "Pencapain KN Lengkap",
         type: "column",
         data: [],
       },
@@ -178,6 +183,11 @@ class AppWebsiteVisits extends Component {
           type: "column",
           data: [],
         },
+        {
+          name: "Pencapaian KN Lengkap",
+          type: "column",
+          data: [],
+        },
       ],
       options: {
         ...this.state.options,
@@ -217,6 +227,11 @@ class AppWebsiteVisits extends Component {
           },
           {
             name: "Lahir Mati",
+            type: "column",
+            data: [],
+          },
+          {
+            name: "Pencapaian KN Lengkap",
             type: "column",
             data: [],
           },
@@ -703,6 +718,7 @@ class AppWebsiteVisits extends Component {
     const series1 = [];
     const series2 = [];
     const series3 = [];
+    const series4 = [];
     const category = [];
     const dataFinal = _.chain(data)
       .groupBy("Puskesmas")
@@ -722,6 +738,7 @@ class AppWebsiteVisits extends Component {
         for (let a = 0; a < dataFinal.length; a++) {
           var lahirHidupBulan = 0;
           var lahirMatiBulan = 0;
+          var pencapaianKNTL = 0;
           var sasaran = 0;
           for (let b = 0; b < this.state.desaIndex.length; b++) {
             if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
@@ -733,6 +750,7 @@ class AppWebsiteVisits extends Component {
                 ) {
                   lahirHidupBulan = dataFinal[a].set[i].PencapaianLahirHidupTL;
                   lahirMatiBulan = dataFinal[a].set[i].PencapaianLahirMatiTL;
+                  pencapaianKNTL = dataFinal[a].set[i].PencapaianKNLengkapTL;
                   // console.log(a, dataFinal[a].set[i].SasaranBayiTL);
                   sasaran = dataFinal[a].set[i].SasaranBayiTL;
                 }
@@ -740,6 +758,7 @@ class AppWebsiteVisits extends Component {
               series2.push(lahirHidupBulan);
               series3.push(lahirMatiBulan);
               series1.push(sasaran);
+              series4.push(pencapaianKNTL);
               category.push(dataFinal[a].Puskesmas);
               // console.log(series, series2);
             }
@@ -761,6 +780,11 @@ class AppWebsiteVisits extends Component {
               name: "Lahir Mati",
               type: "column",
               data: series3,
+            },
+            {
+              name: "Pencapaian KN Lengkap",
+              type: "column",
+              data: series4,
             },
           ],
           options: {

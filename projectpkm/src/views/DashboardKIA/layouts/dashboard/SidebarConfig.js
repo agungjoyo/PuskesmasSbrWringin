@@ -28,19 +28,19 @@ const sidebarConfig = [
   {
     key: "3",
     title: "DataCoc",
-    path: "/dashboard/data-coc",
+    path: "/dashboard/data-coc/kia",
     icon: getIcon(fileTextFill),
   },
   {
     key: "4",
     title: "DataImunisasi",
-    path: "/dashboard/data-coc-imun",
+    path: "/dashboard/data-coc/imun",
     icon: getIcon(fileTextFill),
   },
   {
     key: "5",
     title: "DataGizi",
-    path: "/dashboard/data-coc-gizi",
+    path: "/dashboard/data-coc/gizi",
     icon: getIcon(fileTextFill),
   },
   {
@@ -58,7 +58,7 @@ const sidebarConfig = [
   {
     key: "8",
     title: "Graphic Gizi",
-    path: "/dashboard/app",
+    path: "/dashboard/graphic/gizi",
     icon: getIcon(chartLineData),
   },
 ];

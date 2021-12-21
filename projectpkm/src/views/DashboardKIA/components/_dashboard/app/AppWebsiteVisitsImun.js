@@ -19,6 +19,8 @@ import { firestoreConnect } from "react-redux-firebase";
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: "3px 3px 10px #9E9E9E",
   padding: theme.spacing(0, 0),
+  background:
+    "linear-gradient(to bottom, #b0d0ff, #bbdbff, #c8e5ff, #d8eeff, #eaf7ff);",
 }));
 
 class AppWebsiteVisitsImun extends Component {
@@ -96,7 +98,7 @@ class AppWebsiteVisitsImun extends Component {
         ],
       },
       dataLabels: {
-        enabled: false,
+        enabled: true,
       },
       grid: {
         show: false,
