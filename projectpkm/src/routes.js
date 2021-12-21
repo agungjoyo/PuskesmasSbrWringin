@@ -25,7 +25,6 @@ import InsertDataGizi from "views/DashboardKIA/pages/InsertDataGizi";
 import Graphic from "views/DashboardKIA/pages/Graphic";
 import GraphicImun from "views/DashboardKIA/pages/GraphicImun";
 import PenggunaBaru from "views/DashboardKIA/pages/PenggunaBaru";
-
 export default function Router() {
   return useRoutes([
     {
