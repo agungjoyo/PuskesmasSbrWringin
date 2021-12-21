@@ -35,7 +35,7 @@ import {
 } from "@mui/material";
 import { firestoreConnect } from "react-redux-firebase";
 import { TextField, IconButton, InputAdornment } from "@mui/material";
-import { LoadingButton } from "@mui/lab";
+//import { LoadingButton } from "@mui/lab";
 //import Box from "@mui/material/Box";
 //import InputLabel from "@mui/material/InputLabel";
 //import USERLIST from "../_mocks_/user";
@@ -82,6 +82,8 @@ class User extends Component {
     PositionIndex: "",
     Password: "",
     isSubmitting: false,
+    isEmpty: [],
+    dataEmpty: true,
   };
   getStyles(Position, PositionIndex, theme) {
     return {
@@ -100,7 +102,60 @@ class User extends Component {
     this.setState({ showPassword: !this.state.showPassword });
   };
   handleSubmit = () => {
-    this.setState({ isSubmitting: true });
+    const finalData = [
+      this.state.Name,
+      this.state.Email,
+      this.state.Address,
+      this.state.NIP,
+      this.state.Nomor,
+      this.state.PositionIndex,
+      this.state.Password,
+    ];
+    const req = [];
+    this.setState(
+      {
+        isSubmitting: true,
+      },
+      () => {
+        for (let i = 0; i < finalData.length; i++) {
+          console.log(finalData[i]);
+          if (finalData[i].length == 0) {
+            req.push("true");
+          } else if (finalData[0].length < 2 && finalData[0].length != 0) {
+            req.push("Nama Kurang");
+          } else {
+            req.push("false");
+          }
+        }
+        this.setState(
+          {
+            isEmpty: req,
+          },
+          () => {
+            const dataNew = Array.from(new Set(this.state.isEmpty));
+            const dataNewFilter = dataNew.filter((data) =>
+              data.match(new RegExp("true", "i"))
+            );
+            const dataNameFilter = dataNew.filter((data) =>
+              data.match(new RegExp("Nama Kurang", "i"))
+            );
+
+            if (dataNewFilter == "true") {
+              console.log("Data Kurang Lengkap !");
+              window.alert("Data Kurang Lengkap !");
+              this.setState({ isSubmitting: false });
+            } else if (dataNameFilter == "Nama Kurang") {
+              console.log("Nama Kurang Lengkap !");
+              window.alert("Nama Kurang Lengkap !");
+              this.setState({ isSubmitting: false });
+            } else {
+              console.log("Data Sudah Lengkap !");
+              window.alert("Data Sudah Lengkap !");
+            }
+          }
+        );
+      }
+    );
   };
   render() {
     const ITEM_HEIGHT = 48;
@@ -292,12 +347,20 @@ class User extends Component {
                           spacing={2}
                         >
                           <TextField
+                            required
                             fullWidth
                             label="Nama Lengkap"
                             name="Name"
+                            onInput={(event) => {
+                              var text = event.target.value;
+                              text = text.replace(/[^A-Za-z]/g, "");
+                              event.target.value = text;
+                            }}
                             onChange={this.handleChangeRegister}
+                            inputProps={{ maxLength: 50 }}
                           />
                           <TextField
+                            required
                             onChange={this.handleChangeRegister}
                             fullWidth
                             autoComplete="username"
@@ -307,23 +370,29 @@ class User extends Component {
                           />
                         </Stack>
                         <TextField
+                          required
                           fullWidth
                           label="Alamat"
                           name="Address"
                           onChange={this.handleChangeRegister}
                         />
                         <TextField
+                          required
                           fullWidth
+                          type="number"
                           label="NIP"
                           name="NIP"
                           onChange={this.handleChangeRegister}
+                          inputProps={{ maxLength: 18 }}
                         />
                         <TextField
                           onChange={this.handleChangeRegister}
+                          required
                           fullWidth
                           name="Nomor"
                           type="number"
                           label="Nomor Telepon"
+                          inputProps={{ maxLength: 12 }}
                         />
                         <FormControl sx={{ m: 1, minWidth: 100 }}>
                           <InputLabel id="demo-simple-select-helper-label">
@@ -340,6 +409,7 @@ class User extends Component {
                             // id="demo-multiple-chip"
                             // multiple
                             name="PositionIndex"
+                            required
                             input={
                               <OutlinedInput
                                 id="select-multiple-chip"
@@ -381,6 +451,7 @@ class User extends Component {
                         </FormControl>
                         <TextField
                           fullWidth
+                          required
                           type={this.state.showPassword ? "text" : "password"}
                           label="Password"
                           name="Password"
@@ -406,7 +477,7 @@ class User extends Component {
                             ),
                           }}
                         />
-                        <LoadingButton
+                        <Button
                           fullWidth
                           size="large"
                           type="submit"
@@ -415,7 +486,7 @@ class User extends Component {
                           loading={this.state.isSubmitting}
                         >
                           Simpan
-                        </LoadingButton>
+                        </Button>
                       </Stack>
                     </DialogContentText>
                   </DialogContent>
