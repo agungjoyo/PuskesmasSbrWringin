@@ -183,62 +183,36 @@ class DataCocImun extends Component {
           label: "Sasaran SI",
           alignCenter: "center",
         },
-        {
-          id: "HBOLessOneDLM",
-          label: "HBO < 24 Jam Bulan Lalu",
-          alignCenter: "center",
-        },
+
         {
           id: "HBOLessOneDTM",
           label: "HBO < 24 Jam Bulan Ini",
           alignCenter: "center",
         },
-        {
-          id: "HBOLessOneWLM",
-          label: "HBO 0-7 hari Bulan lalu",
-          alignCenter: "center",
-        },
+
         {
           id: "HBOLessOneWTM",
           label: "HBO 0-7 hari Bulan Ini",
           alignCenter: "center",
         },
-        { id: "BCGLastMonth", label: "BCG Bulan Lalu", alignCenter: "center" },
+
         { id: "BCGThisMonth", label: "BCG Bulan Ini", alignCenter: "center" },
-        {
-          id: "Polio1LastMonth",
-          label: "Polio 1 Bulan Lalu",
-          alignCenter: "center",
-        },
+
         {
           id: "Polio1ThisMonth",
           label: "Polio 1 Bulan Ini",
           alignCenter: "center",
         },
-        {
-          id: "DPTHB1LastMonth",
-          label: "DPTHB-1 Bulan Lalu",
-          alignCenter: "center",
-        },
+
         {
           id: "DPTHB1ThisMonth",
           label: "DPTHB-1 Bulan Ini",
           alignCenter: "center",
         },
-        {
-          id: "Polio2ThisMonth",
-          label: "Polio 2 Bulan Lalu",
-          alignCenter: "center",
-        },
+
         {
           id: "Polio2ThisMonth",
           label: "Polio 2 Bulan Ini",
-          alignCenter: "center",
-        },
-
-        {
-          id: "DPTHB2LastMonth",
-          label: "DPTHB-2 Bulan Lalu",
           alignCenter: "center",
         },
         {
@@ -246,11 +220,7 @@ class DataCocImun extends Component {
           label: "DPTHB-2 Bulan Ini",
           alignCenter: "center",
         },
-        {
-          id: "Polio3ThisMonth",
-          label: "Polio 3 Bulan Lalu",
-          alignCenter: "center",
-        },
+
         {
           id: "Polio3ThisMonth",
           label: "Polio 3 Bulan Ini",
@@ -258,42 +228,25 @@ class DataCocImun extends Component {
         },
 
         {
-          id: "DPTHB3LastMonth",
-          label: "DPTHB-3 Bulan Lalu",
-          alignCenter: "center",
-        },
-        {
           id: "DPTHB3ThisMonth",
           label: "DPTHB-3 Bulan Ini",
           alignCenter: "center",
         },
-        {
-          id: "Polio4ThisMonth",
-          label: "Polio 4 Bulan Lalu",
-          alignCenter: "center",
-        },
+
         {
           id: "Polio4ThisMonth",
           label: "Polio 4 Bulan Ini",
           alignCenter: "center",
         },
-        { id: "IPVLastMonth", label: "IPV Bulan Lalu", alignCenter: "center" },
+
         { id: "IPVThisMonth", label: "IPV Bulan Ini", alignCenter: "center" },
-        {
-          id: "CampakRubellaLM",
-          label: "Campak-Rubella Bulan Lalu",
-          alignCenter: "center",
-        },
+
         {
           id: "CampakRubellaTM",
           label: "Campak-Rubella Bulan Ini",
           alignCenter: "center",
         },
-        {
-          id: "IDLLastMonth",
-          label: "IDL Bulan Lalu",
-          alignCenter: "center",
-        },
+
         {
           id: "IDLThisMonth",
           label: "IDL Bulan Ini",
@@ -428,31 +381,31 @@ class DataCocImun extends Component {
                             Puskesmas,
                             SasaranBayiBaruLahir,
                             SasaranSurvivingInfant,
-                            HBOLessOneDLM,
+                            //HBOLessOneDLM,
                             HBOLessOneDTM,
-                            HBOLessOneWLM,
+                            //HBOLessOneWLM,
                             HBOLessOneWTM,
-                            BCGLastMonth,
+                            //BCGLastMonth,
                             BCGThisMonth,
-                            CampakRubellaLM,
+                            //CampakRubellaLM,
                             CampakRubellaTM,
-                            Polio1LastMonth,
+                            //Polio1LastMonth,
                             Polio1ThisMonth,
-                            DPTHB1LastMonth,
+                            // DPTHB1LastMonth,
                             DPTHB1ThisMonth,
-                            Polio2LastMonth,
+                            // Polio2LastMonth,
                             Polio2ThisMonth,
-                            DPTHB2LastMonth,
+                            // DPTHB2LastMonth,
                             DPTHB2ThisMonth,
-                            Polio3LastMonth,
+                            // Polio3LastMonth,
                             Polio3ThisMonth,
-                            DPTHB3LastMonth,
+                            // DPTHB3LastMonth,
                             DPTHB3ThisMonth,
-                            Polio4LastMonth,
+                            // Polio4LastMonth,
                             Polio4ThisMonth,
-                            IPVLastMonth,
+                            // IPVLastMonth,
                             IPVThisMonth,
-                            IDLLastMonth,
+                            //IDLLastMonth,
                             IDLThisMonth,
                           } = row;
                           const isItemSelected =
@@ -565,45 +518,7 @@ class DataCocImun extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {BCGLastMonth}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
-                              <TableCell
-                                align="center"
-                                style={{ width: "max-content" }}
-                              >
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
                                     {BCGThisMonth}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
-                              <TableCell
-                                align="center"
-                                style={{ width: "max-content" }}
-                              >
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
-                                    {HBOLessOneDLM}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -641,45 +556,7 @@ class DataCocImun extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {HBOLessOneWLM}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
-                              <TableCell
-                                align="center"
-                                style={{ width: "max-content" }}
-                              >
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
                                     {HBOLessOneWTM}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
-                              <TableCell
-                                align="center"
-                                style={{ width: "max-content" }}
-                              >
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
-                                    {Polio1LastMonth}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -717,45 +594,7 @@ class DataCocImun extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {DPTHB1LastMonth}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
-                              <TableCell
-                                align="center"
-                                style={{ width: "max-content" }}
-                              >
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
                                     {DPTHB1ThisMonth}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
-                              <TableCell
-                                align="center"
-                                style={{ width: "max-content" }}
-                              >
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
-                                    {DPTHB2LastMonth}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -793,45 +632,7 @@ class DataCocImun extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {DPTHB3LastMonth}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
-                              <TableCell
-                                align="center"
-                                style={{ width: "max-content" }}
-                              >
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
                                     {DPTHB3ThisMonth}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
-                              <TableCell
-                                align="center"
-                                style={{ width: "max-content" }}
-                              >
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
-                                    {Polio2LastMonth}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -869,45 +670,7 @@ class DataCocImun extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {Polio3LastMonth}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
-                              <TableCell
-                                align="center"
-                                style={{ width: "max-content" }}
-                              >
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
                                     {Polio3ThisMonth}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
-                              <TableCell
-                                align="center"
-                                style={{ width: "max-content" }}
-                              >
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
-                                    {Polio4LastMonth}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -964,64 +727,7 @@ class DataCocImun extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {CampakRubellaLM}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
-                              <TableCell
-                                align="center"
-                                style={{ width: "max-content" }}
-                              >
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
-                                    {IPVLastMonth}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
-                              <TableCell
-                                align="center"
-                                style={{ width: "max-content" }}
-                              >
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
                                     {IPVThisMonth}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
-                              <TableCell
-                                align="center"
-                                style={{ width: "max-content" }}
-                              >
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
-                                    {IDLLastMonth}
                                   </Typography>
                                 </Stack>
                               </TableCell>

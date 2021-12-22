@@ -3,7 +3,7 @@ import _, { set } from "lodash";
 import ReactApexChart from "react-apexcharts";
 // material
 import { styled } from "@mui/material/styles";
-import { Card, CardHeader, Box, Button } from "@mui/material";
+import { Card, CardHeader, Box, Button, Grid } from "@mui/material";
 import { withTheme } from "@material-ui/core/styles";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -15,6 +15,7 @@ import Chip from "@mui/material/Chip";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
+
 // ----------------------------------------------------------------------
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: "3px 3px 10px #9E9E9E",
@@ -77,6 +78,7 @@ class GraphicCocPKMImun extends Component {
           },
         },
       },
+
       plotOptions: { bar: { columnWidth: "65%", borderRadius: 3 } },
       fill: {
         type: [
@@ -99,6 +101,9 @@ class GraphicCocPKMImun extends Component {
       },
       dataLabels: {
         enabled: true,
+      },
+      legend: {
+        show: true,
       },
       grid: {
         show: false,
@@ -1478,15 +1483,40 @@ class GraphicCocPKMImun extends Component {
     } else {
       return (
         <RootStyle>
-          <Button variant="outlined" onClick={this.handleChangeBulan}>
-            Grafik Bulan
-          </Button>
-          <Button variant="outlined" onClick={this.handleChangeTahun}>
-            Grafik Tahun
-          </Button>
-          <Button variant="outlined" onClick={this.handleChangeQuarter}>
-            Grafik Quarter
-          </Button>
+          <CardHeader
+            title="Program Imunisasi"
+            sx={{ typography: "caption" }}
+            style={{
+              marginBottom: 20,
+              textAlign: "center",
+              color: "black",
+              paddingTop: 5,
+              height: 50,
+            }}
+          />
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6} lg={6}>
+              <Button
+                variant="outlined"
+                onClick={this.handleChangeBulan}
+                style={{ justifyContent: "center" }}
+                sx={{ width: 1, ml: 2 }}
+              >
+                Grafik Bulan
+              </Button>
+            </Grid>
+            <Grid item xs={12} md={6} lg={6}>
+              <Button
+                color="secondary"
+                variant="outlined"
+                onClick={this.handleChangeTahun}
+                style={{ justifyContent: "center" }}
+                sx={{ width: 1, mr: 2 }}
+              >
+                Grafik Tahun
+              </Button>
+            </Grid>
+          </Grid>
           {this.state.showBulanGraphic ? <this.bulanGraphic /> : null}
           {this.state.showTahunGraphic ? <this.tahunGraphic /> : null}
           {this.state.showChoiceGraphic ? <this.choiceGraphic /> : null}

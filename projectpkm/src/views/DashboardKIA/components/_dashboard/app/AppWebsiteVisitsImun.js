@@ -3,7 +3,7 @@ import _, { set } from "lodash";
 import ReactApexChart from "react-apexcharts";
 // material
 import { styled } from "@mui/material/styles";
-import { Card, CardHeader, Box, Button } from "@mui/material";
+import { Card, CardHeader, Box, Button, Grid } from "@mui/material";
 import { withTheme } from "@material-ui/core/styles";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -18,7 +18,7 @@ import { firestoreConnect } from "react-redux-firebase";
 // ----------------------------------------------------------------------
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: "3px 3px 10px #9E9E9E",
-  padding: theme.spacing(0, 0),
+  padding: theme.spacing(0, 0, 2, 0),
   background:
     "linear-gradient(to bottom, #b0d0ff, #bbdbff, #c8e5ff, #d8eeff, #eaf7ff);",
 }));
@@ -49,7 +49,7 @@ class AppWebsiteVisitsImun extends Component {
     desaIndex: "",
     desa: [],
     options: {
-      stroke: { width: [3, 3, 3] },
+      stroke: { width: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3] },
       chart: {
         id: "basic-bar",
         dropShadow: {
@@ -625,7 +625,7 @@ class AppWebsiteVisitsImun extends Component {
                   IDLThisMonthYear + dataFinal[a].set[i].IDLThisMonth;
                 SasaranBayiBaruLahirYear =
                   SasaranBayiBaruLahirYear +
-                  dataFinal[a].set[i].SasaranBayiBarulahir;
+                  dataFinal[a].set[i].SasaranBayiBaruLahir;
               }
             }
 
@@ -941,7 +941,7 @@ class AppWebsiteVisitsImun extends Component {
                     IDLThisMonthQuarter + dataFinal[a].set[i].IDLThisMonth;
                   SasaranBayiBaruLahirQuarter =
                     SasaranBayiBaruLahirQuarter +
-                    dataFinal[a].set[i].SasaranBayiBarulahir;
+                    dataFinal[a].set[i].SasaranBayiBaruLahir;
                 }
               }
             }
@@ -1357,7 +1357,7 @@ class AppWebsiteVisitsImun extends Component {
                     IDLThisMonthBulan + dataFinal[a].set[i].IDLThisMonth;
                   SasaranBayiBaruLahirBulan =
                     SasaranBayiBaruLahirBulan +
-                    dataFinal[a].set[i].SasaranBayiBarulahir;
+                    dataFinal[a].set[i].SasaranBayiBaruLahir;
                 }
               }
               series2.push(SasaranSurvivingInfantBulan);
@@ -1479,20 +1479,43 @@ class AppWebsiteVisitsImun extends Component {
     } else {
       return (
         <RootStyle>
-          <Card>
-            <Button variant="outlined" onClick={this.handleChangeBulan}>
-              Grafik Bulan
-            </Button>
-            <Button variant="outlined" onClick={this.handleChangeTahun}>
-              Grafik Tahun
-            </Button>
-            <Button variant="outlined" onClick={this.handleChangeQuarter}>
-              Grafik Quarter
-            </Button>
-            {this.state.showBulanGraphic ? <this.bulanGraphic /> : null}
-            {this.state.showTahunGraphic ? <this.tahunGraphic /> : null}
-            {this.state.showChoiceGraphic ? <this.choiceGraphic /> : null}
-          </Card>
+          <CardHeader
+            title="Program Imunisasi"
+            sx={{ typography: "caption" }}
+            style={{
+              marginBottom: 20,
+              textAlign: "center",
+              color: "black",
+              paddingTop: 5,
+              height: 50,
+            }}
+          />
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6} lg={6}>
+              <Button
+                variant="outlined"
+                onClick={this.handleChangeBulan}
+                style={{ justifyContent: "center" }}
+                sx={{ width: 1, ml: 2 }}
+              >
+                Grafik Bulan
+              </Button>
+            </Grid>
+            <Grid item xs={12} md={6} lg={6}>
+              <Button
+                color="secondary"
+                variant="outlined"
+                onClick={this.handleChangeTahun}
+                style={{ justifyContent: "center" }}
+                sx={{ width: 1, mr: 2 }}
+              >
+                Grafik Tahun
+              </Button>
+            </Grid>
+          </Grid>
+          {this.state.showBulanGraphic ? <this.bulanGraphic /> : null}
+          {this.state.showTahunGraphic ? <this.tahunGraphic /> : null}
+          {this.state.showChoiceGraphic ? <this.choiceGraphic /> : null}
         </RootStyle>
       );
     }
