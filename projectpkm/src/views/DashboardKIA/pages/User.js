@@ -257,8 +257,8 @@ class User extends Component {
           return (
             value.Name.toLowerCase().includes(query.toLowerCase()) ||
             value.Email.toLowerCase().includes(query.toLowerCase()) ||
-            value.NIP.toLowerCase().includes(query.toLowerCase()) |
-              value.PhoneNumber.toLowerCase().includes(query.toLowerCase()) ||
+            value.NIP.toLowerCase().includes(query.toLowerCase()) ||
+            value.PhoneNumber.toLowerCase().includes(query.toLowerCase()) ||
             value.Address.toLowerCase().includes(query.toLowerCase()) ||
             value.Position.toLowerCase().includes(query.toLowerCase())
           );
@@ -386,10 +386,11 @@ class User extends Component {
                 Daftar Pengguna
               </Typography>
               <Button
-                variant="outlined"
+                sx={{ justify: "flex-end" }}
+                variant="contained"
                 component={RouterLink}
                 onClick={handleClickOpen}
-                to="#"
+                to="/dashboard/PenggunaBaru"
                 startIcon={<Icon icon={plusFill} />}
               >
                 Tambah Pengguna
