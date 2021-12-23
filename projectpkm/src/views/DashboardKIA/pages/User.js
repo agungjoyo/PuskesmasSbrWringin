@@ -449,14 +449,6 @@ class User extends Component {
                               .slice(0, 18);
                           }}
                           onChange={this.handleChangeRegister}
-                          onInput={(e) => {
-                            e.target.value = Math.max(
-                              0,
-                              parseInt(e.target.value)
-                            )
-                              .toString()
-                              .slice(0, 18);
-                          }}
                         />
                         <TextField
                           onChange={this.handleChangeRegister}
