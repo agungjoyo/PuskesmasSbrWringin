@@ -383,7 +383,14 @@ class User extends Component {
                           label="NIP"
                           name="NIP"
                           onChange={this.handleChangeRegister}
-                          inputProps={{ maxLength: 18 }}
+                          onInput={(e) => {
+                            e.target.value = Math.max(
+                              0,
+                              parseInt(e.target.value)
+                            )
+                              .toString()
+                              .slice(0, 18);
+                          }}
                         />
                         <TextField
                           onChange={this.handleChangeRegister}

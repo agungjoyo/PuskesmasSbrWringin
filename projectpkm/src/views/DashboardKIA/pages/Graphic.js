@@ -9,7 +9,7 @@ class Graphic extends Component {
   render() {
     return (
       <Page title="Dashboard | Minimal-UI">
-        <Container maxWidth="xl">
+        <Container>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={12} md={12}>
               <GraphicCocPKM />
