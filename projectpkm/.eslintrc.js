@@ -1,9 +1,10 @@
 module.exports = {
   parser: "babel-eslint",
   env: {
-    es6: true,
     node: true,
+    commonjs: true,
     browser: true,
+    es6: true,
   },
   settings: {
     react: {

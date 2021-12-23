@@ -32,7 +32,7 @@ export default function Router() {
       path: "/dashboard",
       element: <DashboardLayout />,
       children: [
-        { element: <Navigate to="/dashboard/app" replace /> },
+        { element: <Navigate to="/dashboard/app" replace={true} /> },
         { path: "/dashboard", element: <Navigate to="/dashboard/app" /> },
         { path: "app", element: <DashboardApp /> },
         { path: "user", element: <User /> },
@@ -54,7 +54,7 @@ export default function Router() {
       path: "/",
       element: <LogoOnlyLayout />,
       children: [
-        { element: <Navigate to="/landing-page" replace={true} /> },
+        { path: "/", element: <Navigate to="/landing-page" replace={true} /> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
         { path: "*", element: <Navigate to="/404" /> },
