@@ -1,385 +1,475 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import { alpha } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import TableSortLabel from "@mui/material/TableSortLabel";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import { visuallyHidden } from "@mui/utils";
+import React, { Component } from "react";
+import { filter } from "lodash";
+import { Icon } from "@iconify/react";
+import chartLineData from "@iconify/icons-carbon/chart-line-data";
+// import { sentenceCase } from "change-case";
+import { connect } from "react-redux";
+import plusFill from "@iconify/icons-eva/plus-fill";
+import { compose } from "redux"; // database
+import { Link as RouterLink, Navigate } from "react-router-dom";
+import { firestoreConnect } from "react-redux-firebase"; //database
+// material
+import {
+  Card,
+  Table,
+  Stack,
+  //   Avatar,
+  Button,
+  Checkbox,
+  TableRow,
+  TableBody,
+  TableCell,
+  Container,
+  Typography,
+  TableContainer,
+  TablePagination,
+} from "@mui/material";
+// components
+import Page from "../components/Page";
+// import Label from "../components/Label";
+import Scrollbar from "../components/Scrollbar";
+import SearchNotFound from "../components/SearchNotFound";
+import {
+  UserListHead,
+  UserListToolbar,
+  UserMoreMenu,
+} from "../components/_dashboard/user";
+//
 
-function createData(name, calories, fat, carbs, protein) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
+// ----------------------------------------------------------------------
+
+class DataCocGizi extends Component {
+  state = {
+    page: 0,
+    order: "asc",
+    selected: [],
+    orderBy: "name",
+    filterName: "",
+    rowsPerPage: 5,
+    isLoading: true,
   };
-}
-
-const rows = [
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Donut", 452, 25.0, 51, 4.9),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Honeycomb", 408, 3.2, 87, 6.5),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Jelly Bean", 375, 0.0, 94, 0.0),
-  createData("KitKat", 518, 26.0, 65, 7.0),
-  createData("Lollipop", 392, 0.2, 98, 0.0),
-  createData("Marshmallow", 318, 0, 81, 2.0),
-  createData("Nougat", 360, 19.0, 9, 37.0),
-  createData("Oreo", 437, 18.0, 63, 4.0),
-];
-
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator(order, orderBy) {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
+  render() {
+    const { data, auth } = this.props;
+    if (!auth.uid) return <Navigate to="/login" />;
+    function descendingComparator(a, b, orderBy) {
+      if (b[orderBy] < a[orderBy]) {
+        return -1;
+      }
+      if (b[orderBy] > a[orderBy]) {
+        return 1;
+      }
+      return 0;
     }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
 
-const headCells = [
-  {
-    id: "name",
-    numeric: false,
-    disablePadding: true,
-    label: "Dessert (100g serving)",
-  },
-  {
-    id: "calories",
-    numeric: true,
-    disablePadding: false,
-    label: "Calories",
-  },
-  {
-    id: "fat",
-    numeric: true,
-    disablePadding: false,
-    label: "Fat (g)",
-  },
-  {
-    id: "carbs",
-    numeric: true,
-    disablePadding: false,
-    label: "Carbs (g)",
-  },
-  {
-    id: "protein",
-    numeric: true,
-    disablePadding: false,
-    label: "Protein (g)",
-  },
-];
-
-function EnhancedTableHead(props) {
-  const {
-    onSelectAllClick,
-    order,
-    orderBy,
-    numSelected,
-    rowCount,
-    onRequestSort,
-  } = props;
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
-
-  return (
-    <TableHead>
-      <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all desserts",
-            }}
-          />
-        </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
-            padding={headCell.disablePadding ? "none" : "normal"}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
-
-EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
-
-const EnhancedTableToolbar = (props) => {
-  const { numSelected } = props;
-
-  return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: (theme) =>
-            alpha(
-              theme.palette.primary.main,
-              theme.palette.action.activatedOpacity
-            ),
-        }),
-      }}
-    >
-      {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          Data Program Gizi
-        </Typography>
-      )}
-
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
-    </Toolbar>
-  );
-};
-
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
-
-export default function DataCocGizi() {
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
-  };
-
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
+    function getComparator(order, orderBy) {
+      return order === "desc"
+        ? (a, b) => descendingComparator(a, b, orderBy)
+        : (a, b) => -descendingComparator(a, b, orderBy);
     }
-    setSelected([]);
-  };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
+    function applySortFilter(array, comparator, query) {
+      const stabilizedThis = array.map((el, index) => [el, index]);
+      stabilizedThis.sort((a, b) => {
+        const order = comparator(a[0], b[0]);
+        if (order !== 0) return order;
+        console.log(a, b, order);
+        return a[1] - b[1];
+      });
+      if (query) {
+        return filter(array, (value) => {
+          return (
+            value.Bulan?.toLowerCase().includes(query.toLowerCase()) ||
+            value.Puskesmas?.toLowerCase().includes(query.toLowerCase()) ||
+            value.JumlahBalitaKMS?.toLowerCase().includes(
+              query.toLowerCase()
+            ) ||
+            value.JumlahBadutaLess23Bln?.toLowerCase().includes(
+              query.toLowerCase()
+            ) ||
+            value.JmlBalitaLess2359Bln?.toLowerCase().includes(
+              query.toLowerCase()
+            ) ||
+            value.JmlBalitaLess59Bln?.toLowerCase().includes(
+              query.toLowerCase()
+            ) ||
+            value.JmlBalitaNaikBB?.toLowerCase().includes(
+              query.toLowerCase()
+            ) ||
+            value.Tahun?.toString().toLowerCase().includes(query.toLowerCase())
+          );
+        });
+      }
+      // return stabilizedThis.map((el) => el[0]);
+      return stabilizedThis.map((el) => el[0]);
+    }
+    if (data == undefined) {
+      return <div>Loading...</div>;
+    } else {
+      const TABLE_HEAD = [
+        { id: "Bulan", label: "Bulan", alignCenter: "center" },
+        { id: "Puskesmas", label: "Puskesmas", alignCenter: "center" },
+        {
+          id: "JumlahBalitaKMS",
+          label: "Jumlah Balita KMS",
+          alignCenter: "center",
+        },
+        {
+          id: "JumlahBadutaLess23Bln",
+          label: " Jumlah baduta (0-23 bln) yang ditimbang",
+          alignCenter: "center",
+        },
+        {
+          id: "JmlBalitaLess2359Bln",
+          label: "Jumlah balita (24-59 bln) yang ditimbang",
+          alignCenter: "center",
+        },
+        {
+          id: "JmlBalitaLess59Bln",
+          label: "Jumlah balita (0-59 bln) yang ditimbang",
+          alignCenter: "center",
+        },
+        {
+          id: "JmlBalitaNaikBB",
+          label: "Jumlah Balita Naik BB",
+          alignCenter: "center",
+        },
+        { id: "" },
+      ];
 
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
+      // ----------------------------------------------------------------------
+
+      const handleRequestSort = (event, property) => {
+        const isAsc =
+          this.state.orderBy === property && this.state.order === "asc";
+        // this.state.orderBy(isAsc ? "desc" : "asc");
+        const orderBy = isAsc ? "desc" : "asc";
+        console.log(orderBy);
+        isAsc
+          ? this.setState({ order: "desc" })
+          : this.setState({ order: "asc" });
+        // this.state.orderBy(property);
+        this.setState({ orderBy: property });
+      };
+
+      const handleSelectAllClick = (event) => {
+        if (event.target.checked) {
+          const newSelecteds = data.map((n) => n.name);
+          this.setState({ selected: newSelecteds });
+          return;
+        }
+        this.setState({ selected: [] });
+      };
+
+      const handleClick = (event, name) => {
+        const selectedIndex = this.state.selected.indexOf(name);
+        let newSelected = [];
+        if (selectedIndex === -1) {
+          newSelected = newSelected.concat(this.state.selected, name);
+        } else if (selectedIndex === 0) {
+          newSelected = newSelected.concat(this.state.selected.slice(1));
+        } else if (selectedIndex === this.state.selected.length - 1) {
+          newSelected = newSelected.concat(this.state.selected.slice(0, -1));
+        } else if (selectedIndex > 0) {
+          newSelected = newSelected.concat(
+            this.state.selected.slice(0, selectedIndex),
+            this.state.selected.slice(selectedIndex + 1)
+          );
+        }
+        // this.state.selected(newSelected);
+        this.setState({ selected: newSelected });
+      };
+
+      const handleChangePage = (event, newPage) => {
+        // this.state.page(newPage);
+        this.setState({ page: newPage });
+      };
+
+      const handleChangeRowsPerPage = (event) => {
+        this.setState({ rowsPerPage: event.target.value });
+        // this.state.page(parseInt(event.target.value, 10));
+        // this.setState({ page: parseInt(event.target.value, 10) });
+        // this.state.page(0);
+        // this.setState({ page: 0 });
+      };
+
+      const handleFilterByName = (event) => {
+        this.setState({
+          filterName: event.target.value,
+        });
+        // filterName(event.target.value);
+      };
+
+      const emptyRows =
+        this.state.page > 0
+          ? Math.max(
+              0,
+              (1 + this.state.page) * this.state.rowsPerPage - data.length
+            )
+          : 0;
+
+      const filteredUsers = applySortFilter(
+        data,
+        getComparator(this.state.order, this.state.orderBy),
+        this.state.filterName
+      );
+
+      const isUserNotFound = filteredUsers.length === 0;
+      console.log(this.state, filteredUsers);
+      return (
+        <Page title="Data CoC Gizi| Minimal-UI">
+          <Container>
+            <Stack direction="row" justifyContent="space-between" mb={5}>
+              <div style={{ pointerEvents: "none" }}>
+                <Button
+                  sx={{ fontSize: 20, cursor: "none" }}
+                  variant="outline"
+                  startIcon={<Icon icon={chartLineData} />}
+                >
+                  {/* <Icon icon={chartLineData} width="30" height="30" /> */}
+                  Data Coc Gizi
+                </Button>
+              </div>
+              <Button
+                sx={{ justify: "flex-end" }}
+                variant="contained"
+                component={RouterLink}
+                to="/dashboard/InsertDataGizi"
+                startIcon={<Icon icon={plusFill} />}
+              >
+                Tambah Data
+              </Button>
+            </Stack>
+
+            <Card>
+              <UserListToolbar
+                numSelected={this.state.selected.length}
+                filterName={this.state.filterName}
+                onFilterName={handleFilterByName}
+              />
+
+              <Scrollbar>
+                <TableContainer sx={{ minWidth: 800 }}>
+                  <Table style={{ tableLayout: "auto" }}>
+                    <UserListHead
+                      order={this.state.order}
+                      orderBy={this.state.orderBy}
+                      headLabel={TABLE_HEAD}
+                      rowCount={data.length}
+                      numSelected={this.state.selected.length}
+                      onRequestSort={handleRequestSort}
+                      onSelectAllClick={handleSelectAllClick}
+                    />
+                    <TableBody>
+                      {filteredUsers
+                        .slice(
+                          this.state.page * this.state.rowsPerPage,
+                          this.state.page * this.state.rowsPerPage +
+                            this.state.rowsPerPage
+                        )
+                        .map((row) => {
+                          const {
+                            id,
+                            Bulan,
+                            Puskesmas,
+                            JumlahBalitaKMS,
+                            JumlahBadutaLess23Bln,
+                            JmlBalitaLess2359Bln,
+                            JmlBalitaLess59Bln,
+                            JmlBalitaNaikBB,
+                          } = row;
+                          const isItemSelected =
+                            this.state.selected.indexOf(Bulan) !== -1;
+
+                          return (
+                            <TableRow
+                              sx={{ maxWidth: 20 }}
+                              hover
+                              key={id}
+                              tabIndex={-1}
+                              role="checkbox"
+                              selected={isItemSelected}
+                              aria-checked={isItemSelected}
+                            >
+                              <TableCell padding="checkbox">
+                                <Checkbox
+                                  checked={isItemSelected}
+                                  onChange={(event) =>
+                                    handleClick(event, Bulan)
+                                  }
+                                />
+                              </TableCell>
+                              <TableCell
+                                component="th"
+                                scope="row"
+                                padding="none"
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="subtitle2"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {Bulan}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell
+                                align="center"
+                                style={{ width: "max-content" }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {Puskesmas}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {JumlahBalitaKMS}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {JumlahBadutaLess23Bln}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {JmlBalitaLess2359Bln}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {JmlBalitaLess59Bln}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {JmlBalitaNaikBB}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="right">
+                                <UserMoreMenu />
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      {emptyRows > 0 && (
+                        <TableRow style={{ height: 53 * emptyRows }}>
+                          <TableCell colSpan={6} />
+                        </TableRow>
+                      )}
+                    </TableBody>
+                    {isUserNotFound && (
+                      <TableBody>
+                        <TableRow>
+                          <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                            <SearchNotFound
+                              searchQuery={this.state.filterName}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    )}
+                  </Table>
+                </TableContainer>
+              </Scrollbar>
+
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={data.length}
+                rowsPerPage={this.state.rowsPerPage}
+                page={this.state.page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </Card>
+          </Container>
+        </Page>
       );
     }
-
-    setSelected(newSelected);
-  };
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
-
-  const isSelected = (name) => selected.indexOf(name) !== -1;
-
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-  return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                 rows.slice().sort(getComparator(order, orderBy)) */}
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.name)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.name}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            "aria-labelledby": labelId,
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
-    </Box>
-  );
+  }
 }
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    data: state.firestore.ordered.Gizi, //database
+    auth: state.firebase.auth,
+  };
+};
+
+export default compose(
+  //database
+  firestoreConnect([{ collection: "Gizi" }]),
+  connect(mapStateToProps)
+)(DataCocGizi);

@@ -98,15 +98,6 @@ class InsertDataImunisasi extends Component {
               });
             }
           }
-          // if (dateSplit[2] == undefined) {
-          //   this.setState({
-          //     Tahun: dateSplit[4],
-          //   });
-          // } else {
-          //   this.setState({
-          //     Tahun: dateSplit[5],
-          //   });
-          // }
           this.setState({
             Tahun: dateSplit[4],
             Bulan: dateSplit[2],
