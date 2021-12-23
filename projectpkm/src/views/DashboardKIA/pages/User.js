@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import * as Yup from "yup";
-import { filter } from "lodash";
+import { filter, _ } from "lodash";
 import { Icon } from "@iconify/react";
 //import { sentenceCase } from "change-case";
 import plusFill from "@iconify/icons-eva/plus-fill";
@@ -15,6 +15,7 @@ import { compose } from "redux";
 import FormControl from "@mui/material/FormControl";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Select from "@mui/material/Select";
+import { signUp } from "views/store/actions/authAction";
 // import Chip from "@mui/material/Chip";
 import MenuItem from "@mui/material/MenuItem";
 // material
@@ -101,6 +102,7 @@ class User extends Component {
   handleShowPassword = () => {
     this.setState({ showPassword: !this.state.showPassword });
   };
+
   handleSubmit = () => {
     const finalData = [
       this.state.Name,
@@ -111,6 +113,43 @@ class User extends Component {
       this.state.PositionIndex,
       this.state.Password,
     ];
+    const { data } = this.props;
+    console.log(data);
+    const dataUserFinal = _.filter(data, {
+      Name: this.state.Name,
+    });
+    console.log(this.state.Name);
+    console.log(dataUserFinal);
+    const dataCompare = _.filter(dataUserFinal, {
+      Email: this.state.Email,
+    });
+    console.log(dataCompare);
+    if (dataCompare?.length == 1) {
+      this.setstate({ isDuplicate: true });
+      console.log(this.state.isDuplicate);
+      window.alert(
+        "Data yang Anda masukkan sudah ada " +
+          this.state.Name +
+          " " +
+          this.state.Email +
+          " for " +
+          this.state.NIP
+      );
+    } else {
+      this.setState({ isDuplicate: false });
+      console.log(this.state.isDuplicate);
+      window.alert(
+        "Berhasil " +
+          this.state.Name +
+          " " +
+          this.state.Email +
+          " for " +
+          this.state.NIP
+      );
+      const { files, ...finalData } = this.state;
+      console.log(files);
+      this.props.signUp(finalData);
+    }
     const req = [];
     this.setState(
       {
@@ -123,6 +162,10 @@ class User extends Component {
             req.push("true");
           } else if (finalData[0].length < 2 && finalData[0].length != 0) {
             req.push("Nama Kurang");
+          } else if (finalData[3].length <= 18 && finalData[3].length != 0) {
+            req.push("NIP Kurang");
+          } else if (finalData[4].length >= 12 && finalData[4].length != 0) {
+            req.push("Nomer tidak valid");
           } else {
             req.push("false");
           }
@@ -139,6 +182,13 @@ class User extends Component {
             const dataNameFilter = dataNew.filter((data) =>
               data.match(new RegExp("Nama Kurang", "i"))
             );
+            const dataNipFilter = dataNew.filter((data) =>
+              data.match(new RegExp("NIP Kurang", "i"))
+            );
+
+            const dataNomerFilter = dataNew.filter((data) =>
+              data.match(new RegExp("Nomer Tidak Valid", "i"))
+            );
 
             if (dataNewFilter == "true") {
               console.log("Data Kurang Lengkap !");
@@ -147,6 +197,14 @@ class User extends Component {
             } else if (dataNameFilter == "Nama Kurang") {
               console.log("Nama Kurang Lengkap !");
               window.alert("Nama Kurang Lengkap !");
+              this.setState({ isSubmitting: false });
+            } else if (dataNipFilter == "Nip Kurang") {
+              console.log("NIP Kurang Lengkap !");
+              window.alert("NIP Kurang Lengkap !");
+              this.setState({ isSubmitting: false });
+            } else if (dataNomerFilter == "Nomer Tidak Valid") {
+              console.log("Nomer Tidak Valid !");
+              window.alert("Nomer Tidak Valid !");
               this.setState({ isSubmitting: false });
             } else {
               console.log("Data Sudah Lengkap !");
@@ -382,6 +440,14 @@ class User extends Component {
                           type="number"
                           label="NIP"
                           name="NIP"
+                          onInput={(e) => {
+                            e.target.value = Math.max(
+                              0,
+                              parseInt(e.target.value)
+                            )
+                              .toString()
+                              .slice(0, 18);
+                          }}
                           onChange={this.handleChangeRegister}
                           inputProps={{ maxLength: 18 }}
                         />
@@ -619,6 +685,12 @@ class User extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signUp: (data) => dispatch(signUp(data)),
+  };
+};
+
 const mapStateToProps = (state) => {
   // console.log(state);
   return {
@@ -630,6 +702,6 @@ const mapStateToProps = (state) => {
 export default compose(
   //database
   firestoreConnect([{ collection: "Auth" }]),
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   withTheme
 )(User);
