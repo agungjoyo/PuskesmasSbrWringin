@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Icon } from "@iconify/react";
 import trash2Outline from "@iconify/icons-eva/trash-2-outline";
 import moreVerticalFill from "@iconify/icons-eva/more-vertical-fill";
-import { removeDataCoc } from "views/store/actions/datacocAction";
+import { removeDataCocImunisasi } from "views/store/actions/datacocimunAction";
 import { connect } from "react-redux";
 // material
 import {
@@ -15,13 +15,13 @@ import {
 
 // ----------------------------------------------------------------------
 
-class UserMoreMenu extends Component {
+class UserMoreMenuImunisasi extends Component {
   state = {
     isOpen: false,
     anchorEl: false,
   };
   render() {
-    const { removeDataCoc, id } = this.props;
+    const { removeDataCocImunisasi, id } = this.props;
     return (
       <div>
         <IconButton
@@ -50,7 +50,7 @@ class UserMoreMenu extends Component {
             onClick={() => {
               if (confirm("Apakah Anda Ingin Menghapus Data Ini?") == true) {
                 console.log("True");
-                removeDataCoc(id);
+                removeDataCocImunisasi(id);
               } else {
                 window.alert("Anda Telah Membatalkan Penghapusan Data");
               }
@@ -71,10 +71,10 @@ class UserMoreMenu extends Component {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    removeDataCoc: (id) => {
-      dispatch(removeDataCoc(id));
+    removeDataCocImunisasi: (id) => {
+      dispatch(removeDataCocImunisasi(id));
     },
   };
 };
 
-export default connect(null, mapDispatchToProps)(UserMoreMenu);
+export default connect(null, mapDispatchToProps)(UserMoreMenuImunisasi);

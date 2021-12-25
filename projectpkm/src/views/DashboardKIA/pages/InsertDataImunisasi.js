@@ -2,13 +2,13 @@ import React, { Component } from "react";
 // material
 import { Box, Grid, Container, Typography, Card } from "@mui/material";
 import Dropzone from "react-dropzone";
-import csv from "csv";
 import * as XLSX from "xlsx";
 import { connect } from "react-redux";
 import { addDataCocImun } from "views/store/actions/datacocimunAction";
 import _ from "lodash";
 // components
 import Page from "../components/Page";
+import { DataCocEditImunisasi } from "views/store/actions/datacocimunAction";
 import { Navigate } from "react-router";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
@@ -141,14 +141,25 @@ class InsertDataImunisasi extends Component {
           if (dataCocCompare.length == 1) {
             this.setState({ isDuplicate: true });
             console.log(this.state.isDuplicate);
-            window.alert(
-              "Data yang Anda masukkan sudah ada " +
-                this.state.Bulan +
-                " " +
-                this.state.Tahun +
-                " for " +
-                this.state.Puskesmas
-            );
+            if (
+              confirm(
+                "Apakah Anda Ingin Merubah Data " +
+                  this.state.Puskesmas +
+                  " Pada " +
+                  this.state.Bulan +
+                  " " +
+                  this.state.Tahun +
+                  "?"
+              ) == true
+            ) {
+              console.log("True");
+              const { files, isDuplicate, ...finalData } = this.state;
+              console.log(finalData, dataCocCompare[0].id);
+              console.log(files, isDuplicate);
+              this.props.DataCocEditImunisasi(dataCocCompare[0].id, finalData);
+            } else {
+              window.alert("Anda Telah Membatalkan Pengubahan Data");
+            }
           } else {
             this.setState({ isDuplicate: false });
             console.log(this.state.isDuplicate);
@@ -177,61 +188,6 @@ class InsertDataImunisasi extends Component {
       console.log(d);
     });
   };
-
-  onDrop(files) {
-    this.setState({ files });
-    var file = files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      csv.parse({ delimiter: ";" }, reader.result, (err, data) => {
-        const tahun = data[2][0];
-        const dateSplit = tahun.split(" ");
-        this.setState({
-          Tahun: dateSplit[3],
-          Bulan: dateSplit[1],
-        });
-        // console.log(dateSplit);
-        // var userList = [];
-        console.log(data);
-        for (var i = 7; i < 13; i++) {
-          this.setState({
-            Puskesmas: data[i][1],
-            SasaranBayiBaruLahir: data[i][2],
-            SasaranSurvivingInfant: data[i][3],
-            HBOLessOneDLM: data[i][4],
-            HBOLessOneDTM: data[i][5],
-            BCGLastMonth: data[i][8],
-            BCGThisMonth: data[i][9],
-            HBOLessOneWLM: data[i][12],
-            HBOLessOneWTM: data[i][13],
-            Polio1LastMonth: data[i][16],
-            Polio1ThisMonth: data[i][17],
-            DPTHB1LastMonth: data[i][20],
-            DPTHB1ThisMonth: data[i][21],
-            Polio2LastMonth: data[i][24],
-            Polio2ThisMonth: data[i][25],
-            DPTHB2LastMonth: data[i][28],
-            DPTHB2ThisMonth: data[i][29],
-            Polio3LastMonth: data[i][32],
-            Polio3ThisMonth: data[i][33],
-            DPTHB3LastMonth: data[i][36],
-            DPTHB3ThisMonth: data[i][37],
-            Polio4LastMonth: data[i][41],
-            Polio4ThisMonth: data[i][42],
-            IPVLastMonth: data[i][44],
-            IPVThisMonth: data[i][45],
-            CampakRubellaLM: data[i][48],
-            CampakRubellaTM: data[i][49],
-            IDLLastMonth: data[i][52],
-            IDLThisMonth: data[i][53],
-          });
-        }
-      });
-    };
-    reader.readAsBinaryString(file);
-    // this.props.addDataCoc(this.state);
-  }
-
   render() {
     console.log(this.state);
     return (
@@ -299,6 +255,8 @@ class InsertDataImunisasi extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     addDataCocImun: (dataCocImun) => dispatch(addDataCocImun(dataCocImun)),
+    DataCocEditImunisasi: (dataCocImunisasi, id) =>
+      dispatch(DataCocEditImunisasi(dataCocImunisasi, id)),
   };
 };
 

@@ -2,32 +2,16 @@ import React, { Component } from "react";
 // material
 import { Box, Grid, Container, Typography, Card } from "@mui/material";
 import Dropzone from "react-dropzone";
-import csv from "csv";
 import * as XLSX from "xlsx";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { Navigate } from "react-router-dom";
 import { addDataCoc } from "views/store/actions/datacocAction";
+import { DataCocEdit } from "views/store/actions/datacocAction";
 import _ from "lodash";
 // components
 import Page from "../components/Page";
-// import {
-//   AppTasks,
-//   AppNewUsers,
-//   AppBugReports,
-//   AppItemOrders,
-//   AppNewsUpdate,
-//   AppWeeklySales,
-//   AppOrderTimeline,
-//  AppCurrentVisits,
-//   AppWebsiteVisits,
-//   AppTrafficBySite,
-// AppCurrentSubject,
-// AppConversionRates
-// } from "../components/_dashboard/app";
-
-// ----------------------------------------------------------------------
 
 class InsertData extends Component {
   constructor() {
@@ -145,18 +129,27 @@ class InsertData extends Component {
           const dataCocCompare = _.filter(dataCocFinal, {
             Bulan: this.state.Bulan,
           });
-          console.log(dataCocCompare);
           if (dataCocCompare.length == 1) {
             this.setState({ isDuplicate: true });
-            console.log(this.state.isDuplicate);
-            window.alert(
-              "Duplicate Entry in " +
-                this.state.Bulan +
-                " " +
-                this.state.Tahun +
-                " for " +
-                this.state.Puskesmas
-            );
+            if (
+              confirm(
+                "Apakah Anda Ingin Merubah Data " +
+                  this.state.Puskesmas +
+                  " Pada " +
+                  this.state.Bulan +
+                  " " +
+                  this.state.Tahun +
+                  "?"
+              ) == true
+            ) {
+              console.log("True");
+              const { files, isDuplicate, ...finalData } = this.state;
+              console.log(finalData, dataCocCompare[0].id);
+              console.log(files, isDuplicate);
+              this.props.DataCocEdit(dataCocCompare[0].id, finalData);
+            } else {
+              window.alert("Anda Telah Membatalkan Pengubahan Data");
+            }
           } else {
             this.setState({ isDuplicate: false });
             console.log(this.state.isDuplicate);
@@ -172,15 +165,6 @@ class InsertData extends Component {
             console.log(files, isDuplicate);
             this.props.addDataCoc(finalData);
           }
-          //   const name = data[i][0];
-          //   const phoneNumber = data[i][1];
-          //   const address = data[i][2];
-          //   const classType = data[i][3];
-          //   const newUser = {
-          //     name: name,
-          //     phoneNumber: phoneNumber,
-          //     address: address,
-          //     class: classType,
         }
         return <Navigate to="./InsertData" />;
       };
@@ -194,74 +178,6 @@ class InsertData extends Component {
       console.log(d);
     });
   };
-  onDrop(files) {
-    this.setState({ files });
-    var file = files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      csv.parse({ delimiter: ";" }, reader.result, (err, data) => {
-        const tahun = data[2][0];
-        const dateSplit = tahun.split(" ");
-        this.setState({
-          Tahun: dateSplit[3],
-          Bulan: dateSplit[1],
-        });
-        // console.log(dateSplit);
-        // var userList = [];
-        console.log(data);
-        for (var i = 7; i < 13; i++) {
-          this.setState({
-            Puskesmas: data[i][2],
-            SasaranKelahiranHidupLK: data[i][4],
-            SasaranKelahiranHidupPR: data[i][6],
-            SasaranKelahiranHidupTL: data[i][8],
-            SasaranBayiRistiLK: data[i][10],
-            SasaranBayiRistiPR: data[i][12],
-            SasaranBayiRistiTL: data[i][14],
-            SasaranBayiLK: data[i][16],
-            SasaranBayiPR: data[i][18],
-            SasaranBayiTL: data[i][20],
-            PencapaianLahirHidupLK: data[i][28],
-            PencapaianLahirHidupPR: data[i][30],
-            PencapaianLahirHidupTL: data[i][32],
-            PencapaianLahirMatiLK: data[i][54],
-            PencapaianLahirMatiPR: data[i][56],
-            PencapaianLahirMatiTL: data[i][58],
-            PencapaianKNPertamaLK: data[i][80],
-            PencapaianKNPertamaPR: data[i][82],
-            PencapaianKNPertamaTL: data[i][84],
-            PencapaianKNKeduaLK: data[i][106],
-            PencapaianKNKeduaPR: data[i][108],
-            PencapaianKNKeduaTL: data[i][110],
-            PencapaianKNLengkapLK: data[i][132],
-            PencapaianKNLengkapPR: data[i][134],
-            PencapaianKNLengkapTL: data[i][136],
-            NeonatalKompLK: data[i][158],
-            NeonatalKompPR: data[i][160],
-            NeonatalKompTL: data[i][162],
-            KunjunganBayiParipurnaLK: data[i][184],
-            KunjunganBayiParipurnaPR: data[i][186],
-            KunjunganBayiParipurnaTL: data[i][188],
-          });
-          //   const name = data[i][0];
-          //   const phoneNumber = data[i][1];
-          //   const address = data[i][2];
-          //   const classType = data[i][3];
-          //   const newUser = {
-          //     name: name,
-          //     phoneNumber: phoneNumber,
-          //     address: address,
-          //     class: classType,
-        }
-        //   userList.push(newUser);
-        //   console.log(newUser);
-        // }
-      });
-    };
-    reader.readAsBinaryString(file);
-    // this.props.addDataCoc(this.state);
-  }
-
   render() {
     console.log(this.state);
     return (
@@ -322,42 +238,6 @@ class InsertData extends Component {
                 </h2>
               </Card>
             </Grid>
-            {/* <Grid item xs={12} sm={6} md={3}>
-              <AppWeeklySales />
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-               <AppNewUsers />
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <AppItemOrders />
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <AppBugReports />
-            </Grid> */}
-            {/* <Grid item xs={12} md={12} lg={12}>
-              <AppWebsiteVisits />
-            </Grid> */}
-            {/* <Grid item xs={12} md={6} lg={4}>
-              <AppCurrentVisits />
-            </Grid>
-            <Grid item xs={12} md={6} lg={8}>
-              <AppConversionRates />
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <AppCurrentSubject />
-            </Grid> */}
-            {/* <Grid item xs={12} md={6} lg={8}>
-              <AppNewsUpdate />
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <AppOrderTimeline />
-            </Grid>
-            <Grid item xs={12} md={6} lg={5}>
-              <AppTrafficBySite />
-            </Grid>
-            <Grid item xs={12} md={6} lg={7}>
-              <AppTasks />
-            </Grid> */}
           </Grid>
         </Container>
       </Page>
@@ -368,6 +248,7 @@ class InsertData extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     addDataCoc: (dataCoc) => dispatch(addDataCoc(dataCoc)),
+    DataCocEdit: (dataCoc, id) => dispatch(DataCocEdit(dataCoc, id)),
   };
 };
 

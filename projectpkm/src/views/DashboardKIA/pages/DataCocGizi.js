@@ -32,7 +32,7 @@ import SearchNotFound from "../components/SearchNotFound";
 import {
   UserListHead,
   UserListToolbar,
-  UserMoreMenu,
+  UserMoreMenuGizi,
 } from "../components/_dashboard/user";
 //
 
@@ -418,7 +418,7 @@ class DataCocGizi extends Component {
                                 </Stack>
                               </TableCell>
                               <TableCell align="right">
-                                <UserMoreMenu />
+                                <UserMoreMenuGizi />
                               </TableCell>
                             </TableRow>
                           );
