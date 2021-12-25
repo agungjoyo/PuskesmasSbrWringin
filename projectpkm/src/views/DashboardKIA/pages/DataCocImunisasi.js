@@ -28,7 +28,7 @@ import SearchNotFound from "../components/SearchNotFound";
 import {
   UserListHead,
   UserListToolbar,
-  UserMoreMenu,
+  UserMoreMenuImunisasi,
 } from "../components/_dashboard/user";
 
 class DataCocImun extends Component {
@@ -752,7 +752,7 @@ class DataCocImun extends Component {
                               </TableCell>
 
                               <TableCell align="right">
-                                <UserMoreMenu />
+                                <UserMoreMenuImunisasi />
                               </TableCell>
                             </TableRow>
                           );

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 // material
 import { Box, Grid, Container, Typography, Card } from "@mui/material";
 import Dropzone from "react-dropzone";
-import csv from "csv";
 import * as XLSX from "xlsx";
 import { connect } from "react-redux";
 import { addDataCocGizi } from "views/store/actions/dataCocGiziAction";
@@ -12,7 +11,7 @@ import Page from "../components/Page";
 import { Navigate } from "react-router";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
-
+import { DataCocEditGizi } from "views/store/actions/dataCocGiziAction";
 //import { initial } from "lodash";
 
 class InsertDataGizi extends Component {
@@ -89,14 +88,25 @@ class InsertDataGizi extends Component {
           if (dataCocCompare.length == 1) {
             this.setState({ isDuplicate: true });
             console.log(this.state.isDuplicate);
-            window.alert(
-              "Data yang Anda masukkan sudah ada " +
-                this.state.Bulan +
-                " " +
-                this.state.Tahun +
-                " for " +
-                this.state.Puskesmas
-            );
+            if (
+              confirm(
+                "Apakah Anda Ingin Merubah Data " +
+                  this.state.Puskesmas +
+                  " Pada " +
+                  this.state.Bulan +
+                  " " +
+                  this.state.Tahun +
+                  "?"
+              ) == true
+            ) {
+              console.log("True");
+              const { files, isDuplicate, ...finalData } = this.state;
+              console.log(finalData, dataCocCompare[0].id);
+              console.log(files, isDuplicate);
+              this.props.DataCocEditGizi(dataCocCompare[0].id, finalData);
+            } else {
+              window.alert("Anda Telah Membatalkan Pengubahan Data");
+            }
           } else {
             this.setState({ isDuplicate: false });
             console.log(this.state.isDuplicate);
@@ -125,37 +135,6 @@ class InsertDataGizi extends Component {
       console.log(d);
     });
   };
-
-  onDrop(files) {
-    this.setState({ files });
-    var file = files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      csv.parse({ delimiter: ";" }, reader.result, (err, data) => {
-        const Bulan = data[3][0];
-        const dateSplit = Bulan.split(" ");
-        this.setState({
-          Bulan: dateSplit[3],
-        });
-        console.log(dateSplit);
-        // var userList = [];
-        console.log(data);
-        for (let c = 4; c < 10; c++) {
-          this.setState({
-            Puskesmas: data[3][c],
-            JumlahBalitaKMS: data[13][c],
-            JumlahBadutaLess23Bln: data[16][c],
-            JmlBalitaLess2359Bln: data[19][c],
-            JmlBalitaLess59Bln: data[22][c],
-            JmlBalitaNaikBB: data[25][c],
-          });
-        }
-      });
-    };
-    reader.readAsBinaryString(file);
-    // this.props.addDataCoc(this.state);
-  }
-
   render() {
     console.log(this.state);
     return (
@@ -223,6 +202,8 @@ class InsertDataGizi extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     addDataCocGizi: (dataCocGizi) => dispatch(addDataCocGizi(dataCocGizi)),
+    DataCocEditGizi: (dataCocGizi, id) =>
+      dispatch(DataCocEditGizi(dataCocGizi, id)),
   };
 };
 

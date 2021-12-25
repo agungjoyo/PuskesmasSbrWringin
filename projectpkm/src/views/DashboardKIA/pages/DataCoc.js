@@ -72,7 +72,6 @@ class DataCoc extends Component {
       stabilizedThis.sort((a, b) => {
         const order = comparator(a[0], b[0]);
         if (order !== 0) return order;
-        console.log(a, b, order);
         return a[1] - b[1];
       });
       if (query) {
@@ -160,9 +159,6 @@ class DataCoc extends Component {
       const handleRequestSort = (event, property) => {
         const isAsc =
           this.state.orderBy === property && this.state.order === "asc";
-        // this.state.orderBy(isAsc ? "desc" : "asc");
-        const orderBy = isAsc ? "desc" : "asc";
-        console.log(orderBy);
         isAsc
           ? this.setState({ order: "desc" })
           : this.setState({ order: "asc" });
@@ -233,7 +229,6 @@ class DataCoc extends Component {
       );
 
       const isUserNotFound = filteredUsers.length === 0;
-      console.log(this.state, filteredUsers);
       return (
         <Page title="Data CoC | Minimal-UI">
           <Container>
@@ -489,7 +484,7 @@ class DataCoc extends Component {
                               </TableCell>
 
                               <TableCell align="right">
-                                <UserMoreMenu />
+                                <UserMoreMenu id={id} />
                               </TableCell>
                             </TableRow>
                           );
@@ -532,13 +527,11 @@ class DataCoc extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     data: state.firestore.ordered.KIA, //database
     auth: state.firebase.auth,
   };
 };
-
 export default compose(
   //database
   firestoreConnect([{ collection: "KIA" }]),
