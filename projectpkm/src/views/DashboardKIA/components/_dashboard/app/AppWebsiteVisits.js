@@ -161,17 +161,16 @@ class AppWebsiteVisits extends Component {
     };
   }
   handleChangeBulan = () => {
-    console.log(this.state);
     const { data } = this.props;
     const desaTemp = [];
     for (let i = 0; i < data.length; i++) {
       desaTemp.push(data[i].Puskesmas);
     }
     const desa = Array.from(new Set(desaTemp));
+    console.log(this.state);
     this.setState(
       {
         monthIndex: [],
-        desaIndex: [],
         yearIndex: "",
         desa: desa,
         series: [
@@ -368,7 +367,6 @@ class AppWebsiteVisits extends Component {
               </Box>
             )}
             MenuProps={MenuProps}
-            //=========================================================
           >
             {this.state.month.map((month) => (
               <MenuItem
@@ -430,7 +428,7 @@ class AppWebsiteVisits extends Component {
             onChange={this.handleChange}
             name="desaIndex"
             label="Desa"
-            //========================Multiple========================
+            value={this.state.desaIndex}
             labelId="demo-multiple-chip-label"
             id="demo-multiple-chip"
             multiple

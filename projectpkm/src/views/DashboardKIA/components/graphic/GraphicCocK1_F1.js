@@ -538,18 +538,21 @@ class GraphicCocK1_F1 extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  console.log(this.state);
   return {
     KIA: state.firestore.ordered.KIA, //database
     Gizi: state.firestore.ordered.Gizi, //database
-    Imunisasi: state.firestore.ordered.imunisasi, //database
+    Imunisasi: state.firestore.ordered.Imunisasi, //database
     auth: state.firebase.auth,
   };
 };
 
 export default compose(
   //database
-  firestoreConnect([{ collection: "KIA" }]),
+  firestoreConnect([
+    { collection: "KIA" },
+    { collection: "Gizi" },
+    { collection: "Imunisasi" },
+  ]),
   connect(mapStateToProps),
   withTheme
 )(GraphicCocK1_F1);
