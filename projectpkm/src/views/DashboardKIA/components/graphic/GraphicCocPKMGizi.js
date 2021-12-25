@@ -26,7 +26,7 @@ const RootStyle = styled(Card)(({ theme }) => ({
 
 class GraphicCocPKMGizi extends Component {
   state = {
-    monthIndex: "",
+    monthIndex: [],
     quarterIndex: [],
     showBulanGraphic: false,
     showTahunGraphic: false,
@@ -220,6 +220,7 @@ class GraphicCocPKMGizi extends Component {
         showChoiceGraphic: false,
       },
       () => {
+        console.log(this.state);
         const yearList = [];
         const yearTemp = _.chain(data)
           .groupBy("Tahun")
@@ -332,12 +333,24 @@ class GraphicCocPKMGizi extends Component {
         <FormControl sx={{ m: 1, minWidth: 100 }}>
           <InputLabel id="demo-simple-select-helper-label">Bulan</InputLabel>
           <Select
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
+            // labelId="demo-simple-select-helper-label"
+            // id="demo-simple-select-helper"
             value={this.state.monthIndex}
             name="monthIndex"
             onChange={this.handleChange}
             label="Month"
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
           >
             {this.state.month.map((month) => (
               <MenuItem
@@ -465,6 +478,7 @@ class GraphicCocPKMGizi extends Component {
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
+    console.log(dataFinal);
     this.setState(
       {
         [event.target.name]: event.target.value,
@@ -491,11 +505,19 @@ class GraphicCocPKMGizi extends Component {
             if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
               for (let i = 0; i < dataFinal[i].set.length; i++) {
                 for (let c = 0; c < this.state.monthIndex.length; c++) {
+                  console.log(
+                    this.state.monthIndex[c]?.toLowerCase(),
+                    dataFinal[a].set[i].Bulan.toLowerCase(),
+                    this.state.yearIndex,
+                    dataFinal[a].set[i].Tahun.toString()
+                  );
                   if (
                     this.state.monthIndex[c]?.toLowerCase() ===
                       dataFinal[a].set[i].Bulan.toLowerCase() &&
-                    this.state.yearIndex === dataFinal[a].set[i].Tahun
+                    this.state.yearIndex ===
+                      dataFinal[a].set[i].Tahun.toString()
                   ) {
+                    console.log(a, b, c, i);
                     JumlahBadutaLess23BlnBulan =
                       JumlahBadutaLess23BlnBulan +
                       dataFinal[a].set[i].JumlahBadutaLess23Bln;
