@@ -167,12 +167,11 @@ class AppWebsiteVisits extends Component {
     for (let i = 0; i < data.length; i++) {
       desaTemp.push(data[i].Puskesmas);
     }
-    const desaIndex = desaTemp[0];
     const desa = Array.from(new Set(desaTemp));
     this.setState(
       {
         monthIndex: [],
-        desaIndex: [desaIndex],
+        desaIndex: [],
         yearIndex: "",
         desa: desa,
         series: [
@@ -204,10 +203,13 @@ class AppWebsiteVisits extends Component {
         showChoiceGraphic: false,
       },
       () => {
-        const year = new Date().getFullYear();
         const yearList = [];
-        for (let i = 0; i < 5; i++) {
-          yearList.push("" + (year + i));
+        const yearTemp = _.chain(data)
+          .groupBy("Tahun")
+          .map((set, Tahun) => ({ set, Tahun }))
+          .value();
+        for (let a = 0; a < yearTemp.length; a++) {
+          yearList.push(yearTemp[a].Tahun);
         }
         this.setState({ year: yearList });
       }
@@ -229,7 +231,6 @@ class AppWebsiteVisits extends Component {
           desaTemp.push(data[i].Puskesmas);
         }
         const desa = Array.from(new Set(desaTemp));
-        // console.log(dataFinal, this.state, desa);
         const series = [];
         const series2 = [];
         const series3 = [];
@@ -240,10 +241,6 @@ class AppWebsiteVisits extends Component {
           var sasaran = 0;
           if (dataFinal[a].Puskesmas == desa[a]) {
             for (let i = 0; i < dataFinal[i].set.length; i++) {
-              // console.log(
-              //   this.state.yearIndex.toLowerCase(),
-              //   dataFinal[a].set[i].Tahun.toLowerCase()
-              // );
               if (
                 this.state.yearIndex.toLowerCase() ===
                 dataFinal[a].set[i].Tahun.toLowerCase()
@@ -252,7 +249,6 @@ class AppWebsiteVisits extends Component {
                   lahirHidupYear + dataFinal[a].set[i].PencapaianLahirHidupTL;
                 lahirMatiYear =
                   lahirMatiYear + dataFinal[a].set[i].PencapaianLahirMatiTL;
-                // console.log(a, dataFinal[a].set[i].SasaranBayiTL);
                 sasaran = dataFinal[a].set[i].SasaranBayiTL;
               }
             }
@@ -260,7 +256,6 @@ class AppWebsiteVisits extends Component {
             series3.push(lahirMatiYear);
             series.push(sasaran);
             category.push(dataFinal[a].Puskesmas);
-            // console.log(series, series2);
           }
         }
         this.setState({
@@ -357,13 +352,10 @@ class AppWebsiteVisits extends Component {
         <FormControl sx={{ m: 1, minWidth: 100 }}>
           <InputLabel id="demo-simple-select-helper-label">Month</InputLabel>
           <Select
-            // labelId="demo-simple-select-helper-label"
-            // id="demo-simple-select-helper"
             value={this.state.monthIndex}
             name="monthIndex"
             onChange={this.handleChange}
             label="Month"
-            //========================Multiple========================
             labelId="demo-multiple-chip-label"
             id="demo-multiple-chip"
             multiple
@@ -435,9 +427,6 @@ class AppWebsiteVisits extends Component {
         <FormControl sx={{ m: 1, minWidth: 100 }}>
           <InputLabel id="demo-simple-select-helper-label">Desa</InputLabel>
           <Select
-            // labelId="demo-simple-select-helper-label"
-            // id="demo-simple-select-helper"
-            value={this.state.desaIndex}
             onChange={this.handleChange}
             name="desaIndex"
             label="Desa"
@@ -454,7 +443,6 @@ class AppWebsiteVisits extends Component {
               </Box>
             )}
             MenuProps={MenuProps}
-            //=========================================================
           >
             {this.state.desa.map((desa) => (
               <MenuItem
@@ -493,20 +481,6 @@ class AppWebsiteVisits extends Component {
             value={this.state.yearIndex}
             onChange={this.handleGraphicTahunControl}
             label="Year"
-            //========================Multiple========================
-            // labelId="demo-multiple-chip-label"
-            // id="demo-multiple-chip"
-            // multiple
-            // input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-            // renderValue={(selected) => (
-            //   <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-            //     {selected.map((value) => (
-            //       <Chip key={value} label={value} />
-            //     ))}
-            //   </Box>
-            // )}
-            // MenuProps={MenuProps}
-            //=========================================================
           >
             {this.state.year.map((year) => (
               <MenuItem
@@ -528,10 +502,6 @@ class AppWebsiteVisits extends Component {
   };
   handleChange = (event) => {
     const { data } = this.props;
-    const series1 = [];
-    const series2 = [];
-    const series3 = [];
-    const category = [];
     const dataFinal = _.chain(data)
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
@@ -542,35 +512,40 @@ class AppWebsiteVisits extends Component {
         [event.target.name]: event.target.value,
       },
       () => {
+        let series1 = [];
+        let series2 = [];
+        let series3 = [];
+        let category = [];
+        let sasaran = 0;
+        let lahirHidupBulan = 0;
+        let lahirMatiBulan = 0;
         for (let a = 0; a < dataFinal.length; a++) {
-          var lahirHidupBulan = 0;
-          var lahirMatiBulan = 0;
-          var sasaran = 0;
-          for (let b = 0; b < this.state.monthIndex.length; b++) {
+          sasaran = 0;
+          lahirHidupBulan = 0;
+          lahirMatiBulan = 0;
+          for (let b = 0; b < this.state.desaIndex.length; b++) {
             if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
               for (let i = 0; i < dataFinal[i].set.length; i++) {
                 for (let c = 0; c < this.state.monthIndex.length; c++) {
                   if (
-                    this.state.monthIndex[b]?.toLowerCase() ===
+                    this.state.monthIndex[c]?.toLowerCase() ===
                       dataFinal[a].set[i].Bulan.toLowerCase() &&
                     this.state.yearIndex === dataFinal[a].set[i].Tahun
                   ) {
+                    sasaran = dataFinal[a].set[i].SasaranBayiTL;
                     lahirHidupBulan =
                       lahirHidupBulan +
                       dataFinal[a].set[c].PencapaianLahirHidupTL;
                     lahirMatiBulan =
                       lahirMatiBulan +
                       dataFinal[a].set[c].PencapaianLahirMatiTL;
-                    sasaran = dataFinal[a].set[b].SasaranBayiTL;
-                    console.log(lahirHidupBulan, lahirMatiBulan, sasaran);
                   }
                 }
               }
+              series1.push(sasaran);
               series2.push(lahirHidupBulan);
               series3.push(lahirMatiBulan);
-              series1.push(sasaran);
               category.push(dataFinal[a].Puskesmas);
-              // console.log(series, series2);
             }
           }
         }
@@ -604,73 +579,10 @@ class AppWebsiteVisits extends Component {
     );
   };
   render() {
-    // const ITEM_HEIGHT = 48;
-    // const ITEM_PADDING_TOP = 8;
-    // const MenuProps = {
-    //   PaperProps: {
-    //     style: {
-    //       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-    //       width: 250,
-    //     },
-    //   },
-    // };
-    //================================================For Multiple =================================================================
-    // const handleChange = (event) => {
-    //   const {
-    //     target: { value },
-    //   } = event;
-    //   this.setState({
-    //     monthIndex: typeof value === "string" ? value.split(",") : value,
-    //   });
-    // };
-    //===============================================================================================================================
     const { data } = this.props;
-    console.log(this.state, data);
-    // const getPuskesmas = () => {
-    //   for (var i = 0; i < data.length; i++) {
-    //     console.log(data[i].Puskesmas, i);
-    //     this.setState({ Puskesmas: data[i].Puskesmas });
-    //   }
-    // };
     if (data == undefined) {
       return <div>Loading...</div>;
     } else {
-      // const chartOptions = merge(BaseOptionChart, {
-      //   stroke: { width: [3, 3, 3] },
-      //   plotOptions: { bar: { columnWidth: "20%", borderRadius: 8 } },
-      //   fill: {
-      //     type: ["solid", "solid", "solid"],
-      //   },
-      // labels: [this.state.puskesmas[0]],
-      // xaxis: {
-      //   type: "category",
-      //   labels: {
-      //     format: "MM yyyy",
-      //   },
-      // },
-      //   grid: {
-      //     show: false,
-      //     padding: {
-      //       top: 0,
-      //       right: 50,
-      //       bottom: 0,
-      //       left: 35,
-      //     },
-      //   },
-      //   tooltip: {
-      //     shared: false,
-      //     intersect: false,
-      //     y: {
-      //       formatter: (y) => {
-      //         if (typeof y !== "undefined") {
-      //           return `${y.toFixed(0)} visits`;
-      //         }
-      //         return y;
-      //       },
-      //     },
-      //   },
-      // });
-
       return (
         <RootStyle>
           <CardHeader
@@ -707,17 +619,8 @@ class AppWebsiteVisits extends Component {
               </Button>
             </Grid>
           </Grid>
-          {/* <Button
-            variant="outlined"
-            onClick={this.handleChangeQuarter}
-            style={{ justifyContent: "center" }}
-            sx={{ margin: 1 }}
-          >
-            Grafik Quarter
-          </Button> */}
           {this.state.showBulanGraphic ? <this.bulanGraphic /> : null}
           {this.state.showTahunGraphic ? <this.tahunGraphic /> : null}
-          {this.state.showChoiceGraphic ? <this.choiceGraphic /> : null}
         </RootStyle>
       );
     }

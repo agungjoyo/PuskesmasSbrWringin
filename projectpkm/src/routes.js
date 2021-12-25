@@ -25,6 +25,7 @@ import InsertDataGizi from "views/DashboardKIA/pages/InsertDataGizi";
 import Graphic from "views/DashboardKIA/pages/Graphic";
 import GraphicImun from "views/DashboardKIA/pages/GraphicImun";
 import GraphicGizi from "views/DashboardKIA/pages/GraphicGizi";
+import GraphicCoc from "views/DashboardKIA/pages/GraphicCoc";
 
 export default function Router() {
   return useRoutes([
@@ -44,6 +45,7 @@ export default function Router() {
         { path: "InsertData", element: <InsertData /> },
         { path: "InsertDataImunisasi", element: <InsertDataImunisasi /> },
         { path: "InsertDataGizi", element: <InsertDataGizi /> },
+        { path: "graphic/coc", element: <GraphicCoc /> },
         { path: "graphic/kia", element: <Graphic /> },
         { path: "graphic/imunisasi", element: <GraphicImun /> },
         { path: "graphic/gizi", element: <GraphicGizi /> },

@@ -45,18 +45,24 @@ const sidebarConfig = [
   },
   {
     key: "6",
+    title: "Graphic COC",
+    path: "/dashboard/graphic/coc",
+    icon: getIcon(chartLineData),
+  },
+  {
+    key: "7",
     title: "Graphic KIA",
     path: "/dashboard/graphic/kia",
     icon: getIcon(chartLineData),
   },
   {
-    key: "7",
+    key: "8",
     title: "Graphic Imunisasi",
     path: "/dashboard/graphic/imunisasi",
     icon: getIcon(chartLineData),
   },
   {
-    key: "8",
+    key: "9",
     title: "Graphic Gizi",
     path: "/dashboard/graphic/gizi",
     icon: getIcon(chartLineData),

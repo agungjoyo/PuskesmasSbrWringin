@@ -25,7 +25,7 @@ const RootStyle = styled(Card)(({ theme }) => ({
     "linear-gradient(to bottom, #b0d0ff, #bbdbff, #c8e5ff, #d8eeff, #eaf7ff);",
 }));
 
-class GraphicCocPKM extends Component {
+class GraphicCocK1_F1 extends Component {
   state = {
     monthIndex: [],
     quarterIndex: [],
@@ -51,7 +51,7 @@ class GraphicCocPKM extends Component {
     desaIndex: [],
     desa: [],
     options: {
-      stroke: { width: [3, 3, 3, 3, 3, 3, 3, 3, 3] },
+      stroke: { width: [3, 3, 3, 3, 3, 3] },
       chart: {
         type: "bar",
         dropShadow: {
@@ -88,22 +88,9 @@ class GraphicCocPKM extends Component {
         "#6A6E94",
         "#4E88B4",
         "#00A7C6",
-        "#18D8D8",
-        "#A9D794",
-        "#46AF78",
       ],
       fill: {
-        type: [
-          "solid",
-          "solid",
-          "solid",
-          "solid",
-          "solid",
-          "solid",
-          "solid",
-          "solid",
-          "solid",
-        ],
+        type: ["solid", "solid", "solid", "solid", "solid", "solid"],
       },
       dataLabels: {
         enabled: true,
@@ -148,47 +135,33 @@ class GraphicCocPKM extends Component {
     },
     series: [
       {
-        name: "Sasaran",
+        name: "Neonatal Komplikasi Laki - Laki",
         type: "column",
         data: [],
       },
       {
-        name: "Sasaran Bayi Risti",
+        name: "Neonatal Komplikasi Perempuan",
         type: "column",
         data: [],
       },
       {
-        name: "Lahir Hidup",
+        name: "Neonatal Komplikasi Total",
+        type: "column",
+        data: [],
+      },
+
+      {
+        name: "Kunjungan Bayi Paripurna Laki - Laki",
         type: "column",
         data: [],
       },
       {
-        name: "Lahir Mati",
+        name: "Kunjungan Bayi Paripurna Perempuan",
         type: "column",
         data: [],
       },
       {
-        name: "KN Pertama",
-        type: "column",
-        data: [],
-      },
-      {
-        name: "KN Kedua",
-        type: "column",
-        data: [],
-      },
-      {
-        name: "KN Lengkap",
-        type: "column",
-        data: [],
-      },
-      {
-        name: "KN Komplikasi",
-        type: "column",
-        data: [],
-      },
-      {
-        name: "Kunjungan Bayi Paripurna",
+        name: "Kunjungan Bayi Paripurna Total",
         type: "column",
         data: [],
       },
@@ -219,10 +192,10 @@ class GraphicCocPKM extends Component {
     };
   }
   handleChangeBulan = () => {
-    const { data } = this.props;
+    const { KIA } = this.props;
     const desaTemp = [];
-    for (let i = 0; i < data.length; i++) {
-      desaTemp.push(data[i].Puskesmas);
+    for (let i = 0; i < KIA.length; i++) {
+      desaTemp.push(KIA[i].Puskesmas);
     }
     const desa = Array.from(new Set(desaTemp));
     this.setState(
@@ -233,47 +206,33 @@ class GraphicCocPKM extends Component {
         desa: desa,
         series: [
           {
-            name: "Sasaran",
+            name: "Neonatal Komplikasi Laki - Laki",
             type: "column",
             data: [],
           },
           {
-            name: "Sasaran Bayi Risti",
+            name: "Neonatal Komplikasi Perempuan",
             type: "column",
             data: [],
           },
           {
-            name: "Lahir Hidup",
+            name: "Neonatal Komplikasi Total",
+            type: "column",
+            data: [],
+          },
+
+          {
+            name: "Kunjungan Bayi Paripurna Laki - Laki",
             type: "column",
             data: [],
           },
           {
-            name: "Lahir Mati",
+            name: "Kunjungan Bayi Paripurna Perempuan",
             type: "column",
             data: [],
           },
           {
-            name: "KN Pertama",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "KN Kedua",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "KN Lengkap",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "KN Komplikasi",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "Kunjungan Bayi Paripurna",
+            name: "Kunjungan Bayi Paripurna Total",
             type: "column",
             data: [],
           },
@@ -303,7 +262,7 @@ class GraphicCocPKM extends Component {
       },
       () => {
         const yearList = [];
-        const yearTemp = _.chain(data)
+        const yearTemp = _.chain(KIA)
           .groupBy("Tahun")
           .map((set, Tahun) => ({ set, Tahun }))
           .value();
@@ -311,100 +270,6 @@ class GraphicCocPKM extends Component {
           yearList.push(yearTemp[a].Tahun);
         }
         this.setState({ year: yearList });
-      }
-    );
-  };
-  handleChangeTahun = () => {
-    const { data } = this.props;
-    const yearList = [];
-    const yearTemp = _.chain(data)
-      .groupBy("Tahun")
-      .map((set, Tahun) => ({ set, Tahun }))
-      .value();
-    for (let a = 0; a < yearTemp.length; a++) {
-      yearList.push(yearTemp[a].Tahun);
-    }
-    const desaTemp = [];
-    for (let i = 0; i < data.length; i++) {
-      desaTemp.push(data[i].Puskesmas);
-    }
-    const desa = Array.from(new Set(desaTemp));
-    this.setState(
-      {
-        yearIndex: "",
-        year: yearList,
-        series: [
-          {
-            name: "Sasaran",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "Sasaran Bayi Risti",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "Lahir Hidup",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "Lahir Mati",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "KN Pertama",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "KN Kedua",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "KN Lengkap",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "KN Komplikasi",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "Kunjungan Bayi Paripurna",
-            type: "column",
-            data: [],
-          },
-        ],
-        options: {
-          ...this.state.options,
-          dataLabels: {
-            ...this.state.options.dataLabels,
-            offsetY: 0,
-            offsetX: 0,
-          },
-          plotOptions: {
-            ...this.state.options.plotOptions,
-            bar: {
-              ...this.state.options.plotOptions.bar,
-              horizontal: true,
-            },
-          },
-          xaxis: {
-            ...this.state.options.xaxis,
-            categories: desa,
-          },
-        },
-        showTahunGraphic: !this.state.showTahunGraphic,
-        showBulanGraphic: false,
-        showChoiceGraphic: false,
-      },
-      () => {
-        console.log(this.state);
       }
     );
   };
@@ -529,47 +394,9 @@ class GraphicCocPKM extends Component {
       </div>
     );
   };
-  tahunGraphic = () => {
-    return (
-      <div>
-        <Box sx={{ p: 3, pb: 1 }} dir="ltr">
-          <ReactApexChart
-            type="bar"
-            series={this.state.series}
-            options={this.state.options}
-            height={1800}
-          />
-        </Box>
-        <FormControl sx={{ m: 1, minWidth: 100 }}>
-          <InputLabel id="demo-simple-select-helper-label">Year</InputLabel>
-          <Select
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
-            value={this.state.yearIndex}
-            onChange={this.handleGraphicTahunControl}
-            label="Year"
-          >
-            {this.state.year.map((year) => (
-              <MenuItem
-                key={year}
-                value={year}
-                style={this.getStylesTahun(
-                  this.state.year,
-                  this.state.yearIndex,
-                  this.props.theme
-                )}
-              >
-                {year}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-    );
-  };
   handleChange = (event) => {
-    const { data } = this.props;
-    const dataFinal = _.chain(data)
+    const { KIA } = this.props;
+    const dataFinal = _.chain(KIA)
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
@@ -584,29 +411,20 @@ class GraphicCocPKM extends Component {
         const series4 = [];
         const series5 = [];
         const series6 = [];
-        const series7 = [];
-        const series8 = [];
-        const series9 = [];
         let category = [];
-        let sasaran = 0;
-        let sasaranBayiRisti = 0;
-        let lahirHidupBulan = 0;
-        let lahirMatiBulan = 0;
-        let KN1Bulan = 0;
-        let KN2Bulan = 0;
-        let KNlengkapBulan = 0;
-        let KNkomplikasiBulan = 0;
-        let KunjunganBayiParipurnaBulan = 0;
+        let kompLk = 0;
+        let kompPr = 0;
+        let kompTl = 0;
+        let kBPLk = 0;
+        let kBPPr = 0;
+        let kBPTl = 0;
         for (let a = 0; a < dataFinal.length; a++) {
-          sasaran = 0;
-          sasaranBayiRisti = 0;
-          lahirHidupBulan = 0;
-          lahirMatiBulan = 0;
-          KN1Bulan = 0;
-          KN2Bulan = 0;
-          KNlengkapBulan = 0;
-          KNkomplikasiBulan = 0;
-          KunjunganBayiParipurnaBulan = 0;
+          kompLk = 0;
+          kompPr = 0;
+          kompTl = 0;
+          kBPLk = 0;
+          kBPPr = 0;
+          kBPTl = 0;
           for (let b = 0; b < this.state.desaIndex.length; b++) {
             if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
               for (let i = 0; i < dataFinal[i].set.length; i++) {
@@ -616,39 +434,24 @@ class GraphicCocPKM extends Component {
                       dataFinal[a].set[i].Bulan.toLowerCase() &&
                     this.state.yearIndex === dataFinal[a].set[i].Tahun
                   ) {
-                    sasaran = dataFinal[a].set[i].SasaranBayiTL;
-                    sasaranBayiRisti = dataFinal[a].set[i].SasaranBayiRistiTL;
-                    lahirHidupBulan =
-                      lahirHidupBulan +
-                      dataFinal[a].set[c].PencapaianLahirHidupTL;
-                    lahirMatiBulan =
-                      lahirMatiBulan +
-                      dataFinal[a].set[c].PencapaianLahirMatiTL;
-                    KN1Bulan =
-                      KN1Bulan + dataFinal[a].set[c].PencapaianKNPertamaTL;
-                    KN2Bulan =
-                      KN2Bulan + dataFinal[a].set[c].PencapaianKNKeduaTL;
-                    KNlengkapBulan =
-                      KNlengkapBulan +
-                      dataFinal[a].set[c].PencapaianKNLengkapTL;
-                    KNkomplikasiBulan =
-                      KNkomplikasiBulan +
-                      dataFinal[a].set[c].PencapaianKNLengkapTL;
-                    KunjunganBayiParipurnaBulan =
-                      KunjunganBayiParipurnaBulan +
-                      dataFinal[a].set[c].KunjunganBayiParipurnaTL;
+                    kompLk = kompLk + dataFinal[a].set[i].NeonatalKompLK;
+                    kompPr = kompPr + dataFinal[a].set[i].NeonatalKompPR;
+                    kompTl = kompTl + dataFinal[a].set[i].NeonatalKompTL;
+                    kBPLk =
+                      kBPLk + dataFinal[a].set[i].KunjunganBayiParipurnaLK;
+                    kBPPr =
+                      kBPPr + dataFinal[a].set[i].KunjunganBayiParipurnaPR;
+                    kBPTl =
+                      kBPTl + dataFinal[a].set[i].KunjunganBayiParipurnaTL;
                   }
                 }
               }
-              series1.push(sasaran);
-              series2.push(sasaranBayiRisti);
-              series3.push(lahirHidupBulan);
-              series4.push(lahirMatiBulan);
-              series5.push(KN1Bulan);
-              series6.push(KN2Bulan);
-              series7.push(KNlengkapBulan);
-              series8.push(KNkomplikasiBulan);
-              series9.push(KunjunganBayiParipurnaBulan);
+              series1.push(kompLk);
+              series2.push(kompPr);
+              series3.push(kompTl);
+              series4.push(kBPLk);
+              series5.push(kBPPr);
+              series6.push(kBPTl);
               category.push(dataFinal[a].Puskesmas);
             }
           }
@@ -656,179 +459,35 @@ class GraphicCocPKM extends Component {
         this.setState({
           series: [
             {
-              name: "Sasaran",
+              name: "Neonatal Komplikasi Laki - Laki",
               type: "column",
               data: series1,
             },
             {
-              name: "Sasaran Bayi Risti",
+              name: "Neonatal Komplikasi Perempuan",
               type: "column",
               data: series2,
             },
             {
-              name: "Lahir Hidup",
+              name: "Neonatal Komplikasi Total",
               type: "column",
               data: series3,
             },
+
             {
-              name: "Lahir Mati",
+              name: "Kunjungan Bayi Paripurna Laki - Laki",
               type: "column",
               data: series4,
             },
             {
-              name: "KN Pertama",
+              name: "Kunjungan Bayi Paripurna Perempuan",
               type: "column",
               data: series5,
             },
             {
-              name: "KN Kedua",
+              name: "Kunjungan Bayi Paripurna Total",
               type: "column",
               data: series6,
-            },
-            {
-              name: "KN Lengkap",
-              type: "column",
-              data: series7,
-            },
-            {
-              name: "KN Komplikasi",
-              type: "column",
-              data: series8,
-            },
-            {
-              name: "Kunjungan Bayi Paripurna",
-              type: "column",
-              data: series9,
-            },
-          ],
-          options: {
-            ...this.state.options,
-            xaxis: {
-              ...this.state.options.xaxis,
-              categories: category,
-            },
-          },
-        });
-      }
-    );
-  };
-  handleGraphicTahunControl = (event) => {
-    this.setState(
-      {
-        yearIndex: event.target.value,
-      },
-      () => {
-        const { data } = this.props;
-        const dataFinal = _.chain(data)
-          .groupBy("Puskesmas")
-          .map((set, Puskesmas) => ({ set, Puskesmas }))
-          .value();
-        const desaTemp = [];
-        for (let i = 0; i < data.length; i++) {
-          desaTemp.push(data[i].Puskesmas);
-        }
-        const desa = Array.from(new Set(desaTemp));
-        const series1 = [];
-        const series2 = [];
-        const series3 = [];
-        const series4 = [];
-        const series5 = [];
-        const series6 = [];
-        const series7 = [];
-        const series8 = [];
-        const series9 = [];
-        let category = [];
-        for (let a = 0; a < dataFinal.length; a++) {
-          let sasaran = 0;
-          let sasaranBayiRisti = 0;
-          let lahirHidupYear = 0;
-          let lahirMatiYear = 0;
-          let KN1Year = 0;
-          let KN2Year = 0;
-          let KNlengkapYear = 0;
-          let KNkomplikasiYear = 0;
-          let KunjunganBayiParipurnaYear = 0;
-          if (dataFinal[a].Puskesmas == desa[a]) {
-            for (let i = 0; i < dataFinal[i].set.length; i++) {
-              if (
-                this.state.yearIndex.toLowerCase() ===
-                dataFinal[a].set[i].Tahun.toLowerCase()
-              ) {
-                sasaran = dataFinal[a].set[i].SasaranBayiTL;
-                sasaranBayiRisti = dataFinal[a].set[i].SasaranBayiRistiTL;
-                lahirHidupYear =
-                  lahirHidupYear + dataFinal[a].set[i].PencapaianLahirHidupTL;
-                lahirMatiYear =
-                  lahirMatiYear + dataFinal[a].set[i].PencapaianLahirMatiTL;
-                KN1Year = KN1Year + dataFinal[a].set[i].PencapaianKNPertamaTL;
-                KN2Year = KN2Year + dataFinal[a].set[i].PencapaianKNKeduaTL;
-                KNlengkapYear =
-                  KNlengkapYear + dataFinal[a].set[i].PencapaianKNLengkapTL;
-                KNkomplikasiYear =
-                  KNkomplikasiYear + dataFinal[a].set[i].PencapaianKNLengkapTL;
-                KunjunganBayiParipurnaYear =
-                  KunjunganBayiParipurnaYear +
-                  dataFinal[a].set[i].KunjunganBayiParipurnaTL;
-              }
-            }
-            series1.push(sasaran);
-            series2.push(sasaranBayiRisti);
-            series3.push(lahirHidupYear);
-            series4.push(lahirMatiYear);
-            series5.push(KN1Year);
-            series6.push(KN2Year);
-            series7.push(KNlengkapYear);
-            series8.push(KNkomplikasiYear);
-            series9.push(KunjunganBayiParipurnaYear);
-            category.push(dataFinal[a].Puskesmas);
-          }
-        }
-        this.setState({
-          series: [
-            {
-              name: "Sasaran",
-              type: "column",
-              data: series1,
-            },
-            {
-              name: "Sasaran Bayi Risti",
-              type: "column",
-              data: series2,
-            },
-            {
-              name: "Lahir Hidup",
-              type: "column",
-              data: series3,
-            },
-            {
-              name: "Lahir Mati",
-              type: "column",
-              data: series4,
-            },
-            {
-              name: "KN Pertama",
-              type: "column",
-              data: series5,
-            },
-            {
-              name: "KN Kedua",
-              type: "column",
-              data: series6,
-            },
-            {
-              name: "KN Lengkap",
-              type: "column",
-              data: series7,
-            },
-            {
-              name: "KN Komplikasi",
-              type: "column",
-              data: series8,
-            },
-            {
-              name: "Kunjungan Bayi Paripurna",
-              type: "column",
-              data: series9,
             },
           ],
           options: {
@@ -843,14 +502,14 @@ class GraphicCocPKM extends Component {
     );
   };
   render() {
-    const { data } = this.props;
-    if (data == undefined) {
+    const { KIA } = this.props;
+    if (KIA == undefined) {
       return <div>Loading...</div>;
     } else {
       return (
         <RootStyle>
           <CardHeader
-            title="KIA Progress"
+            title="KIA Progress Neonatal Komplikasi dan Kunjungan Bayi Paripurna"
             sx={{ typography: "caption" }}
             style={{
               marginBottom: 20,
@@ -861,7 +520,7 @@ class GraphicCocPKM extends Component {
             }}
           />
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={6}>
+            <Grid item xs={12} md={12} lg={12}>
               <Button
                 variant="outlined"
                 onClick={this.handleChangeBulan}
@@ -871,28 +530,19 @@ class GraphicCocPKM extends Component {
                 Grafik Bulan
               </Button>
             </Grid>
-            <Grid item xs={12} md={6} lg={6}>
-              <Button
-                color="secondary"
-                variant="outlined"
-                onClick={this.handleChangeTahun}
-                style={{ justifyContent: "center" }}
-                sx={{ width: 0.95, mr: 1 }}
-              >
-                Grafik Tahun
-              </Button>
-            </Grid>
           </Grid>
           {this.state.showBulanGraphic ? <this.bulanGraphic /> : null}
-          {this.state.showTahunGraphic ? <this.tahunGraphic /> : null}
         </RootStyle>
       );
     }
   }
 }
 const mapStateToProps = (state) => {
+  console.log(this.state);
   return {
-    data: state.firestore.ordered.KIA, //database
+    KIA: state.firestore.ordered.KIA, //database
+    Gizi: state.firestore.ordered.Gizi, //database
+    Imunisasi: state.firestore.ordered.imunisasi, //database
     auth: state.firebase.auth,
   };
 };
@@ -902,4 +552,4 @@ export default compose(
   firestoreConnect([{ collection: "KIA" }]),
   connect(mapStateToProps),
   withTheme
-)(GraphicCocPKM);
+)(GraphicCocK1_F1);

@@ -3,26 +3,16 @@ import React, { Component } from "react";
 import { Grid, Container } from "@mui/material";
 // components
 import Page from "../components/Page";
-import {
-  GraphicCocPKM,
-  GraphicCocPKMKIAKN,
-  GraphicCocPKMKomp,
-} from "views/DashboardKIA/components/graphic";
+import { GraphicCocK1_F1 } from "views/DashboardKIA/components/graphic";
 
-class Graphic extends Component {
+class GraphicCoc extends Component {
   render() {
     return (
       <Page title="Dashboard | Minimal-UI">
         <Container>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={12} md={12}>
-              <GraphicCocPKM />
-            </Grid>
-            <Grid item xs={12} sm={12} md={12}>
-              <GraphicCocPKMKIAKN />
-            </Grid>
-            <Grid item xs={12} sm={12} md={12}>
-              <GraphicCocPKMKomp />
+              <GraphicCocK1_F1 />
             </Grid>
           </Grid>
         </Container>
@@ -30,4 +20,4 @@ class Graphic extends Component {
     );
   }
 }
-export default Graphic;
+export default GraphicCoc;
