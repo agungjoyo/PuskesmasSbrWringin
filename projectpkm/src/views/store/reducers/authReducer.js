@@ -20,6 +20,19 @@ const authReducer = (state = initState, action) => {
     case "SIGNOUT_SUCCESS":
       console.log("Signout Success");
       return state;
+    case "REGIS_SUCCESS":
+      console.log("Pendaftaran Berhasil");
+      return {
+        ...state,
+        authError: null,
+      };
+    case "REGIS_ERROR":
+      console.log("Pendaftaran Gagal", action.err);
+      window.alert(action.err.message);
+      return {
+        ...state,
+        authError: "Pendaftaran Gagal",
+      };
     default:
       return state;
   }

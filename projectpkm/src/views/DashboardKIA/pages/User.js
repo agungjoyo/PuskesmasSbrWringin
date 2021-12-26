@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import * as Yup from "yup";
-import { filter, _ } from "lodash";
+import _ from "lodash";
 import { Icon } from "@iconify/react";
 //import { sentenceCase } from "change-case";
 import plusFill from "@iconify/icons-eva/plus-fill";
@@ -114,106 +114,91 @@ class User extends Component {
       this.state.Password,
     ];
     const { data } = this.props;
-    console.log(data);
     const dataUserFinal = _.filter(data, {
-      Name: this.state.Name,
+      Name: this.state.Name.toString(),
     });
-    console.log(this.state.Name);
-    console.log(dataUserFinal);
     const dataCompare = _.filter(dataUserFinal, {
       Email: this.state.Email,
     });
-    console.log(dataCompare);
     if (dataCompare?.length == 1) {
-      this.setstate({ isDuplicate: true });
-      console.log(this.state.isDuplicate);
+      this.setState({ isDuplicate: true });
       window.alert(
         "Data yang Anda masukkan sudah ada " +
           this.state.Name +
           " " +
           this.state.Email +
-          " for " +
+          " Dengan NIP: " +
           this.state.NIP
       );
     } else {
-      this.setState({ isDuplicate: false });
-      console.log(this.state.isDuplicate);
-      window.alert(
-        "Berhasil " +
-          this.state.Name +
-          " " +
-          this.state.Email +
-          " for " +
-          this.state.NIP
-      );
-      const { files, ...finalData } = this.state;
-      console.log(files);
-      this.props.signUp(finalData);
-    }
-    const req = [];
-    this.setState(
-      {
-        isSubmitting: true,
-      },
-      () => {
-        for (let i = 0; i < finalData.length; i++) {
-          console.log(finalData[i]);
-          if (finalData[i].length == 0) {
-            req.push("true");
-          } else if (finalData[0].length < 2 && finalData[0].length != 0) {
-            req.push("Nama Kurang");
-          } else if (finalData[3].length <= 18 && finalData[3].length != 0) {
-            req.push("NIP Kurang");
-          } else if (finalData[4].length >= 12 && finalData[4].length != 0) {
-            req.push("Nomer tidak valid");
-          } else {
-            req.push("false");
-          }
-        }
-        this.setState(
-          {
-            isEmpty: req,
-          },
-          () => {
-            const dataNew = Array.from(new Set(this.state.isEmpty));
-            const dataNewFilter = dataNew.filter((data) =>
-              data.match(new RegExp("true", "i"))
-            );
-            const dataNameFilter = dataNew.filter((data) =>
-              data.match(new RegExp("Nama Kurang", "i"))
-            );
-            const dataNipFilter = dataNew.filter((data) =>
-              data.match(new RegExp("NIP Kurang", "i"))
-            );
-
-            const dataNomerFilter = dataNew.filter((data) =>
-              data.match(new RegExp("Nomer Tidak Valid", "i"))
-            );
-
-            if (dataNewFilter == "true") {
-              console.log("Data Kurang Lengkap !");
-              window.alert("Data Kurang Lengkap !");
-              this.setState({ isSubmitting: false });
-            } else if (dataNameFilter == "Nama Kurang") {
-              console.log("Nama Kurang Lengkap !");
-              window.alert("Nama Kurang Lengkap !");
-              this.setState({ isSubmitting: false });
-            } else if (dataNipFilter == "Nip Kurang") {
-              console.log("NIP Kurang Lengkap !");
-              window.alert("NIP Kurang Lengkap !");
-              this.setState({ isSubmitting: false });
-            } else if (dataNomerFilter == "Nomer Tidak Valid") {
-              console.log("Nomer Tidak Valid !");
-              window.alert("Nomer Tidak Valid !");
-              this.setState({ isSubmitting: false });
+      const req = [];
+      this.setState(
+        {
+          isSubmitting: true,
+        },
+        () => {
+          for (let i = 0; i < finalData.length; i++) {
+            if (finalData[i].length == 0) {
+              req.push("true");
+            } else if (finalData[0].length < 2 && finalData[0].length != 0) {
+              req.push("Nama Kurang");
+            } else if (finalData[3].length <= 18 && finalData[3].length != 0) {
+              req.push("NIP Kurang");
+            } else if (finalData[4].length >= 12 && finalData[4].length != 0) {
+              req.push("Nomer tidak valid");
             } else {
-              console.log("Data Sudah Lengkap !");
-              window.alert("Data Sudah Lengkap !");
+              req.push("false");
             }
           }
-        );
-      }
-    );
+          this.setState(
+            {
+              isEmpty: req,
+            },
+            () => {
+              const dataNew = Array.from(new Set(this.state.isEmpty));
+              const dataNewFilter = dataNew.filter((data) =>
+                data.match(new RegExp("true", "i"))
+              );
+              const dataNameFilter = dataNew.filter((data) =>
+                data.match(new RegExp("Nama Kurang", "i"))
+              );
+              const dataNipFilter = dataNew.filter((data) =>
+                data.match(new RegExp("NIP Kurang", "i"))
+              );
+              const dataNomerFilter = dataNew.filter((data) =>
+                data.match(new RegExp("Nomer Tidak Valid", "i"))
+              );
+              if (dataNewFilter == "true") {
+                window.alert("Data Kurang Lengkap !");
+                this.setState({ isSubmitting: false });
+              } else if (dataNameFilter == "Nama Kurang") {
+                window.alert("Nama Kurang Lengkap !");
+                this.setState({ isSubmitting: false });
+              } else if (dataNipFilter == "Nip Kurang") {
+                window.alert("NIP Kurang Lengkap !");
+                this.setState({ isSubmitting: false });
+              } else if (dataNomerFilter == "Nomer Tidak Valid") {
+                window.alert("Nomer Tidak Valid !");
+                this.setState({ isSubmitting: false });
+              } else {
+                window.alert("Data Sudah Lengkap !");
+                const dataFinalFix = {
+                  Name: this.state.Name,
+                  Email: this.state.Email,
+                  Address: this.state.Address,
+                  NIP: this.state.NIP,
+                  Nomor: this.state.Nomor,
+                  Position: this.state.PositionIndex,
+                  Password: this.state.Password,
+                };
+                console.log(dataFinalFix);
+                this.props.signUp(dataFinalFix);
+              }
+            }
+          );
+        }
+      );
+    }
   };
   render() {
     const ITEM_HEIGHT = 48;
@@ -227,7 +212,6 @@ class User extends Component {
       },
     };
     const { data, auth } = this.props;
-    console.log(this.state);
     if (!auth.uid) return <Navigate to="/login" />;
     function descendingComparator(a, b, orderBy) {
       if (b[orderBy] < a[orderBy]) {
@@ -253,7 +237,7 @@ class User extends Component {
         return a[1] - b[1];
       });
       if (query) {
-        return filter(array, (value) => {
+        return _.filter(array, (value) => {
           return (
             value.Name.toLowerCase().includes(query.toLowerCase()) ||
             value.Email.toLowerCase().includes(query.toLowerCase()) ||
@@ -386,11 +370,11 @@ class User extends Component {
                 Daftar Pengguna
               </Typography>
               <Button
-                sx={{ justify: "flex-end" }}
+                sx={{ marginLeft: "auto" }}
                 variant="contained"
                 component={RouterLink}
                 onClick={handleClickOpen}
-                to="/dashboard/PenggunaBaru"
+                to="#"
                 startIcon={<Icon icon={plusFill} />}
               >
                 Tambah Pengguna
@@ -556,7 +540,7 @@ class User extends Component {
                           type="submit"
                           onClick={this.handleSubmit}
                           variant="contained"
-                          loading={this.state.isSubmitting}
+                          loading={this.state.isSubmitting.toString()}
                         >
                           Simpan
                         </Button>

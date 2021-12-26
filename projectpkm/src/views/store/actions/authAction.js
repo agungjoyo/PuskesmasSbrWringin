@@ -37,19 +37,19 @@ export const signUp = (data) => {
       .auth()
       .createUserWithEmailAndPassword(data.Email, data.Password)
       .then((resp) => {
-        return firestore.collection("Auth").doc(resp.user.uid).set({
+        firestore.collection("Auth").doc(resp.user.uid).set({
           Name: data.Name,
           Email: data.Email,
           Password: data.Password,
           Address: data.Address,
           NIP: data.NIP,
-          PhoneNumber: data.PhoneNumber,
+          PhoneNumber: data.Nomor,
           Position: data.Position,
           //initials: newUser.firstName[0] + newUser.lastName[0],
         });
       })
       .then(() => {
-        dispatch({ type: "REGIS_SUCCESS" });
+        dispatch({ type: "REGIS_SUCCESS", data });
       })
       .catch((err) => {
         dispatch({ type: "REGIS_ERROR", err });
