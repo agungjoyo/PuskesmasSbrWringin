@@ -8,17 +8,18 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import {
-  AppTasks,
+  //AppTasks,
   AppNewUsers,
   AppBugReports,
-  AppItemOrders,
-  AppNewsUpdate,
+  //AppItemOrders,
+  // AppNewsUpdate,
   AppWeeklySales,
-  AppOrderTimeline,
+  //AppOrderTimeline,
   // AppCurrentVisits,
   AppWebsiteVisits,
   AppWebsiteVisitsImun,
-  AppTrafficBySite,
+  AppWebsiteVisitGizi,
+  //AppTrafficBySite,
   // AppCurrentSubject,
   // AppConversionRates
 } from "../components/_dashboard/app";
@@ -42,9 +43,9 @@ function DashboardApp(data) {
             <Grid item xs={12} sm={6} md={3}>
               <AppNewUsers />
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            {/* <Grid item xs={12} sm={6} md={3}>
               <AppItemOrders />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} sm={6} md={3}>
               <AppBugReports />
             </Grid>
@@ -54,6 +55,9 @@ function DashboardApp(data) {
             </Grid>
             <Grid item xs={12} md={12} lg={12}>
               <AppWebsiteVisitsImun />
+            </Grid>
+            <Grid item xs={12} md={12} lg={12}>
+              <AppWebsiteVisitGizi />
             </Grid>
 
             {/* <Grid item xs={12} md={6} lg={4}>
@@ -68,21 +72,21 @@ function DashboardApp(data) {
               <AppCurrentSubject />
             </Grid> */}
 
-            <Grid item xs={12} md={6} lg={8}>
+            {/* <Grid item xs={12} md={6} lg={8}>
               <AppNewsUpdate />
-            </Grid>
+            </Grid> */}
 
-            <Grid item xs={12} md={6} lg={4}>
+            {/* <Grid item xs={12} md={6} lg={4}>
               <AppOrderTimeline />
-            </Grid>
+            </Grid> */}
 
-            <Grid item xs={12} md={6} lg={5}>
+            {/* <Grid item xs={12} md={6} lg={5}>
               <AppTrafficBySite />
-            </Grid>
+            </Grid> */}
 
-            <Grid item xs={12} md={6} lg={7}>
+            {/* <Grid item xs={12} md={6} lg={7}>
               <AppTasks />
-            </Grid>
+            </Grid> */}
           </Grid>
         </Container>
       </Page>

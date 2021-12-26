@@ -17,7 +17,6 @@ import Chip from "@mui/material/Chip";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
-
 // ----------------------------------------------------------------------
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: "3px 3px 10px #9E9E9E",
@@ -26,7 +25,7 @@ const RootStyle = styled(Card)(({ theme }) => ({
     "linear-gradient(to bottom, #b0d0ff, #bbdbff, #c8e5ff, #d8eeff, #eaf7ff);",
 }));
 
-class GraphicCocPKMGizi extends Component {
+class AppWebsiteVisitGizi extends Component {
   state = {
     monthIndex: [],
     quarterIndex: [],
@@ -52,9 +51,9 @@ class GraphicCocPKMGizi extends Component {
     desaIndex: [],
     desa: [],
     options: {
-      stroke: { width: [3, 3, 3, 3, 3, 3] },
+      stroke: { width: [3, 3, 3, 3] },
       chart: {
-        type: "bar",
+        id: "basic-bar",
         dropShadow: {
           enabled: true,
           enabledOnSeries: undefined,
@@ -70,68 +69,22 @@ class GraphicCocPKMGizi extends Component {
           enabled: true,
           easing: "easeinout",
           speed: 1000,
-        },
-      },
-      plotOptions: {
-        bar: {
-          horizontal: true,
-          columnWidth: "95%",
-          borderRadius: 6,
-          dataLabels: {
-            position: "top",
+          animateGradually: {
+            enabled: true,
+            delay: 1000,
+          },
+          dynamicAnimation: {
+            enabled: true,
+            speed: 350,
           },
         },
       },
-      colors: [
-        "#F3B415",
-        "#F27036",
-        "#e8b0d5",
-        "#6A6E94",
-        "#4E88B4",
-        "#00A7C6",
-        "#18D8D8",
-        "#A9D794",
-        "#46AF78",
-      ],
+      plotOptions: { bar: { columnWidth: "45%", borderRadius: 8 } },
       fill: {
-        type: [
-          "solid",
-          "solid",
-          "solid",
-          "solid",
-          "solid",
-          "solid",
-          "solid",
-          "solid",
-          "solid",
-        ],
+        type: ["solid", "solid", "solid"],
       },
       dataLabels: {
         enabled: true,
-        offsetY: 0,
-        offsetX: 0,
-        dropShadow: {
-          enabled: true,
-          top: 2,
-          left: 3,
-          blur: 2,
-          color: "#9E9E9E",
-          opacity: 0.55,
-        },
-        style: {
-          fontSize: "12px",
-          colors: [
-            "#000000",
-            "#000000",
-            "#000000",
-            "#000000",
-            "#000000",
-            "#000000",
-            "#000000",
-            "#000000",
-            "#000000",
-          ],
-        },
       },
       grid: {
         show: false,
@@ -206,10 +159,10 @@ class GraphicCocPKMGizi extends Component {
       desaTemp.push(data[i].Puskesmas);
     }
     const desa = Array.from(new Set(desaTemp));
+    console.log(this.state);
     this.setState(
       {
         monthIndex: [],
-        desaIndex: [],
         yearIndex: "",
         desa: desa,
         series: [
@@ -241,18 +194,6 @@ class GraphicCocPKMGizi extends Component {
         ],
         options: {
           ...this.state.options,
-          dataLabels: {
-            ...this.state.options.dataLabels,
-            offsetY: -20,
-            offsetX: 0,
-          },
-          plotOptions: {
-            ...this.state.options.plotOptions,
-            bar: {
-              ...this.state.options.plotOptions.bar,
-              horizontal: false,
-            },
-          },
           xaxis: {
             ...this.state.options.xaxis,
             categories: [],
@@ -275,25 +216,105 @@ class GraphicCocPKMGizi extends Component {
       }
     );
   };
-  handleChangeTahun = () => {
-    const { data } = this.props;
-    const yearList = [];
-    const yearTemp = _.chain(data)
-      .groupBy("Tahun")
-      .map((set, Tahun) => ({ set, Tahun }))
-      .value();
-    for (let a = 0; a < yearTemp.length; a++) {
-      yearList.push(yearTemp[a].Tahun);
-    }
-    const desaTemp = [];
-    for (let i = 0; i < data.length; i++) {
-      desaTemp.push(data[i].Puskesmas);
-    }
-    const desa = Array.from(new Set(desaTemp));
+  handleGraphicTahunControl = (event) => {
     this.setState(
       {
-        yearIndex: "",
-        year: yearList,
+        yearIndex: event.target.value,
+      },
+      () => {
+        const { data } = this.props;
+        const dataFinal = _.chain(data)
+          .groupBy("Puskesmas")
+          .map((set, Puskesmas) => ({ set, Puskesmas }))
+          .value();
+        const desaTemp = [];
+        for (let i = 0; i < data.length; i++) {
+          desaTemp.push(data[i].Puskesmas);
+        }
+        const desa = Array.from(new Set(desaTemp));
+        const series = [];
+        const series2 = [];
+        const series3 = [];
+        const series4 = [];
+        const series5 = [];
+        const category = [];
+        for (let a = 0; a < dataFinal.length; a++) {
+          var JumlahBadutaLess23BlnYear = 0;
+          var JmlBalitaLess2359BlnYear = 0;
+          var JmlBalitaLess59BlnYear = 0;
+          var JmlBalitaNaikBBYear = 0;
+          var JumlahBalitaKMSYear = 0;
+          if (dataFinal[a].Puskesmas == desa[a]) {
+            for (let i = 0; i < dataFinal[i].set.length; i++) {
+              if (
+                this.state.yearIndex.toLowerCase() ===
+                dataFinal[a].set[i].Tahun.toString()
+              ) {
+                JumlahBadutaLess23BlnYear =
+                  JumlahBadutaLess23BlnYear +
+                  dataFinal[a].set[i].JumlahBadutaLess23Bln;
+                JmlBalitaLess2359BlnYear =
+                  JmlBalitaLess2359BlnYear +
+                  dataFinal[a].set[i].JmlBalitaLess2359Bln;
+                JmlBalitaLess59BlnYear =
+                  JmlBalitaLess59BlnYear +
+                  dataFinal[a].set[i].JmlBalitaLess59Bln;
+                JmlBalitaNaikBBYear =
+                  JmlBalitaNaikBBYear + dataFinal[a].set[i].JmlBalitaNaikBB;
+                JumlahBalitaKMSYear =
+                  JumlahBalitaKMSYear + dataFinal[a].set[i].JumlahBalitaKMS;
+              }
+            }
+            series.push(JumlahBalitaKMSYear);
+            series2.push(JumlahBadutaLess23BlnYear);
+            series3.push(JmlBalitaLess2359BlnYear);
+            series4.push(JmlBalitaLess59BlnYear);
+            series5.push(JmlBalitaNaikBBYear);
+            category.push(dataFinal[a].Puskesmas);
+          }
+        }
+        this.setState({
+          series: [
+            {
+              name: "Jumlah Balita KMS (K)",
+              type: "column",
+              data: series,
+            },
+            {
+              name: "Jumlah Baduta 0-23 Bln (D)",
+              type: "column",
+              data: series2,
+            },
+            {
+              name: "Jumlah Balita 23-59 Bln (D)",
+              type: "column",
+              data: series3,
+            },
+            {
+              name: "Jumlah Balita 0-59 Bln (D)",
+              type: "column",
+              data: series4,
+            },
+            {
+              name: "Jumlah Balita Naik BB (N)",
+              type: "column",
+              data: series5,
+            },
+          ],
+          options: {
+            ...this.state.options,
+            xaxis: {
+              ...this.state.options.xaxis,
+              categories: category,
+            },
+          },
+        });
+      }
+    );
+  };
+  handleChangeTahun = () => {
+    this.setState(
+      {
         series: [
           {
             name: "Jumlah Balita KMS (K)",
@@ -323,21 +344,9 @@ class GraphicCocPKMGizi extends Component {
         ],
         options: {
           ...this.state.options,
-          dataLabels: {
-            ...this.state.options.dataLabels,
-            offsetY: 0,
-            offsetX: 0,
-          },
-          plotOptions: {
-            ...this.state.options.plotOptions,
-            bar: {
-              ...this.state.options.plotOptions.bar,
-              horizontal: true,
-            },
-          },
           xaxis: {
             ...this.state.options.xaxis,
-            categories: desa,
+            categories: [],
           },
         },
         showTahunGraphic: !this.state.showTahunGraphic,
@@ -345,7 +354,12 @@ class GraphicCocPKMGizi extends Component {
         showChoiceGraphic: false,
       },
       () => {
-        console.log(this.state);
+        const year = new Date().getFullYear();
+        const yearList = [];
+        for (let i = 0; i < 5; i++) {
+          yearList.push("" + (year + i));
+        }
+        this.setState({ year: yearList });
       }
     );
   };
@@ -414,6 +428,7 @@ class GraphicCocPKMGizi extends Component {
             value={this.state.yearIndex}
             onChange={this.handleChange}
             label="Year"
+            //=========================================================
           >
             {this.state.year.map((year) => (
               <MenuItem
@@ -433,11 +448,10 @@ class GraphicCocPKMGizi extends Component {
         <FormControl sx={{ m: 1, minWidth: 100 }}>
           <InputLabel id="demo-simple-select-helper-label">Desa</InputLabel>
           <Select
-            value={this.state.desaIndex}
             onChange={this.handleChange}
             name="desaIndex"
             label="Desa"
-            //========================Multiple========================
+            value={this.state.desaIndex}
             labelId="demo-multiple-chip-label"
             id="demo-multiple-chip"
             multiple
@@ -450,7 +464,6 @@ class GraphicCocPKMGizi extends Component {
               </Box>
             )}
             MenuProps={MenuProps}
-            //=========================================================
           >
             {this.state.desa.map((desa) => (
               <MenuItem
@@ -478,7 +491,7 @@ class GraphicCocPKMGizi extends Component {
             type="bar"
             series={this.state.series}
             options={this.state.options}
-            height={1800}
+            height={300}
           />
         </Box>
         <FormControl sx={{ m: 1, minWidth: 100 }}>
@@ -514,6 +527,7 @@ class GraphicCocPKMGizi extends Component {
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
+    console.log(dataFinal);
     this.setState(
       {
         [event.target.name]: event.target.value,
@@ -540,19 +554,12 @@ class GraphicCocPKMGizi extends Component {
             if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
               for (let i = 0; i < dataFinal[i].set.length; i++) {
                 for (let c = 0; c < this.state.monthIndex.length; c++) {
-                  console.log(
-                    this.state.monthIndex[c]?.toLowerCase(),
-                    dataFinal[a].set[i].Bulan.toLowerCase(),
-                    this.state.yearIndex,
-                    dataFinal[a].set[i].Tahun.toString()
-                  );
                   if (
                     this.state.monthIndex[c]?.toLowerCase() ===
                       dataFinal[a].set[i].Bulan.toLowerCase() &&
                     this.state.yearIndex ===
                       dataFinal[a].set[i].Tahun.toString()
                   ) {
-                    console.log(a, b, c, i);
                     JumlahBalitaKMSBulan =
                       JumlahBalitaKMSBulan +
                       dataFinal[a].set[i].JumlahBalitaKMS;
@@ -619,107 +626,6 @@ class GraphicCocPKMGizi extends Component {
       }
     );
   };
-  handleGraphicTahunControl = (event) => {
-    this.setState(
-      {
-        yearIndex: event.target.value,
-      },
-      () => {
-        const { data } = this.props;
-        const dataFinal = _.chain(data)
-          .groupBy("Puskesmas")
-          .map((set, Puskesmas) => ({ set, Puskesmas }))
-          .value();
-        const desaTemp = [];
-        for (let c = 0; c < data.length; c++) {
-          desaTemp.push(data[c].Puskesmas);
-        }
-        const desa = Array.from(new Set(desaTemp));
-        // console.log(dataFinal, this.state, desa);
-        const series = [];
-        const series2 = [];
-        const series3 = [];
-        const series4 = [];
-        const series5 = [];
-        const category = [];
-        for (let a = 0; a < dataFinal.length; a++) {
-          var JumlahBadutaLess23BlnYear = 0;
-          var JmlBalitaLess2359BlnYear = 0;
-          var JmlBalitaLess59BlnYear = 0;
-          var JmlBalitaNaikBBYear = 0;
-          var JumlahBalitaKMSYear = 0;
-          if (dataFinal[a].Puskesmas == desa[a]) {
-            for (let c = 0; c < dataFinal[c].set.length; c++) {
-              if (
-                this.state.yearIndex.toLowerCase() ===
-                dataFinal[a].set[c].Tahun.toString()
-              ) {
-                // console.log(a, dataFinal[a].set[i].SasaranBayiTL)
-                JumlahBadutaLess23BlnYear =
-                  JumlahBadutaLess23BlnYear +
-                  dataFinal[a].set[c].JumlahBadutaLess23Bln;
-                JmlBalitaLess2359BlnYear =
-                  JmlBalitaLess2359BlnYear +
-                  dataFinal[a].set[c].JmlBalitaLess2359Bln;
-                JmlBalitaLess59BlnYear =
-                  JmlBalitaLess59BlnYear +
-                  dataFinal[a].set[c].JmlBalitaLess59Bln;
-                JmlBalitaNaikBBYear =
-                  JmlBalitaNaikBBYear + dataFinal[a].set[c].JmlBalitaNaikBB;
-                JumlahBalitaKMSYear =
-                  JumlahBalitaKMSYear + dataFinal[a].set[c].JumlahBalitaKMS;
-              }
-            }
-
-            series.push(JumlahBalitaKMSYear);
-            series2.push(JumlahBadutaLess23BlnYear);
-            series3.push(JmlBalitaLess2359BlnYear);
-            series4.push(JmlBalitaLess59BlnYear);
-            series5.push(JmlBalitaNaikBBYear);
-
-            category.push(dataFinal[a].Puskesmas);
-            // console.log(series, series2);
-          }
-        }
-        this.setState({
-          series: [
-            {
-              name: "Jumlah Balita KMS (K)",
-              type: "column",
-              data: series,
-            },
-            {
-              name: "Jumlah Baduta 0-23 Bln (D)",
-              type: "column",
-              data: series2,
-            },
-            {
-              name: "Jumlah Balita 23-59 Bln (D)",
-              type: "column",
-              data: series3,
-            },
-            {
-              name: "Jumlah Balita 0-59 Bln (D)",
-              type: "column",
-              data: series4,
-            },
-            {
-              name: "Jumlah Balita Naik BB (N)",
-              type: "column",
-              data: series5,
-            },
-          ],
-          options: {
-            ...this.state.options,
-            xaxis: {
-              ...this.state.options.xaxis,
-              categories: category,
-            },
-          },
-        });
-      }
-    );
-  };
   render() {
     const { data } = this.props;
     if (data == undefined) {
@@ -728,7 +634,7 @@ class GraphicCocPKMGizi extends Component {
       return (
         <RootStyle>
           <CardHeader
-            title="Gizi Progress"
+            title="Gizi"
             sx={{ typography: "caption" }}
             style={{
               marginBottom: 20,
@@ -744,7 +650,7 @@ class GraphicCocPKMGizi extends Component {
                 variant="outlined"
                 onClick={this.handleChangeBulan}
                 style={{ justifyContent: "center" }}
-                sx={{ width: 0.95, ml: 2 }}
+                sx={{ width: 1, ml: 2 }}
               >
                 Grafik Bulan
               </Button>
@@ -755,7 +661,7 @@ class GraphicCocPKMGizi extends Component {
                 variant="outlined"
                 onClick={this.handleChangeTahun}
                 style={{ justifyContent: "center" }}
-                sx={{ width: 0.95, mr: 1 }}
+                sx={{ width: 1, mr: 2 }}
               >
                 Grafik Tahun
               </Button>
@@ -763,174 +669,10 @@ class GraphicCocPKMGizi extends Component {
           </Grid>
           {this.state.showBulanGraphic ? <this.bulanGraphic /> : null}
           {this.state.showTahunGraphic ? <this.tahunGraphic /> : null}
-          {this.state.showChoiceGraphic ? <this.choiceGraphic /> : null}
         </RootStyle>
       );
     }
   }
-  handleQuarterChange = (event) => {
-    this.setState(
-      {
-        quarterIndex: event.target.value,
-      },
-      () => {
-        const { data } = this.props;
-        const dataFinal = _.chain(data)
-          .groupBy("Puskesmas")
-          .map((set, Puskesmas) => ({ set, Puskesmas }))
-          .value();
-        const desaTemp = [];
-        for (let i = 0; i < data.length; i++) {
-          desaTemp.push(data[i].Puskesmas);
-        }
-        const desa = Array.from(new Set(desaTemp));
-        // console.log(dataFinal, this.state, desa);
-        const series = [];
-        const series2 = [];
-        const series3 = [];
-        const series4 = [];
-        const series5 = [];
-        const category = [];
-        for (let a = 0; a < dataFinal.length; a++) {
-          var JumlahBadutaLess23BlnQuarter = 0;
-          var JmlBalitaLess2359BlnQuarter = 0;
-          var JmlBalitaLess59BlnQuarter = 0;
-          var JmlBalitaNaikBBQuarter = 0;
-          var JumlahBalitaKMSQuarter = 0;
-          if (dataFinal[a].Puskesmas == desa[a]) {
-            for (let i = 0; i < dataFinal[i].set.length; i++) {
-              for (let b = 0; b < this.state.quarterIndex.length; b++) {
-                if (
-                  this.state.quarterIndex[b].toLowerCase() ===
-                  dataFinal[a].set[i].Bulan.toLowerCase()
-                ) {
-                  // console.log(a, dataFinal[a].set[i].SasaranBayiTL)
-                  JumlahBadutaLess23BlnQuarter =
-                    JumlahBadutaLess23BlnQuarter +
-                    dataFinal[a].set[i].JumlahBadutaLess23Bln;
-                  JmlBalitaLess2359BlnQuarter =
-                    JmlBalitaLess2359BlnQuarter +
-                    dataFinal[a].set[i].JmlBalitaLess2359Bln;
-                  JmlBalitaLess59BlnQuarter =
-                    JmlBalitaLess59BlnQuarter +
-                    dataFinal[a].set[i].JmlBalitaLess59Bln;
-                  JmlBalitaNaikBBQuarter =
-                    JmlBalitaNaikBBQuarter +
-                    dataFinal[a].set[i].JmlBalitaNaikBB;
-                  JumlahBalitaKMSQuarter =
-                    JumlahBalitaKMSQuarter +
-                    dataFinal[a].set[i].JumlahBalitaKMS;
-                }
-              }
-            }
-            series2.push(JumlahBadutaLess23BlnQuarter);
-            series3.push(JmlBalitaLess2359BlnQuarter);
-            series4.push(JmlBalitaLess59BlnQuarter);
-            series5.push(JmlBalitaNaikBBQuarter);
-            series.push(JumlahBalitaKMSQuarter);
-            category.push(dataFinal[a].Puskesmas);
-            // console.log(series, series2);
-          }
-        }
-        this.setState({
-          series: [
-            {
-              name: "Jumlah Balita KMS (K)",
-              type: "column",
-              data: series,
-            },
-            {
-              name: "Jumlah Baduta 0-23 Bln (D)",
-              type: "column",
-              data: series2,
-            },
-            {
-              name: "Jumlah Balita 23-59 Bln (D)",
-              type: "column",
-              data: series3,
-            },
-            {
-              name: "Jumlah Balita 0-59 Bln (D)",
-              type: "column",
-              data: series4,
-            },
-            {
-              name: "Jumlah Balita Naik BB (N)",
-              type: "column",
-              data: series5,
-            },
-          ],
-          options: {
-            ...this.state.options,
-            xaxis: {
-              ...this.state.options.xaxis,
-              categories: category,
-            },
-          },
-        });
-      }
-    );
-  };
-
-  choiceGraphic = () => {
-    const ITEM_HEIGHT = 48;
-    const ITEM_PADDING_TOP = 8;
-    const MenuProps = {
-      PaperProps: {
-        style: {
-          maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-          width: 250,
-        },
-      },
-    };
-    return (
-      <div>
-        <CardHeader title="Progress Gizi" />
-        <Box sx={{ p: 3, pb: 1 }} dir="ltr">
-          <ReactApexChart
-            type="bar"
-            series={this.state.series}
-            options={this.state.options}
-            height={300}
-          />
-        </Box>
-        <FormControl sx={{ m: 1, minWidth: 100 }}>
-          <InputLabel id="demo-simple-select-helper-label">Bulan</InputLabel>
-          <Select
-            labelId="demo-multiple-chip-label"
-            id="demo-multiple-chip"
-            multiple
-            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-            renderValue={(selected) => (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                {selected.map((value) => (
-                  <Chip key={value} label={value} />
-                ))}
-              </Box>
-            )}
-            MenuProps={MenuProps}
-            value={this.state.quarterIndex}
-            onChange={this.handleQuarterChange}
-            //=========================================================
-          >
-            {this.state.month.map((month) => (
-              <MenuItem
-                key={month}
-                value={month}
-                style={this.getStyles(
-                  this.state.month,
-                  this.state.monthIndex,
-                  this.props.theme
-                )}
-              >
-                {month}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-    );
-  };
 }
 const mapStateToProps = (state) => {
   return {
@@ -944,4 +686,4 @@ export default compose(
   firestoreConnect([{ collection: "Gizi" }]),
   connect(mapStateToProps),
   withTheme
-)(GraphicCocPKMGizi);
+)(AppWebsiteVisitGizi);

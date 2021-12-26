@@ -458,7 +458,14 @@ class User extends Component {
                           name="Nomor"
                           type="number"
                           label="Nomor Telepon"
-                          inputProps={{ maxLength: 12 }}
+                          onInput={(e) => {
+                            e.target.value = Math.max(
+                              0,
+                              parseInt(e.target.value)
+                            )
+                              .toString()
+                              .slice(0, 13);
+                          }}
                         />
                         <FormControl sx={{ m: 1, minWidth: 100 }}>
                           <InputLabel id="demo-simple-select-helper-label">
