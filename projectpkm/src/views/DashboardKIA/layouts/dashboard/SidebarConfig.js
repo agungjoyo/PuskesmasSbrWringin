@@ -12,7 +12,7 @@ import chartLineData from "@iconify/icons-carbon/chart-line-data";
 
 const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 
-const sidebarConfig = [
+export const sidebarConfig = [
   {
     key: "1",
     title: "Dashboard",
@@ -27,19 +27,19 @@ const sidebarConfig = [
   },
   {
     key: "3",
-    title: "DataCoc",
+    title: "Data KIA",
     path: "/dashboard/data-coc/kia",
     icon: getIcon(fileTextFill),
   },
   {
     key: "4",
-    title: "DataImunisasi",
+    title: "Data Imunisasi",
     path: "/dashboard/data-coc/imun",
     icon: getIcon(fileTextFill),
   },
   {
     key: "5",
-    title: "DataGizi",
+    title: "Data Gizi",
     path: "/dashboard/data-coc/gizi",
     icon: getIcon(fileTextFill),
   },
@@ -69,4 +69,117 @@ const sidebarConfig = [
   },
 ];
 
-export default sidebarConfig;
+export const sidebarConfig_KIA = [
+  {
+    key: "1",
+    title: "Dashboard",
+    path: "/dashboard/app",
+    icon: getIcon(pieChart2Fill),
+  },
+  {
+    key: "2",
+    title: "Data KIA",
+    path: "/dashboard/data-coc/kia",
+    icon: getIcon(fileTextFill),
+  },
+  {
+    key: "3",
+    title: "Graphic COC",
+    path: "/dashboard/graphic/coc",
+    icon: getIcon(chartLineData),
+  },
+  {
+    key: "4",
+    title: "Graphic KIA",
+    path: "/dashboard/graphic/kia",
+    icon: getIcon(chartLineData),
+  },
+  {
+    key: "5",
+    title: "Graphic Imunisasi",
+    path: "/dashboard/graphic/imunisasi",
+    icon: getIcon(chartLineData),
+  },
+  {
+    key: "6",
+    title: "Graphic Gizi",
+    path: "/dashboard/graphic/gizi",
+    icon: getIcon(chartLineData),
+  },
+];
+export const sidebarConfig_IMUNISASI = [
+  {
+    key: "1",
+    title: "Dashboard",
+    path: "/dashboard/app",
+    icon: getIcon(pieChart2Fill),
+  },
+  {
+    key: "2",
+    title: "Data Imunisasi",
+    path: "/dashboard/data-coc/imun",
+    icon: getIcon(fileTextFill),
+  },
+  {
+    key: "3",
+    title: "Graphic COC",
+    path: "/dashboard/graphic/coc",
+    icon: getIcon(chartLineData),
+  },
+  {
+    key: "4",
+    title: "Graphic KIA",
+    path: "/dashboard/graphic/kia",
+    icon: getIcon(chartLineData),
+  },
+  {
+    key: "5",
+    title: "Graphic Imunisasi",
+    path: "/dashboard/graphic/imunisasi",
+    icon: getIcon(chartLineData),
+  },
+  {
+    key: "6",
+    title: "Graphic Gizi",
+    path: "/dashboard/graphic/gizi",
+    icon: getIcon(chartLineData),
+  },
+];
+export const sidebarConfig_GIZI = [
+  {
+    key: "1",
+    title: "Dashboard",
+    path: "/dashboard/app",
+    icon: getIcon(pieChart2Fill),
+  },
+  {
+    key: "2",
+    title: "DataGizi",
+    path: "/dashboard/data-coc/gizi",
+    icon: getIcon(fileTextFill),
+  },
+  {
+    key: "3",
+    title: "Graphic COC",
+    path: "/dashboard/graphic/coc",
+    icon: getIcon(chartLineData),
+  },
+  {
+    key: "4",
+    title: "Graphic KIA",
+    path: "/dashboard/graphic/kia",
+    icon: getIcon(chartLineData),
+  },
+  {
+    key: "5",
+    title: "Graphic Imunisasi",
+    path: "/dashboard/graphic/imunisasi",
+    icon: getIcon(chartLineData),
+  },
+  {
+    key: "6",
+    title: "Graphic Gizi",
+    path: "/dashboard/graphic/gizi",
+    icon: getIcon(chartLineData),
+  },
+];

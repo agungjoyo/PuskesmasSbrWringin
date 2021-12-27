@@ -7,7 +7,15 @@ import DashboardNavbar from "./DashboardNavbar";
 import DashboardSidebar from "./DashboardSidebar";
 import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
-
+import { compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
+import _ from "lodash";
+import {
+  sidebarConfig,
+  sidebarConfig_KIA,
+  sidebarConfig_IMUNISASI,
+  sidebarConfig_GIZI,
+} from "./SidebarConfig";
 // ----------------------------------------------------------------------
 
 const APP_BAR_MOBILE = 64;
@@ -41,29 +49,103 @@ class DashboardLayout extends Component {
       open: false,
     };
   }
-
   render() {
-    const { auth } = this.props;
+    const { auth, authData } = this.props;
     if (!auth.uid) return <Navigate to="/" />;
-    return (
-      <RootStyle>
-        <DashboardNavbar onOpenSidebar={() => this.setState({ open: true })} />
-        <DashboardSidebar
-          isOpenSidebar={this.state.open}
-          onCloseSidebar={() => this.setState({ open: false })}
-        />
-        <MainStyle>
-          <Outlet />
-        </MainStyle>
-      </RootStyle>
-    );
+    if (auth.isLoaded && authData !== undefined) {
+      const authDataCurrent = _.filter(authData, {
+        id: auth.uid,
+      });
+      const authInit = auth.uid;
+      const authDataKIA = _.filter(authData, { id: authInit });
+      const Name = authDataKIA[0].Name;
+      let Position = "";
+      if (authDataCurrent.length == 1) {
+        Position = authDataCurrent[0].Position;
+        if (Position == "Kepala Puskesmas") {
+          return (
+            <RootStyle>
+              <DashboardNavbar
+                onOpenSidebar={() => this.setState({ open: true })}
+              />
+              <DashboardSidebar
+                sidebarConfig={sidebarConfig}
+                isOpenSidebar={this.state.open}
+                onCloseSidebar={() => this.setState({ open: false })}
+                Name={Name}
+              />
+              <MainStyle>
+                <Outlet Name={Name} />
+              </MainStyle>
+            </RootStyle>
+          );
+        } else if (Position == "KIA") {
+          return (
+            <RootStyle>
+              <DashboardNavbar
+                onOpenSidebar={() => this.setState({ open: true })}
+              />
+              <DashboardSidebar
+                sidebarConfig={sidebarConfig_KIA}
+                isOpenSidebar={this.state.open}
+                onCloseSidebar={() => this.setState({ open: false })}
+                Name={Name}
+              />
+              <MainStyle>
+                <Outlet />
+              </MainStyle>
+            </RootStyle>
+          );
+        } else if (Position == "Imunisasi") {
+          return (
+            <RootStyle>
+              <DashboardNavbar
+                onOpenSidebar={() => this.setState({ open: true })}
+              />
+              <DashboardSidebar
+                sidebarConfig={sidebarConfig_IMUNISASI}
+                isOpenSidebar={this.state.open}
+                onCloseSidebar={() => this.setState({ open: false })}
+                Name={Name}
+              />
+              <MainStyle>
+                <Outlet />
+              </MainStyle>
+            </RootStyle>
+          );
+        } else if (Position == "Gizi") {
+          return (
+            <RootStyle>
+              <DashboardNavbar
+                onOpenSidebar={() => this.setState({ open: true })}
+              />
+              <DashboardSidebar
+                sidebarConfig={sidebarConfig_GIZI}
+                isOpenSidebar={this.state.open}
+                onCloseSidebar={() => this.setState({ open: false })}
+                Name={Name}
+              />
+              <MainStyle>
+                <Outlet />
+              </MainStyle>
+            </RootStyle>
+          );
+        }
+      }
+    } else {
+      return <div>Loading...</div>;
+    }
   }
 }
 const mapStateToProps = (state) => {
   return {
     authError: state.auth.authError,
     auth: state.firebase.auth,
+    authData: state.firestore.ordered.Auth,
   };
 };
 
-export default connect(mapStateToProps)(DashboardLayout);
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: "Auth" }])
+)(DashboardLayout);

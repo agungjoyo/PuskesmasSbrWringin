@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { filter } from "lodash";
+import _, { filter } from "lodash";
 import { Icon } from "@iconify/react";
 import chartLineData from "@iconify/icons-carbon/chart-line-data";
 // import { sentenceCase } from "change-case";
@@ -49,8 +49,12 @@ class DataCocGizi extends Component {
     isLoading: true,
   };
   render() {
-    const { data, auth } = this.props;
+    const { data, auth, authData } = this.props;
     if (!auth.uid) return <Navigate to="/login" />;
+    const authInit = auth.uid;
+    const authDataKIA = _.filter(authData, { id: authInit });
+    const Position = authDataKIA[0].Position;
+    if (Position !== "Gizi") return <Navigate to="/dashboard" />;
     function descendingComparator(a, b, orderBy) {
       if (b[orderBy] < a[orderBy]) {
         return -1;
@@ -465,11 +469,12 @@ const mapStateToProps = (state) => {
   return {
     data: state.firestore.ordered.Gizi, //database
     auth: state.firebase.auth,
+    authData: state.firestore.ordered.Auth,
   };
 };
 
 export default compose(
   //database
-  firestoreConnect([{ collection: "Gizi" }]),
+  firestoreConnect([{ collection: "Gizi" }, { collection: "Auth" }]),
   connect(mapStateToProps)
 )(DataCocGizi);
