@@ -47,7 +47,8 @@ class DataCocImun extends Component {
     const authInit = auth.uid;
     const authDataKIA = _.filter(authData, { id: authInit });
     const Position = authDataKIA[0].Position;
-    if (Position !== "Imunisasi") return <Navigate to="/dashboard" />;
+    if (Position == "KIA" || Position == "Gizi")
+      return <Navigate to="/dashboard" />;
     function descendingComparator(a, b, orderBy) {
       if (b[orderBy] < a[orderBy]) {
         return -1;

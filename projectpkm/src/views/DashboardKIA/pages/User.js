@@ -213,6 +213,11 @@ class User extends Component {
       },
     };
     const { data, auth } = this.props;
+    const authInit = auth.uid;
+    const authDataKIA = _.filter(data, { id: authInit });
+    const Position = authDataKIA[0].Position;
+    if (Position == "Gizi" || Position == "Imunisasi" || Position == "KIA")
+      return <Navigate to="/dashboard" />;
     if (!auth.uid) return <Navigate to="/login" />;
     function descendingComparator(a, b, orderBy) {
       if (b[orderBy] < a[orderBy]) {
