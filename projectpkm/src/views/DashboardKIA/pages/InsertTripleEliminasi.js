@@ -147,7 +147,11 @@ class InsertDataGizi extends Component {
             console.log(files);
             this.props.addDataCocGizi(finalData);
             const finalDataCoc = {
+                if () {
+                    
+                }
               Tahun: this.state.Tahun,
+
               Bulan: this.state.Bulan,
               Puskesmas: this.state.Puskesmas,
               JumlahBalitaKMS: this.state.JumlahBalitaKMS,

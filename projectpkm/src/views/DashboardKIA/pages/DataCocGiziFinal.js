@@ -38,7 +38,7 @@ import {
 
 // ----------------------------------------------------------------------
 
-class DataCocGizi extends Component {
+class DataCocGiziFinal extends Component {
   state = {
     page: 0,
     order: "asc",
@@ -80,21 +80,9 @@ class DataCocGizi extends Component {
           return (
             value.Bulan?.toLowerCase().includes(query.toLowerCase()) ||
             value.Puskesmas?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JumlahBalitaKMS?.toLowerCase().includes(
-              query.toLowerCase()
-            ) ||
-            value.JumlahBadutaLess23Bln?.toLowerCase().includes(
-              query.toLowerCase()
-            ) ||
-            value.JmlBalitaLess2359Bln?.toLowerCase().includes(
-              query.toLowerCase()
-            ) ||
-            value.JmlBalitaLess59Bln?.toLowerCase().includes(
-              query.toLowerCase()
-            ) ||
-            value.JmlBalitaNaikBB?.toLowerCase().includes(
-              query.toLowerCase()
-            ) ||
+            value.JmlFe3?.toLowerCase().includes(query.toLowerCase()) ||
+            value.JmlFe1?.toLowerCase().includes(query.toLowerCase()) ||
+            value.JmlVitAMr?.toLowerCase().includes(query.toLowerCase()) ||
             value.Tahun?.toString().toLowerCase().includes(query.toLowerCase())
           );
         });
@@ -109,28 +97,18 @@ class DataCocGizi extends Component {
         { id: "Bulan", label: "Bulan", alignCenter: "center" },
         { id: "Puskesmas", label: "Puskesmas", alignCenter: "center" },
         {
-          id: "JumlahBalitaKMS",
-          label: "Jumlah Balita KMS",
+          id: "JmlFe1",
+          label: "Jumlah Fe-1",
           alignCenter: "center",
         },
         {
-          id: "JumlahBadutaLess23Bln",
-          label: " Jumlah baduta (0-23 bln) yang ditimbang",
+          id: "JmlFe3",
+          label: "Jumlah Fe-3",
           alignCenter: "center",
         },
         {
-          id: "JmlBalitaLess2359Bln",
-          label: "Jumlah balita (24-59 bln) yang ditimbang",
-          alignCenter: "center",
-        },
-        {
-          id: "JmlBalitaLess59Bln",
-          label: "Jumlah balita (0-59 bln) yang ditimbang",
-          alignCenter: "center",
-        },
-        {
-          id: "JmlBalitaNaikBB",
-          label: "Jumlah Balita Naik BB",
+          id: "JmlVitAMr",
+          label: "Jumlah Vit-A Merah",
           alignCenter: "center",
         },
         { id: "" },
@@ -271,11 +249,9 @@ class DataCocGizi extends Component {
                             id,
                             Bulan,
                             Puskesmas,
-                            JumlahBalitaKMS,
-                            JumlahBadutaLess23Bln,
-                            JmlBalitaLess2359Bln,
-                            JmlBalitaLess59Bln,
-                            JmlBalitaNaikBB,
+                            JmlFe1,
+                            JmlFe3,
+                            JmlVitAMr,
                           } = row;
                           const isItemSelected =
                             this.state.selected.indexOf(Bulan) !== -1;
@@ -349,7 +325,7 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {JumlahBalitaKMS}
+                                    {JmlFe1}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -365,7 +341,7 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {JumlahBadutaLess23Bln}
+                                    {JmlFe3}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -381,43 +357,10 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {JmlBalitaLess2359Bln}
+                                    {JmlVitAMr}
                                   </Typography>
                                 </Stack>
                               </TableCell>
-                              <TableCell align="center">
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
-                                    {JmlBalitaLess59Bln}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-                              <TableCell align="center">
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
-                                    {JmlBalitaNaikBB}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
                               <TableCell align="right">
                                 <UserMoreMenuGizi />
                               </TableCell>
@@ -473,4 +416,4 @@ export default compose(
   //database
   firestoreConnect([{ collection: "Gizi" }]),
   connect(mapStateToProps)
-)(DataCocGizi);
+)(DataCocGiziFinal);

@@ -19,6 +19,7 @@ import Register from "views/DashboardKIA/pages/Register";
 import DataCoc from "views/DashboardKIA/pages/DataCoc";
 import DataCocImunisasi from "views/DashboardKIA/pages/DataCocImunisasi";
 import DataCocGizi from "views/DashboardKIA/pages/DataCocGizi";
+import DataCocGiziFinal from "views/DashboardKIA/pages/DataCocGiziFinal";
 import InsertData from "views/DashboardKIA/pages/InsertData";
 import InsertDataImunisasi from "views/DashboardKIA/pages/InsertDataImunisasi";
 import InsertDataGizi from "views/DashboardKIA/pages/InsertDataGizi";
@@ -40,6 +41,7 @@ export default function Router() {
         { path: "data-coc/kia", element: <DataCoc /> },
         { path: "data-coc/imun", element: <DataCocImunisasi /> },
         { path: "data-coc/gizi", element: <DataCocGizi /> },
+        { path: "DataCOCGizi", element: <DataCocGiziFinal /> },
         { path: "products", element: <Products /> },
         { path: "blog", element: <Blog /> },
         { path: "InsertData", element: <InsertData /> },
