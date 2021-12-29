@@ -187,12 +187,13 @@ class User extends Component {
                   Email: this.state.Email,
                   Address: this.state.Address,
                   NIP: this.state.NIP,
-                  Nomor: this.state.Nomor,
+                  Nomor: "+62" + this.state.Nomor,
                   Position: this.state.PositionIndex,
                   Password: this.state.Password,
                 };
                 console.log(dataFinalFix);
                 this.props.signUp(dataFinalFix);
+                return <Navigate to="/dashboard" />;
               }
             }
           );
@@ -212,6 +213,11 @@ class User extends Component {
       },
     };
     const { data, auth } = this.props;
+    const authInit = auth.uid;
+    const authDataKIA = _.filter(data, { id: authInit });
+    const Position = authDataKIA[0].Position;
+    if (Position == "Gizi" || Position == "Imunisasi" || Position == "KIA")
+      return <Navigate to="/dashboard" />;
     if (!auth.uid) return <Navigate to="/login" />;
     function descendingComparator(a, b, orderBy) {
       if (b[orderBy] < a[orderBy]) {
@@ -396,7 +402,7 @@ class User extends Component {
                             name="Name"
                             onInput={(event) => {
                               var text = event.target.value;
-                              text = text.replace(/[^A-Za-z]/g, "");
+                              text = text.replace(/[^A-Za-z ]/g, "");
                               event.target.value = text;
                             }}
                             onChange={this.handleChangeRegister}
@@ -426,10 +432,8 @@ class User extends Component {
                           label="NIP"
                           name="NIP"
                           onInput={(e) => {
-                            e.target.value = Math.max(
-                              0,
-                              parseInt(e.target.value)
-                            )
+                            console.log(e.target.value.toString().slice(0, 18));
+                            e.target.value = e.target.value
                               .toString()
                               .slice(0, 18);
                           }}
@@ -448,7 +452,7 @@ class User extends Component {
                               parseInt(e.target.value)
                             )
                               .toString()
-                              .slice(0, 13);
+                              .slice(0, 12);
                           }}
                         />
                         <FormControl sx={{ m: 1, minWidth: 100 }}>

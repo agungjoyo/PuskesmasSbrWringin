@@ -5,6 +5,9 @@ import personFill from "@iconify/icons-eva/person-fill";
 import settings2Fill from "@iconify/icons-eva/settings-2-fill";
 import { Link as RouterLink } from "react-router-dom";
 import { connect } from "react-redux";
+import _ from "lodash";
+import { compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
 // material
 import { alpha } from "@mui/material/styles";
 import {
@@ -42,11 +45,16 @@ class AccountPopover extends Component {
     this.setState({ open: false });
   };
   render() {
+    const { auth, authData } = this.props;
+    const authInit = auth.uid;
+    const authDataKIA = _.filter(authData, { id: authInit });
+    const Name = authDataKIA[0].Name;
+    const Email = authDataKIA[0].Email;
     const MENU_OPTIONS = [
       {
         label: "Home",
         icon: homeFill,
-        linkTo: "/",
+        linkTo: "/dashboard",
       },
       {
         label: "Profile",
@@ -92,10 +100,10 @@ class AccountPopover extends Component {
         >
           <Box sx={{ my: 1.5, px: 2.5 }}>
             <Typography variant="subtitle1" noWrap>
-              {account.displayName}
+              {Name}
             </Typography>
             <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-              {account.email}
+              {Email}
             </Typography>
           </Box>
 
@@ -139,10 +147,19 @@ class AccountPopover extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+    authData: state.firestore.ordered.Auth,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     signOut: () => dispatch(signOut()),
   };
 };
 
-export default connect(null, mapDispatchToProps)(AccountPopover);
+export default compose(
+  firestoreConnect([{ collection: "Auth" }]),
+  connect(mapStateToProps, mapDispatchToProps)
+)(AccountPopover);

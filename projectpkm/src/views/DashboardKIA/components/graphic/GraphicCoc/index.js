@@ -1,0 +1,9 @@
+export { default as GraphicCocBalitaPur } from "./GraphicCocBalitaPur";
+export { default as GraphicCocBayiPur } from "./GraphicCocBayiPur";
+export { default as GraphicCocK1_FE1 } from "./GraphicCocK1_FE1";
+export { default as GraphicCocK4_VitA } from "./GraphicCocK4_VitA";
+export { default as GraphicCocKB } from "./GraphicCocKB";
+export { default as GraphicCocKN1_HB } from "./GraphicCocKN1_HB";
+export { default as GraphicCocLahirMati } from "./GraphicCocLahirMati";
+export { default as GraphicCocLahirMatiPenyebab } from "./GraphicCocLahirMatiPenyebab";
+export { default as GraphicCocLahirTempat } from "./GraphicCocLahirTempat";
