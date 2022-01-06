@@ -7,8 +7,12 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { Navigate } from "react-router-dom";
-import { addDataCoc } from "views/store/actions/datacocAction";
-import { DataCocEdit } from "views/store/actions/datacocAction";
+import {
+  addDataCoc,
+  DataCocEdit,
+  addDataKIACoc,
+  DataCocKIAEdit,
+} from "views/store/actions/datacocAction";
 import _ from "lodash";
 // components
 import Page from "../components/Page";
@@ -52,6 +56,30 @@ class InsertData extends Component {
       KunjunganBayiParipurnaLK: "",
       KunjunganBayiParipurnaPR: "",
       KunjunganBayiParipurnaTL: "",
+      RumahLK: "",
+      RumahPR: "",
+      RumahTL: "",
+      PosyanduLK: "",
+      PosyanduPR: "",
+      PosyanduTL: "",
+      PolindesLK: "",
+      PolindesPR: "",
+      PolindesTL: "",
+      PustuLK: "",
+      PustuPR: "",
+      PustuTL: "",
+      PuskesmasLK: "",
+      PuskesmasPR: "",
+      PuskesmasTL: "",
+      BPSLK: "",
+      BPSPR: "",
+      BPSTL: "",
+      RSULK: "",
+      RSUPR: "",
+      RSUTL: "",
+      LuarWilayahLK: "",
+      LuarWilayahPR: "",
+      LuarWilayahTL: "",
     };
   }
   round(value, exp) {
@@ -88,41 +116,73 @@ class InsertData extends Component {
           const SasaranBayiRistiLKRound = this.round(data[i][5]);
           const SasaranBayiRistiPRRound = this.round(data[i][6]);
           const SasaranBayiRistiTLRound = this.round(data[i][7]);
-          this.setState({
-            Tahun: dateSplit[3],
-            Bulan: dateSplit[1],
-            Puskesmas: data[i][1],
-            SasaranKelahiranHidupLK: data[i][2],
-            SasaranKelahiranHidupPR: data[i][3],
-            SasaranKelahiranHidupTL: data[i][4],
-            SasaranBayiRistiLK: SasaranBayiRistiLKRound,
-            SasaranBayiRistiPR: SasaranBayiRistiPRRound,
-            SasaranBayiRistiTL: SasaranBayiRistiTLRound,
-            SasaranBayiLK: data[i][8],
-            SasaranBayiPR: data[i][9],
-            SasaranBayiTL: data[i][10],
-            PencapaianLahirHidupLK: data[i][14],
-            PencapaianLahirHidupPR: data[i][15],
-            PencapaianLahirHidupTL: data[i][16],
-            PencapaianLahirMatiLK: data[i][27],
-            PencapaianLahirMatiPR: data[i][28],
-            PencapaianLahirMatiTL: data[i][29],
-            PencapaianKNPertamaLK: data[i][40],
-            PencapaianKNPertamaPR: data[i][41],
-            PencapaianKNPertamaTL: data[i][42],
-            PencapaianKNKeduaLK: data[i][53],
-            PencapaianKNKeduaPR: data[i][54],
-            PencapaianKNKeduaTL: data[i][55],
-            PencapaianKNLengkapLK: data[i][66],
-            PencapaianKNLengkapPR: data[i][67],
-            PencapaianKNLengkapTL: data[i][68],
-            NeonatalKompLK: data[i][79],
-            NeonatalKompPR: data[i][80],
-            NeonatalKompTL: data[i][81],
-            KunjunganBayiParipurnaLK: data[i][92],
-            KunjunganBayiParipurnaPR: data[i][93],
-            KunjunganBayiParipurnaTL: data[i][94],
-          });
+          this.setState(
+            {
+              Tahun: dateSplit[3],
+              Bulan: dateSplit[1],
+              Puskesmas: data[i][1],
+              SasaranKelahiranHidupLK: data[i][2],
+              SasaranKelahiranHidupPR: data[i][3],
+              SasaranKelahiranHidupTL: data[i][4],
+              SasaranBayiRistiLK: SasaranBayiRistiLKRound,
+              SasaranBayiRistiPR: SasaranBayiRistiPRRound,
+              SasaranBayiRistiTL: SasaranBayiRistiTLRound,
+              SasaranBayiLK: data[i][8],
+              SasaranBayiPR: data[i][9],
+              SasaranBayiTL: data[i][10],
+              PencapaianLahirHidupLK: data[i][14],
+              PencapaianLahirHidupPR: data[i][15],
+              PencapaianLahirHidupTL: data[i][16],
+              PencapaianLahirMatiLK: data[i][27],
+              PencapaianLahirMatiPR: data[i][28],
+              PencapaianLahirMatiTL: data[i][29],
+              PencapaianKNPertamaLK: data[i][40],
+              PencapaianKNPertamaPR: data[i][41],
+              PencapaianKNPertamaTL: data[i][42],
+              PencapaianKNKeduaLK: data[i][53],
+              PencapaianKNKeduaPR: data[i][54],
+              PencapaianKNKeduaTL: data[i][55],
+              PencapaianKNLengkapLK: data[i][66],
+              PencapaianKNLengkapPR: data[i][67],
+              PencapaianKNLengkapTL: data[i][68],
+              NeonatalKompLK: data[i][79],
+              NeonatalKompPR: data[i][80],
+              NeonatalKompTL: data[i][81],
+              KunjunganBayiParipurnaLK: data[i][92],
+              KunjunganBayiParipurnaPR: data[i][93],
+              KunjunganBayiParipurnaTL: data[i][94],
+            },
+            () => {
+              for (let a = 15; a < 23; a++) {
+                this.setState({
+                  RumahLK: data[a][14],
+                  RumahPR: data[a][15],
+                  RumahTL: data[a][16],
+                  PosyanduLK: data[a][14],
+                  PosyanduPR: data[a][15],
+                  PosyanduTL: data[a][16],
+                  PolindesLK: data[a][14],
+                  PolindesPR: data[a][15],
+                  PolindesTL: data[a][16],
+                  PustuLK: data[a][14],
+                  PustuPR: data[a][15],
+                  PustuTL: data[a][16],
+                  PuskesmasLK: data[a][14],
+                  PuskesmasPR: data[a][15],
+                  PuskesmasTL: data[a][16],
+                  BPSLK: data[a][14],
+                  BPSPR: data[a][15],
+                  BPSTL: data[a][16],
+                  RSULK: data[a][14],
+                  RSUPR: data[a][15],
+                  RSUTL: data[a][16],
+                  LuarWilayahLK: data[a][14],
+                  LuarWilayahPR: data[a][15],
+                  LuarWilayahTL: data[a][16],
+                });
+              }
+            }
+          );
           const dataCocFinal = _.filter(dataCoc, {
             Puskesmas: this.state.Puskesmas,
           });
@@ -143,10 +203,72 @@ class InsertData extends Component {
               ) == true
             ) {
               console.log("True");
-              const { files, isDuplicate, ...finalData } = this.state;
-              console.log(finalData, dataCocCompare[0].id);
-              console.log(files, isDuplicate);
-              this.props.DataCocEdit(dataCocCompare[0].id, finalData);
+              const dataCocKIA = {
+                Tahun: this.state.Tahun,
+                Bulan: this.state.Bulan,
+                RumahLK: this.state.RumahLK,
+                RumahPR: this.state.RumahPR,
+                RumahTL: this.state.RumahTL,
+                PosyanduLK: this.state.PosyanduLK,
+                PosyanduPR: this.state.PosyanduPR,
+                PosyanduTL: this.state.PosyanduTL,
+                PolindesLK: this.state.PolindesLK,
+                PolindesPR: this.state.PolindesPR,
+                PolindesTL: this.state.PolindesTL,
+                PustuLK: this.state.PustuLK,
+                PustuPR: this.state.PustuPR,
+                PustuTL: this.state.PustuTL,
+                PuskesmasLK: this.state.PuskesmasLK,
+                PuskesmasPR: this.state.PuskesmasPR,
+                PuskesmasTL: this.state.PuskesmasTL,
+                BPSLK: this.state.BPSLK,
+                BPSPR: this.state.BPSPR,
+                BPSTL: this.state.BPSTL,
+                RSULK: this.state.RSULK,
+                RSUPR: this.state.RSUPR,
+                RSUTL: this.state.RSUTL,
+                LuarWilayahLK: this.state.LuarWilayahLK,
+                LuarWilayahPR: this.state.LuarWilayahPR,
+                LuarWilayahTL: this.state.LuarWilayahTL,
+              };
+              const dataKIA = {
+                Tahun: this.state.Tahun,
+                Bulan: this.state.Bulan,
+                Puskesmas: this.state.Puskesmas,
+                SasaranKelahiranHidupLK: this.state.SasaranKelahiranHidupLK,
+                SasaranKelahiranHidupPR: this.state.SasaranKelahiranHidupPR,
+                SasaranKelahiranHidupTL: this.state.SasaranKelahiranHidupTL,
+                SasaranBayiRistiLK: this.state.SasaranBayiRistiLK,
+                SasaranBayiRistiPR: this.state.SasaranBayiRistiPR,
+                SasaranBayiRistiTL: this.state.SasaranBayiRistiTL,
+                SasaranBayiLK: this.state.SasaranBayiLK,
+                SasaranBayiPR: this.state.SasaranBayiPR,
+                SasaranBayiTL: this.state.SasaranBayiTL,
+                PencapaianLahirHidupLK: this.state.PencapaianLahirHidupTL,
+                PencapaianLahirHidupPR: this.state.PencapaianLahirHidupPR,
+                PencapaianLahirHidupTL: this.state.PencapaianLahirHidupTL,
+                PencapaianLahirMatiLK: this.state.PencapaianLahirMatiLK,
+                PencapaianLahirMatiPR: this.state.PencapaianLahirMatiPR,
+                PencapaianLahirMatiTL: this.state.PencapaianLahirMatiTL,
+                PencapaianKNPertamaLK: this.state.PencapaianKNPertamaLK,
+                PencapaianKNPertamaPR: this.state.PencapaianKNPertamaPR,
+                PencapaianKNPertamaTL: this.state.PencapaianKNPertamaTL,
+                PencapaianKNKeduaLK: this.state.PencapaianKNKeduaLK,
+                PencapaianKNKeduaPR: this.state.PencapaianKNKeduaPR,
+                PencapaianKNKeduaTL: this.state.PencapaianKNKeduaTL,
+                PencapaianKNLengkapLK: this.state.PencapaianKNLengkapLK,
+                PencapaianKNLengkapPR: this.state.PencapaianKNLengkapPR,
+                PencapaianKNLengkapTL: this.state.PencapaianKNLengkapTL,
+                NeonatalKompLK: this.state.NeonatalKompLK,
+                NeonatalKompPR: this.state.NeonatalKompPR,
+                NeonatalKompTL: this.state.NeonatalKompTL,
+                KunjunganBayiParipurnaLK: this.state.KunjunganBayiParipurnaLK,
+                KunjunganBayiParipurnaPR: this.state.KunjunganBayiParipurnaPR,
+                KunjunganBayiParipurnaTL: this.state.KunjunganBayiParipurnaTL,
+              };
+              console.log(dataKIA, dataCocKIA);
+              this.props.DataCocEdit(dataCocCompare[0].id, dataKIA);
+              this.props.DataCocKIAEdit(dataCocCompare[0].id, dataCocKIA);
             } else {
               window.alert("Anda Telah Membatalkan Pengubahan Data");
             }
@@ -161,9 +283,72 @@ class InsertData extends Component {
                 " for " +
                 this.state.Puskesmas
             );
-            const { files, isDuplicate, ...finalData } = this.state;
-            console.log(files, isDuplicate);
-            this.props.addDataCoc(finalData);
+            const dataCocKIA = {
+              Tahun: this.state.Tahun,
+              Bulan: this.state.Bulan,
+              RumahLK: this.state.RumahLK,
+              RumahPR: this.state.RumahPR,
+              RumahTL: this.state.RumahTL,
+              PosyanduLK: this.state.PosyanduLK,
+              PosyanduPR: this.state.PosyanduPR,
+              PosyanduTL: this.state.PosyanduTL,
+              PolindesLK: this.state.PolindesLK,
+              PolindesPR: this.state.PolindesPR,
+              PolindesTL: this.state.PolindesTL,
+              PustuLK: this.state.PustuLK,
+              PustuPR: this.state.PustuPR,
+              PustuTL: this.state.PustuTL,
+              PuskesmasLK: this.state.PuskesmasLK,
+              PuskesmasPR: this.state.PuskesmasPR,
+              PuskesmasTL: this.state.PuskesmasTL,
+              BPSLK: this.state.BPSLK,
+              BPSPR: this.state.BPSPR,
+              BPSTL: this.state.BPSTL,
+              RSULK: this.state.RSULK,
+              RSUPR: this.state.RSUPR,
+              RSUTL: this.state.RSUTL,
+              LuarWilayahLK: this.state.LuarWilayahLK,
+              LuarWilayahPR: this.state.LuarWilayahPR,
+              LuarWilayahTL: this.state.LuarWilayahTL,
+            };
+            const dataKIA = {
+              Tahun: this.state.Tahun,
+              Bulan: this.state.Bulan,
+              Puskesmas: this.state.Puskesmas,
+              SasaranKelahiranHidupLK: this.state.SasaranKelahiranHidupLK,
+              SasaranKelahiranHidupPR: this.state.SasaranKelahiranHidupPR,
+              SasaranKelahiranHidupTL: this.state.SasaranKelahiranHidupTL,
+              SasaranBayiRistiLK: this.state.SasaranBayiRistiLK,
+              SasaranBayiRistiPR: this.state.SasaranBayiRistiPR,
+              SasaranBayiRistiTL: this.state.SasaranBayiRistiTL,
+              SasaranBayiLK: this.state.SasaranBayiLK,
+              SasaranBayiPR: this.state.SasaranBayiPR,
+              SasaranBayiTL: this.state.SasaranBayiTL,
+              PencapaianLahirHidupLK: this.state.PencapaianLahirHidupTL,
+              PencapaianLahirHidupPR: this.state.PencapaianLahirHidupPR,
+              PencapaianLahirHidupTL: this.state.PencapaianLahirHidupTL,
+              PencapaianLahirMatiLK: this.state.PencapaianLahirMatiLK,
+              PencapaianLahirMatiPR: this.state.PencapaianLahirMatiPR,
+              PencapaianLahirMatiTL: this.state.PencapaianLahirMatiTL,
+              PencapaianKNPertamaLK: this.state.PencapaianKNPertamaLK,
+              PencapaianKNPertamaPR: this.state.PencapaianKNPertamaPR,
+              PencapaianKNPertamaTL: this.state.PencapaianKNPertamaTL,
+              PencapaianKNKeduaLK: this.state.PencapaianKNKeduaLK,
+              PencapaianKNKeduaPR: this.state.PencapaianKNKeduaPR,
+              PencapaianKNKeduaTL: this.state.PencapaianKNKeduaTL,
+              PencapaianKNLengkapLK: this.state.PencapaianKNLengkapLK,
+              PencapaianKNLengkapPR: this.state.PencapaianKNLengkapPR,
+              PencapaianKNLengkapTL: this.state.PencapaianKNLengkapTL,
+              NeonatalKompLK: this.state.NeonatalKompLK,
+              NeonatalKompPR: this.state.NeonatalKompPR,
+              NeonatalKompTL: this.state.NeonatalKompTL,
+              KunjunganBayiParipurnaLK: this.state.KunjunganBayiParipurnaLK,
+              KunjunganBayiParipurnaPR: this.state.KunjunganBayiParipurnaPR,
+              KunjunganBayiParipurnaTL: this.state.KunjunganBayiParipurnaTL,
+            };
+            console.log(dataKIA, dataCocKIA);
+            this.props.addDataCoc(dataKIA);
+            this.props.addDataKIACoc(dataCocKIA);
           }
         }
         return <Navigate to="./InsertData" />;
@@ -249,6 +434,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addDataCoc: (dataCoc) => dispatch(addDataCoc(dataCoc)),
     DataCocEdit: (dataCoc, id) => dispatch(DataCocEdit(dataCoc, id)),
+    addDataKIACoc: (dataKIACoc) => dispatch(addDataKIACoc(dataKIACoc)),
+    DataCocKIAEdit: (dataKIACoc, id) =>
+      dispatch(DataCocKIAEdit(dataKIACoc, id)),
   };
 };
 
