@@ -88,6 +88,33 @@ class InsertDataImunisasi extends Component {
           year.push("" + (yearTemp + 1));
         }
         console.log(data, dateSplit, this.state);
+        console.log(this.state.files[0].path);
+        const yearFix = this.state.files[0].path;
+        const yearsplit = yearFix.split("");
+        console.log(yearsplit);
+        const yearTemp1 = _.filter(yearsplit, () => {
+          const temp = [];
+          for (let i = 0; i < yearsplit.length; i++) {
+            if (
+              yearsplit[i] !== 1 ||
+              yearsplit[i] !== 2 ||
+              yearsplit[i] !== 3 ||
+              yearsplit[i] !== 4 ||
+              yearsplit[i] !== 5 ||
+              yearsplit[i] !== 6 ||
+              yearsplit[i] !== 7 ||
+              yearsplit[i] !== 8 ||
+              yearsplit[i] !== 9 ||
+              yearsplit[i] !== 0
+            ) {
+              console.log("true");
+              temp.push(yearsplit[i]);
+            } else {
+              console.log("false");
+            }
+          }
+        });
+        console.log(yearTemp1);
 
         for (var i = 7; i < 13; i++) {
           for (let a = 0; a < dateSplit.length; a++) {
@@ -99,8 +126,8 @@ class InsertDataImunisasi extends Component {
             }
           }
           this.setState({
-            Tahun: dateSplit[4],
-            Bulan: dateSplit[2],
+            Tahun: yearFix,
+            Bulan: dateSplit[1],
             Puskesmas: data[i][1],
             SasaranBayiBaruLahir: data[i][2],
             SasaranSurvivingInfant: data[i][3],

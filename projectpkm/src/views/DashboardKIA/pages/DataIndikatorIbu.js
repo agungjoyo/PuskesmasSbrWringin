@@ -117,7 +117,7 @@ class DataIndikatorIbu extends Component {
           alignCenter: "center",
         },
 
-        { id: "Linakes", label: "BCG Bulan Ini", alignCenter: "center" },
+        { id: "Linakes", label: "Linakes", alignCenter: "center" },
         { id: "" },
       ];
       //
@@ -394,7 +394,7 @@ class DataIndikatorIbu extends Component {
                 </TableContainer>
               </Scrollbar>
               <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
+                rowsPerPageOptions={[6, 25, 100]}
                 component="div"
                 count={data.length}
                 rowsPerPage={this.state.rowsPerPage}

@@ -191,70 +191,70 @@ class DataCocImun extends Component {
 
         {
           id: "HBOLessOneDTM",
-          label: "HBO < 24 Jam Bulan Ini",
+          label: "HBO < 24 Jam",
           alignCenter: "center",
         },
 
         {
           id: "HBOLessOneWTM",
-          label: "HBO 0-7 hari Bulan Ini",
+          label: "HBO 0-7 hari",
           alignCenter: "center",
         },
 
-        { id: "BCGThisMonth", label: "BCG Bulan Ini", alignCenter: "center" },
+        { id: "BCGThisMonth", label: "BCG", alignCenter: "center" },
 
         {
           id: "Polio1ThisMonth",
-          label: "Polio 1 Bulan Ini",
+          label: "Polio 1",
           alignCenter: "center",
         },
 
         {
           id: "DPTHB1ThisMonth",
-          label: "DPTHB-1 Bulan Ini",
+          label: "DPTHB-1",
           alignCenter: "center",
         },
 
         {
           id: "Polio2ThisMonth",
-          label: "Polio 2 Bulan Ini",
+          label: "Polio 2",
           alignCenter: "center",
         },
         {
           id: "DPTHB2ThisMonth",
-          label: "DPTHB-2 Bulan Ini",
+          label: "DPTHB-2",
           alignCenter: "center",
         },
 
         {
           id: "Polio3ThisMonth",
-          label: "Polio 3 Bulan Ini",
+          label: "Polio 3",
           alignCenter: "center",
         },
 
         {
           id: "DPTHB3ThisMonth",
-          label: "DPTHB-3 Bulan Ini",
+          label: "DPTHB-3",
           alignCenter: "center",
         },
 
         {
           id: "Polio4ThisMonth",
-          label: "Polio 4 Bulan Ini",
+          label: "Polio 4",
           alignCenter: "center",
         },
 
-        { id: "IPVThisMonth", label: "IPV Bulan Ini", alignCenter: "center" },
+        { id: "IPVThisMonth", label: "IPV", alignCenter: "center" },
 
         {
           id: "CampakRubellaTM",
-          label: "Campak-Rubella Bulan Ini",
+          label: "Campak-Rubella",
           alignCenter: "center",
         },
 
         {
           id: "IDLThisMonth",
-          label: "IDL Bulan Ini",
+          label: "IDL",
           alignCenter: "center",
         },
         { id: "" },

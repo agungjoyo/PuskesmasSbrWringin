@@ -451,7 +451,7 @@ class DataCocGizi extends Component {
               </Scrollbar>
 
               <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
+                rowsPerPageOptions={[6, 50, 100]}
                 component="div"
                 count={data.length}
                 rowsPerPage={this.state.rowsPerPage}

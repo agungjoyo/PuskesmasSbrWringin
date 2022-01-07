@@ -145,7 +145,7 @@ export const removeDataK1Coc = (id) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     firestore
-      .collection("COC-K1")
+      .collection("K1")
       .doc(id)
       .delete()
       .then(() => {
@@ -160,12 +160,12 @@ export const DataCocK1Edit = (id, dataK1Coc) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     firestore
-      .collection("COC-K1")
+      .collection("K1")
       .doc(id)
       .delete()
       .then(() => {
         firestore
-          .collection("COC-K1")
+          .collection("K1")
           .add({
             ...dataK1Coc,
             createdAt: new Date(),
