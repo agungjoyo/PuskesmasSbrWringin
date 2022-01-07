@@ -235,7 +235,7 @@ class DataCoc extends Component {
 
       const isUserNotFound = filteredUsers.length === 0;
       return (
-        <Page title="Data CoC | Minimal-UI">
+        <Page title="Data KIA | Minimal-UI">
           <Container>
             <Stack direction="row" justifyContent="space-between" mb={5}>
               <div style={{ pointerEvents: "none" }}>
@@ -245,7 +245,7 @@ class DataCoc extends Component {
                   startIcon={<Icon icon={chartLineData} />}
                 >
                   {/* <Icon icon={chartLineData} width="30" height="30" /> */}
-                  DataCoc
+                  DataKIA
                 </Button>
               </div>
               <Button

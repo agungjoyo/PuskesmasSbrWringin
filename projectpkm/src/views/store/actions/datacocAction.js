@@ -1,5 +1,5 @@
+// Menambahkan Data KIA Pada database
 export const addDataCoc = (dataCoc) => {
-  // return (dispatch, getState) => {}
   return (dispatch, getState, { getFirestore }) => {
     // make async call to database
     const firestore = getFirestore();
@@ -17,6 +17,7 @@ export const addDataCoc = (dataCoc) => {
       });
   };
 };
+//Menghapus Data KIA
 export const removeDataCoc = (id) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
@@ -32,6 +33,7 @@ export const removeDataCoc = (id) => {
       });
   };
 };
+//Replace Data KIA
 export const DataCocEdit = (id, dataCoc) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
@@ -65,7 +67,7 @@ export const addDataKIACoc = (dataKIACoc) => {
     // make async call to database
     const firestore = getFirestore();
     firestore
-      .collection("COC-KIA")
+      .collection("COCKIA")
       .add({
         ...dataKIACoc,
         createdAt: new Date(),
@@ -82,7 +84,7 @@ export const removeDataKIACoc = (id) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     firestore
-      .collection("COC-KIA")
+      .collection("COCKIA")
       .doc(id)
       .delete()
       .then(() => {
@@ -97,12 +99,12 @@ export const DataCocKIAEdit = (id, dataKIACoc) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     firestore
-      .collection("COC-KIA")
+      .collection("COCKIA")
       .doc(id)
       .delete()
       .then(() => {
         firestore
-          .collection("COC-KIA")
+          .collection("COCKIA")
           .add({
             ...dataKIACoc,
             createdAt: new Date(),

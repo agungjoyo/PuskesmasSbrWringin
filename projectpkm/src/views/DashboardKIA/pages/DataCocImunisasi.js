@@ -331,7 +331,7 @@ class DataCocImun extends Component {
       console.log(this.state, filteredUsers);
 
       return (
-        <Page title="Data CoC | Minimal-UI">
+        <Page title="Data Imunisasi | Minimal-UI">
           <Container>
             <Stack direction="row" justifyContent="space-between" mb={5}>
               <div style={{ pointerEvents: "none" }}>
@@ -340,7 +340,7 @@ class DataCocImun extends Component {
                   variant="outline"
                   startIcon={<Icon icon={chartLineData} />}
                 >
-                  Data COC Imunisasi
+                  Data Imunisasi
                 </Button>
               </div>
               <Button
