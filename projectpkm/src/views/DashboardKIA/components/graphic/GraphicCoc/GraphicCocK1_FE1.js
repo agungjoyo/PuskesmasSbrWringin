@@ -161,11 +161,6 @@ class GraphicCocK1_FE1 extends Component {
         type: "column",
         data: [],
       },
-      {
-        name: "Kunjungan Bayi Paripurna Total",
-        type: "column",
-        data: [],
-      },
     ],
   };
   getStyles(month, monthIndex, theme) {
@@ -193,10 +188,10 @@ class GraphicCocK1_FE1 extends Component {
     };
   }
   handleChangeBulan = () => {
-    const { KIA } = this.props;
+    const { TripleEliminasi } = this.props;
     const desaTemp = [];
-    for (let i = 0; i < KIA.length; i++) {
-      desaTemp.push(KIA[i].Puskesmas);
+    for (let i = 0; i < TripleEliminasi.length; i++) {
+      desaTemp.push(TripleEliminasi[i].Puskesmas);
     }
     const desa = Array.from(new Set(desaTemp));
     this.setState(
@@ -263,7 +258,7 @@ class GraphicCocK1_FE1 extends Component {
       },
       () => {
         const yearList = [];
-        const yearTemp = _.chain(KIA)
+        const yearTemp = _.chain(TripleEliminasi)
           .groupBy("Tahun")
           .map((set, Tahun) => ({ set, Tahun }))
           .value();
@@ -396,8 +391,16 @@ class GraphicCocK1_FE1 extends Component {
     );
   };
   handleChange = (event) => {
-    const { KIA } = this.props;
-    const dataFinal = _.chain(KIA)
+    const { TripleEliminasi, K1, Gizi } = this.props;
+    const dataFinalTripleEliminasi = _.chain(TripleEliminasi)
+      .groupBy("Puskesmas")
+      .map((set, Puskesmas) => ({ set, Puskesmas }))
+      .value();
+    const dataFinalK1 = _.chain(K1)
+      .groupBy("Puskesmas")
+      .map((set, Puskesmas) => ({ set, Puskesmas }))
+      .value();
+    const dataFinalGizi = _.chain(Gizi)
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
@@ -411,84 +414,80 @@ class GraphicCocK1_FE1 extends Component {
         const series3 = [];
         const series4 = [];
         const series5 = [];
-        const series6 = [];
         let category = [];
-        let kompLk = 0;
-        let kompPr = 0;
-        let kompTl = 0;
-        let kBPLk = 0;
-        let kBPPr = 0;
-        let kBPTl = 0;
-        for (let a = 0; a < dataFinal.length; a++) {
-          kompLk = 0;
-          kompPr = 0;
-          kompTl = 0;
-          kBPLk = 0;
-          kBPPr = 0;
-          kBPTl = 0;
+        let k1 = 0;
+        let fe1 = 0;
+        let tripleEliminasi = 0;
+        let k4Spm = 0;
+        let Linakes = 0;
+        for (
+          let a = 0;
+          a < dataFinalTripleEliminasi.length ||
+          a < dataFinalK1.length ||
+          a < dataFinalGizi.length;
+          a++
+        ) {
+          k1 = 0;
+          fe1 = 0;
+          tripleEliminasi = 0;
+          k4Spm = 0;
+          Linakes = 0;
           for (let b = 0; b < this.state.desaIndex.length; b++) {
-            if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
-              for (let i = 0; i < dataFinal[i].set.length; i++) {
+            if (
+              dataFinalTripleEliminasi[a].Puskesmas == this.state.desaIndex[b]
+            ) {
+              for (let i = 0; i < dataFinalTripleEliminasi[i].set.length; i++) {
                 for (let c = 0; c < this.state.monthIndex.length; c++) {
                   if (
                     this.state.monthIndex[c]?.toLowerCase() ===
-                      dataFinal[a].set[i].Bulan.toLowerCase() &&
-                    this.state.yearIndex === dataFinal[a].set[i].Tahun
+                      dataFinalTripleEliminasi[a].set[i].Bulan.toLowerCase() &&
+                    this.state.yearIndex ===
+                      dataFinalTripleEliminasi[a].set[i].Tahun
                   ) {
-                    kompLk = kompLk + dataFinal[a].set[i].NeonatalKompLK;
-                    kompPr = kompPr + dataFinal[a].set[i].NeonatalKompPR;
-                    kompTl = kompTl + dataFinal[a].set[i].NeonatalKompTL;
-                    kBPLk =
-                      kBPLk + dataFinal[a].set[i].KunjunganBayiParipurnaLK;
-                    kBPPr =
-                      kBPPr + dataFinal[a].set[i].KunjunganBayiParipurnaPR;
-                    kBPTl =
-                      kBPTl + dataFinal[a].set[i].KunjunganBayiParipurnaTL;
+                    k1 = k1 + dataFinalTripleEliminasi[a].set[i].K1Bumil;
+                    fe1 = fe1 + dataFinalGizi[a].set[i].JmlFe1;
+                    tripleEliminasi = 0;
+                    k4Spm = k4Spm + dataFinalK1[a].set[i].K4SPMBumil;
+                    Linakes = Linakes + dataFinalK1[a].set[i].Linakes;
                   }
                 }
               }
-              series1.push(kompLk);
-              series2.push(kompPr);
-              series3.push(kompTl);
-              series4.push(kBPLk);
-              series5.push(kBPPr);
-              series6.push(kBPTl);
-              category.push(dataFinal[a].Puskesmas);
+              series1.push(k1);
+              series2.push(fe1);
+              series3.push(tripleEliminasi);
+              series4.push(k4Spm);
+              series5.push(Linakes);
+              category.push(dataFinalTripleEliminasi[a].Puskesmas);
             }
           }
         }
         this.setState({
           series: [
             {
-              name: "Neonatal Komplikasi Laki - Laki",
+              name: "K1 Bumil",
               type: "column",
               data: series1,
             },
             {
-              name: "Neonatal Komplikasi Perempuan",
+              name: "FE-1",
               type: "column",
               data: series2,
             },
             {
-              name: "Neonatal Komplikasi Total",
+              name: "Triple Eliminasi",
               type: "column",
               data: series3,
             },
 
             {
-              name: "Kunjungan Bayi Paripurna Laki - Laki",
+              name: "K4 SPM",
               type: "column",
               data: series4,
             },
             {
-              name: "Kunjungan Bayi Paripurna Perempuan",
+              name: "Linakes",
               type: "column",
               data: series5,
-            },
-            {
-              name: "Kunjungan Bayi Paripurna Total",
-              type: "column",
-              data: series6,
             },
           ],
           options: {
@@ -503,8 +502,7 @@ class GraphicCocK1_FE1 extends Component {
     );
   };
   render() {
-    const { KIA } = this.props;
-    if (KIA == undefined) {
+    if (this.props.firebase.auth.isLoaded == false) {
       return <div>Loading...</div>;
     } else {
       return (
@@ -540,9 +538,9 @@ class GraphicCocK1_FE1 extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    KIA: state.firestore.ordered.KIA, //database
+    TripleEliminasi: state.firestore.ordered.TripleEliminasi, //database
+    K1: state.firestore.ordered.K1, //database
     Gizi: state.firestore.ordered.Gizi, //database
-    Imunisasi: state.firestore.ordered.Imunisasi, //database
     auth: state.firebase.auth,
   };
 };
@@ -550,9 +548,10 @@ const mapStateToProps = (state) => {
 export default compose(
   //database
   firestoreConnect([
-    { collection: "KIA" },
+    { collection: "TripleEliminasi" },
+    { collection: "COC-K1", storeAs: "K1" },
     { collection: "Gizi" },
-    { collection: "Imunisasi" },
+    { collection: "Auth" },
   ]),
   connect(mapStateToProps),
   withTheme
