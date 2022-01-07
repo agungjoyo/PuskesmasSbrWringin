@@ -24,7 +24,7 @@ import styles from "assets/jss/material-kit-react/views/landingPage.js";
 import ProductSection from "./Sections/ProductSection.js";
 import TeamSection from "./Sections/TeamSection.js";
 import WorkSection from "./Sections/WorkSection.js";
-
+import LandingGraphicGizi from "./Sections/LandingGraphicGizi.js";
 const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
@@ -38,7 +38,7 @@ function LandingPage(props) {
       <Header
         color="transparent"
         routes={dashboardRoutes}
-        brand="Material Kit React"
+        brand="SAS-KIA Sumber Wringin"
         rightLinks={<HeaderLinks />}
         fixed
         changeColorOnScroll={{
@@ -80,6 +80,11 @@ function LandingPage(props) {
       <Grid className={classNames(classes.main, classes.mainRaised)}>
         <GridItem className={classes.container}>
           <TeamSection />
+        </GridItem>
+      </Grid>
+      <Grid className={classNames(classes.main, classes.mainRaised)}>
+        <GridItem className={classes.container}>
+          <LandingGraphicGizi />
         </GridItem>
       </Grid>
       <Grid className={classNames(classes.main, classes.mainRaised)}>

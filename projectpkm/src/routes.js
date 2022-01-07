@@ -20,9 +20,11 @@ import DataCoc from "views/DashboardKIA/pages/DataCoc";
 import DataCocImunisasi from "views/DashboardKIA/pages/DataCocImunisasi";
 import DataCocGizi from "views/DashboardKIA/pages/DataCocGizi";
 import DataCocGiziFinal from "views/DashboardKIA/pages/DataCocGiziFinal";
+import DataIndikatorIbu from "views/DashboardKIA/pages/DataIndikatorIbu";
 import InsertData from "views/DashboardKIA/pages/InsertData";
 import InsertDataImunisasi from "views/DashboardKIA/pages/InsertDataImunisasi";
 import InsertDataGizi from "views/DashboardKIA/pages/InsertDataGizi";
+import InsertDataK1 from "views/DashboardKIA/pages/InsertDataK1";
 import Graphic from "views/DashboardKIA/pages/Graphic";
 import GraphicImun from "views/DashboardKIA/pages/GraphicImun";
 import GraphicGizi from "views/DashboardKIA/pages/GraphicGizi";
@@ -42,11 +44,13 @@ export default function Router() {
         { path: "data-coc/imun", element: <DataCocImunisasi /> },
         { path: "data-coc/gizi", element: <DataCocGizi /> },
         { path: "DataCOCGizi", element: <DataCocGiziFinal /> },
+        { path: "DataCocIndikatorIbu", element: <DataIndikatorIbu /> },
         { path: "products", element: <Products /> },
         { path: "blog", element: <Blog /> },
         { path: "InsertData", element: <InsertData /> },
         { path: "InsertDataImunisasi", element: <InsertDataImunisasi /> },
         { path: "InsertDataGizi", element: <InsertDataGizi /> },
+        { path: "InsertDataK1", element: <InsertDataK1 /> },
         { path: "graphic/coc", element: <IndexGraphicCoc /> },
         { path: "graphic/kia", element: <Graphic /> },
         { path: "graphic/imunisasi", element: <GraphicImun /> },

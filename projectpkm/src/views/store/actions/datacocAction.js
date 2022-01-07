@@ -119,3 +119,64 @@ export const DataCocKIAEdit = (id, dataKIACoc) => {
       });
   };
 };
+
+export const addDataK1Coc = (dataK1Coc) => {
+  // return (dispatch, getState) => {}
+  return (dispatch, getState, { getFirestore }) => {
+    // make async call to database
+    const firestore = getFirestore();
+    firestore
+      .collection("K1")
+      .add({
+        ...dataK1Coc,
+        createdAt: new Date(),
+      })
+      .then(() => {
+        dispatch({ type: "ADD_DATA_COC_K1", dataK1Coc });
+      })
+      .catch((err) => {
+        dispatch({ type: "ADD_DATA_COC_K1_ERROR", err });
+      });
+  };
+};
+export const removeDataK1Coc = (id) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("COC-K1")
+      .doc(id)
+      .delete()
+      .then(() => {
+        dispatch({ type: "DATA_COC_K1_REMOVED", id });
+      })
+      .catch((err) => {
+        dispatch({ type: "DATA_COC_REMOVED_K1_ERROR", err });
+      });
+  };
+};
+export const DataCocK1Edit = (id, dataK1Coc) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("COC-K1")
+      .doc(id)
+      .delete()
+      .then(() => {
+        firestore
+          .collection("COC-K1")
+          .add({
+            ...dataK1Coc,
+            createdAt: new Date(),
+          })
+          .then(() => {
+            dispatch({ type: "DATA_COC_K1_EDITED", dataK1Coc });
+          })
+          .catch((err) => {
+            dispatch({ type: "DATA_COC_K1_EDITED_ERROR", err });
+          });
+      })
+      .catch((err) => {
+        dispatch({ type: "DATA_COC_K1_EDITED_ERROR", err });
+      });
+  };
+};

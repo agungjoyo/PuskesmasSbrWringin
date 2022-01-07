@@ -4,20 +4,17 @@ import { Box, Grid, Container, Typography, Card } from "@mui/material";
 import Dropzone from "react-dropzone";
 import * as XLSX from "xlsx";
 import { connect } from "react-redux";
-import {
-  addDataCocGizi,
-  addFinalDataCocGizi,
-} from "views/store/actions/dataCocGiziAction";
+import { addDataK1Coc, DataCocK1Edit } from "views/store/actions/datacocAction";
 import _ from "lodash";
 // components
 import Page from "../components/Page";
 import { Navigate } from "react-router";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
-import { DataCocEditGizi } from "views/store/actions/dataCocGiziAction";
+//import { DataCocEditGizi } from "views/store/actions/dataCocGiziAction";
 //import { initial } from "lodash";
 
-class InsertDataGizi extends Component {
+class InsertDataK1 extends Component {
   constructor() {
     super();
     this.state = {
@@ -25,14 +22,9 @@ class InsertDataGizi extends Component {
       Tahun: "",
       Bulan: "",
       Puskesmas: "",
-      JumlahBalitaKMS: "",
-      JumlahBadutaLess23Bln: "",
-      JmlBalitaLess2359Bln: "",
-      JmlBalitaLess59Bln: "",
-      JmlBalitaNaikBB: "",
-      JmlFe3: "",
-      JmlFe1: "",
-      JmlVitAMr: "",
+      SasaranBumil: "",
+      K4SPMBumil: "",
+      Linakes: "",
     };
   }
   round(value, exp) {
@@ -70,65 +62,24 @@ class InsertDataGizi extends Component {
           year.push("" + (yearTemp + 1));
         }
         console.log(data, dateSplit, this.state);
-        console.log(this.state.files[0].path);
-        const yearFix = this.state.files[0].path;
-        const yearsplit = yearFix.split("");
-        console.log(yearsplit);
-        const yearTemp1 = _.filter(yearsplit, () => {
-          const temp = [];
-          for (let i = 0; i < yearsplit.length; i++) {
-            if (
-              yearsplit[i] !== 1 ||
-              yearsplit[i] !== 2 ||
-              yearsplit[i] !== 3 ||
-              yearsplit[i] !== 4 ||
-              yearsplit[i] !== 5 ||
-              yearsplit[i] !== 6 ||
-              yearsplit[i] !== 7 ||
-              yearsplit[i] !== 8 ||
-              yearsplit[i] !== 9 ||
-              yearsplit[i] !== 0
-            ) {
-              console.log("true");
-              temp.push(yearsplit[i]);
-            } else {
-              console.log("false");
+        for (var i = 8; i < 13; i++) {
+          for (let a = 0; a < dateSplit.length; a++) {
+            console.log(dateSplit[a]);
+            if (dateSplit[a] == year) {
+              this.setState({
+                Tahun: dateSplit[a],
+              });
             }
           }
-        });
-        console.log(yearTemp1);
-
-        // for (var i = 0; i < 6; i++) {
-        for (let c = 4; c < 10; c++) {
-          if (data[89][c] == undefined) {
-            this.setState({
-              Tahun: yearFix,
-              Bulan: dateSplit[3],
-              Puskesmas: data[3][c],
-              JumlahBalitaKMS: data[13][c],
-              JumlahBadutaLess23Bln: data[16][c],
-              JmlBalitaLess2359Bln: data[19][c],
-              JmlBalitaLess59Bln: data[22][c],
-              JmlBalitaNaikBB: data[25][c],
-              JmlFe1: data[138][c],
-              JmlFe3: data[139][c],
-              JmlVitAMr: 0,
-            });
-          } else {
-            this.setState({
-              Tahun: yearFix,
-              Bulan: dateSplit[3],
-              Puskesmas: data[3][c],
-              JumlahBalitaKMS: data[13][c],
-              JumlahBadutaLess23Bln: data[16][c],
-              JmlBalitaLess2359Bln: data[19][c],
-              JmlBalitaLess59Bln: data[22][c],
-              JmlBalitaNaikBB: data[25][c],
-              JmlFe1: data[138][c],
-              JmlFe3: data[139][c],
-              JmlVitAMr: data[89][c],
-            });
-          }
+          this.setState({
+            Tahun: dateSplit[2],
+            Bulan: dateSplit[1],
+            Puskesmas: data[i][1],
+            files: [],
+            SasaranBumil: data[i][2],
+            K4SPMBumil: data[i][11],
+            Linakes: data[i][36],
+          });
 
           const dataCocFinal = _.filter(dataCocGizi, {
             Puskesmas: this.state.Puskesmas,
@@ -157,24 +108,14 @@ class InsertDataGizi extends Component {
                 Tahun: this.state.Tahun,
                 Bulan: this.state.Bulan,
                 Puskesmas: this.state.Puskesmas,
-                JumlahBalitaKMS: this.state.JumlahBalitaKMS,
-                JumlahBadutaLess23Bln: this.state.JumlahBadutaLess23Bln,
-                JmlBalitaLess2359Bln: this.state.JmlBalitaLess2359Bln,
-                JmlBalitaLess59Bln: this.state.JmlBalitaLess59Bln,
-                JmlBalitaNaikBB: this.state.JmlBalitaNaikBB,
-                JmlFe3: this.state.JmlFe3,
-                JmlFe1: this.state.JmlFe1,
+                SasaranBumil: this.state.SasaranBumil,
+
+                K4SPMBumil: this.state.K4SPMBumil,
               };
 
-              console.log(finalDataCoc.Bulan);
+              console.log(finalDataCoc);
               this.props.DataCocEditGizi(dataCocCompare[0].id, finalDataCoc);
-
-              console.log(finalData, dataCocCompare[0].id);
-              console.log(files, isDuplicate);
-              this.props.DataCocEditGizi(dataCocCompare[0].id, finalData);
-              // if (dataVitA.length == undefined){
-              //   this.setState({JmlVitAMr = 0})
-              // }
+              this.props.DataCocK1Edit(dataCocCompare[0].id, finalData);
             } else {
               window.alert("Anda Telah Membatalkan Pengubahan Data");
             }
@@ -191,26 +132,18 @@ class InsertDataGizi extends Component {
             );
             const { files, ...finalData } = this.state;
             console.log(files);
-
+            this.props.addDataK1Coc(finalData);
             const finalDataCoc = {
               Tahun: this.state.Tahun,
               Bulan: this.state.Bulan,
               Puskesmas: this.state.Puskesmas,
-              JumlahBalitaKMS: this.state.JumlahBalitaKMS,
-              JumlahBadutaLess23Bln: this.state.JumlahBadutaLess23Bln,
-              JmlBalitaLess2359Bln: this.state.JmlBalitaLess2359Bln,
-              JmlBalitaLess59Bln: this.state.JmlBalitaLess59Bln,
-              JmlBalitaNaikBB: this.state.JmlBalitaNaikBB,
-              JmlFe3: this.state.JmlFe3,
-              JmlFe1: this.state.JmlFe1,
-              JmlVitAMr: this.state.JmlVitAMr,
+              SasaranBumil: this.state.SasaranBumil,
+              K4SPMBumil: this.state.K4SPMBumil,
             };
-            //console.log(finalDataCoc);
-
-            this.props.addDataCocGizi(finalDataCoc);
+            console.log(finalDataCoc);
           }
         }
-        return <Navigate to="./InsertDataGizi" />;
+        return <Navigate to="./InsertDataK1" />;
       };
 
       fileReader.onerror = (error) => {
@@ -228,7 +161,7 @@ class InsertDataGizi extends Component {
       <Page title="Dashboard | Gizi">
         <Container maxWidth="xl">
           <Box sx={{ pb: 5 }}>
-            <Typography variant="h4"> Insert Data gizi</Typography>
+            <Typography variant="h4"> Insert Data K1</Typography>
           </Box>
           <Grid container spacing={3}>
             <Grid
@@ -288,21 +221,18 @@ class InsertDataGizi extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addDataCocGizi: (dataCocGizi) => dispatch(addDataCocGizi(dataCocGizi)),
-    addFinalDataCocGizi: (finalDataCoc) =>
-      dispatch(addFinalDataCocGizi(finalDataCoc)),
-    DataCocEditGizi: (dataCocGizi, id) =>
-      dispatch(DataCocEditGizi(dataCocGizi, id)),
+    addDataK1Coc: (dataK1Coc) => dispatch(addDataK1Coc(dataK1Coc)),
+    DataCocK1Edit: (dataK1Coc, id) => dispatch(DataCocK1Edit(dataK1Coc, id)),
   };
 };
 
 const mapStateToProps = (state) => {
   return {
-    dataCocGizi: state.firestore.ordered.Gizi,
+    dataCocGizi: state.firestore.ordered.K1,
   };
 };
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect([{ collection: "Gizi" }])
-)(InsertDataGizi);
+  firestoreConnect([{ collection: "K1" }])
+)(InsertDataK1);

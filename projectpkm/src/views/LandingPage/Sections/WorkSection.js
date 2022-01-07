@@ -91,7 +91,7 @@ class WorkSection extends Component {
                   onChange={this.handleChange}
                 />
                 <GridItem xs={12} sm={12} md={12}>
-                  <Button color="primary" type="Submit" fullWidth>
+                  <Button color="success" type="Submit" fullWidth>
                     Kirim Kritik dan Saran
                   </Button>
                 </GridItem>
