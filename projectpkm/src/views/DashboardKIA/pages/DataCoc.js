@@ -235,7 +235,7 @@ class DataCoc extends Component {
 
       const isUserNotFound = filteredUsers.length === 0;
       return (
-        <Page title="Data CoC | Minimal-UI">
+        <Page title="Data KIA | Minimal-UI">
           <Container>
             <Stack direction="row" justifyContent="space-between" mb={5}>
               <div style={{ pointerEvents: "none" }}>
@@ -245,18 +245,28 @@ class DataCoc extends Component {
                   startIcon={<Icon icon={chartLineData} />}
                 >
                   {/* <Icon icon={chartLineData} width="30" height="30" /> */}
-                  DataCoc
+                  DataKIA
                 </Button>
               </div>
-              <Button
-                sx={{ justify: "flex-end" }}
-                variant="contained"
-                component={RouterLink}
-                to="/dashboard/InsertData"
-                startIcon={<Icon icon={plusFill} />}
-              >
-                New Data
-              </Button>
+              <div sx={{ justify: "flex-end" }}>
+                <Button
+                  sx={{ mr: 2 }}
+                  variant="contained"
+                  component={RouterLink}
+                  to="/dashboard/InsertTripleEliminasiKIA"
+                  startIcon={<Icon icon={plusFill} />}
+                >
+                  New Data Triple Eliminasi
+                </Button>
+                <Button
+                  variant="contained"
+                  component={RouterLink}
+                  to="/dashboard/InsertData"
+                  startIcon={<Icon icon={plusFill} />}
+                >
+                  New Data
+                </Button>
+              </div>
             </Stack>
 
             <Card>

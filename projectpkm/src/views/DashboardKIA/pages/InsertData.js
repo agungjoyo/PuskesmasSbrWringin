@@ -56,30 +56,22 @@ class InsertData extends Component {
       KunjunganBayiParipurnaLK: "",
       KunjunganBayiParipurnaPR: "",
       KunjunganBayiParipurnaTL: "",
-      RumahLK: "",
-      RumahPR: "",
       RumahTL: "",
-      PosyanduLK: "",
-      PosyanduPR: "",
       PosyanduTL: "",
-      PolindesLK: "",
-      PolindesPR: "",
       PolindesTL: "",
-      PustuLK: "",
-      PustuPR: "",
       PustuTL: "",
-      PuskesmasLK: "",
-      PuskesmasPR: "",
       PuskesmasTL: "",
-      BPSLK: "",
-      BPSPR: "",
       BPSTL: "",
-      RSULK: "",
-      RSUPR: "",
       RSUTL: "",
-      LuarWilayahLK: "",
-      LuarWilayahPR: "",
       LuarWilayahTL: "",
+      RumahTLMati: "",
+      PosyanduTLMati: "",
+      PolindesTLMati: "",
+      PustuTLMati: "",
+      PuskesmasTLMati: "",
+      BPSTLMati: "",
+      RSUTLMati: "",
+      LuarWilayahTLMati: "",
     };
   }
   round(value, exp) {
@@ -98,7 +90,7 @@ class InsertData extends Component {
   readExcell = (event) => {
     this.setState({ files: event });
     const file = this.state.files[0];
-    const { dataCoc } = this.props;
+    const { dataCoc, COCKIA } = this.props;
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsBinaryString(file);
@@ -153,42 +145,39 @@ class InsertData extends Component {
               KunjunganBayiParipurnaTL: data[i][94],
             },
             () => {
-              for (let a = 15; a < 23; a++) {
-                this.setState({
-                  RumahLK: data[a][14],
-                  RumahPR: data[a][15],
-                  RumahTL: data[a][16],
-                  PosyanduLK: data[a][14],
-                  PosyanduPR: data[a][15],
-                  PosyanduTL: data[a][16],
-                  PolindesLK: data[a][14],
-                  PolindesPR: data[a][15],
-                  PolindesTL: data[a][16],
-                  PustuLK: data[a][14],
-                  PustuPR: data[a][15],
-                  PustuTL: data[a][16],
-                  PuskesmasLK: data[a][14],
-                  PuskesmasPR: data[a][15],
-                  PuskesmasTL: data[a][16],
-                  BPSLK: data[a][14],
-                  BPSPR: data[a][15],
-                  BPSTL: data[a][16],
-                  RSULK: data[a][14],
-                  RSUPR: data[a][15],
-                  RSUTL: data[a][16],
-                  LuarWilayahLK: data[a][14],
-                  LuarWilayahPR: data[a][15],
-                  LuarWilayahTL: data[a][16],
-                });
-              }
+              this.setState({
+                RumahTL: data[15][16],
+                PosyanduTL: data[16][16],
+                PolindesTL: data[17][16],
+                PustuTL: data[18][16],
+                PuskesmasTL: data[19][16],
+                BPSTL: data[20][16],
+                RSUTL: data[21][16],
+                LuarWilayahTL: data[22][16],
+                RumahTLMati: data[15][29],
+                PosyanduTLMati: data[16][29],
+                PolindesTLMati: data[17][29],
+                PustuTLMati: data[18][29],
+                PuskesmasTLMati: data[19][29],
+                BPSTLMati: data[20][29],
+                RSUTLMati: data[21][29],
+                LuarWilayahTLMati: data[22][29],
+              });
             }
           );
           const dataCocFinal = _.filter(dataCoc, {
             Puskesmas: this.state.Puskesmas,
           });
+          const dataCocFinalKIA = _.filter(COCKIA, {
+            Puskesmas: this.state.Puskesmas,
+          });
           const dataCocCompare = _.filter(dataCocFinal, {
             Bulan: this.state.Bulan,
           });
+          const dataCocCompareKIA = _.filter(dataCocFinalKIA, {
+            Bulan: this.state.Bulan,
+          });
+          console.log(dataCocCompareKIA);
           if (dataCocCompare.length == 1) {
             this.setState({ isDuplicate: true });
             if (
@@ -206,30 +195,23 @@ class InsertData extends Component {
               const dataCocKIA = {
                 Tahun: this.state.Tahun,
                 Bulan: this.state.Bulan,
-                RumahLK: this.state.RumahLK,
-                RumahPR: this.state.RumahPR,
+                Puskesmas: this.state.Puskesmas,
                 RumahTL: this.state.RumahTL,
-                PosyanduLK: this.state.PosyanduLK,
-                PosyanduPR: this.state.PosyanduPR,
                 PosyanduTL: this.state.PosyanduTL,
-                PolindesLK: this.state.PolindesLK,
-                PolindesPR: this.state.PolindesPR,
                 PolindesTL: this.state.PolindesTL,
-                PustuLK: this.state.PustuLK,
-                PustuPR: this.state.PustuPR,
                 PustuTL: this.state.PustuTL,
-                PuskesmasLK: this.state.PuskesmasLK,
-                PuskesmasPR: this.state.PuskesmasPR,
                 PuskesmasTL: this.state.PuskesmasTL,
-                BPSLK: this.state.BPSLK,
-                BPSPR: this.state.BPSPR,
                 BPSTL: this.state.BPSTL,
-                RSULK: this.state.RSULK,
-                RSUPR: this.state.RSUPR,
                 RSUTL: this.state.RSUTL,
-                LuarWilayahLK: this.state.LuarWilayahLK,
-                LuarWilayahPR: this.state.LuarWilayahPR,
                 LuarWilayahTL: this.state.LuarWilayahTL,
+                RumahTLMati: this.state.RumahTLMati,
+                PosyanduTLMati: this.state.PosyanduTLMati,
+                PolindesTLMati: this.state.PolindesTLMati,
+                PustuTLMati: this.state.PustuTLMati,
+                PuskesmasTLMati: this.state.PuskesmasTLMati,
+                BPSTLMati: this.state.BPSTLMati,
+                RSUTLMati: this.state.RSUTLMati,
+                LuarWilayahTLMati: this.state.LuarWilayahTLMati,
               };
               const dataKIA = {
                 Tahun: this.state.Tahun,
@@ -268,7 +250,11 @@ class InsertData extends Component {
               };
               console.log(dataKIA, dataCocKIA);
               this.props.DataCocEdit(dataCocCompare[0].id, dataKIA);
-              this.props.DataCocKIAEdit(dataCocCompare[0].id, dataCocKIA);
+              if (dataCocCompareKIA.length == 1) {
+                this.props.DataCocKIAEdit(dataCocCompareKIA[0].id, dataCocKIA);
+              } else {
+                this.props.addDataKIACoc(dataCocKIA);
+              }
             } else {
               window.alert("Anda Telah Membatalkan Pengubahan Data");
             }
@@ -286,30 +272,23 @@ class InsertData extends Component {
             const dataCocKIA = {
               Tahun: this.state.Tahun,
               Bulan: this.state.Bulan,
-              RumahLK: this.state.RumahLK,
-              RumahPR: this.state.RumahPR,
+              Puskesmas: this.state.Puskesmas,
               RumahTL: this.state.RumahTL,
-              PosyanduLK: this.state.PosyanduLK,
-              PosyanduPR: this.state.PosyanduPR,
               PosyanduTL: this.state.PosyanduTL,
-              PolindesLK: this.state.PolindesLK,
-              PolindesPR: this.state.PolindesPR,
               PolindesTL: this.state.PolindesTL,
-              PustuLK: this.state.PustuLK,
-              PustuPR: this.state.PustuPR,
               PustuTL: this.state.PustuTL,
-              PuskesmasLK: this.state.PuskesmasLK,
-              PuskesmasPR: this.state.PuskesmasPR,
               PuskesmasTL: this.state.PuskesmasTL,
-              BPSLK: this.state.BPSLK,
-              BPSPR: this.state.BPSPR,
               BPSTL: this.state.BPSTL,
-              RSULK: this.state.RSULK,
-              RSUPR: this.state.RSUPR,
               RSUTL: this.state.RSUTL,
-              LuarWilayahLK: this.state.LuarWilayahLK,
-              LuarWilayahPR: this.state.LuarWilayahPR,
               LuarWilayahTL: this.state.LuarWilayahTL,
+              RumahTLMati: this.state.RumahTLMati,
+              PosyanduTLMati: this.state.PosyanduTLMati,
+              PolindesTLMati: this.state.PolindesTLMati,
+              PustuTLMati: this.state.PustuTLMati,
+              PuskesmasTLMati: this.state.PuskesmasTLMati,
+              BPSTLMati: this.state.BPSTLMati,
+              RSUTLMati: this.state.RSUTLMati,
+              LuarWilayahTLMati: this.state.LuarWilayahTLMati,
             };
             const dataKIA = {
               Tahun: this.state.Tahun,
@@ -364,7 +343,6 @@ class InsertData extends Component {
     });
   };
   render() {
-    console.log(this.state);
     return (
       <Page title="Dashboard | Minimal-UI">
         <Container maxWidth="xl">
@@ -443,10 +421,11 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     dataCoc: state.firestore.ordered.KIA,
+    COCKIA: state.firestore.ordered.COCKIA,
   };
 };
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect([{ collection: "KIA" }])
+  firestoreConnect([{ collection: "KIA" }, { collection: "COCKIA" }])
 )(InsertData);

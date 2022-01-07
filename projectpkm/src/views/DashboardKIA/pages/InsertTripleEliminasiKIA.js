@@ -4,35 +4,30 @@ import { Box, Grid, Container, Typography, Card } from "@mui/material";
 import Dropzone from "react-dropzone";
 import * as XLSX from "xlsx";
 import { connect } from "react-redux";
+import { compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { Navigate } from "react-router-dom";
 import {
-  addDataCocGizi,
-  addFinalDataCocGizi,
-} from "views/store/actions/dataCocGiziAction";
+  addDataTripleCoc,
+  DataCocTripleKIAEdit,
+} from "views/store/actions/datacocAction";
 import _ from "lodash";
 // components
 import Page from "../components/Page";
-import { Navigate } from "react-router";
-import { compose } from "redux";
-import { firestoreConnect } from "react-redux-firebase";
-import { DataCocEditGizi } from "views/store/actions/dataCocGiziAction";
-//import { initial } from "lodash";
 
-class InsertDataGizi extends Component {
+class InsertTripleEliminasiKIA extends Component {
   constructor() {
     super();
     this.state = {
       files: [],
+      isDuplicate: false,
       Tahun: "",
       Bulan: "",
       Puskesmas: "",
-      JumlahBalitaKMS: "",
-      JumlahBadutaLess23Bln: "",
-      JmlBalitaLess2359Bln: "",
-      JmlBalitaLess59Bln: "",
-      JmlBalitaNaikBB: "",
-      JmlFe3: "",
-      JmlFe1: "",
-      JmlVitAMr: "",
+      K1Bumil: "",
+      BumilTesHIV: "",
+      BumilTesIMS: "",
+      BumilTesHepatitisB: "",
     };
   }
   round(value, exp) {
@@ -51,7 +46,7 @@ class InsertDataGizi extends Component {
   readExcell = (event) => {
     this.setState({ files: event });
     const file = this.state.files[0];
-    const { dataCocGizi } = this.props;
+    const { TripleEliminasi } = this.props;
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsBinaryString(file);
@@ -62,32 +57,25 @@ class InsertDataGizi extends Component {
         const ws = wb.Sheets[wsname];
         const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
         resolve(data);
+        console.log(data);
         const tahun = data[2][0];
         const dateSplit = tahun.split(" ");
-        const year = [];
-        const yearTemp = new Date().getFullYear();
-        for (let c = 0; c < 5; c++) {
-          year.push("" + (yearTemp + 1));
-        }
-        console.log(data, dateSplit, this.state);
-        const yearFix = new Date().getFullYear();
-        // for (var i = 0; i < 6; i++) {
-        for (let c = 4; c < 10; c++) {
-          this.setState({
-            Tahun: yearFix,
-            Bulan: dateSplit[3],
-            Puskesmas: data[3][c],
-            JumlahBalitaKMS: data[13][c],
-            JumlahBadutaLess23Bln: data[16][c],
-            JmlBalitaLess2359Bln: data[19][c],
-            JmlBalitaLess59Bln: data[22][c],
-            JmlBalitaNaikBB: data[25][c],
-            JmlFe1: data[138][c],
-            JmlFe3: data[139][c],
-            JmlVitAMr: data[89][c],
-          });
-
-          const dataCocFinal = _.filter(dataCocGizi, {
+        for (var i = 8; i < 14; i++) {
+          this.setState(
+            {
+              Tahun: dateSplit[27],
+              Bulan: dateSplit[17],
+              Puskesmas: data[i][1],
+              K1Bumil: data[i][2],
+              BumilTesHIV: data[i][5],
+              BumilTesIMS: data[i][20],
+              BumilTesHepatitisB: data[i][23],
+            },
+            () => {
+              console.log(this.state);
+            }
+          );
+          const dataCocFinal = _.filter(TripleEliminasi, {
             Puskesmas: this.state.Puskesmas,
           });
           const dataCocCompare = _.filter(dataCocFinal, {
@@ -96,7 +84,6 @@ class InsertDataGizi extends Component {
           console.log(dataCocCompare);
           if (dataCocCompare.length == 1) {
             this.setState({ isDuplicate: true });
-            console.log(this.state.isDuplicate);
             if (
               confirm(
                 "Apakah Anda Ingin Merubah Data " +
@@ -108,27 +95,18 @@ class InsertDataGizi extends Component {
                   "?"
               ) == true
             ) {
-              console.log("True");
-              const { files, isDuplicate, ...finalData } = this.state;
-              const finalDataCoc = {
+              const FinalData = {
                 Tahun: this.state.Tahun,
                 Bulan: this.state.Bulan,
                 Puskesmas: this.state.Puskesmas,
-                JumlahBalitaKMS: this.state.JumlahBalitaKMS,
-                JumlahBadutaLess23Bln: this.state.JumlahBadutaLess23Bln,
-                JmlBalitaLess2359Bln: this.state.JmlBalitaLess2359Bln,
-                JmlBalitaLess59Bln: this.state.JmlBalitaLess59Bln,
-                JmlBalitaNaikBB: this.state.JmlBalitaNaikBB,
-                JmlFe3: this.state.JmlFe3,
-                JmlFe1: this.state.JmlFe1,
-                JmlVitAMr: this.state.JmlVitAMr,
+                K1Bumil: this.state.K1Bumil,
+                BumilTesHIV: this.state.BumilTesHIV,
+                BumilTesIMS: this.state.BumilTesIMS,
+                BumilTesHepatitisB: this.state.BumilTesHepatitisB,
               };
-              console.log(finalDataCoc);
-              //this.props.DataCocEditGizi(dataCocCompare[0].id, finalDataCoc);
-
-              console.log(finalData, dataCocCompare[0].id);
-              console.log(files, isDuplicate);
-              //this.props.DataCocEditGizi(dataCocCompare[0].id, finalData);
+              console.log("True");
+              console.log(FinalData);
+              this.props.DataCocTripleKIAEdit(dataCocCompare[0].id, FinalData);
             } else {
               window.alert("Anda Telah Membatalkan Pengubahan Data");
             }
@@ -143,27 +121,21 @@ class InsertDataGizi extends Component {
                 " for " +
                 this.state.Puskesmas
             );
-            const { files, ...finalData } = this.state;
-            console.log(files);
-            this.props.addDataCocGizi(finalData);
-            const finalDataCoc = {
-              if() {},
+            const FinalData = {
               Tahun: this.state.Tahun,
               Bulan: this.state.Bulan,
               Puskesmas: this.state.Puskesmas,
-              JumlahBalitaKMS: this.state.JumlahBalitaKMS,
-              JumlahBadutaLess23Bln: this.state.JumlahBadutaLess23Bln,
-              JmlBalitaLess2359Bln: this.state.JmlBalitaLess2359Bln,
-              JmlBalitaLess59Bln: this.state.JmlBalitaLess59Bln,
-              JmlBalitaNaikBB: this.state.JmlBalitaNaikBB,
-              JmlFe3: this.state.JmlFe3,
-              JmlFe1: this.state.JmlFe1,
-              JmlVitAMr: this.state.JmlVitAMr,
+              K1Bumil: this.state.K1Bumil,
+              BumilTesHIV: this.state.BumilTesHIV,
+              BumilTesIMS: this.state.BumilTesIMS,
+              BumilTesHepatitisB: this.state.BumilTesHepatitisB,
             };
-            console.log(finalDataCoc);
+            console.log("True");
+            console.log(FinalData);
+            this.props.addDataTripleCoc(FinalData);
           }
         }
-        return <Navigate to="./InsertDataGizi" />;
+        return <Navigate to="./InsertTripleEliminasiKIA" />;
       };
 
       fileReader.onerror = (error) => {
@@ -176,12 +148,11 @@ class InsertDataGizi extends Component {
     });
   };
   render() {
-    console.log(this.state);
     return (
-      <Page title="Dashboard | Gizi">
+      <Page title="Dashboard | Minimal-UI">
         <Container maxWidth="xl">
           <Box sx={{ pb: 5 }}>
-            <Typography variant="h4"> Insert Data gizi</Typography>
+            <Typography variant="h4">Insert Data Triple Eliminasi</Typography>
           </Box>
           <Grid container spacing={3}>
             <Grid
@@ -217,12 +188,15 @@ class InsertDataGizi extends Component {
                       >
                         <input {...getInputProps()} />
                         <p style={{ margin: 30 }}>
-                          upload file Anda disini atau klik pilih file
+                          Drag and drop some files here, or click to select
+                          files
                         </p>
                       </div>
                     </section>
                   )}
                 </Dropzone>
+                <br />
+                <br />
                 <br />
                 <h2>
                   Drop your
@@ -241,21 +215,19 @@ class InsertDataGizi extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addDataCocGizi: (dataCocGizi) => dispatch(addDataCocGizi(dataCocGizi)),
-    addFinalDataCocGizi: (finalDataCoc) =>
-      dispatch(addFinalDataCocGizi(finalDataCoc)),
-    DataCocEditGizi: (dataCocGizi, id) =>
-      dispatch(DataCocEditGizi(dataCocGizi, id)),
+    addDataTripleCoc: (FinalData) => dispatch(addDataTripleCoc(FinalData)),
+    DataCocTripleKIAEdit: (FinalData, id) =>
+      dispatch(DataCocTripleKIAEdit(FinalData, id)),
   };
 };
 
 const mapStateToProps = (state) => {
   return {
-    dataCocGizi: state.firestore.ordered.Gizi,
+    TripleEliminasi: state.firestore.ordered.TripleEliminasi,
   };
 };
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect([{ collection: "Gizi" }])
-)(InsertDataGizi);
+  firestoreConnect([{ collection: "TripleEliminasi" }])
+)(InsertTripleEliminasiKIA);

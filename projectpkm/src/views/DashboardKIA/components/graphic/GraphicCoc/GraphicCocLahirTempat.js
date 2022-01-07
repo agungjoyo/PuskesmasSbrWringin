@@ -75,8 +75,8 @@ class GraphicCocLahirTempat extends Component {
       plotOptions: {
         bar: {
           horizontal: true,
-          columnWidth: "95%",
-          borderRadius: 6,
+          columnWidth: "35%",
+          borderRadius: 36,
           dataLabels: {
             position: "top",
           },
@@ -355,49 +355,12 @@ class GraphicCocLahirTempat extends Component {
             ))}
           </Select>
         </FormControl>
-        <FormControl sx={{ m: 1, minWidth: 100 }}>
-          <InputLabel id="demo-simple-select-helper-label">Desa</InputLabel>
-          <Select
-            value={this.state.desaIndex}
-            onChange={this.handleChange}
-            name="desaIndex"
-            label="Desa"
-            //========================Multiple========================
-            labelId="demo-multiple-chip-label"
-            id="demo-multiple-chip"
-            multiple
-            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-            renderValue={(selected) => (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                {selected.map((value) => (
-                  <Chip key={value} label={value} />
-                ))}
-              </Box>
-            )}
-            MenuProps={MenuProps}
-            //=========================================================
-          >
-            {this.state.desa.map((desa) => (
-              <MenuItem
-                key={desa}
-                value={desa}
-                style={this.getStylesDesa(
-                  this.state.desa,
-                  this.state.desaIndex,
-                  this.props.theme
-                )}
-              >
-                {desa}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
       </div>
     );
   };
   handleChange = (event) => {
-    const { KIA } = this.props;
-    const dataFinal = _.chain(KIA)
+    const { COCKIA } = this.props;
+    const dataFinal = _.chain(COCKIA)
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
@@ -412,81 +375,66 @@ class GraphicCocLahirTempat extends Component {
         const series4 = [];
         const series5 = [];
         const series6 = [];
-        let category = [];
-        let kompLk = 0;
-        let kompPr = 0;
-        let kompTl = 0;
-        let kBPLk = 0;
-        let kBPPr = 0;
-        let kBPTl = 0;
-        for (let a = 0; a < dataFinal.length; a++) {
-          kompLk = 0;
-          kompPr = 0;
-          kompTl = 0;
-          kBPLk = 0;
-          kBPPr = 0;
-          kBPTl = 0;
-          for (let b = 0; b < this.state.desaIndex.length; b++) {
-            if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
-              for (let i = 0; i < dataFinal[i].set.length; i++) {
-                for (let c = 0; c < this.state.monthIndex.length; c++) {
-                  if (
-                    this.state.monthIndex[c]?.toLowerCase() ===
-                      dataFinal[a].set[i].Bulan.toLowerCase() &&
-                    this.state.yearIndex === dataFinal[a].set[i].Tahun
-                  ) {
-                    kompLk = kompLk + dataFinal[a].set[i].NeonatalKompLK;
-                    kompPr = kompPr + dataFinal[a].set[i].NeonatalKompPR;
-                    kompTl = kompTl + dataFinal[a].set[i].NeonatalKompTL;
-                    kBPLk =
-                      kBPLk + dataFinal[a].set[i].KunjunganBayiParipurnaLK;
-                    kBPPr =
-                      kBPPr + dataFinal[a].set[i].KunjunganBayiParipurnaPR;
-                    kBPTl =
-                      kBPTl + dataFinal[a].set[i].KunjunganBayiParipurnaTL;
-                  }
-                }
-              }
-              series1.push(kompLk);
-              series2.push(kompPr);
-              series3.push(kompTl);
-              series4.push(kBPLk);
-              series5.push(kBPPr);
-              series6.push(kBPTl);
-              category.push(dataFinal[a].Puskesmas);
+        let RumahTL = 0;
+        let PustuTL = 0;
+        let PkmTL = 0;
+        let PonedTL = 0;
+        let BpmTL = 0;
+        let RsuTL = 0;
+        for (let a = 0; a < 1; a++) {
+          RumahTL = 0;
+          PustuTL = 0;
+          PkmTL = 0;
+          PonedTL = 0;
+          BpmTL = 0;
+          RsuTL = 0;
+          for (let c = 0; c < this.state.monthIndex.length; c++) {
+            if (this.state.yearIndex === dataFinal[a].set[c].Tahun) {
+              RumahTL = RumahTL + dataFinal[a].set[c].RumahTL;
+              PustuTL = PustuTL + dataFinal[a].set[c].PustuTL;
+              PkmTL = PkmTL + dataFinal[a].set[c].PuskesmasTL;
+              PonedTL = PonedTL + dataFinal[a].set[c].PolindesTL;
+              BpmTL = BpmTL + dataFinal[a].set[c].BPSTL;
+              RsuTL = RsuTL + dataFinal[a].set[c].RSUTL;
             }
           }
+          series1.push(RumahTL);
+          series2.push(PustuTL);
+          series3.push(PkmTL);
+          series4.push(PonedTL);
+          series5.push(BpmTL);
+          series6.push(RsuTL);
         }
         this.setState({
           series: [
             {
-              name: "Neonatal Komplikasi Laki - Laki",
+              name: "Rumah Pasien",
               type: "column",
               data: series1,
             },
             {
-              name: "Neonatal Komplikasi Perempuan",
+              name: "Puskesmas Pembantu",
               type: "column",
               data: series2,
             },
             {
-              name: "Neonatal Komplikasi Total",
+              name: "Puskesmas",
               type: "column",
               data: series3,
             },
 
             {
-              name: "Kunjungan Bayi Paripurna Laki - Laki",
+              name: "Poned",
               type: "column",
               data: series4,
             },
             {
-              name: "Kunjungan Bayi Paripurna Perempuan",
+              name: "BPM",
               type: "column",
               data: series5,
             },
             {
-              name: "Kunjungan Bayi Paripurna Total",
+              name: "Rumah Sakit",
               type: "column",
               data: series6,
             },
@@ -495,7 +443,7 @@ class GraphicCocLahirTempat extends Component {
             ...this.state.options,
             xaxis: {
               ...this.state.options.xaxis,
-              categories: category,
+              categories: ["Total"],
             },
           },
         });
@@ -543,6 +491,7 @@ const mapStateToProps = (state) => {
     KIA: state.firestore.ordered.KIA, //database
     Gizi: state.firestore.ordered.Gizi, //database
     Imunisasi: state.firestore.ordered.Imunisasi, //database
+    COCKIA: state.firestore.ordered.COCKIA, //database
     auth: state.firebase.auth,
   };
 };
@@ -553,6 +502,7 @@ export default compose(
     { collection: "KIA" },
     { collection: "Gizi" },
     { collection: "Imunisasi" },
+    { collection: "COCKIA" },
   ]),
   connect(mapStateToProps),
   withTheme

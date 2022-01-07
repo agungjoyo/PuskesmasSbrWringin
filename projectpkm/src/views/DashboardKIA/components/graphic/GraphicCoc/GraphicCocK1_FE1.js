@@ -1,4 +1,4 @@
-// k1 bumil, Fe1, Triple Eliminasi, k4 SPM, Linakes
+// k1 bumil, Fe1 - Gizi, Triple Eliminasi, k4 SPM, Linakes
 import React, { Component } from "react";
 import _ from "lodash";
 import ReactApexChart from "react-apexcharts";

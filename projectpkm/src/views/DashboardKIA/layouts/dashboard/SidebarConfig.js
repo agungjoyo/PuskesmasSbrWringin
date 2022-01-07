@@ -27,7 +27,7 @@ export const sidebarConfig = [
   },
   {
     key: "3",
-    title: "Data Coc",
+    title: "Data KIA",
     path: "/dashboard/data-coc/kia",
     icon: getIcon(fileTextFill),
   },

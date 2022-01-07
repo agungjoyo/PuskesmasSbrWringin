@@ -221,7 +221,7 @@ class DataCocGizi extends Component {
       const isUserNotFound = filteredUsers.length === 0;
       console.log(this.state, filteredUsers);
       return (
-        <Page title="Data CoC Gizi| Minimal-UI">
+        <Page title="Data Gizi| Minimal-UI">
           <Container>
             <Stack direction="row" justifyContent="space-between" mb={5}>
               <div style={{ pointerEvents: "none" }}>
@@ -231,7 +231,7 @@ class DataCocGizi extends Component {
                   startIcon={<Icon icon={chartLineData} />}
                 >
                   {/* <Icon icon={chartLineData} width="30" height="30" /> */}
-                  Data Coc Gizi
+                  Data Gizi
                 </Button>
               </div>
               <Button
