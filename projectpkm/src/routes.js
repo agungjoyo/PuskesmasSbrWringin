@@ -21,6 +21,7 @@ import DataCocImunisasi from "views/DashboardKIA/pages/DataCocImunisasi";
 import DataCocGizi from "views/DashboardKIA/pages/DataCocGizi";
 import DataCocGiziFinal from "views/DashboardKIA/pages/DataCocGiziFinal";
 import InsertData from "views/DashboardKIA/pages/InsertData";
+import InsertTripleEliminasiKIA from "views/DashboardKIA/pages/InsertTripleEliminasiKIA";
 import InsertDataImunisasi from "views/DashboardKIA/pages/InsertDataImunisasi";
 import InsertDataGizi from "views/DashboardKIA/pages/InsertDataGizi";
 import Graphic from "views/DashboardKIA/pages/Graphic";
@@ -45,6 +46,10 @@ export default function Router() {
         { path: "products", element: <Products /> },
         { path: "blog", element: <Blog /> },
         { path: "InsertData", element: <InsertData /> },
+        {
+          path: "InsertTripleEliminasiKIA",
+          element: <InsertTripleEliminasiKIA />,
+        },
         { path: "InsertDataImunisasi", element: <InsertDataImunisasi /> },
         { path: "InsertDataGizi", element: <InsertDataGizi /> },
         { path: "graphic/coc", element: <IndexGraphicCoc /> },

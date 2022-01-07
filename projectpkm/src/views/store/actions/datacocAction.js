@@ -121,3 +121,64 @@ export const DataCocKIAEdit = (id, dataKIACoc) => {
       });
   };
 };
+export const removeDataTripleCoc = (id) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("TripleEliminasi")
+      .doc(id)
+      .delete()
+      .then(() => {
+        dispatch({ type: "DATA_COC_KIA_TRIPLE_REMOVED", id });
+      })
+      .catch((err) => {
+        dispatch({ type: "DATA_COC_KIA_TRIPLE_REMOVED_ERROR", err });
+      });
+  };
+};
+export const addDataTripleCoc = (FinalData) => {
+  // return (dispatch, getState) => {}
+  return (dispatch, getState, { getFirestore }) => {
+    // make async call to database
+    const firestore = getFirestore();
+    firestore
+      .collection("TripleEliminasi")
+      .add({
+        ...FinalData,
+        createdAt: new Date(),
+      })
+      .then(() => {
+        dispatch({ type: "ADD_DATA_COC_TRIPLE_KIA", FinalData });
+      })
+      .catch((err) => {
+        dispatch({ type: "ADD_DATA_COC_TRIPLE_KIA_ERROR", err });
+      });
+  };
+};
+
+export const DataCocTripleKIAEdit = (id, FinalData) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("TripleEliminasi")
+      .doc(id)
+      .delete()
+      .then(() => {
+        firestore
+          .collection("TripleEliminasi")
+          .add({
+            ...FinalData,
+            createdAt: new Date(),
+          })
+          .then(() => {
+            dispatch({ type: "DATA_COC_TRIPLE_KIA_EDITED", FinalData });
+          })
+          .catch((err) => {
+            dispatch({ type: "DATA_COC_TRIPLE_KIA_EDITED_ERROR", err });
+          });
+      })
+      .catch((err) => {
+        dispatch({ type: "DATA_COC_KIA_EDITED_ERROR", err });
+      });
+  };
+};

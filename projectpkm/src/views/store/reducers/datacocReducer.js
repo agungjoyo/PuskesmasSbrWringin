@@ -38,6 +38,24 @@ const datacocReducer = (state = initState, action) => {
     case "DATA_COC_KIA_EDITED_ERROR":
       console.log("Data COC KIA Error", action.dataKIACoc);
       return state;
+    case "ADD_DATA_COC_TRIPLE_KIA":
+      console.log("Created Data COC KIA", action.FinalData);
+      return state;
+    case "ADD_DATA_COC_TRIPLE_KIA_ERROR":
+      console.log("Data COC KIA Error", action.FinalData);
+      return state;
+    case "DATA_COC_KIA_TRIPLE_REMOVED":
+      console.log("Data COC KIA REMOVED", action.id);
+      return state;
+    case "DATA_COC_KIA_TRIPLE_REMOVED_ERROR":
+      console.log("Data COC KIA Error", action.id);
+      return state;
+    case "DATA_COC_TRIPLE_KIA_EDITED":
+      console.log("Data COC KIA Edited", action.FinalData);
+      return state;
+    case "DATA_COC_TRIPLE_KIA_EDITED_ERROR":
+      console.log("Data COC KIA Error", action.FinalData);
+      return state;
     default:
       return state;
   }

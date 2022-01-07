@@ -248,15 +248,25 @@ class DataCoc extends Component {
                   DataKIA
                 </Button>
               </div>
-              <Button
-                sx={{ justify: "flex-end" }}
-                variant="contained"
-                component={RouterLink}
-                to="/dashboard/InsertData"
-                startIcon={<Icon icon={plusFill} />}
-              >
-                New Data
-              </Button>
+              <div sx={{ justify: "flex-end" }}>
+                <Button
+                  sx={{ mr: 2 }}
+                  variant="contained"
+                  component={RouterLink}
+                  to="/dashboard/InsertTripleEliminasiKIA"
+                  startIcon={<Icon icon={plusFill} />}
+                >
+                  New Data Triple Eliminasi
+                </Button>
+                <Button
+                  variant="contained"
+                  component={RouterLink}
+                  to="/dashboard/InsertData"
+                  startIcon={<Icon icon={plusFill} />}
+                >
+                  New Data
+                </Button>
+              </div>
             </Stack>
 
             <Card>
