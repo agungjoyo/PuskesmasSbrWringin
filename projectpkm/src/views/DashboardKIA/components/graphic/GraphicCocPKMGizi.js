@@ -149,6 +149,11 @@ class GraphicCocPKMGizi extends Component {
     },
     series: [
       {
+        name: "Jumlah Balita (S)",
+        type: "column",
+        data: [],
+      },
+      {
         name: "Jumlah Balita KMS (K)",
         type: "column",
         data: [],
@@ -213,6 +218,11 @@ class GraphicCocPKMGizi extends Component {
         yearIndex: "",
         desa: desa,
         series: [
+          {
+            name: "Jumlah Balita (S)",
+            type: "column",
+            data: [],
+          },
           {
             name: "Jumlah Balita KMS (K)",
             type: "column",
@@ -295,6 +305,11 @@ class GraphicCocPKMGizi extends Component {
         yearIndex: "",
         year: yearList,
         series: [
+          {
+            name: "Jumlah Balita (S)",
+            type: "column",
+            data: [],
+          },
           {
             name: "Jumlah Balita KMS (K)",
             type: "column",
@@ -583,6 +598,11 @@ class GraphicCocPKMGizi extends Component {
         this.setState({
           series: [
             {
+              name: "Jumlah Balita (S)",
+              type: "column",
+              data: series1,
+            },
+            {
               name: "Jumlah Balita KMS (K)",
               type: "column",
               data: series1,
@@ -683,6 +703,11 @@ class GraphicCocPKMGizi extends Component {
         }
         this.setState({
           series: [
+            {
+              name: "Jumlah Balita (S)",
+              type: "column",
+              data: series,
+            },
             {
               name: "Jumlah Balita KMS (K)",
               type: "column",
@@ -834,6 +859,11 @@ class GraphicCocPKMGizi extends Component {
         }
         this.setState({
           series: [
+            {
+              name: "Jumlah Balita (S)",
+              type: "column",
+              data: series,
+            },
             {
               name: "Jumlah Balita KMS (K)",
               type: "column",

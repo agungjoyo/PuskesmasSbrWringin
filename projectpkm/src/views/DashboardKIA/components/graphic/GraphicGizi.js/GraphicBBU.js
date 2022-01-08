@@ -26,7 +26,7 @@ const RootStyle = styled(Card)(({ theme }) => ({
     "linear-gradient(to bottom, #b0d0ff, #bbdbff, #c8e5ff, #d8eeff, #eaf7ff);",
 }));
 
-class GraphicTBU extends Component {
+class GraphicBBU extends Component {
   state = {
     monthIndex: [],
     quarterIndex: [],
@@ -149,22 +149,22 @@ class GraphicTBU extends Component {
     },
     series: [
       {
-        name: "Jumlah S.PDK",
+        name: "Jumlah BBSK",
         type: "column",
         data: [],
       },
       {
-        name: "Jumlah PDK",
+        name: "Jumlah BBK",
         type: "column",
         data: [],
       },
       {
-        name: "Jumlah TNM",
+        name: "Jumlah BBN",
         type: "column",
         data: [],
       },
       {
-        name: "Jumlah TG",
+        name: "Jumlah BBL",
         type: "column",
         data: [],
       },
@@ -209,22 +209,22 @@ class GraphicTBU extends Component {
         desa: desa,
         series: [
           {
-            name: "Jumlah S.PDK",
+            name: "Jumlah BBSK",
             type: "column",
             data: [],
           },
           {
-            name: "Jumlah PDK",
+            name: "Jumlah BBK",
             type: "column",
             data: [],
           },
           {
-            name: "Jumlah TNM",
+            name: "Jumlah BBN",
             type: "column",
             data: [],
           },
           {
-            name: "Jumlah TG",
+            name: "Jumlah BBL",
             type: "column",
             data: [],
           },
@@ -286,22 +286,22 @@ class GraphicTBU extends Component {
         year: yearList,
         series: [
           {
-            name: "Jumlah S.PDK",
+            name: "Jumlah BBSK",
             type: "column",
             data: [],
           },
           {
-            name: "Jumlah PDK",
+            name: "Jumlah BBK",
             type: "column",
             data: [],
           },
           {
-            name: "Jumlah TNM",
+            name: "Jumlah BBN",
             type: "column",
             data: [],
           },
           {
-            name: "Jumlah TG",
+            name: "Jumlah BBL",
             type: "column",
             data: [],
           },
@@ -509,15 +509,15 @@ class GraphicTBU extends Component {
         const series3 = [];
         const series4 = [];
         let category = [];
-        let JmlSPDKBulan = 0;
-        let JmlPDKBulan = 0;
-        let JmlTNMBulan = 0;
-        let JmlTGBulan = 0;
+        let JmlBBSKBulan = 0;
+        let JmlBBKBulan = 0;
+        let JmlBBNBulan = 0;
+        let JmlBBLBulan = 0;
         for (let a = 0; a < dataFinal.length; a++) {
-          JmlSPDKBulan = 0;
-          JmlPDKBulan = 0;
-          JmlTNMBulan = 0;
-          JmlTGBulan = 0;
+          JmlBBSKBulan = 0;
+          JmlBBKBulan = 0;
+          JmlBBNBulan = 0;
+          JmlBBLBulan = 0;
           for (let b = 0; b < this.state.desaIndex.length; b++) {
             if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
               for (let i = 0; i < dataFinal[i].set.length; i++) {
@@ -535,18 +535,18 @@ class GraphicTBU extends Component {
                       dataFinal[a].set[i].Tahun.toString()
                   ) {
                     console.log(a, b, c, i);
-                    JmlSPDKBulan = JmlSPDKBulan + dataFinal[a].set[c].JmlSPDK;
-                    JmlPDKBulan = JmlPDKBulan + dataFinal[a].set[c].JmlPDK;
-                    JmlTNMBulan = JmlTNMBulan + dataFinal[a].set[c].JmlTNM;
-                    JmlTGBulan = JmlTGBulan + dataFinal[a].set[c].JmlTG;
+                    JmlBBSKBulan = JmlBBSKBulan + dataFinal[a].set[c].JmlBBSK;
+                    JmlBBKBulan = JmlBBKBulan + dataFinal[a].set[c].JmlBBK;
+                    JmlBBNBulan = JmlBBNBulan + dataFinal[a].set[c].JmlBBN;
+                    JmlBBLBulan = JmlBBLBulan + dataFinal[a].set[c].JmlBBL;
                   }
                 }
               }
-              series1.push(JmlSPDKBulan);
-              series2.push(JmlPDKBulan);
-              series3.push(JmlTNMBulan);
-              series4.push(JmlTGBulan);
 
+              series1.push(JmlBBSKBulan);
+              series2.push(JmlBBKBulan);
+              series3.push(JmlBBNBulan);
+              series4.push(JmlBBLBulan);
               category.push(dataFinal[a].Puskesmas);
             }
           }
@@ -554,22 +554,22 @@ class GraphicTBU extends Component {
         this.setState({
           series: [
             {
-              name: "Jumlah S.PDK",
+              name: "Jumlah BBSK",
               type: "column",
               data: series1,
             },
             {
-              name: "Jumlah PDK",
+              name: "Jumlah BBK",
               type: "column",
               data: series2,
             },
             {
-              name: "Jumlah TNM",
+              name: "Jumlah BBN",
               type: "column",
               data: series3,
             },
             {
-              name: "Jumlah TG",
+              name: "Jumlah BBL",
               type: "column",
               data: series4,
             },
@@ -608,10 +608,10 @@ class GraphicTBU extends Component {
         const series4 = [];
         const category = [];
         for (let a = 0; a < dataFinal.length; a++) {
-          var JmlSPDKYear = 0;
-          var JmlPDKYear = 0;
-          var JmlTNMYear = 0;
-          var JmlTGYear = 0;
+          var JmlBBSKYear = 0;
+          var JmlBBKYear = 0;
+          var JmlBBNYear = 0;
+          var JmlBBLYear = 0;
           if (dataFinal[a].Puskesmas == desa[a]) {
             for (let c = 0; c < dataFinal[c].set.length; c++) {
               if (
@@ -619,17 +619,17 @@ class GraphicTBU extends Component {
                 dataFinal[a].set[c].Tahun.toString()
               ) {
                 // console.log(a, dataFinal[a].set[i].SasaranBayiTL)
-                JmlSPDKYear = JmlSPDKYear + dataFinal[a].set[c].JmlSPDK;
-                JmlPDKYear = JmlPDKYear + dataFinal[a].set[c].JmlPDK;
-                JmlTNMYear = JmlTNMYear + dataFinal[a].set[c].JmlTNM;
-                JmlTGYear = JmlTGYear + dataFinal[a].set[c].JmlTG;
+                JmlBBSKYear = JmlBBSKYear + dataFinal[a].set[c].JmlBBSK;
+                JmlBBKYear = JmlBBKYear + dataFinal[a].set[c].JmlBBK;
+                JmlBBNYear = JmlBBNYear + dataFinal[a].set[c].JmlBBN;
+                JmlBBLYear = JmlBBLYear + dataFinal[a].set[c].JmlBBL;
               }
             }
 
-            series.push(JmlSPDKYear);
-            series2.push(JmlPDKYear);
-            series3.push(JmlTNMYear);
-            series4.push(JmlTGYear);
+            series.push(JmlBBSKYear);
+            series2.push(JmlBBKYear);
+            series3.push(JmlBBNYear);
+            series4.push(JmlBBLYear);
 
             category.push(dataFinal[a].Puskesmas);
             // console.log(series, series2);
@@ -638,22 +638,22 @@ class GraphicTBU extends Component {
         this.setState({
           series: [
             {
-              name: "Jumlah S.PDK",
+              name: "Jumlah BBSK",
               type: "column",
               data: series,
             },
             {
-              name: "Jumlah PDK",
+              name: "Jumlah BBK",
               type: "column",
               data: series2,
             },
             {
-              name: "Jumlah TNM",
+              name: "Jumlah BBN",
               type: "column",
               data: series3,
             },
             {
-              name: "Jumlah TG",
+              name: "Jumlah BBL",
               type: "column",
               data: series4,
             },
@@ -677,7 +677,7 @@ class GraphicTBU extends Component {
       return (
         <RootStyle>
           <CardHeader
-            title="Grafik TB/U"
+            title="Grafik BB/U"
             sx={{ typography: "caption" }}
             style={{
               marginBottom: 20,
@@ -740,10 +740,10 @@ class GraphicTBU extends Component {
         const series4 = [];
         const category = [];
         for (let a = 0; a < dataFinal.length; a++) {
-          var JmlSPDKQuarter = 0;
-          var JmlPDKQuarter = 0;
-          var JmlTNMQuarter = 0;
-          var JmlTGQuarter = 0;
+          var JmlBBSKQuarter = 0;
+          var JmlBBKQuarter = 0;
+          var JmlBBNQuarter = 0;
+          var JmlBBLQuarter = 0;
           if (dataFinal[a].Puskesmas == desa[a]) {
             for (let i = 0; i < dataFinal[i].set.length; i++) {
               for (let b = 0; b < this.state.quarterIndex.length; b++) {
@@ -752,17 +752,17 @@ class GraphicTBU extends Component {
                   dataFinal[a].set[i].Bulan.toLowerCase()
                 ) {
                   // console.log(a, dataFinal[a].set[i].SasaranBayiTL)
-                  JmlSPDKQuarter = JmlSPDKQuarter + dataFinal[a].set[i].JmlSPDK;
-                  JmlPDKQuarter = JmlPDKQuarter + dataFinal[a].set[i].JmlPDK;
-                  JmlTNMQuarter = JmlTNMQuarter + dataFinal[a].set[i].JmlTNM;
-                  JmlTGQuarter = JmlTGQuarter + dataFinal[a].set[i].JmlTG;
+                  JmlBBSKQuarter = JmlBBSKQuarter + dataFinal[a].set[i].JmlBBSK;
+                  JmlBBKQuarter = JmlBBKQuarter + dataFinal[a].set[i].JmlBBK;
+                  JmlBBNQuarter = JmlBBNQuarter + dataFinal[a].set[i].JmlBBN;
+                  JmlBBLQuarter = JmlBBLQuarter + dataFinal[a].set[i].JmlBBL;
                 }
               }
             }
-            series.push(JmlSPDKQuarter);
-            series2.push(JmlPDKQuarter);
-            series3.push(JmlTNMQuarter);
-            series4.push(JmlTGQuarter);
+            series.push(JmlBBSKQuarter);
+            series2.push(JmlBBKQuarter);
+            series3.push(JmlBBNQuarter);
+            series4.push(JmlBBLQuarter);
             category.push(dataFinal[a].Puskesmas);
             // console.log(series, series2);
           }
@@ -770,22 +770,22 @@ class GraphicTBU extends Component {
         this.setState({
           series: [
             {
-              name: "Jumlah S.PDK",
+              name: "Jumlah BBSK",
               type: "column",
               data: series,
             },
             {
-              name: "Jumlah PDK",
+              name: "Jumlah BBK",
               type: "column",
               data: series2,
             },
             {
-              name: "Jumlah TNM",
+              name: "Jumlah BBN",
               type: "column",
               data: series3,
             },
             {
-              name: "Jumlah TG",
+              name: "Jumlah BBL",
               type: "column",
               data: series4,
             },
@@ -815,7 +815,7 @@ class GraphicTBU extends Component {
     };
     return (
       <div>
-        <CardHeader title="Progress Gizi" />
+        <CardHeader title="Grafik BB/U" />
         <Box sx={{ p: 3, pb: 1 }} dir="ltr">
           <ReactApexChart
             type="bar"
@@ -874,4 +874,4 @@ export default compose(
   firestoreConnect([{ collection: "Gizi" }]),
   connect(mapStateToProps),
   withTheme
-)(GraphicTBU);
+)(GraphicBBU);
