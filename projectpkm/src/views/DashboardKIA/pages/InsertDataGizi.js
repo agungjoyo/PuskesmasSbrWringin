@@ -33,6 +33,23 @@ class InsertDataGizi extends Component {
       JmlFe3: "",
       JmlFe1: "",
       JmlVitAMr: "",
+      JmlSPDK: "",
+      JmlPDK: "",
+      JmlTNM: "",
+      JmlTG: "",
+      JmlGibur: "",
+      JmlGirang: "",
+      JmlNML: "",
+      JmlRGzLbh: "",
+      JmlGzLbh: "",
+      JmlObes: "",
+      JmlBBSK: "",
+      JmlBBK: "",
+      JmlBBN: "",
+      JmlBBL: "",
+      JmlBMLA: "",
+      JmlBMKEK: "",
+      JmlPMTKEK: "",
     };
   }
   round(value, exp) {
@@ -74,35 +91,33 @@ class InsertDataGizi extends Component {
         const yearFix = this.state.files[0].path;
         const yearsplit = yearFix.split("");
         console.log(yearsplit);
-        const yearTemp1 = _.filter(yearsplit, () => {
-          const temp = [];
-          for (let i = 0; i < yearsplit.length; i++) {
-            if (
-              yearsplit[i] !== 1 ||
-              yearsplit[i] !== 2 ||
-              yearsplit[i] !== 3 ||
-              yearsplit[i] !== 4 ||
-              yearsplit[i] !== 5 ||
-              yearsplit[i] !== 6 ||
-              yearsplit[i] !== 7 ||
-              yearsplit[i] !== 8 ||
-              yearsplit[i] !== 9 ||
-              yearsplit[i] !== 0
-            ) {
-              console.log("true");
-              temp.push(yearsplit[i]);
-            } else {
-              console.log("false");
-            }
+        const temp = [];
+        for (let i = 0; i < yearsplit.length; i++) {
+          if (
+            yearsplit[i] == 1 ||
+            yearsplit[i] == 2 ||
+            yearsplit[i] == 3 ||
+            yearsplit[i] == 4 ||
+            yearsplit[i] == 5 ||
+            yearsplit[i] == 6 ||
+            yearsplit[i] == 7 ||
+            yearsplit[i] == 8 ||
+            yearsplit[i] == 9 ||
+            yearsplit[i] == 0
+          ) {
+            console.log("true");
+            temp.push(yearsplit[i]);
+          } else {
+            console.log("false");
           }
-        });
-        console.log(yearTemp1);
+        }
+        const finalTemp = temp[0] + temp[1] + temp[2] + temp[3];
 
         // for (var i = 0; i < 6; i++) {
         for (let c = 4; c < 10; c++) {
           if (data[89][c] == undefined) {
             this.setState({
-              Tahun: yearFix,
+              Tahun: finalTemp,
               Bulan: dateSplit[3],
               Puskesmas: data[3][c],
               JumlahBalitaKMS: data[13][c],
@@ -113,6 +128,23 @@ class InsertDataGizi extends Component {
               JmlFe1: data[138][c],
               JmlFe3: data[139][c],
               JmlVitAMr: 0,
+              JmlSPDK: data[55][c],
+              JmlPDK: data[58][c],
+              JmlTNM: data[61][c],
+              JmlTG: data[64][c],
+              JmlGibur: data[67][c],
+              JmlGirang: data[70][c],
+              JmlNML: data[73][c],
+              JmlRGzLbh: data[76][c],
+              JmlGzLbh: data[79][c],
+              JmlObes: data[82][c],
+              JmlBBSK: data[43][c],
+              JmlBBK: data[46][c],
+              JmlBBN: data[49][c],
+              JmlBBL: data[52][c],
+              JmlBMLA: data[142][c],
+              JmlBMKEK: data[143][c],
+              JmlPMTKEK: data[144][c],
             });
           } else {
             this.setState({
@@ -127,6 +159,23 @@ class InsertDataGizi extends Component {
               JmlFe1: data[138][c],
               JmlFe3: data[139][c],
               JmlVitAMr: data[89][c],
+              JmlSPDK: data[55][c],
+              JmlPDK: data[58][c],
+              JmlTNM: data[61][c],
+              JmlTG: data[64][c],
+              JmlGibur: data[67][c],
+              JmlGirang: data[70][c],
+              JmlNML: data[73][c],
+              JmlRGzLbh: data[76][c],
+              JmlGzLbh: data[79][c],
+              JmlObes: data[82][c],
+              JmlBBSK: data[43][c],
+              JmlBBK: data[46][c],
+              JmlBBN: data[49][c],
+              JmlBBL: data[52][c],
+              JmlBMLA: data[142][c],
+              JmlBMKEK: data[143][c],
+              JmlPMTKEK: data[144][c],
             });
           }
 
@@ -164,13 +213,30 @@ class InsertDataGizi extends Component {
                 JmlBalitaNaikBB: this.state.JmlBalitaNaikBB,
                 JmlFe3: this.state.JmlFe3,
                 JmlFe1: this.state.JmlFe1,
+                JmlSPDK: this.state.JmlSPDK,
+                JmlPDK: this.state.JmlPDK,
+                JmlTNM: this.state.JmlTNM,
+                JmlTG: this.state.JmlTG,
+                JmlGibur: this.state.JmlGibur,
+                JmlGirang: this.state.JmlGirang,
+                JmlNML: this.state.JmlNML,
+                JmlRGzLbh: this.state.JmlRGzLbh,
+                JmlGzLbh: this.state.JmlGzLbh,
+                JmlObes: this.state.JmlObes,
+                JmlBBSK: this.state.JmlBBSK,
+                JmlBBK: this.state.JmlBBK,
+                JmlBBN: this.state.JmlBBN,
+                JmlBBL: this.state.JmlBBL,
+                JmlBMLA: this.state.JmlBMLA,
+                JmlBMKEK: this.state.JmlBMKEK,
+                JmlPMTKEK: this.state.JmlBMKEK,
               };
 
-              console.log(finalDataCoc.Bulan);
+              // console.log(finalDataCoc.Bulan);
               this.props.DataCocEditGizi(dataCocCompare[0].id, finalDataCoc);
 
-              console.log(finalData, dataCocCompare[0].id);
-              console.log(files, isDuplicate);
+              // console.log(finalData, dataCocCompare[0].id);
+              // console.log(files, isDuplicate);
               this.props.DataCocEditGizi(dataCocCompare[0].id, finalData);
               // if (dataVitA.length == undefined){
               //   this.setState({JmlVitAMr = 0})
@@ -204,8 +270,25 @@ class InsertDataGizi extends Component {
               JmlFe3: this.state.JmlFe3,
               JmlFe1: this.state.JmlFe1,
               JmlVitAMr: this.state.JmlVitAMr,
+              JmlSPDK: this.state.JmlSPDK,
+              JmlPDK: this.state.JmlPDK,
+              JmlTNM: this.state.JmlTNM,
+              JmlTG: this.state.JmlTG,
+              JmlGibur: this.state.JmlGibur,
+              JmlGirang: this.state.JmlGirang,
+              JmlNML: this.state.JmlNML,
+              JmlRGzLbh: this.state.JmlRGzLbh,
+              JmlGzLbh: this.state.JmlGzLbh,
+              JmlObes: this.state.JmlObes,
+              JmlBBSK: this.state.JmlBBSK,
+              JmlBBK: this.state.JmlBBK,
+              JmlBBN: this.state.JmlBBN,
+              JmlBBL: this.state.JmlBBL,
+              JmlBMLA: this.state.JmlBMLA,
+              JmlBMKEK: this.state.JmlBMKEK,
+              JmlPMTKEK: this.state.JmlBMKEK,
             };
-            //console.log(finalDataCoc);
+            // console.log(finalDataCoc);
 
             this.props.addDataCocGizi(finalDataCoc);
           }
