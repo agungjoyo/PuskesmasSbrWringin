@@ -188,12 +188,13 @@ class GraphicCocK1_FE1 extends Component {
     };
   }
   handleChangeBulan = () => {
-    const { TripleEliminasi } = this.props;
+    const { TripleEliminasi, K1 } = this.props;
     const desaTemp = [];
     for (let i = 0; i < TripleEliminasi.length; i++) {
-      desaTemp.push(TripleEliminasi[i].Puskesmas);
+      desaTemp.push(TripleEliminasi[i].Puskesmas.replace(/ /g, ""));
     }
     const desa = Array.from(new Set(desaTemp));
+    console.log(desa);
     this.setState(
       {
         monthIndex: [],
@@ -420,84 +421,121 @@ class GraphicCocK1_FE1 extends Component {
         let tripleEliminasi = 0;
         let k4Spm = 0;
         let Linakes = 0;
-        for (
-          let a = 0;
-          a < dataFinalTripleEliminasi.length ||
-          a < dataFinalK1.length ||
-          a < dataFinalGizi.length;
-          a++
-        ) {
+        for (let a = 0; a < this.state.desaIndex.length; a++) {
           k1 = 0;
           fe1 = 0;
           tripleEliminasi = 0;
           k4Spm = 0;
           Linakes = 0;
-          for (let b = 0; b < this.state.desaIndex.length; b++) {
-            if (
-              dataFinalTripleEliminasi[a].Puskesmas == this.state.desaIndex[b]
-            ) {
-              for (let i = 0; i < dataFinalTripleEliminasi[i].set.length; i++) {
-                for (let c = 0; c < this.state.monthIndex.length; c++) {
+          for (let h = 0; h < this.state.monthIndex.length; h++) {
+            for (let b = 0; b < dataFinalTripleEliminasi.length; b++) {
+              if (
+                dataFinalTripleEliminasi[b].Puskesmas.replace(
+                  / /g,
+                  ""
+                ).toLowerCase() == this.state.desaIndex[a].toLowerCase()
+              ) {
+                for (
+                  let e = 0;
+                  e < dataFinalTripleEliminasi[b].set.length;
+                  e++
+                ) {
                   if (
-                    this.state.monthIndex[c]?.toLowerCase() ===
-                      dataFinalTripleEliminasi[a].set[i].Bulan.toLowerCase() &&
+                    this.state.monthIndex[h].toLowerCase() ===
+                      dataFinalTripleEliminasi[b].set[e].Bulan.toLowerCase() &&
                     this.state.yearIndex ===
-                      dataFinalTripleEliminasi[a].set[i].Tahun
+                      dataFinalTripleEliminasi[b].set[e].Tahun
                   ) {
-                    k1 = k1 + dataFinalTripleEliminasi[a].set[i].K1Bumil;
-                    fe1 = fe1 + dataFinalGizi[a].set[i].JmlFe1;
-                    tripleEliminasi = 0;
-                    k4Spm = k4Spm + dataFinalK1[a].set[i].K4SPMBumil;
-                    Linakes = Linakes + dataFinalK1[a].set[i].Linakes;
+                    k1 = k1 + dataFinalTripleEliminasi[b].set[e].K1Bumil;
+                    tripleEliminasi =
+                      tripleEliminasi +
+                      dataFinalTripleEliminasi[b].set[e].BumilTesHIV;
                   }
                 }
               }
-              series1.push(k1);
-              series2.push(fe1);
-              series3.push(tripleEliminasi);
-              series4.push(k4Spm);
-              series5.push(Linakes);
-              category.push(dataFinalTripleEliminasi[a].Puskesmas);
+              //   category.push(dataFinalTripleEliminasi[a].Puskesmas);\
+            }
+            for (let c = 0; c < dataFinalK1.length; c++) {
+              if (
+                dataFinalK1[c].Puskesmas.replace(/ /g, "").toLowerCase() ==
+                this.state.desaIndex[a].toLowerCase()
+              ) {
+                for (let f = 0; f < dataFinalK1[c].set.length; f++) {
+                  if (
+                    this.state.monthIndex[h].toLowerCase() ===
+                      dataFinalK1[c].set[f].Bulan.toLowerCase() &&
+                    this.state.yearIndex === dataFinalK1[c].set[f].Tahun
+                  ) {
+                    k4Spm = k4Spm + dataFinalK1[c].set[f].K4SPMBumil;
+                    Linakes = Linakes + dataFinalK1[c].set[f].Linakes;
+                  }
+                }
+              }
+            }
+            for (let d = 0; d < dataFinalGizi.length; d++) {
+              if (
+                dataFinalGizi[d].Puskesmas.replace(/ /g, "").toLowerCase() ==
+                this.state.desaIndex[a].toLowerCase()
+              ) {
+                for (let g = 0; g < dataFinalGizi[d].set.length; g++) {
+                  if (
+                    this.state.monthIndex[h].toLowerCase() ===
+                      dataFinalGizi[d].set[g].Bulan.toLowerCase() &&
+                    this.state.yearIndex === dataFinalGizi[d].set[g].Tahun
+                  ) {
+                    fe1 = fe1 + dataFinalGizi[d].set[g].JmlFe1;
+                  }
+                }
+              }
             }
           }
+          series1.push(k1);
+          series3.push(tripleEliminasi);
+          series2.push(fe1);
+          series4.push(k4Spm);
+          series5.push(Linakes);
+          category.push(this.state.desaIndex[a]);
         }
-        this.setState({
-          series: [
-            {
-              name: "K1 Bumil",
-              type: "column",
-              data: series1,
-            },
-            {
-              name: "FE-1",
-              type: "column",
-              data: series2,
-            },
-            {
-              name: "Triple Eliminasi",
-              type: "column",
-              data: series3,
-            },
+        this.setState(
+          {
+            series: [
+              {
+                name: "K1 Bumil",
+                type: "column",
+                data: series1,
+              },
+              {
+                name: "FE-1",
+                type: "column",
+                data: series2,
+              },
+              {
+                name: "Triple Eliminasi",
+                type: "column",
+                data: series3,
+              },
 
-            {
-              name: "K4 SPM",
-              type: "column",
-              data: series4,
-            },
-            {
-              name: "Linakes",
-              type: "column",
-              data: series5,
-            },
-          ],
-          options: {
-            ...this.state.options,
-            xaxis: {
-              ...this.state.options.xaxis,
-              categories: category,
+              {
+                name: "K4 SPM",
+                type: "column",
+                data: series4,
+              },
+              {
+                name: "Linakes",
+                type: "column",
+                data: series5,
+              },
+            ],
+            options: {
+              ...this.state.options,
+              xaxis: {
+                ...this.state.options.xaxis,
+                categories: category,
+              },
             },
           },
-        });
+          () => {}
+        );
       }
     );
   };
@@ -549,7 +587,7 @@ export default compose(
   //database
   firestoreConnect([
     { collection: "TripleEliminasi" },
-    { collection: "COC-K1", storeAs: "K1" },
+    { collection: "K1" },
     { collection: "Gizi" },
     { collection: "Auth" },
   ]),
