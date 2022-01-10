@@ -149,19 +149,20 @@ class InsertDataImunisasi extends Component {
               });
             }
           }
-          if (dateBulanSplit[2] == undefined) {
-            this.setState({
-              Bulan: dateBulanSplit[1],
-            });
-          } else {
-            this.setState({
-              Bulan: dateBulanSplit[2],
-            });
+          for (let a = 0; a < dateBulanSplit.length; a++) {
+            if (dateBulanSplit[2] == undefined) {
+              this.setState({
+                Bulan: dateBulanSplit[1],
+              });
+            } else {
+              this.setState({
+                Bulan: dateBulanSplit[2],
+              });
+            }
           }
           console.log(dateBulanSplit);
           this.setState({
             Tahun: finalTemp,
-            Bulan: dateBulanSplit[2],
             Puskesmas: data[i][1],
             SasaranBayiBaruLahir: data[i][2],
             SasaranSurvivingInfant: data[i][3],
