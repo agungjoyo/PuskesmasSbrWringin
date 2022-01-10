@@ -85,40 +85,78 @@ class DataCocGizi extends Component {
           return (
             value.Bulan?.toLowerCase().includes(query.toLowerCase()) ||
             value.Puskesmas?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JumlahBalitaKMS?.toLowerCase().includes(
-              query.toLowerCase()
-            ) ||
-            value.JumlahBadutaLess23Bln?.toLowerCase().includes(
-              query.toLowerCase()
-            ) ||
-            value.JmlBalitaLess2359Bln?.toLowerCase().includes(
-              query.toLowerCase()
-            ) ||
-            value.JmlBalitaLess59Bln?.toLowerCase().includes(
-              query.toLowerCase()
-            ) ||
-            value.JmlBalitaNaikBB?.toLowerCase().includes(
-              query.toLowerCase()
-            ) ||
-            value.JmlSPDK?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlPDK?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlTNM?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlTG?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlGibur?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlGirang?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlNML?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlRGzLbh?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlGzLbh?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlGzLbh?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlGzLbh?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlObes?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlBBSK?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlBBK?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlBBN?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlBBL?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlBMLA?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlBMKEK?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlPMTKEK?.toLowerCase().includes(query.toLowerCase()) ||
+            value.JumlahBalitaKMS?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JumlahBadutaLess23Bln?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlBalitaLess2359Bln?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlBalitaLess59Bln?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlBalitaNaikBB?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlSPDK?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlPDK?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlTNM?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlTG?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlGibur?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlGirang?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlNML?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlRGzLbh?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlGzLbh?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlGzLbh?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlGzLbh?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlObes?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlBBSK?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlBBK?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlBBN?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlBBL?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlBMLA?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlBMKEK?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlPMTKEK?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
             value.Tahun?.toString().toLowerCase().includes(query.toLowerCase())
           );
         });
