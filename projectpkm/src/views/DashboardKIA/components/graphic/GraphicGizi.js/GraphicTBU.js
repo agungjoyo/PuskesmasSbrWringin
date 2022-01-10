@@ -26,7 +26,7 @@ const RootStyle = styled(Card)(({ theme }) => ({
     "linear-gradient(to bottom, #b0d0ff, #bbdbff, #c8e5ff, #d8eeff, #eaf7ff);",
 }));
 
-class GraphicCocPKMGizi extends Component {
+class GraphicTBU extends Component {
   state = {
     monthIndex: [],
     quarterIndex: [],
@@ -149,32 +149,22 @@ class GraphicCocPKMGizi extends Component {
     },
     series: [
       {
-        name: "Jumlah Balita (S)",
+        name: "Jumlah S.PDK",
         type: "column",
         data: [],
       },
       {
-        name: "Jumlah Balita KMS (K)",
+        name: "Jumlah PDK",
         type: "column",
         data: [],
       },
       {
-        name: "Jumlah Baduta 0-23 Bln (D)",
+        name: "Jumlah TNM",
         type: "column",
         data: [],
       },
       {
-        name: "Jumlah Balita 23-59 Bln (D)",
-        type: "column",
-        data: [],
-      },
-      {
-        name: "Jumlah Balita 0-59 Bln (D)",
-        type: "column",
-        data: [],
-      },
-      {
-        name: "Jumlah Balita Naik BB (N)",
+        name: "Jumlah TG",
         type: "column",
         data: [],
       },
@@ -219,32 +209,22 @@ class GraphicCocPKMGizi extends Component {
         desa: desa,
         series: [
           {
-            name: "Jumlah Balita (S)",
+            name: "Jumlah S.PDK",
             type: "column",
             data: [],
           },
           {
-            name: "Jumlah Balita KMS (K)",
+            name: "Jumlah PDK",
             type: "column",
             data: [],
           },
           {
-            name: "Jumlah Baduta 0-23 Bln (D)",
+            name: "Jumlah TNM",
             type: "column",
             data: [],
           },
           {
-            name: "Jumlah Balita 23-59 Bln (D)",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "Jumlah Balita 0-59 Bln (D)",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "Jumlah Balita Naik BB (N)",
+            name: "Jumlah TG",
             type: "column",
             data: [],
           },
@@ -306,32 +286,22 @@ class GraphicCocPKMGizi extends Component {
         year: yearList,
         series: [
           {
-            name: "Jumlah Balita (S)",
+            name: "Jumlah S.PDK",
             type: "column",
             data: [],
           },
           {
-            name: "Jumlah Balita KMS (K)",
+            name: "Jumlah PDK",
             type: "column",
             data: [],
           },
           {
-            name: "Jumlah Baduta 0-23 Bln (D)",
+            name: "Jumlah TNM",
             type: "column",
             data: [],
           },
           {
-            name: "Jumlah Balita 23-59 Bln (D)",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "Jumlah Balita 0-59 Bln (D)",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "Jumlah Balita Naik BB (N)",
+            name: "Jumlah TG",
             type: "column",
             data: [],
           },
@@ -538,19 +508,16 @@ class GraphicCocPKMGizi extends Component {
         const series2 = [];
         const series3 = [];
         const series4 = [];
-        const series5 = [];
         let category = [];
-        let JumlahBadutaLess23BlnBulan = 0;
-        let JmlBalitaLess2359BlnBulan = 0;
-        let JmlBalitaLess59BlnBulan = 0;
-        let JmlBalitaNaikBBBulan = 0;
-        let JumlahBalitaKMSBulan = 0;
+        let JmlSPDKBulan = 0;
+        let JmlPDKBulan = 0;
+        let JmlTNMBulan = 0;
+        let JmlTGBulan = 0;
         for (let a = 0; a < dataFinal.length; a++) {
-          JumlahBadutaLess23BlnBulan = 0;
-          JmlBalitaLess2359BlnBulan = 0;
-          JmlBalitaLess59BlnBulan = 0;
-          JmlBalitaNaikBBBulan = 0;
-          JumlahBalitaKMSBulan = 0;
+          JmlSPDKBulan = 0;
+          JmlPDKBulan = 0;
+          JmlTNMBulan = 0;
+          JmlTGBulan = 0;
           for (let b = 0; b < this.state.desaIndex.length; b++) {
             if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
               for (let i = 0; i < dataFinal[i].set.length; i++) {
@@ -568,29 +535,18 @@ class GraphicCocPKMGizi extends Component {
                       dataFinal[a].set[i].Tahun.toString()
                   ) {
                     console.log(a, b, c, i);
-                    JumlahBalitaKMSBulan =
-                      JumlahBalitaKMSBulan +
-                      dataFinal[a].set[i].JumlahBalitaKMS;
-                    JumlahBadutaLess23BlnBulan =
-                      JumlahBadutaLess23BlnBulan +
-                      dataFinal[a].set[c].JumlahBadutaLess23Bln;
-                    JmlBalitaLess2359BlnBulan =
-                      JmlBalitaLess2359BlnBulan +
-                      dataFinal[a].set[c].JmlBalitaLess2359Bln;
-                    JmlBalitaLess59BlnBulan =
-                      JmlBalitaLess59BlnBulan +
-                      dataFinal[a].set[c].JmlBalitaLess59Bln;
-                    JmlBalitaNaikBBBulan =
-                      JmlBalitaNaikBBBulan +
-                      dataFinal[a].set[c].JmlBalitaNaikBB;
+                    JmlSPDKBulan = JmlSPDKBulan + dataFinal[a].set[c].JmlSPDK;
+                    JmlPDKBulan = JmlPDKBulan + dataFinal[a].set[c].JmlPDK;
+                    JmlTNMBulan = JmlTNMBulan + dataFinal[a].set[c].JmlTNM;
+                    JmlTGBulan = JmlTGBulan + dataFinal[a].set[c].JmlTG;
                   }
                 }
               }
-              series1.push(JumlahBalitaKMSBulan);
-              series2.push(JumlahBadutaLess23BlnBulan);
-              series3.push(JmlBalitaLess2359BlnBulan);
-              series4.push(JmlBalitaLess59BlnBulan);
-              series5.push(JmlBalitaNaikBBBulan);
+              series1.push(JmlSPDKBulan);
+              series2.push(JmlPDKBulan);
+              series3.push(JmlTNMBulan);
+              series4.push(JmlTGBulan);
+
               category.push(dataFinal[a].Puskesmas);
             }
           }
@@ -598,34 +554,24 @@ class GraphicCocPKMGizi extends Component {
         this.setState({
           series: [
             {
-              name: "Jumlah Balita (S)",
+              name: "Jumlah S.PDK",
               type: "column",
               data: series1,
             },
             {
-              name: "Jumlah Balita KMS (K)",
-              type: "column",
-              data: series1,
-            },
-            {
-              name: "Jumlah Baduta 0-23 Bln (D)",
+              name: "Jumlah PDK",
               type: "column",
               data: series2,
             },
             {
-              name: "Jumlah Balita 23-59 Bln (D)",
+              name: "Jumlah TNM",
               type: "column",
               data: series3,
             },
             {
-              name: "Jumlah Balita 0-59 Bln (D)",
+              name: "Jumlah TG",
               type: "column",
               data: series4,
-            },
-            {
-              name: "Jumlah Balita Naik BB (N)",
-              type: "column",
-              data: series5,
             },
           ],
           options: {
@@ -660,14 +606,12 @@ class GraphicCocPKMGizi extends Component {
         const series2 = [];
         const series3 = [];
         const series4 = [];
-        const series5 = [];
         const category = [];
         for (let a = 0; a < dataFinal.length; a++) {
-          var JumlahBadutaLess23BlnYear = 0;
-          var JmlBalitaLess2359BlnYear = 0;
-          var JmlBalitaLess59BlnYear = 0;
-          var JmlBalitaNaikBBYear = 0;
-          var JumlahBalitaKMSYear = 0;
+          var JmlSPDKYear = 0;
+          var JmlPDKYear = 0;
+          var JmlTNMYear = 0;
+          var JmlTGYear = 0;
           if (dataFinal[a].Puskesmas == desa[a]) {
             for (let c = 0; c < dataFinal[c].set.length; c++) {
               if (
@@ -675,27 +619,17 @@ class GraphicCocPKMGizi extends Component {
                 dataFinal[a].set[c].Tahun.toString()
               ) {
                 // console.log(a, dataFinal[a].set[i].SasaranBayiTL)
-                JumlahBadutaLess23BlnYear =
-                  JumlahBadutaLess23BlnYear +
-                  dataFinal[a].set[c].JumlahBadutaLess23Bln;
-                JmlBalitaLess2359BlnYear =
-                  JmlBalitaLess2359BlnYear +
-                  dataFinal[a].set[c].JmlBalitaLess2359Bln;
-                JmlBalitaLess59BlnYear =
-                  JmlBalitaLess59BlnYear +
-                  dataFinal[a].set[c].JmlBalitaLess59Bln;
-                JmlBalitaNaikBBYear =
-                  JmlBalitaNaikBBYear + dataFinal[a].set[c].JmlBalitaNaikBB;
-                JumlahBalitaKMSYear =
-                  JumlahBalitaKMSYear + dataFinal[a].set[c].JumlahBalitaKMS;
+                JmlSPDKYear = JmlSPDKYear + dataFinal[a].set[c].JmlSPDK;
+                JmlPDKYear = JmlPDKYear + dataFinal[a].set[c].JmlPDK;
+                JmlTNMYear = JmlTNMYear + dataFinal[a].set[c].JmlTNM;
+                JmlTGYear = JmlTGYear + dataFinal[a].set[c].JmlTG;
               }
             }
 
-            series.push(JumlahBalitaKMSYear);
-            series2.push(JumlahBadutaLess23BlnYear);
-            series3.push(JmlBalitaLess2359BlnYear);
-            series4.push(JmlBalitaLess59BlnYear);
-            series5.push(JmlBalitaNaikBBYear);
+            series.push(JmlSPDKYear);
+            series2.push(JmlPDKYear);
+            series3.push(JmlTNMYear);
+            series4.push(JmlTGYear);
 
             category.push(dataFinal[a].Puskesmas);
             // console.log(series, series2);
@@ -704,34 +638,24 @@ class GraphicCocPKMGizi extends Component {
         this.setState({
           series: [
             {
-              name: "Jumlah Balita (S)",
+              name: "Jumlah S.PDK",
               type: "column",
               data: series,
             },
             {
-              name: "Jumlah Balita KMS (K)",
-              type: "column",
-              data: series,
-            },
-            {
-              name: "Jumlah Baduta 0-23 Bln (D)",
+              name: "Jumlah PDK",
               type: "column",
               data: series2,
             },
             {
-              name: "Jumlah Balita 23-59 Bln (D)",
+              name: "Jumlah TNM",
               type: "column",
               data: series3,
             },
             {
-              name: "Jumlah Balita 0-59 Bln (D)",
+              name: "Jumlah TG",
               type: "column",
               data: series4,
-            },
-            {
-              name: "Jumlah Balita Naik BB (N)",
-              type: "column",
-              data: series5,
             },
           ],
           options: {
@@ -753,7 +677,7 @@ class GraphicCocPKMGizi extends Component {
       return (
         <RootStyle>
           <CardHeader
-            title="Gizi Progress"
+            title="Grafik TB/U"
             sx={{ typography: "caption" }}
             style={{
               marginBottom: 20,
@@ -814,14 +738,12 @@ class GraphicCocPKMGizi extends Component {
         const series2 = [];
         const series3 = [];
         const series4 = [];
-        const series5 = [];
         const category = [];
         for (let a = 0; a < dataFinal.length; a++) {
-          var JumlahBadutaLess23BlnQuarter = 0;
-          var JmlBalitaLess2359BlnQuarter = 0;
-          var JmlBalitaLess59BlnQuarter = 0;
-          var JmlBalitaNaikBBQuarter = 0;
-          var JumlahBalitaKMSQuarter = 0;
+          var JmlSPDKQuarter = 0;
+          var JmlPDKQuarter = 0;
+          var JmlTNMQuarter = 0;
+          var JmlTGQuarter = 0;
           if (dataFinal[a].Puskesmas == desa[a]) {
             for (let i = 0; i < dataFinal[i].set.length; i++) {
               for (let b = 0; b < this.state.quarterIndex.length; b++) {
@@ -830,29 +752,17 @@ class GraphicCocPKMGizi extends Component {
                   dataFinal[a].set[i].Bulan.toLowerCase()
                 ) {
                   // console.log(a, dataFinal[a].set[i].SasaranBayiTL)
-                  JumlahBadutaLess23BlnQuarter =
-                    JumlahBadutaLess23BlnQuarter +
-                    dataFinal[a].set[i].JumlahBadutaLess23Bln;
-                  JmlBalitaLess2359BlnQuarter =
-                    JmlBalitaLess2359BlnQuarter +
-                    dataFinal[a].set[i].JmlBalitaLess2359Bln;
-                  JmlBalitaLess59BlnQuarter =
-                    JmlBalitaLess59BlnQuarter +
-                    dataFinal[a].set[i].JmlBalitaLess59Bln;
-                  JmlBalitaNaikBBQuarter =
-                    JmlBalitaNaikBBQuarter +
-                    dataFinal[a].set[i].JmlBalitaNaikBB;
-                  JumlahBalitaKMSQuarter =
-                    JumlahBalitaKMSQuarter +
-                    dataFinal[a].set[i].JumlahBalitaKMS;
+                  JmlSPDKQuarter = JmlSPDKQuarter + dataFinal[a].set[i].JmlSPDK;
+                  JmlPDKQuarter = JmlPDKQuarter + dataFinal[a].set[i].JmlPDK;
+                  JmlTNMQuarter = JmlTNMQuarter + dataFinal[a].set[i].JmlTNM;
+                  JmlTGQuarter = JmlTGQuarter + dataFinal[a].set[i].JmlTG;
                 }
               }
             }
-            series2.push(JumlahBadutaLess23BlnQuarter);
-            series3.push(JmlBalitaLess2359BlnQuarter);
-            series4.push(JmlBalitaLess59BlnQuarter);
-            series5.push(JmlBalitaNaikBBQuarter);
-            series.push(JumlahBalitaKMSQuarter);
+            series.push(JmlSPDKQuarter);
+            series2.push(JmlPDKQuarter);
+            series3.push(JmlTNMQuarter);
+            series4.push(JmlTGQuarter);
             category.push(dataFinal[a].Puskesmas);
             // console.log(series, series2);
           }
@@ -860,34 +770,24 @@ class GraphicCocPKMGizi extends Component {
         this.setState({
           series: [
             {
-              name: "Jumlah Balita (S)",
+              name: "Jumlah S.PDK",
               type: "column",
               data: series,
             },
             {
-              name: "Jumlah Balita KMS (K)",
-              type: "column",
-              data: series,
-            },
-            {
-              name: "Jumlah Baduta 0-23 Bln (D)",
+              name: "Jumlah PDK",
               type: "column",
               data: series2,
             },
             {
-              name: "Jumlah Balita 23-59 Bln (D)",
+              name: "Jumlah TNM",
               type: "column",
               data: series3,
             },
             {
-              name: "Jumlah Balita 0-59 Bln (D)",
+              name: "Jumlah TG",
               type: "column",
               data: series4,
-            },
-            {
-              name: "Jumlah Balita Naik BB (N)",
-              type: "column",
-              data: series5,
             },
           ],
           options: {
@@ -974,4 +874,4 @@ export default compose(
   firestoreConnect([{ collection: "Gizi" }]),
   connect(mapStateToProps),
   withTheme
-)(GraphicCocPKMGizi);
+)(GraphicTBU);
