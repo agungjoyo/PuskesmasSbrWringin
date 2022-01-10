@@ -193,7 +193,7 @@ class User extends Component {
                 };
                 console.log(dataFinalFix);
                 this.props.signUp(dataFinalFix);
-                return <Navigate to="/dashboard" />;
+                return <Navigate to="/dashboard/user" />;
               }
             }
           );

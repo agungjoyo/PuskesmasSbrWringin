@@ -123,7 +123,6 @@ class DataCocGizi extends Component {
           );
         });
       }
-      // return stabilizedThis.map((el) => el[0]);
       return stabilizedThis.map((el) => el[0]);
     }
     if (data == undefined) {
@@ -250,13 +249,11 @@ class DataCocGizi extends Component {
       const handleRequestSort = (event, property) => {
         const isAsc =
           this.state.orderBy === property && this.state.order === "asc";
-        // this.state.orderBy(isAsc ? "desc" : "asc");
         const orderBy = isAsc ? "desc" : "asc";
         console.log(orderBy);
         isAsc
           ? this.setState({ order: "desc" })
           : this.setState({ order: "asc" });
-        // this.state.orderBy(property);
         this.setState({ orderBy: property });
       };
 
@@ -295,10 +292,6 @@ class DataCocGizi extends Component {
 
       const handleChangeRowsPerPage = (event) => {
         this.setState({ rowsPerPage: event.target.value });
-        // this.state.page(parseInt(event.target.value, 10));
-        // this.setState({ page: parseInt(event.target.value, 10) });
-        // this.state.page(0);
-        // this.setState({ page: 0 });
       };
 
       const handleFilterByName = (event) => {
