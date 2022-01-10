@@ -9,10 +9,11 @@ const authReducer = (state = initState, action) => {
       console.log("Login Error");
       return {
         ...state,
-        authError: "Login Failed",
+        authError:
+          "Login Gagal Silakan Periksa Kembali Username dan Password Anda",
       };
     case "LOGIN_SUCCESS":
-      console.log("Login Success");
+      console.log("Login Sukses");
       return {
         ...state,
         authError: null,

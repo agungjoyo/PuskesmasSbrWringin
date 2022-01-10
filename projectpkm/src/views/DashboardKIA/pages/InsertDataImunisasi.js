@@ -27,30 +27,43 @@ class InsertDataImunisasi extends Component {
       SasaranSurvivingInfant: "",
       HBOLessOneDLM: "",
       HBOLessOneDTM: "",
+      HBOLessOneDTMPersentase: "",
       BCGLastMonth: "",
       BCGThisMonth: "",
+      BCGPersentase: "",
       HBOLessOneWLM: "",
       HBOLessOneWTM: "",
+      HBOLessOneWTMPersentase: "",
       Polio1LastMonth: "",
       Polio1ThisMonth: "",
+      Polio1Persentase: "",
       DPTHB1LastMonth: "",
       DPTHB1ThisMonth: "",
+      DPTHB1Persentase: "",
       Polio2LastMonth: "",
       Polio2ThisMonth: "",
+      Polio2Persentase: "",
       DPTHB2LastMonth: "",
       DPTHB2ThisMonth: "",
+      DPTHB2Persentase: "",
       Polio3LastMonth: "",
       Polio3ThisMonth: "",
+      Polio3Persentase: "",
       DPTHB3LastMonth: "",
       DPTHB3ThisMonth: "",
+      DPTHB3Persentase: "",
       Polio4LastMonth: "",
       Polio4ThisMonth: "",
+      Polio4Persentase: "",
       IPVLastMonth: "",
       IPVThisMonth: "",
+      IPVPersentase: "",
       CampakRubellaLM: "",
       CampakRubellaTM: "",
+      CampakPersentase: "",
       IDLLastMonth: "",
       IDLThisMonth: "",
+      IDLPersentase: "",
     };
   }
   round(value, exp) {
@@ -92,29 +105,40 @@ class InsertDataImunisasi extends Component {
         const yearFix = this.state.files[0].path;
         const yearsplit = yearFix.split("");
         console.log(yearsplit);
-        const yearTemp1 = _.filter(yearsplit, () => {
-          const temp = [];
-          for (let i = 0; i < yearsplit.length; i++) {
-            if (
-              yearsplit[i] !== 1 ||
-              yearsplit[i] !== 2 ||
-              yearsplit[i] !== 3 ||
-              yearsplit[i] !== 4 ||
-              yearsplit[i] !== 5 ||
-              yearsplit[i] !== 6 ||
-              yearsplit[i] !== 7 ||
-              yearsplit[i] !== 8 ||
-              yearsplit[i] !== 9 ||
-              yearsplit[i] !== 0
-            ) {
-              console.log("true");
-              temp.push(yearsplit[i]);
-            } else {
-              console.log("false");
-            }
+        const temp = [];
+        for (let i = 0; i < yearsplit.length; i++) {
+          if (
+            yearsplit[i] == 1 ||
+            yearsplit[i] == 2 ||
+            yearsplit[i] == 3 ||
+            yearsplit[i] == 4 ||
+            yearsplit[i] == 5 ||
+            yearsplit[i] == 6 ||
+            yearsplit[i] == 7 ||
+            yearsplit[i] == 8 ||
+            yearsplit[i] == 9 ||
+            yearsplit[i] == 0
+          ) {
+            console.log("true");
+            temp.push(yearsplit[i]);
+          } else {
+            console.log("false");
           }
-        });
-        console.log(yearTemp1);
+        }
+        // console.log(yearTemp1);
+        const finalTemp = temp[0] + temp[1] + temp[2] + temp[3];
+        const bulan = data[2][2];
+        const dateBulanSplit = bulan.split(" ");
+        // if (dateBulanSplit[2] == undefined) {
+        //   this.setState({
+        //     Bulan: dateBulanSplit[1],
+        //   });
+        // } else {
+        //   this.setState({
+        //     Bulan: dateBulanSplit[2],
+        //   });
+        // }
+        // console.log(dateBulanSplit, this.state);
 
         for (var i = 7; i < 13; i++) {
           for (let a = 0; a < dateSplit.length; a++) {
@@ -125,38 +149,61 @@ class InsertDataImunisasi extends Component {
               });
             }
           }
+          if (dateBulanSplit[2] == undefined) {
+            this.setState({
+              Bulan: dateBulanSplit[1],
+            });
+          } else {
+            this.setState({
+              Bulan: dateBulanSplit[2],
+            });
+          }
+          console.log(dateBulanSplit);
           this.setState({
-            Tahun: yearFix,
-            Bulan: dateSplit[1],
+            Tahun: finalTemp,
+            Bulan: dateBulanSplit[2],
             Puskesmas: data[i][1],
             SasaranBayiBaruLahir: data[i][2],
             SasaranSurvivingInfant: data[i][3],
             HBOLessOneDLM: data[i][4],
             HBOLessOneDTM: data[i][5],
-            BCGLastMonth: data[i][8],
-            BCGThisMonth: data[i][9],
-            HBOLessOneWLM: data[i][12],
-            HBOLessOneWTM: data[i][13],
+            HBOLessOneDTMPersentase: data[i][7],
+            BCGLastMonth: data[i][12],
+            BCGThisMonth: data[i][13],
+            BCGPersentase: data[i][15],
+            HBOLessOneWLM: data[i][8],
+            HBOLessOneWTM: data[i][9],
+            HBOLessOneWTMPersentase: data[i][11],
             Polio1LastMonth: data[i][16],
             Polio1ThisMonth: data[i][17],
+            Polio1Persentase: data[i][19],
             DPTHB1LastMonth: data[i][20],
             DPTHB1ThisMonth: data[i][21],
+            DPTHB1Persentase: data[i][23],
             Polio2LastMonth: data[i][24],
             Polio2ThisMonth: data[i][25],
+            Polio2Persentase: data[i][27],
             DPTHB2LastMonth: data[i][28],
             DPTHB2ThisMonth: data[i][29],
+            DPTHB2Persentase: data[i][31],
             Polio3LastMonth: data[i][32],
             Polio3ThisMonth: data[i][33],
+            Polio3Persentase: data[i][35],
             DPTHB3LastMonth: data[i][36],
             DPTHB3ThisMonth: data[i][37],
-            Polio4LastMonth: data[i][41],
-            Polio4ThisMonth: data[i][42],
+            DPTHB3Persentase: data[i][39],
+            Polio4LastMonth: data[i][40],
+            Polio4ThisMonth: data[i][41],
+            Polio4Persentase: data[i][43],
             IPVLastMonth: data[i][44],
             IPVThisMonth: data[i][45],
+            IPVPersentase: data[i][47],
             CampakRubellaLM: data[i][48],
             CampakRubellaTM: data[i][49],
+            CampakPersentase: data[i][51],
             IDLLastMonth: data[i][52],
             IDLThisMonth: data[i][53],
+            IDLPersentase: data[i][55],
           });
           const dataCocFinal = _.filter(dataCocImun, {
             Puskesmas: this.state.Puskesmas,
@@ -165,6 +212,7 @@ class InsertDataImunisasi extends Component {
             Bulan: this.state.Bulan,
           });
           console.log(dataCocCompare);
+
           if (dataCocCompare.length == 1) {
             this.setState({ isDuplicate: true });
             console.log(this.state.isDuplicate);
@@ -183,7 +231,7 @@ class InsertDataImunisasi extends Component {
               const { files, isDuplicate, ...finalData } = this.state;
               console.log(finalData, dataCocCompare[0].id);
               console.log(files, isDuplicate);
-              this.props.DataCocEditImunisasi(dataCocCompare[0].id, finalData);
+              //this.props.DataCocEditImunisasi(dataCocCompare[0].id, finalData);
             } else {
               window.alert("Anda Telah Membatalkan Pengubahan Data");
             }
@@ -200,7 +248,7 @@ class InsertDataImunisasi extends Component {
             );
             const { files, ...finalData } = this.state;
             console.log(files);
-            this.props.addDataCocImun(finalData);
+            // this.props.addDataCocImun(finalData);
           }
         }
         return <Navigate to="./InsertDataImun" />;

@@ -126,11 +126,13 @@ const mapStateToProps = (state) => {
 };
 
 const showResultSuccess = () => {
-  window.alert("Login Success!");
+  window.alert("Login Sukses!");
 };
 
 const showResultFailed = () => {
-  window.alert("Login Failed!");
+  window.alert(
+    "Login Gagal Silakan Periksa Kembali Username dan Password Anda!"
+  );
 };
 
 const mapDispatchToProps = (dispatch) => {

@@ -181,7 +181,7 @@ class User extends Component {
                 window.alert("Nomer Tidak Valid !");
                 this.setState({ isSubmitting: false });
               } else {
-                window.alert("Data Sudah Lengkap !");
+                window.alert("Data Berhasil Ditambahkan !");
                 const dataFinalFix = {
                   Name: this.state.Name,
                   Email: this.state.Email,
