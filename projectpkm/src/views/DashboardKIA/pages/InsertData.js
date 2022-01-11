@@ -132,7 +132,7 @@ class InsertData extends Component {
               PencapaianLahirHidupLK: data[i][14],
               PencapaianLahirHidupPR: data[i][15],
               PencapaianLahirHidupTL: data[i][16],
-              PencapaianLahirHidupPersentase: data[i][22],
+              // PencapaianLahirHidupPersentase: data[i][22],
               PencapaianLahirMatiLK: data[i][27],
               PencapaianLahirMatiPR: data[i][28],
               PencapaianLahirMatiTL: data[i][29],
@@ -206,6 +206,21 @@ class InsertData extends Component {
               ) == true
             ) {
               console.log("True");
+              let TempDataPersentaseLahirHidupTL = 0;
+              if (dataCocFinal.length !== 0) {
+                for (let a = 0; a < dataCocFinal.length; a++) {
+                  TempDataPersentaseLahirHidupTL =
+                    TempDataPersentaseLahirHidupTL +
+                    dataCocFinal[a].PencapaianLahirHidupTL;
+                }
+                TempDataPersentaseLahirHidupTL =
+                  TempDataPersentaseLahirHidupTL +
+                  this.state.PencapaianLahirHidupTL;
+              } else {
+                TempDataPersentaseLahirHidupTL =
+                  TempDataPersentaseLahirHidupTL +
+                  this.state.PencapaianLahirHidupTL;
+              }
               const dataCocKIA = {
                 Tahun: this.state.Tahun,
                 Bulan: this.state.Bulan,
@@ -244,7 +259,9 @@ class InsertData extends Component {
                 PencapaianLahirHidupPR: this.state.PencapaianLahirHidupPR,
                 PencapaianLahirHidupTL: this.state.PencapaianLahirHidupTL,
                 PencapaianLahirHidupPersentase:
-                  this.state.PencapaianLahirHidupPersentase,
+                  (TempDataPersentaseLahirHidupTL /
+                    this.state.SasaranKelahiranHidupTL) *
+                  100,
                 PencapaianLahirMatiLK: this.state.PencapaianLahirMatiLK,
                 PencapaianLahirMatiPR: this.state.PencapaianLahirMatiPR,
                 PencapaianLahirMatiTL: this.state.PencapaianLahirMatiTL,
@@ -276,12 +293,12 @@ class InsertData extends Component {
                   this.state.KunjunganBayiParipurnaPersentase,
               };
               console.log(dataKIA, dataCocKIA);
-              this.props.DataCocEdit(dataCocCompare[0].id, dataKIA);
-              if (dataCocCompareKIA.length == 1) {
-                this.props.DataCocKIAEdit(dataCocCompareKIA[0].id, dataCocKIA);
-              } else {
-                this.props.addDataKIACoc(dataCocKIA);
-              }
+              // this.props.DataCocEdit(dataCocCompare[0].id, dataKIA);
+              // if (dataCocCompareKIA.length == 1) {
+              //   this.props.DataCocKIAEdit(dataCocCompareKIA[0].id, dataCocKIA);
+              // } else {
+              //   this.props.addDataKIACoc(dataCocKIA);
+              // }
             } else {
               window.alert("Anda Telah Membatalkan Pengubahan Data");
             }
@@ -296,6 +313,21 @@ class InsertData extends Component {
                 " for " +
                 this.state.Puskesmas
             );
+            let TempDataPersentaseLahirHidupTL = 0;
+            if (dataCocFinal.length !== 0) {
+              for (let a = 0; a < dataCocFinal.length; a++) {
+                TempDataPersentaseLahirHidupTL =
+                  TempDataPersentaseLahirHidupTL +
+                  dataCocFinal[a].PencapaianLahirHidupTL;
+              }
+              TempDataPersentaseLahirHidupTL =
+                TempDataPersentaseLahirHidupTL +
+                this.state.PencapaianLahirHidupTL;
+            } else {
+              TempDataPersentaseLahirHidupTL =
+                TempDataPersentaseLahirHidupTL +
+                this.state.PencapaianLahirHidupTL;
+            }
             const dataCocKIA = {
               Tahun: this.state.Tahun,
               Bulan: this.state.Bulan,
@@ -334,7 +366,9 @@ class InsertData extends Component {
               PencapaianLahirHidupPR: this.state.PencapaianLahirHidupPR,
               PencapaianLahirHidupTL: this.state.PencapaianLahirHidupTL,
               PencapaianLahirHidupPersentase:
-                this.state.PencapaianLahirHidupPersentase,
+                (TempDataPersentaseLahirHidupTL /
+                  this.state.SasaranKelahiranHidupTL) *
+                100,
               PencapaianLahirMatiLK: this.state.PencapaianLahirMatiLK,
               PencapaianLahirMatiPR: this.state.PencapaianLahirMatiPR,
               PencapaianLahirMatiTL: this.state.PencapaianLahirMatiTL,
@@ -366,8 +400,8 @@ class InsertData extends Component {
                 this.state.KunjunganBayiParipurnaPersentase,
             };
             console.log(dataKIA, dataCocKIA);
-            this.props.addDataCoc(dataKIA);
-            this.props.addDataKIACoc(dataCocKIA);
+            // this.props.addDataCoc(dataKIA);
+            // this.props.addDataKIACoc(dataCocKIA);
           }
         }
         return <Navigate to="./InsertData" />;
