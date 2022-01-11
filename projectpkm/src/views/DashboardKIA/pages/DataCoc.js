@@ -99,6 +99,12 @@ class DataCoc extends Component {
             value.PencapaianLahirMatiPersentase?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
+            value.PencapaianKNPertamaTL?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.PencapaianKNPertamaPersentase?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
             value.PencapaianKNKeduaTL?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||

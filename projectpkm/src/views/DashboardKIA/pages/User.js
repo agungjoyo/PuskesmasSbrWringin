@@ -664,7 +664,7 @@ class User extends Component {
               </Scrollbar>
 
               <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
+                rowsPerPageOptions={[2, 5, 10, 25]}
                 component="div"
                 count={data.length}
                 rowsPerPage={this.state.rowsPerPage}

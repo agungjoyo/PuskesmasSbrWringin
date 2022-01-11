@@ -232,7 +232,7 @@ class InsertDataImunisasi extends Component {
               const { files, isDuplicate, ...finalData } = this.state;
               console.log(finalData, dataCocCompare[0].id);
               console.log(files, isDuplicate);
-              //this.props.DataCocEditImunisasi(dataCocCompare[0].id, finalData);
+              this.props.DataCocEditImunisasi(dataCocCompare[0].id, finalData);
             } else {
               window.alert("Anda Telah Membatalkan Pengubahan Data");
             }
@@ -249,7 +249,7 @@ class InsertDataImunisasi extends Component {
             );
             const { files, ...finalData } = this.state;
             console.log(files);
-            // this.props.addDataCocImun(finalData);
+            this.props.addDataCocImun(finalData);
           }
         }
         return <Navigate to="./InsertDataImun" />;

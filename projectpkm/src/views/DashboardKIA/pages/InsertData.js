@@ -136,27 +136,27 @@ class InsertData extends Component {
               PencapaianLahirMatiLK: data[i][27],
               PencapaianLahirMatiPR: data[i][28],
               PencapaianLahirMatiTL: data[i][29],
-              PencapaianLahirMatiPersentase: data[i][35],
+              // PencapaianLahirMatiPersentase: data[i][35],
               PencapaianKNPertamaLK: data[i][40],
               PencapaianKNPertamaPR: data[i][41],
               PencapaianKNPertamaTL: data[i][42],
-              PencapaianKNPertamaPersentase: data[i][48],
+              // PencapaianKNPertamaPersentase: data[i][48],
               PencapaianKNKeduaLK: data[i][53],
               PencapaianKNKeduaPR: data[i][54],
               PencapaianKNKeduaTL: data[i][55],
-              PencapaianKNKeduaPersentase: data[i][61],
+              // PencapaianKNKeduaPersentase: data[i][61],
               PencapaianKNLengkapLK: data[i][66],
               PencapaianKNLengkapPR: data[i][67],
               PencapaianKNLengkapTL: data[i][68],
-              PencapaianKNLengkapPersentase: data[i][74],
+              // PencapaianKNLengkapPersentase: data[i][74],
               NeonatalKompLK: data[i][79],
               NeonatalKompPR: data[i][80],
               NeonatalKompTL: data[i][81],
-              NeonatalKompPersentase: data[i][90],
+              // NeonatalKompPersentase: data[i][90],
               KunjunganBayiParipurnaLK: data[i][92],
               KunjunganBayiParipurnaPR: data[i][93],
               KunjunganBayiParipurnaTL: data[i][94],
-              KunjunganBayiParipurnaPersentase: data[i][100],
+              // KunjunganBayiParipurnaPersentase: data[i][100],
             },
             () => {
               this.setState({
@@ -207,19 +207,78 @@ class InsertData extends Component {
             ) {
               console.log("True");
               let TempDataPersentaseLahirHidupTL = 0;
+              let TempDataPersentaseLahirMatiTL = 0;
+              let TempDataPersentasePencapaianKNPertamaTL = 0;
+              let TempDataPersentasePencapaianKNKeduaTL = 0;
+              let TempDataPersentasePencapaianKNLengkapTL = 0;
+              let TempDataPersentaseNeonatalKompTL = 0;
+              let TempDataPersentaseKunjunganBayiParipurnaTL = 0;
+
               if (dataCocFinal.length !== 0) {
                 for (let a = 0; a < dataCocFinal.length; a++) {
                   TempDataPersentaseLahirHidupTL =
                     TempDataPersentaseLahirHidupTL +
                     dataCocFinal[a].PencapaianLahirHidupTL;
+                  TempDataPersentaseLahirMatiTL =
+                    TempDataPersentaseLahirMatiTL +
+                    dataCocFinal[a].PencapaianLahirMatiTL;
+                  TempDataPersentasePencapaianKNPertamaTL =
+                    TempDataPersentasePencapaianKNPertamaTL +
+                    dataCocFinal[a].PencapaianKNPertamaTL;
+                  TempDataPersentasePencapaianKNKeduaTL =
+                    TempDataPersentasePencapaianKNKeduaTL +
+                    dataCocFinal[a].PencapaianKNKeduaTL;
+                  TempDataPersentasePencapaianKNLengkapTL =
+                    TempDataPersentasePencapaianKNLengkapTL +
+                    dataCocFinal[a].PencapaianKNLengkapTL;
+                  TempDataPersentaseNeonatalKompTL =
+                    TempDataPersentaseNeonatalKompTL +
+                    dataCocFinal[a].NeonatalKompTL;
+                  TempDataPersentaseKunjunganBayiParipurnaTL =
+                    TempDataPersentaseKunjunganBayiParipurnaTL +
+                    dataCocFinal[a].KunjunganBayiParipurnaTL;
                 }
                 TempDataPersentaseLahirHidupTL =
                   TempDataPersentaseLahirHidupTL +
                   this.state.PencapaianLahirHidupTL;
+                TempDataPersentaseLahirMatiTL =
+                  TempDataPersentaseLahirMatiTL +
+                  this.state.PencapaianLahirMatiTL;
+                TempDataPersentasePencapaianKNPertamaTL =
+                  TempDataPersentasePencapaianKNPertamaTL +
+                  this.state.PencapaianKNPertamaTL;
+                TempDataPersentasePencapaianKNKeduaTL =
+                  TempDataPersentasePencapaianKNKeduaTL +
+                  this.state.PencapaianKNKeduaTL;
+                TempDataPersentasePencapaianKNLengkapTL =
+                  TempDataPersentasePencapaianKNLengkapTL +
+                  this.state.PencapaianKNLengkapTL;
+                TempDataPersentaseNeonatalKompTL =
+                  TempDataPersentaseNeonatalKompTL + this.state.NeonatalKompTL;
+                TempDataPersentaseKunjunganBayiParipurnaTL =
+                  TempDataPersentaseKunjunganBayiParipurnaTL +
+                  this.state.KunjunganBayiParipurnaTL;
               } else {
                 TempDataPersentaseLahirHidupTL =
                   TempDataPersentaseLahirHidupTL +
                   this.state.PencapaianLahirHidupTL;
+                TempDataPersentaseLahirMatiTL =
+                  TempDataPersentaseLahirMatiTL +
+                  this.state.PencapaianLahirMatiTL;
+                TempDataPersentasePencapaianKNPertamaTL =
+                  TempDataPersentasePencapaianKNPertamaTL +
+                  this.state.PencapaianKNPertamaTL;
+                TempDataPersentasePencapaianKNKeduaTL =
+                  TempDataPersentasePencapaianKNKeduaTL +
+                  this.state.PencapaianKNKeduaTL;
+                TempDataPersentasePencapaianKNLengkapTL =
+                  TempDataPersentasePencapaianKNLengkapTL +
+                  this.state.PencapaianKNLengkapTL;
+                TempDataPersentaseNeonatalKompTL =
+                  TempDataPersentaseNeonatalKompTL + this.state.NeonatalKompTL;
+                TempDataPersentaseKunjunganBayiParipurnaTL =
+                  TempDataPersentaseKunjunganBayiParipurnaTL +
+                  this.state.KunjunganBayiParipurnaTL;
               }
               const dataCocKIA = {
                 Tahun: this.state.Tahun,
@@ -266,39 +325,52 @@ class InsertData extends Component {
                 PencapaianLahirMatiPR: this.state.PencapaianLahirMatiPR,
                 PencapaianLahirMatiTL: this.state.PencapaianLahirMatiTL,
                 PencapaianLahirMatiPersentase:
-                  this.state.PencapaianLahirMatiPersentase,
+                  (TempDataPersentaseLahirMatiTL /
+                    this.state.SasaranKelahiranHidupTL) *
+                  100,
                 PencapaianKNPertamaLK: this.state.PencapaianKNPertamaLK,
                 PencapaianKNPertamaPR: this.state.PencapaianKNPertamaPR,
                 PencapaianKNPertamaTL: this.state.PencapaianKNPertamaTL,
                 PencapaianKNPertamaPersentase:
-                  this.state.PencapaianKNPertamaPersentase,
+                  (TempDataPersentasePencapaianKNPertamaTL /
+                    this.state.SasaranKelahiranHidupTL) *
+                  100,
                 PencapaianKNKeduaLK: this.state.PencapaianKNKeduaLK,
                 PencapaianKNKeduaPR: this.state.PencapaianKNKeduaPR,
                 PencapaianKNKeduaTL: this.state.PencapaianKNKeduaTL,
                 PencapaianKNKeduaPersentase:
-                  this.state.PencapaianKNKeduaPersentase,
+                  (TempDataPersentasePencapaianKNKeduaTL /
+                    this.state.SasaranKelahiranHidupTL) *
+                  100,
                 PencapaianKNLengkapLK: this.state.PencapaianKNLengkapLK,
                 PencapaianKNLengkapPR: this.state.PencapaianKNLengkapPR,
                 PencapaianKNLengkapTL: this.state.PencapaianKNLengkapTL,
                 PencapaianKNLengkapPersentase:
-                  this.state.PencapaianKNLengkapPersentase,
+                  (TempDataPersentasePencapaianKNLengkapTL /
+                    this.state.SasaranKelahiranHidupTL) *
+                  100,
                 NeonatalKompLK: this.state.NeonatalKompLK,
                 NeonatalKompPR: this.state.NeonatalKompPR,
                 NeonatalKompTL: this.state.NeonatalKompTL,
-                NeonatalKompPersentase: this.state.NeonatalKompPersentase,
+                NeonatalKompPersentase:
+                  (TempDataPersentaseNeonatalKompTL /
+                    this.state.SasaranKelahiranHidupTL) *
+                  100,
                 KunjunganBayiParipurnaLK: this.state.KunjunganBayiParipurnaLK,
                 KunjunganBayiParipurnaPR: this.state.KunjunganBayiParipurnaPR,
                 KunjunganBayiParipurnaTL: this.state.KunjunganBayiParipurnaTL,
                 KunjunganBayiParipurnaPersentase:
-                  this.state.KunjunganBayiParipurnaPersentase,
+                  (TempDataPersentaseKunjunganBayiParipurnaTL /
+                    this.state.SasaranKelahiranHidupTL) *
+                  100,
               };
               console.log(dataKIA, dataCocKIA);
-              // this.props.DataCocEdit(dataCocCompare[0].id, dataKIA);
-              // if (dataCocCompareKIA.length == 1) {
-              //   this.props.DataCocKIAEdit(dataCocCompareKIA[0].id, dataCocKIA);
-              // } else {
-              //   this.props.addDataKIACoc(dataCocKIA);
-              // }
+              this.props.DataCocEdit(dataCocCompare[0].id, dataKIA);
+              if (dataCocCompareKIA.length == 1) {
+                this.props.DataCocKIAEdit(dataCocCompareKIA[0].id, dataCocKIA);
+              } else {
+                this.props.addDataKIACoc(dataCocKIA);
+              }
             } else {
               window.alert("Anda Telah Membatalkan Pengubahan Data");
             }
@@ -315,20 +387,78 @@ class InsertData extends Component {
             );
             // Presentase Lahir Hidup Total
             let TempDataPersentaseLahirHidupTL = 0;
+            let TempDataPersentaseLahirMatiTL = 0;
+            let TempDataPersentasePencapaianKNPertamaTL = 0;
+            let TempDataPersentasePencapaianKNKeduaTL = 0;
+            let TempDataPersentasePencapaianKNLengkapTL = 0;
+            let TempDataPersentaseNeonatalKompTL = 0;
+            let TempDataPersentaseKunjunganBayiParipurnaTL = 0;
             // Hitung Total LahirHidup
             if (dataCocFinal.length !== 0) {
               for (let a = 0; a < dataCocFinal.length; a++) {
                 TempDataPersentaseLahirHidupTL =
                   TempDataPersentaseLahirHidupTL +
                   dataCocFinal[a].PencapaianLahirHidupTL;
+                TempDataPersentaseLahirMatiTL =
+                  TempDataPersentaseLahirMatiTL +
+                  dataCocFinal[a].PencapaianLahirMatiTL;
+                TempDataPersentasePencapaianKNPertamaTL =
+                  TempDataPersentasePencapaianKNPertamaTL +
+                  dataCocFinal[a].PencapaianKNPertamaTL;
+                TempDataPersentasePencapaianKNKeduaTL =
+                  TempDataPersentasePencapaianKNKeduaTL +
+                  dataCocFinal[a].PencapaianKNKeduaTL;
+                TempDataPersentasePencapaianKNLengkapTL =
+                  TempDataPersentasePencapaianKNLengkapTL +
+                  dataCocFinal[a].PencapaianKNLengkapTL;
+                TempDataPersentaseNeonatalKompTL =
+                  TempDataPersentaseNeonatalKompTL +
+                  dataCocFinal[a].NeonatalKompTL;
+                TempDataPersentaseKunjunganBayiParipurnaTL =
+                  TempDataPersentaseKunjunganBayiParipurnaTL +
+                  dataCocFinal[a].KunjunganBayiParipurnaTL;
               }
               TempDataPersentaseLahirHidupTL =
                 TempDataPersentaseLahirHidupTL +
                 this.state.PencapaianLahirHidupTL;
+              TempDataPersentaseLahirMatiTL =
+                TempDataPersentaseLahirMatiTL +
+                this.state.PencapaianLahirMatiTL;
+              TempDataPersentasePencapaianKNPertamaTL =
+                TempDataPersentasePencapaianKNPertamaTL +
+                this.state.PencapaianKNPertamaTL;
+              TempDataPersentasePencapaianKNKeduaTL =
+                TempDataPersentasePencapaianKNKeduaTL +
+                this.state.PencapaianKNKeduaTL;
+              TempDataPersentasePencapaianKNLengkapTL =
+                TempDataPersentasePencapaianKNLengkapTL +
+                this.state.PencapaianKNLengkapTL;
+              TempDataPersentaseNeonatalKompTL =
+                TempDataPersentaseNeonatalKompTL + this.state.NeonatalKompTL;
+              TempDataPersentaseKunjunganBayiParipurnaTL =
+                TempDataPersentaseKunjunganBayiParipurnaTL +
+                this.state.KunjunganBayiParipurnaTL;
             } else {
               TempDataPersentaseLahirHidupTL =
                 TempDataPersentaseLahirHidupTL +
                 this.state.PencapaianLahirHidupTL;
+              TempDataPersentaseLahirMatiTL =
+                TempDataPersentaseLahirMatiTL +
+                this.state.PencapaianLahirMatiTL;
+              TempDataPersentasePencapaianKNPertamaTL =
+                TempDataPersentasePencapaianKNPertamaTL +
+                this.state.PencapaianKNPertamaTL;
+              TempDataPersentasePencapaianKNKeduaTL =
+                TempDataPersentasePencapaianKNKeduaTL +
+                this.state.PencapaianKNKeduaTL;
+              TempDataPersentasePencapaianKNLengkapTL =
+                TempDataPersentasePencapaianKNLengkapTL +
+                this.state.PencapaianKNLengkapTL;
+              TempDataPersentaseNeonatalKompTL =
+                TempDataPersentaseNeonatalKompTL + this.state.NeonatalKompTL;
+              TempDataPersentaseKunjunganBayiParipurnaTL =
+                TempDataPersentaseKunjunganBayiParipurnaTL +
+                this.state.KunjunganBayiParipurnaTL;
             }
             //
             const dataCocKIA = {
@@ -373,39 +503,52 @@ class InsertData extends Component {
                 (TempDataPersentaseLahirHidupTL /
                   this.state.SasaranKelahiranHidupTL) *
                 100,
-              PencapaianLahirMatiLK: this.state.PencapaianLahirMatiLK,
+              PencapaianLahirMatiLK: this.state.PencapaianLahirMatiTL,
               PencapaianLahirMatiPR: this.state.PencapaianLahirMatiPR,
               PencapaianLahirMatiTL: this.state.PencapaianLahirMatiTL,
               PencapaianLahirMatiPersentase:
-                this.state.PencapaianLahirMatiPersentase,
+                (TempDataPersentaseLahirMatiTL /
+                  this.state.SasaranKelahiranHidupTL) *
+                100,
               PencapaianKNPertamaLK: this.state.PencapaianKNPertamaLK,
               PencapaianKNPertamaPR: this.state.PencapaianKNPertamaPR,
               PencapaianKNPertamaTL: this.state.PencapaianKNPertamaTL,
               PencapaianKNPertamaPersentase:
-                this.state.PencapaianKNPertamaPersentase,
+                (TempDataPersentasePencapaianKNPertamaTL /
+                  this.state.SasaranKelahiranHidupTL) *
+                100,
               PencapaianKNKeduaLK: this.state.PencapaianKNKeduaLK,
               PencapaianKNKeduaPR: this.state.PencapaianKNKeduaPR,
               PencapaianKNKeduaTL: this.state.PencapaianKNKeduaTL,
               PencapaianKNKeduaPersentase:
-                this.state.PencapaianKNKeduaPersentase,
+                (TempDataPersentasePencapaianKNKeduaTL /
+                  this.state.SasaranKelahiranHidupTL) *
+                100,
               PencapaianKNLengkapLK: this.state.PencapaianKNLengkapLK,
               PencapaianKNLengkapPR: this.state.PencapaianKNLengkapPR,
               PencapaianKNLengkapTL: this.state.PencapaianKNLengkapTL,
               PencapaianKNLengkapPersentase:
-                this.state.PencapaianKNLengkapPersentase,
+                (TempDataPersentasePencapaianKNLengkapTL /
+                  this.state.SasaranKelahiranHidupTL) *
+                100,
               NeonatalKompLK: this.state.NeonatalKompLK,
               NeonatalKompPR: this.state.NeonatalKompPR,
               NeonatalKompTL: this.state.NeonatalKompTL,
-              NeonatalKompPersentase: this.state.NeonatalKompPersentase,
+              NeonatalKompPersentase:
+                (TempDataPersentaseNeonatalKompTL /
+                  this.state.SasaranKelahiranHidupTL) *
+                100,
               KunjunganBayiParipurnaLK: this.state.KunjunganBayiParipurnaLK,
               KunjunganBayiParipurnaPR: this.state.KunjunganBayiParipurnaPR,
               KunjunganBayiParipurnaTL: this.state.KunjunganBayiParipurnaTL,
               KunjunganBayiParipurnaPersentase:
-                this.state.KunjunganBayiParipurnaPersentase,
+                (TempDataPersentaseKunjunganBayiParipurnaTL /
+                  this.state.SasaranKelahiranHidupTL) *
+                100,
             };
             console.log(dataKIA, dataCocKIA);
-            // this.props.addDataCoc(dataKIA);
-            // this.props.addDataKIACoc(dataCocKIA);
+            this.props.addDataCoc(dataKIA);
+            this.props.addDataKIACoc(dataCocKIA);
           }
         }
         return <Navigate to="./InsertData" />;
@@ -422,10 +565,10 @@ class InsertData extends Component {
   };
   render() {
     return (
-      <Page title="Dashboard | Minimal-UI">
+      <Page title="Dashboard | Imunisasi">
         <Container maxWidth="xl">
           <Box sx={{ pb: 5 }}>
-            <Typography variant="h4">Insert Data</Typography>
+            <Typography variant="h4">Insert Data KIA</Typography>
           </Box>
           <Grid container spacing={3}>
             <Grid
