@@ -313,7 +313,9 @@ class InsertData extends Component {
                 " for " +
                 this.state.Puskesmas
             );
+            // Presentase Lahir Hidup Total
             let TempDataPersentaseLahirHidupTL = 0;
+            // Hitung Total LahirHidup
             if (dataCocFinal.length !== 0) {
               for (let a = 0; a < dataCocFinal.length; a++) {
                 TempDataPersentaseLahirHidupTL =
@@ -328,6 +330,7 @@ class InsertData extends Component {
                 TempDataPersentaseLahirHidupTL +
                 this.state.PencapaianLahirHidupTL;
             }
+            //
             const dataCocKIA = {
               Tahun: this.state.Tahun,
               Bulan: this.state.Bulan,
@@ -365,6 +368,7 @@ class InsertData extends Component {
               PencapaianLahirHidupLK: this.state.PencapaianLahirHidupTL,
               PencapaianLahirHidupPR: this.state.PencapaianLahirHidupPR,
               PencapaianLahirHidupTL: this.state.PencapaianLahirHidupTL,
+              // Penghitungan Presentase Lahir Hidup Total
               PencapaianLahirHidupPersentase:
                 (TempDataPersentaseLahirHidupTL /
                   this.state.SasaranKelahiranHidupTL) *
