@@ -206,7 +206,7 @@ class GraphicCocPKMGizi extends Component {
   }
   handleChangeBulan = () => {
     const { data } = this.props;
-    const desaTemp = [];
+    const desaTemp = ["PUSKESMAS"];
     for (let i = 0; i < data.length; i++) {
       desaTemp.push(data[i].Puskesmas);
     }
@@ -299,6 +299,7 @@ class GraphicCocPKMGizi extends Component {
     for (let i = 0; i < data.length; i++) {
       desaTemp.push(data[i].Puskesmas);
     }
+    desaTemp.push("PUSKESMAS");
     const desa = Array.from(new Set(desaTemp));
     this.setState(
       {
@@ -539,107 +540,318 @@ class GraphicCocPKMGizi extends Component {
         const series3 = [];
         const series4 = [];
         const series5 = [];
+        const series6 = [];
         let category = [];
-        let JumlahBadutaLess23BlnBulan = 0;
-        let JmlBalitaLess2359BlnBulan = 0;
-        let JmlBalitaLess59BlnBulan = 0;
-        let JmlBalitaNaikBBBulan = 0;
-        let JumlahBalitaKMSBulan = 0;
-        for (let a = 0; a < dataFinal.length; a++) {
-          JumlahBadutaLess23BlnBulan = 0;
-          JmlBalitaLess2359BlnBulan = 0;
-          JmlBalitaLess59BlnBulan = 0;
-          JmlBalitaNaikBBBulan = 0;
-          JumlahBalitaKMSBulan = 0;
-          for (let b = 0; b < this.state.desaIndex.length; b++) {
-            if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
-              for (let i = 0; i < dataFinal[i].set.length; i++) {
-                for (let c = 0; c < this.state.monthIndex.length; c++) {
-                  console.log(
-                    this.state.monthIndex[c]?.toLowerCase(),
-                    dataFinal[a].set[i].Bulan.toLowerCase(),
-                    this.state.yearIndex,
-                    dataFinal[a].set[i].Tahun.toString()
-                  );
-                  if (
-                    this.state.monthIndex[c]?.toLowerCase() ===
-                      dataFinal[a].set[i].Bulan.toLowerCase() &&
-                    this.state.yearIndex ===
-                      dataFinal[a].set[i].Tahun.toString()
-                  ) {
-                    console.log(a, b, c, i);
-                    JumlahBalitaKMSBulan =
-                      JumlahBalitaKMSBulan +
-                      dataFinal[a].set[i].JumlahBalitaKMS;
-                    JumlahBadutaLess23BlnBulan =
-                      JumlahBadutaLess23BlnBulan +
-                      dataFinal[a].set[c].JumlahBadutaLess23Bln;
-                    JmlBalitaLess2359BlnBulan =
-                      JmlBalitaLess2359BlnBulan +
-                      dataFinal[a].set[c].JmlBalitaLess2359Bln;
-                    JmlBalitaLess59BlnBulan =
-                      JmlBalitaLess59BlnBulan +
-                      dataFinal[a].set[c].JmlBalitaLess59Bln;
-                    JmlBalitaNaikBBBulan =
-                      JmlBalitaNaikBBBulan +
-                      dataFinal[a].set[c].JmlBalitaNaikBB;
+        let JmlBalita = 0;
+        let JmlBalitaKMS = 0;
+        let JmlBadutaLess23Bln = 0;
+        let JmlBalitaLess2359Bln = 0;
+        let JmlBalitaLess59Bln = 0;
+        let JmlBalitaNaikBB = 0;
+        if (this.state.desaIndex == "PUSKESMAS") {
+          this.setState(
+            {
+              desaIndex: ["PUSKESMAS"],
+            },
+            () => {
+              let FinalSeries1 = 0;
+              let FinalSeries2 = 0;
+              let FinalSeries3 = 0;
+              let FinalSeries4 = 0;
+              let FinalSeries5 = 0;
+              let FinalSeries6 = 0;
+              this.setState(
+                {
+                  series: [
+                    {
+                      name: "Jumlah Balita (S)",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Jumlah Balita KMS (K)",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Jumlah Baduta 0-23 Bulan (D)",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Jumlah Balita 23-59 Bulan (D)",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Jumlah Balita 0-59 Bulan (D)",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Jumlah Balita Naik BB (N)",
+                      type: "column",
+                      data: [],
+                    },
+                  ],
+                  options: {
+                    ...this.state.options,
+                    dataLabels: {
+                      ...this.state.options.dataLabels,
+                      offsetY: -20,
+                      offsetX: 0,
+                    },
+                    plotOptions: {
+                      ...this.state.options.plotOptions,
+                      bar: {
+                        ...this.state.options.plotOptions.bar,
+                        horizontal: false,
+                      },
+                    },
+                    xaxis: {
+                      ...this.state.options.xaxis,
+                      categories: [],
+                    },
+                  },
+                },
+                () => {
+                  for (let a = 0; a < dataFinal.length; a++) {
+                    JmlBalita = 0;
+                    JmlBalitaKMS = 0;
+                    JmlBadutaLess23Bln = 0;
+                    JmlBalitaLess2359Bln = 0;
+                    JmlBalitaLess59Bln = 0;
+                    JmlBalitaNaikBB = 0;
+                    for (let b = 0; b < this.state.desa.length; b++) {
+                      if (dataFinal[a].Puskesmas == this.state.desa[b]) {
+                        for (let i = 0; i < dataFinal[i].set.length; i++) {
+                          for (
+                            let c = 0;
+                            c < this.state.monthIndex.length;
+                            c++
+                          ) {
+                            if (
+                              this.state.monthIndex[c]?.toLowerCase() ===
+                                dataFinal[a].set[i].Bulan.toLowerCase() &&
+                              this.state.yearIndex === dataFinal[a].set[i].Tahun
+                            ) {
+                              JmlBalita = dataFinal[a].set[i].JmlBalitaTL;
+                              JmlBalitaKMS =
+                                dataFinal[a].set[i].JmlBalitaKMSTL;
+                              JmlBadutaLess23Bln =
+                                JmlBadutaLess23Bln +
+                                dataFinal[a].set[c].JmlBadutaLess23BlnTL;
+                              JmlBalitaLess2359Bln =
+                                JmlBalitaLess2359Bln +
+                                dataFinal[a].set[c].JmlBalitaLess2359BlnTL;
+                              JmlBalitaLess59Bln =
+                                JmlBalitaLess59Bln +
+                                dataFinal[a].set[c].JmlBalitaLess59BlnTL;
+                              JmlBalitaNaikBB =
+                                JmlBalitaNaikBB +
+                                dataFinal[a].set[c].JmlBalitaNaikBBTL;
+                            }
+                          }
+                        }
+                        series1.push(JmlBalita);
+                        series2.push(JmlBalitaKMS);
+                        series3.push(JmlBadutaLess23Bln);
+                        series4.push(JmlBalitaLess2359Bln);
+                        series5.push(JmlBalitaLess59Bln);
+                        series6.push(JmlBalitaNaikBB);
+                      }
+                    }
+                  }
+                  for (let s1 = 0; s1 < series1.length; s1++) {
+                    FinalSeries1 = FinalSeries1 + series1[s1];
+                  }
+                  for (let s2 = 0; s2 < series2.length; s2++) {
+                    FinalSeries2 = FinalSeries2 + series2[s2];
+                  }
+                  for (let s3 = 0; s3 < series3.length; s3++) {
+                    FinalSeries3 = FinalSeries3 + series3[s3];
+                  }
+                  for (let s4 = 0; s4 < series4.length; s4++) {
+                    FinalSeries4 = FinalSeries4 + series4[s4];
+                  }
+                  for (let s5 = 0; s5 < series5.length; s5++) {
+                    FinalSeries5 = FinalSeries5 + series5[s5];
+                  }
+                  for (let s6 = 0; s6 < series6.length; s6++) {
+                    FinalSeries6 = FinalSeries6 + series6[s6];
+                  }
+                  this.setState({
+                    series: [
+                      {
+                        name: "Jumlah Balita (S)",
+                        type: "column",
+                        data: [FinalSeries1],
+                      },
+                      {
+                        name: "Jumlah Balita KMS (K)",
+                        type: "column",
+                        data: [FinalSeries2],
+                      },
+                      {
+                        name: "Jumlah Baduta 0-23 Bulan (D)",
+                        type: "column",
+                        data: [FinalSeries3],
+                      },
+                      {
+                        name: "Jumlah Balita 23-59 Bulan (D)",
+                        type: "column",
+                        data: [FinalSeries4],
+                      },
+                      {
+                        name: "Jumlah Balita 0-59 Bulan (D)",
+                        type: "column",
+                        data: [FinalSeries5],
+                      },
+                      {
+                        name: "Jumlah Balita Naik BB (N)",
+                        type: "column",
+                        data: [FinalSeries6],
+                      },
+                    ],
+                    options: {
+                      ...this.state.options,
+                      xaxis: {
+                        ...this.state.options.xaxis,
+                        categories: ["PUSKESMAS"],
+                      },
+                    },
+                  });
+                }
+              );
+            }
+          );
+        } else {
+          const deletePuskesmas = _.differenceWith(
+            this.state.desaIndex,
+            ["PUSKESMAS"],
+            _.isEqual
+          );
+          this.setState(
+            {
+              desaIndex: deletePuskesmas,
+              options: {
+                ...this.state.options,
+                dataLabels: {
+                  ...this.state.options.dataLabels,
+                  offsetY: -20,
+                  offsetX: 0,
+                },
+                plotOptions: {
+                  ...this.state.options.plotOptions,
+                  bar: {
+                    ...this.state.options.plotOptions.bar,
+                    horizontal: false,
+                  },
+                },
+                xaxis: {
+                  ...this.state.options.xaxis,
+                  categories: [],
+                },
+              },
+            },
+            () => {
+              for (let a = 0; a < dataFinal.length; a++) {
+                JmlBalita = 0;
+                JmlBalitaKMS = 0;
+                JmlBadutaLess23Bln = 0;
+                JmlBalitaLess2359Bln = 0;
+                JmlBalitaLess59Bln = 0;
+                JmlBalitaNaikBB = 0;
+                for (let b = 0; b < this.state.desaIndex.length; b++) {
+                  if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
+                    for (let i = 0; i < dataFinal[i].set.length; i++) {
+                      for (let c = 0; c < this.state.monthIndex.length; c++) {
+                        if (
+                          this.state.monthIndex[c]?.toLowerCase() ===
+                            dataFinal[a].set[i].Bulan.toLowerCase() &&
+                          this.state.yearIndex === dataFinal[a].set[i].Tahun
+                        ) {
+                          JmlBalita = dataFinal[a].set[i].JmlBalitaTL;
+                          JmlBalitaKMS =
+                            dataFinal[a].set[i].JmlBalitaKMSTL;
+                          JmlBadutaLess23Bln =
+                            JmlBadutaLess23Bln +
+                            dataFinal[a].set[c].JmlBadutaLess23BlnTL;
+                          JmlBalitaLess2359Bln =
+                            JmlBalitaLess2359Bln +
+                            dataFinal[a].set[c].JmlBalitaLess2359BlnTL;
+                          JmlBalitaLess59Bln =
+                            JmlBalitaLess59Bln +
+                            dataFinal[a].set[c].JmlBalitaLess59TL;
+                          JmlBalitaNaikBB =
+                            JmlBalitaNaikBB + dataFinal[a].set[c].JmlBalitaNaikBBTL;
+                        }
+                      }
+                    }
+                    series1.push(JmlBalita);
+                    series2.push(JmlBalitaKMS);
+                    series3.push(JmlBadutaLess23Bln);
+                    series4.push(JmlBalitaLess2359Bln);
+                    series5.push(JmlBalitaLess59Bln);
+                    series6.push(JmlBalitaNaikBB);
+                    category.push(dataFinal[a].Puskesmas);
                   }
                 }
               }
-              series1.push(JumlahBalitaKMSBulan);
-              series2.push(JumlahBadutaLess23BlnBulan);
-              series3.push(JmlBalitaLess2359BlnBulan);
-              series4.push(JmlBalitaLess59BlnBulan);
-              series5.push(JmlBalitaNaikBBBulan);
-              category.push(dataFinal[a].Puskesmas);
+              this.setState({
+                series: [
+                  {
+                    name: "Jumlah Balita (S)",
+                    type: "column",
+                    data: series1,
+                  },
+                  {
+                    name: "Jumlah Balita KMS (K)",
+                    type: "column",
+                    data: series2,
+                  },
+                  {
+                    name: "Jumlah Baduta 0-23 Bulan (D)",
+                    type: "column",
+                    data: series3,
+                  },
+                  {
+                    name: "Jumlah Balita 23-59 Bulan (D)",
+                    type: "column",
+                    data: series4,
+                  },
+                  {
+                    name: "Jumlah Balita 0-59 Bulan (D)",
+                    type: "column",
+                    data: series5,
+                  },
+                  {
+                    name: "Jumlah Balita Naik BB (N)",
+                    type: "column",
+                    data: series6,
+                  },
+                ],
+                options: {
+                  ...this.state.options,
+                  xaxis: {
+                    ...this.state.options.xaxis,
+                    categories: category,
+                  },
+                },
+              });
             }
-          }
+          );
         }
-        this.setState({
-          series: [
-            {
-              name: "Jumlah Balita (S)",
-              type: "column",
-              data: series1,
-            },
-            {
-              name: "Jumlah Balita KMS (K)",
-              type: "column",
-              data: series1,
-            },
-            {
-              name: "Jumlah Baduta 0-23 Bln (D)",
-              type: "column",
-              data: series2,
-            },
-            {
-              name: "Jumlah Balita 23-59 Bln (D)",
-              type: "column",
-              data: series3,
-            },
-            {
-              name: "Jumlah Balita 0-59 Bln (D)",
-              type: "column",
-              data: series4,
-            },
-            {
-              name: "Jumlah Balita Naik BB (N)",
-              type: "column",
-              data: series5,
-            },
-          ],
-          options: {
-            ...this.state.options,
-            xaxis: {
-              ...this.state.options.xaxis,
-              categories: category,
-            },
-          },
-        });
       }
     );
   };
   handleGraphicTahunControl = (event) => {
+    let FinalSeries1 = 0;
+    let FinalSeries2 = 0;
+    let FinalSeries3 = 0;
+    let FinalSeries4 = 0;
+    let FinalSeries5 = 0;
+    let FinalSeries6 = 0;
     this.setState(
       {
         yearIndex: event.target.value,
@@ -651,87 +863,105 @@ class GraphicCocPKMGizi extends Component {
           .map((set, Puskesmas) => ({ set, Puskesmas }))
           .value();
         const desaTemp = [];
-        for (let c = 0; c < data.length; c++) {
-          desaTemp.push(data[c].Puskesmas);
+        for (let i = 0; i < data.length; i++) {
+          desaTemp.push(data[i].Puskesmas);
         }
         const desa = Array.from(new Set(desaTemp));
-        // console.log(dataFinal, this.state, desa);
-        const series = [];
+        const series1 = [];
         const series2 = [];
         const series3 = [];
         const series4 = [];
         const series5 = [];
-        const category = [];
+        const series6 = [];
+        let category = [];
         for (let a = 0; a < dataFinal.length; a++) {
-          var JumlahBadutaLess23BlnYear = 0;
-          var JmlBalitaLess2359BlnYear = 0;
-          var JmlBalitaLess59BlnYear = 0;
-          var JmlBalitaNaikBBYear = 0;
-          var JumlahBalitaKMSYear = 0;
+          let JmlBalita = 0;
+          let JmlBalitaKMS = 0;
+          let JmlBadutaLess23Year = 0;
+          let JmlBalitaLess2359Year = 0;
+          let JmlBalitaLess59Year = 0;
+          let JmlBalitaNaikBBYear = 0;
           if (dataFinal[a].Puskesmas == desa[a]) {
-            for (let c = 0; c < dataFinal[c].set.length; c++) {
+            for (let i = 0; i < dataFinal[i].set.length; i++) {
               if (
                 this.state.yearIndex.toLowerCase() ===
-                dataFinal[a].set[c].Tahun.toString()
+                dataFinal[a].set[i].Tahun.toLowerCase()
               ) {
-                // console.log(a, dataFinal[a].set[i].SasaranBayiTL)
-                JumlahBadutaLess23BlnYear =
-                  JumlahBadutaLess23BlnYear +
-                  dataFinal[a].set[c].JumlahBadutaLess23Bln;
-                JmlBalitaLess2359BlnYear =
-                  JmlBalitaLess2359BlnYear +
-                  dataFinal[a].set[c].JmlBalitaLess2359Bln;
-                JmlBalitaLess59BlnYear =
-                  JmlBalitaLess59BlnYear +
-                  dataFinal[a].set[c].JmlBalitaLess59Bln;
-                JmlBalitaNaikBBYear =
-                  JmlBalitaNaikBBYear + dataFinal[a].set[c].JmlBalitaNaikBB;
-                JumlahBalitaKMSYear =
-                  JumlahBalitaKMSYear + dataFinal[a].set[c].JumlahBalitaKMS;
+                JmlBalita = dataFinal[a].set[i].JmlBalitaTL;
+                JmlBalitaKMS = dataFinal[a].set[i].JmlBalitaKMSTL;
+                JmlBadutaLess23Year =
+                  JmlBadutaLess23Year + dataFinal[a].set[i].JmlBadutaLess23TL;
+                JmlBalitaLess2359Year =
+                  JmlBalitaLess2359Year + dataFinal[a].set[i].JmlBalitaLess2359TL;
+                JmlBalitaLess59Year = JmlBalitaLess59Year + dataFinal[a].set[i].JmlBalitaLess59TL;
+                JmlBalitaNaikBBYear = JmlBalitaNaikBBYear + dataFinal[a].set[i].JmlBalitaNaikBBTL;
               }
             }
-
-            series.push(JumlahBalitaKMSYear);
-            series2.push(JumlahBadutaLess23BlnYear);
-            series3.push(JmlBalitaLess2359BlnYear);
-            series4.push(JmlBalitaLess59BlnYear);
-            series5.push(JmlBalitaNaikBBYear);
-
+            series1.push(JmlBalita);
+            series2.push(JmlBalitaKMS);
+            series3.push(JmlBadutaLess23Year);
+            series4.push(JmlBalitaLess2359Year);
+            series5.push(JmlBalita59Year);
+            series6.push(JmlBalitaNaikBBYear);
             category.push(dataFinal[a].Puskesmas);
-            // console.log(series, series2);
           }
         }
+        for (let s1 = 0; s1 < series1.length; s1++) {
+          FinalSeries1 = FinalSeries1 + series1[s1];
+        }
+        for (let s2 = 0; s2 < series2.length; s2++) {
+          FinalSeries2 = FinalSeries2 + series2[s2];
+        }
+        for (let s3 = 0; s3 < series3.length; s3++) {
+          FinalSeries3 = FinalSeries3 + series3[s3];
+        }
+        for (let s4 = 0; s4 < series4.length; s4++) {
+          FinalSeries4 = FinalSeries4 + series4[s4];
+        }
+        for (let s5 = 0; s5 < series5.length; s5++) {
+          FinalSeries5 = FinalSeries5 + series5[s5];
+        }
+        for (let s6 = 0; s6 < series6.length; s6++) {
+          FinalSeries6 = FinalSeries6 + series6[s6];
+        }
+        series1.push(FinalSeries1);
+        series2.push(FinalSeries2);
+        series3.push(FinalSeries3);
+        series4.push(FinalSeries4);
+        series5.push(FinalSeries5);
+        series6.push(FinalSeries6);
+        category.push("PUSKESMAS");
         this.setState({
           series: [
             {
               name: "Jumlah Balita (S)",
               type: "column",
-              data: series,
+              data: series1,
             },
             {
               name: "Jumlah Balita KMS (K)",
               type: "column",
-              data: series,
-            },
-            {
-              name: "Jumlah Baduta 0-23 Bln (D)",
-              type: "column",
               data: series2,
             },
             {
-              name: "Jumlah Balita 23-59 Bln (D)",
+              name: "Jumlah Baduta 0-23 Bulan (D)",
               type: "column",
               data: series3,
             },
             {
-              name: "Jumlah Balita 0-59 Bln (D)",
+              name: "Jumlah Balita 23-59 Bulan (D)",
               type: "column",
               data: series4,
             },
             {
-              name: "Jumlah Balita Naik BB (N)",
+              name: "Jumlah Balita 0-59 Bulan (D)",
               type: "column",
               data: series5,
+            },
+            {
+              name: "Jumlah Balita Naik BB (N)",
+              type: "column",
+              data: series6,
             },
           ],
           options: {
@@ -746,6 +976,7 @@ class GraphicCocPKMGizi extends Component {
     );
   };
   render() {
+    console.log(this.state);
     const { data } = this.props;
     if (data == undefined) {
       return <div>Loading...</div>;
@@ -788,179 +1019,10 @@ class GraphicCocPKMGizi extends Component {
           </Grid>
           {this.state.showBulanGraphic ? <this.bulanGraphic /> : null}
           {this.state.showTahunGraphic ? <this.tahunGraphic /> : null}
-          {this.state.showChoiceGraphic ? <this.choiceGraphic /> : null}
         </RootStyle>
       );
     }
   }
-  handleQuarterChange = (event) => {
-    this.setState(
-      {
-        quarterIndex: event.target.value,
-      },
-      () => {
-        const { data } = this.props;
-        const dataFinal = _.chain(data)
-          .groupBy("Puskesmas")
-          .map((set, Puskesmas) => ({ set, Puskesmas }))
-          .value();
-        const desaTemp = [];
-        for (let i = 0; i < data.length; i++) {
-          desaTemp.push(data[i].Puskesmas);
-        }
-        const desa = Array.from(new Set(desaTemp));
-        // console.log(dataFinal, this.state, desa);
-        const series = [];
-        const series2 = [];
-        const series3 = [];
-        const series4 = [];
-        const series5 = [];
-        const category = [];
-        for (let a = 0; a < dataFinal.length; a++) {
-          var JumlahBadutaLess23BlnQuarter = 0;
-          var JmlBalitaLess2359BlnQuarter = 0;
-          var JmlBalitaLess59BlnQuarter = 0;
-          var JmlBalitaNaikBBQuarter = 0;
-          var JumlahBalitaKMSQuarter = 0;
-          if (dataFinal[a].Puskesmas == desa[a]) {
-            for (let i = 0; i < dataFinal[i].set.length; i++) {
-              for (let b = 0; b < this.state.quarterIndex.length; b++) {
-                if (
-                  this.state.quarterIndex[b].toLowerCase() ===
-                  dataFinal[a].set[i].Bulan.toLowerCase()
-                ) {
-                  // console.log(a, dataFinal[a].set[i].SasaranBayiTL)
-                  JumlahBadutaLess23BlnQuarter =
-                    JumlahBadutaLess23BlnQuarter +
-                    dataFinal[a].set[i].JumlahBadutaLess23Bln;
-                  JmlBalitaLess2359BlnQuarter =
-                    JmlBalitaLess2359BlnQuarter +
-                    dataFinal[a].set[i].JmlBalitaLess2359Bln;
-                  JmlBalitaLess59BlnQuarter =
-                    JmlBalitaLess59BlnQuarter +
-                    dataFinal[a].set[i].JmlBalitaLess59Bln;
-                  JmlBalitaNaikBBQuarter =
-                    JmlBalitaNaikBBQuarter +
-                    dataFinal[a].set[i].JmlBalitaNaikBB;
-                  JumlahBalitaKMSQuarter =
-                    JumlahBalitaKMSQuarter +
-                    dataFinal[a].set[i].JumlahBalitaKMS;
-                }
-              }
-            }
-            series2.push(JumlahBadutaLess23BlnQuarter);
-            series3.push(JmlBalitaLess2359BlnQuarter);
-            series4.push(JmlBalitaLess59BlnQuarter);
-            series5.push(JmlBalitaNaikBBQuarter);
-            series.push(JumlahBalitaKMSQuarter);
-            category.push(dataFinal[a].Puskesmas);
-            // console.log(series, series2);
-          }
-        }
-        this.setState({
-          series: [
-            {
-              name: "Jumlah Balita (S)",
-              type: "column",
-              data: series,
-            },
-            {
-              name: "Jumlah Balita KMS (K)",
-              type: "column",
-              data: series,
-            },
-            {
-              name: "Jumlah Baduta 0-23 Bln (D)",
-              type: "column",
-              data: series2,
-            },
-            {
-              name: "Jumlah Balita 23-59 Bln (D)",
-              type: "column",
-              data: series3,
-            },
-            {
-              name: "Jumlah Balita 0-59 Bln (D)",
-              type: "column",
-              data: series4,
-            },
-            {
-              name: "Jumlah Balita Naik BB (N)",
-              type: "column",
-              data: series5,
-            },
-          ],
-          options: {
-            ...this.state.options,
-            xaxis: {
-              ...this.state.options.xaxis,
-              categories: category,
-            },
-          },
-        });
-      }
-    );
-  };
-
-  choiceGraphic = () => {
-    const ITEM_HEIGHT = 48;
-    const ITEM_PADDING_TOP = 8;
-    const MenuProps = {
-      PaperProps: {
-        style: {
-          maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-          width: 250,
-        },
-      },
-    };
-    return (
-      <div>
-        <CardHeader title="Progress Gizi" />
-        <Box sx={{ p: 3, pb: 1 }} dir="ltr">
-          <ReactApexChart
-            type="bar"
-            series={this.state.series}
-            options={this.state.options}
-            height={300}
-          />
-        </Box>
-        <FormControl sx={{ m: 1, minWidth: 100 }}>
-          <InputLabel id="demo-simple-select-helper-label">Bulan</InputLabel>
-          <Select
-            labelId="demo-multiple-chip-label"
-            id="demo-multiple-chip"
-            multiple
-            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-            renderValue={(selected) => (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                {selected.map((value) => (
-                  <Chip key={value} label={value} />
-                ))}
-              </Box>
-            )}
-            MenuProps={MenuProps}
-            value={this.state.quarterIndex}
-            onChange={this.handleQuarterChange}
-            //=========================================================
-          >
-            {this.state.month.map((month) => (
-              <MenuItem
-                key={month}
-                value={month}
-                style={this.getStyles(
-                  this.state.month,
-                  this.state.monthIndex,
-                  this.props.theme
-                )}
-              >
-                {month}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-    );
-  };
 }
 const mapStateToProps = (state) => {
   return {
