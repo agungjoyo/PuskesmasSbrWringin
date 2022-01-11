@@ -220,7 +220,7 @@ class GraphicCocPKM extends Component {
   }
   handleChangeBulan = () => {
     const { data } = this.props;
-    const desaTemp = ["PUSKESMAS"];
+    const desaTemp = ["PUSKESMAS SUMBER WRINGIN"];
     for (let i = 0; i < data.length; i++) {
       desaTemp.push(data[i].Puskesmas);
     }
@@ -328,7 +328,7 @@ class GraphicCocPKM extends Component {
     for (let i = 0; i < data.length; i++) {
       desaTemp.push(data[i].Puskesmas);
     }
-    desaTemp.push("PUSKESMAS");
+    desaTemp.push("PUSKESMAS SUMBER WRINGIN");
     const desa = Array.from(new Set(desaTemp));
     this.setState(
       {
@@ -598,10 +598,10 @@ class GraphicCocPKM extends Component {
         let KNlengkapBulan = 0;
         let KNkomplikasiBulan = 0;
         let KunjunganBayiParipurnaBulan = 0;
-        if (this.state.desaIndex == "PUSKESMAS") {
+        if (this.state.desaIndex == "PUSKESMAS SUMBER WRINGIN") {
           this.setState(
             {
-              desaIndex: ["PUSKESMAS"],
+              desaIndex: ["PUSKESMAS SUMBER WRINGIN"],
             },
             () => {
               let FinalSeries1 = 0;
@@ -824,7 +824,7 @@ class GraphicCocPKM extends Component {
                       ...this.state.options,
                       xaxis: {
                         ...this.state.options.xaxis,
-                        categories: ["PUSKESMAS"],
+                        categories: ["PUSKESMAS SUMBER WRINGIN"],
                       },
                     },
                   });
@@ -835,7 +835,7 @@ class GraphicCocPKM extends Component {
         } else {
           const deletePuskesmas = _.differenceWith(
             this.state.desaIndex,
-            ["PUSKESMAS"],
+            ["PUSKESMAS SUMBER WRINGIN"],
             _.isEqual
           );
           this.setState(
@@ -1098,7 +1098,7 @@ class GraphicCocPKM extends Component {
         series7.push(FinalSeries7);
         series8.push(FinalSeries8);
         series9.push(FinalSeries9);
-        category.push("PUSKESMAS");
+        category.push("PUSKESMAS SUMBER WRINGIN");
         this.setState({
           series: [
             {
