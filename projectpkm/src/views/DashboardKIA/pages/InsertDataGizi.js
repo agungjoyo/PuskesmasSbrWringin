@@ -201,6 +201,130 @@ class InsertDataGizi extends Component {
               ) == true
             ) {
               console.log("True");
+              let TempDataPersentaseJmlSPDK = 0;
+              let TempDataPersentaseJmlPDK = 0;
+              let TempDataPersentaseJmlTNM = 0;
+              let TempDataPersentaseJmlTG = 0;
+              let TempDataPersentaseJmlGibur = 0;
+              let TempDataPersentaseJmlGirang = 0;
+              let TempDataPersentaseJmlNML = 0;
+              let TempDataPersentaseJmlRGzLbh = 0;
+              let TempDataPersentaseJmlGzLbh = 0;
+              let TempDataPersentaseJmlObes = 0;
+              let TempDataPersentaseJmlBBSK = 0;
+              let TempDataPersentaseJmlBBK = 0;
+              let TempDataPersentaseJmlBBN = 0;
+              let TempDataPersentaseJmlBBL = 0;
+              let TempDataPersentaseJmlBMLA = 0;
+              let TempDataPersentaseJmlBMKEK = 0;
+              let TempDataPersentaseJmlPMTKEK = 0;
+              if (dataCocFinal.length !== 0) {
+                for (let a = 0; a < dataCocFinal.length; a++) {
+                  TempDataPersentaseJmlSPDK =
+                    TempDataPersentaseJmlSPDK + dataCocFinal[a].JmlSPDK;
+                  TempDataPersentaseJmlPDK =
+                    TempDataPersentaseJmlPDK + dataCocFinal[a].JmlPDK;
+                  TempDataPersentaseJmlTNM =
+                    TempDataPersentaseJmlTNM + dataCocFinal[a].JmlTNM;
+                  TempDataPersentaseJmlTG =
+                    TempDataPersentaseJmlTG + dataCocFinal[a].JmlTG;
+                  TempDataPersentaseJmlGibur =
+                    TempDataPersentaseJmlGibur + dataCocFinal[a].JmlGibur;
+                  TempDataPersentaseJmlGirang =
+                    TempDataPersentaseJmlGirang + dataCocFinal[a].JmlGirang;
+                  TempDataPersentaseJmlNML =
+                    TempDataPersentaseJmlNML + dataCocFinal[a].JmlNML;
+                  TempDataPersentaseJmlRGzLbh =
+                    TempDataPersentaseJmlRGzLbh + dataCocFinal[a].JmlRGzLbh;
+                  TempDataPersentaseJmlGzLbh =
+                    TempDataPersentaseJmlGzLbh + dataCocFinal[a].JmlGzLbh;
+                  TempDataPersentaseJmlObes =
+                    TempDataPersentaseJmlObes + dataCocFinal[a].JmlObes;
+                  TempDataPersentaseJmlBBSK =
+                    TempDataPersentaseJmlBBSK + dataCocFinal[a].JmlBBSK;
+                  TempDataPersentaseJmlBBK =
+                    TempDataPersentaseJmlBBK + dataCocFinal[a].JmlBBK;
+                  TempDataPersentaseJmlBBN =
+                    TempDataPersentaseJmlBBN + dataCocFinal[a].JmlBBN;
+                  TempDataPersentaseJmlBBL =
+                    TempDataPersentaseJmlBBL + dataCocFinal[a].JmlBBL;
+                  TempDataPersentaseJmlBMLA =
+                    TempDataPersentaseJmlBMLA + dataCocFinal[a].JmlBMLA;
+                  TempDataPersentaseJmlBMKEK =
+                    TempDataPersentaseJmlBMKEK + dataCocFinal[a].JmlBMKEK;
+                  TempDataPersentaseJmlPMTKEK =
+                    TempDataPersentaseJmlPMTKEK + dataCocFinal[a].JmlPMTKEK;
+                }
+                TempDataPersentaseJmlSPDK =
+                  TempDataPersentaseJmlSPDK + this.state.JmlSPDK;
+                TempDataPersentaseJmlPDK =
+                  TempDataPersentaseJmlPDK + this.state.JmlPDK;
+                TempDataPersentaseJmlTNM =
+                  TempDataPersentaseJmlTNM + this.state.JmlTNM;
+                TempDataPersentaseJmlTG =
+                  TempDataPersentaseJmlTG + this.state.JmlTG;
+                TempDataPersentaseJmlGibur =
+                  TempDataPersentaseJmlGibur + this.state.JmlGibur;
+                TempDataPersentaseJmlGirang =
+                  TempDataPersentaseJmlGirang + this.state.JmlGirang;
+                TempDataPersentaseJmlNML =
+                  TempDataPersentaseJmlNML + this.state.JmlNML;
+                TempDataPersentaseJmlRGzLbh =
+                  TempDataPersentaseJmlRGzLbh + this.state.JmlRGzLbh;
+                TempDataPersentaseJmlGzLbh =
+                  TempDataPersentaseJmlGzLbh + this.state.JmlGzLbh;
+                TempDataPersentaseJmlObes =
+                  TempDataPersentaseJmlObes + this.state.JmlObes;
+                TempDataPersentaseJmlBBSK =
+                  TempDataPersentaseJmlBBSK + this.state.JmlBBSK;
+                TempDataPersentaseJmlBBK =
+                  TempDataPersentaseJmlBBK + this.state.JmlBBK;
+                TempDataPersentaseJmlBBN =
+                  TempDataPersentaseJmlBBN + this.state.JmlBBN;
+                TempDataPersentaseJmlBBL =
+                  TempDataPersentaseJmlBBL + this.state.JmlBBL;
+                TempDataPersentaseJmlBMLA =
+                  TempDataPersentaseJmlBMLA + this.state.JmlBMLA;
+                TempDataPersentaseJmlBMKEK =
+                  TempDataPersentaseJmlBMKEK + this.state.JmlBMKEK;
+                TempDataPersentaseJmlPMTKEK =
+                  TempDataPersentaseJmlPMTKEK + this.state.JmlPMTKEK;
+              } else {
+                TempDataPersentaseJmlSPDK =
+                  TempDataPersentaseJmlSPDK + this.state.JmlSPDK;
+                TempDataPersentaseJmlPDK =
+                  TempDataPersentaseJmlPDK + this.state.JmlPDK;
+                TempDataPersentaseJmlTNM =
+                  TempDataPersentaseJmlTNM + this.state.JmlTNM;
+                TempDataPersentaseJmlTG =
+                  TempDataPersentaseJmlTG + this.state.JmlTG;
+                TempDataPersentaseJmlGibur =
+                  TempDataPersentaseJmlGibur + this.state.JmlGibur;
+                TempDataPersentaseJmlGirang =
+                  TempDataPersentaseJmlGirang + this.state.JmlGirang;
+                TempDataPersentaseJmlNML =
+                  TempDataPersentaseJmlNML + this.state.JmlNML;
+                TempDataPersentaseJmlRGzLbh =
+                  TempDataPersentaseJmlRGzLbh + this.state.JmlRGzLbh;
+                TempDataPersentaseJmlGzLbh =
+                  TempDataPersentaseJmlGzLbh + this.state.JmlGzLbh;
+                TempDataPersentaseJmlObes =
+                  TempDataPersentaseJmlObes + this.state.JmlObes;
+                TempDataPersentaseJmlBBSK =
+                  TempDataPersentaseJmlBBSK + this.state.JmlBBSK;
+                TempDataPersentaseJmlBBK =
+                  TempDataPersentaseJmlBBK + this.state.JmlBBK;
+                TempDataPersentaseJmlBBN =
+                  TempDataPersentaseJmlBBN + this.state.JmlBBN;
+                TempDataPersentaseJmlBBL =
+                  TempDataPersentaseJmlBBL + this.state.JmlBBL;
+                TempDataPersentaseJmlBMLA =
+                  TempDataPersentaseJmlBMLA + this.state.JmlBMLA;
+                TempDataPersentaseJmlBMKEK =
+                  TempDataPersentaseJmlBMKEK + this.state.JmlBMKEK;
+                TempDataPersentaseJmlPMTKEK =
+                  TempDataPersentaseJmlPMTKEK + this.state.JmlPMTKEK;
+              }
               const { files, isDuplicate, ...finalData } = this.state;
               const finalDataCoc = {
                 Tahun: this.state.Tahun,
@@ -214,6 +338,7 @@ class InsertDataGizi extends Component {
                 JmlFe3: this.state.JmlFe3,
                 JmlFe1: this.state.JmlFe1,
                 JmlSPDK: this.state.JmlSPDK,
+                JmlSPDKPersentase: this.state.JmlSPDK,
                 JmlPDK: this.state.JmlPDK,
                 JmlTNM: this.state.JmlTNM,
                 JmlTG: this.state.JmlTG,
@@ -224,12 +349,26 @@ class InsertDataGizi extends Component {
                 JmlGzLbh: this.state.JmlGzLbh,
                 JmlObes: this.state.JmlObes,
                 JmlBBSK: this.state.JmlBBSK,
+                JmlBBSKPersentase:
+                  (TempDataPersentaseJmlBBSK / this.state.JmlBBK +
+                    this.state.JmlBBN +
+                    this.state.JmlBBL) *
+                  100,
                 JmlBBK: this.state.JmlBBK,
+                JmlBBKPersentase:
+                  (TempDataPersentaseJmlBBK / this.state.JmlBBSK +
+                    this.state.JmlBBN +
+                    this.state.JmlBBL) *
+                  100,
                 JmlBBN: this.state.JmlBBN,
                 JmlBBL: this.state.JmlBBL,
                 JmlBMLA: this.state.JmlBMLA,
                 JmlBMKEK: this.state.JmlBMKEK,
-                JmlPMTKEK: this.state.JmlBMKEK,
+                JmlBMKEKPersentase:
+                  (TempDataPersentaseJmlBMKEK / this.state.JmlBMLA) * 100,
+                JmlPMTKEK: this.state.JmlPMTKEK,
+                JmlPMTKEKPersentase:
+                  (TempDataPersentaseJmlPMTKEK / this.state.JmlBMKEK) * 100,
               };
 
               // console.log(finalDataCoc.Bulan);
@@ -257,7 +396,131 @@ class InsertDataGizi extends Component {
             );
             const { files, ...finalData } = this.state;
             console.log(files);
-
+            let TempDataPersentaseJmlSPDK = 0;
+            let TempDataPersentaseJmlPDK = 0;
+            let TempDataPersentaseJmlTNM = 0;
+            let TempDataPersentaseJmlTG = 0;
+            let TempDataPersentaseJmlGibur = 0;
+            let TempDataPersentaseJmlGirang = 0;
+            let TempDataPersentaseJmlNML = 0;
+            let TempDataPersentaseJmlRGzLbh = 0;
+            let TempDataPersentaseJmlGzLbh = 0;
+            let TempDataPersentaseJmlObes = 0;
+            let TempDataPersentaseJmlBBSK = 0;
+            let TempDataPersentaseJmlBBK = 0;
+            let TempDataPersentaseJmlBBN = 0;
+            let TempDataPersentaseJmlBBL = 0;
+            let TempDataPersentaseJmlBMLA = 0;
+            let TempDataPersentaseJmlBMKEK = 0;
+            let TempDataPersentaseJmlPMTKEK = 0;
+            if (dataCocFinal.length !== 0) {
+              for (let a = 0; a < dataCocFinal.length; a++) {
+                TempDataPersentaseJmlSPDK =
+                  TempDataPersentaseJmlSPDK + dataCocFinal[a].JmlSPDK;
+                TempDataPersentaseJmlPDK =
+                  TempDataPersentaseJmlPDK + dataCocFinal[a].JmlPDK;
+                TempDataPersentaseJmlTNM =
+                  TempDataPersentaseJmlTNM + dataCocFinal[a].JmlTNM;
+                TempDataPersentaseJmlTG =
+                  TempDataPersentaseJmlTG + dataCocFinal[a].JmlTG;
+                TempDataPersentaseJmlGibur =
+                  TempDataPersentaseJmlGibur + dataCocFinal[a].JmlGibur;
+                TempDataPersentaseJmlGirang =
+                  TempDataPersentaseJmlGirang + dataCocFinal[a].JmlGirang;
+                TempDataPersentaseJmlNML =
+                  TempDataPersentaseJmlNML + dataCocFinal[a].JmlNML;
+                TempDataPersentaseJmlRGzLbh =
+                  TempDataPersentaseJmlRGzLbh + dataCocFinal[a].JmlRGzLbh;
+                TempDataPersentaseJmlGzLbh =
+                  TempDataPersentaseJmlGzLbh + dataCocFinal[a].JmlGzLbh;
+                TempDataPersentaseJmlObes =
+                  TempDataPersentaseJmlObes + dataCocFinal[a].JmlObes;
+                TempDataPersentaseJmlBBSK =
+                  TempDataPersentaseJmlBBSK + dataCocFinal[a].JmlBBSK;
+                TempDataPersentaseJmlBBK =
+                  TempDataPersentaseJmlBBK + dataCocFinal[a].JmlBBK;
+                TempDataPersentaseJmlBBN =
+                  TempDataPersentaseJmlBBN + dataCocFinal[a].JmlBBN;
+                TempDataPersentaseJmlBBL =
+                  TempDataPersentaseJmlBBL + dataCocFinal[a].JmlBBL;
+                TempDataPersentaseJmlBMLA =
+                  TempDataPersentaseJmlBMLA + dataCocFinal[a].JmlBMLA;
+                TempDataPersentaseJmlBMKEK =
+                  TempDataPersentaseJmlBMKEK + dataCocFinal[a].JmlBMKEK;
+                TempDataPersentaseJmlPMTKEK =
+                  TempDataPersentaseJmlPMTKEK + dataCocFinal[a].JmlPMTKEK;
+              }
+              TempDataPersentaseJmlSPDK =
+                TempDataPersentaseJmlSPDK + this.state.JmlSPDK;
+              TempDataPersentaseJmlPDK =
+                TempDataPersentaseJmlPDK + this.state.JmlPDK;
+              TempDataPersentaseJmlTNM =
+                TempDataPersentaseJmlTNM + this.state.JmlTNM;
+              TempDataPersentaseJmlTG =
+                TempDataPersentaseJmlTG + this.state.JmlTG;
+              TempDataPersentaseJmlGibur =
+                TempDataPersentaseJmlGibur + this.state.JmlGibur;
+              TempDataPersentaseJmlGirang =
+                TempDataPersentaseJmlGirang + this.state.JmlGirang;
+              TempDataPersentaseJmlNML =
+                TempDataPersentaseJmlNML + this.state.JmlNML;
+              TempDataPersentaseJmlRGzLbh =
+                TempDataPersentaseJmlRGzLbh + this.state.JmlRGzLbh;
+              TempDataPersentaseJmlGzLbh =
+                TempDataPersentaseJmlGzLbh + this.state.JmlGzLbh;
+              TempDataPersentaseJmlObes =
+                TempDataPersentaseJmlObes + this.state.JmlObes;
+              TempDataPersentaseJmlBBSK =
+                TempDataPersentaseJmlBBSK + this.state.JmlBBSK;
+              TempDataPersentaseJmlBBK =
+                TempDataPersentaseJmlBBK + this.state.JmlBBK;
+              TempDataPersentaseJmlBBN =
+                TempDataPersentaseJmlBBN + this.state.JmlBBN;
+              TempDataPersentaseJmlBBL =
+                TempDataPersentaseJmlBBL + this.state.JmlBBL;
+              TempDataPersentaseJmlBMLA =
+                TempDataPersentaseJmlBMLA + this.state.JmlBMLA;
+              TempDataPersentaseJmlBMKEK =
+                TempDataPersentaseJmlBMKEK + this.state.JmlBMKEK;
+              TempDataPersentaseJmlPMTKEK =
+                TempDataPersentaseJmlPMTKEK + this.state.JmlPMTKEK;
+            } else {
+              TempDataPersentaseJmlSPDK =
+                TempDataPersentaseJmlSPDK + this.state.JmlSPDK;
+              TempDataPersentaseJmlPDK =
+                TempDataPersentaseJmlPDK + this.state.JmlPDK;
+              TempDataPersentaseJmlTNM =
+                TempDataPersentaseJmlTNM + this.state.JmlTNM;
+              TempDataPersentaseJmlTG =
+                TempDataPersentaseJmlTG + this.state.JmlTG;
+              TempDataPersentaseJmlGibur =
+                TempDataPersentaseJmlGibur + this.state.JmlGibur;
+              TempDataPersentaseJmlGirang =
+                TempDataPersentaseJmlGirang + this.state.JmlGirang;
+              TempDataPersentaseJmlNML =
+                TempDataPersentaseJmlNML + this.state.JmlNML;
+              TempDataPersentaseJmlRGzLbh =
+                TempDataPersentaseJmlRGzLbh + this.state.JmlRGzLbh;
+              TempDataPersentaseJmlGzLbh =
+                TempDataPersentaseJmlGzLbh + this.state.JmlGzLbh;
+              TempDataPersentaseJmlObes =
+                TempDataPersentaseJmlObes + this.state.JmlObes;
+              TempDataPersentaseJmlBBSK =
+                TempDataPersentaseJmlBBSK + this.state.JmlBBSK;
+              TempDataPersentaseJmlBBK =
+                TempDataPersentaseJmlBBK + this.state.JmlBBK;
+              TempDataPersentaseJmlBBN =
+                TempDataPersentaseJmlBBN + this.state.JmlBBN;
+              TempDataPersentaseJmlBBL =
+                TempDataPersentaseJmlBBL + this.state.JmlBBL;
+              TempDataPersentaseJmlBMLA =
+                TempDataPersentaseJmlBMLA + this.state.JmlBMLA;
+              TempDataPersentaseJmlBMKEK =
+                TempDataPersentaseJmlBMKEK + this.state.JmlBMKEK;
+              TempDataPersentaseJmlPMTKEK =
+                TempDataPersentaseJmlPMTKEK + this.state.JmlPMTKEK;
+            }
+            // const { files, isDuplicate, ...finalData } = this.state;
             const finalDataCoc = {
               Tahun: this.state.Tahun,
               Bulan: this.state.Bulan,
@@ -269,8 +532,8 @@ class InsertDataGizi extends Component {
               JmlBalitaNaikBB: this.state.JmlBalitaNaikBB,
               JmlFe3: this.state.JmlFe3,
               JmlFe1: this.state.JmlFe1,
-              JmlVitAMr: this.state.JmlVitAMr,
               JmlSPDK: this.state.JmlSPDK,
+              JmlSPDKPersentase: this.state.JmlSPDK,
               JmlPDK: this.state.JmlPDK,
               JmlTNM: this.state.JmlTNM,
               JmlTG: this.state.JmlTG,
@@ -281,12 +544,26 @@ class InsertDataGizi extends Component {
               JmlGzLbh: this.state.JmlGzLbh,
               JmlObes: this.state.JmlObes,
               JmlBBSK: this.state.JmlBBSK,
+              JmlBBSKPersentase:
+                (TempDataPersentaseJmlBBSK / this.state.JmlBBK +
+                  this.state.JmlBBN +
+                  this.state.JmlBBL) *
+                100,
               JmlBBK: this.state.JmlBBK,
+              JmlBBKPersentase:
+                (TempDataPersentaseJmlBBK / this.state.JmlBBSK +
+                  this.state.JmlBBN +
+                  this.state.JmlBBL) *
+                100,
               JmlBBN: this.state.JmlBBN,
               JmlBBL: this.state.JmlBBL,
               JmlBMLA: this.state.JmlBMLA,
               JmlBMKEK: this.state.JmlBMKEK,
-              JmlPMTKEK: this.state.JmlBMKEK,
+              JmlBMKEKPersentase:
+                (TempDataPersentaseJmlBMKEK / this.state.JmlBMLA) * 100,
+              JmlPMTKEK: this.state.JmlPMTKEK,
+              JmlPMTKEKPersentase:
+                (TempDataPersentaseJmlPMTKEK / this.state.JmlBMKEK) * 100,
             };
             // console.log(finalDataCoc);
 
