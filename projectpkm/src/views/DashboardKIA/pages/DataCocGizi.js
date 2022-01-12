@@ -206,8 +206,18 @@ class DataCocGizi extends Component {
           alignCenter: "center",
         },
         {
+          id: "JmlSPDKPersentase",
+          label: "%",
+          alignCenter: "center",
+        },
+        {
           id: "JmlPDK",
           label: "Jumlah PDK",
+          alignCenter: "center",
+        },
+        {
+          id: "JmlPDKPersentase",
+          label: "%",
           alignCenter: "center",
         },
         {
@@ -216,8 +226,18 @@ class DataCocGizi extends Component {
           alignCenter: "center",
         },
         {
+          id: "JmlTNMPersentase",
+          label: "%",
+          alignCenter: "center",
+        },
+        {
           id: "JmlTG",
           label: "Jumlah TG",
+          alignCenter: "center",
+        },
+        {
+          id: "JmlTGPersentase",
+          label: "%",
           alignCenter: "center",
         },
         {
@@ -226,8 +246,18 @@ class DataCocGizi extends Component {
           alignCenter: "center",
         },
         {
+          id: "JmlGiburPersentase",
+          label: "%",
+          alignCenter: "center",
+        },
+        {
           id: "JmlGirang",
           label: "Jumlah Girang",
+          alignCenter: "center",
+        },
+        {
+          id: "JmlGirangPersentase",
+          label: "%",
           alignCenter: "center",
         },
         {
@@ -236,8 +266,18 @@ class DataCocGizi extends Component {
           alignCenter: "center",
         },
         {
+          id: "JmlNMLPersentase",
+          label: "%",
+          alignCenter: "center",
+        },
+        {
           id: "JmlRGzLbh",
           label: "Jumlah RGzLbh",
+          alignCenter: "center",
+        },
+        {
+          id: "JmlRGzLbhPersentase",
+          label: "%",
           alignCenter: "center",
         },
         {
@@ -246,8 +286,18 @@ class DataCocGizi extends Component {
           alignCenter: "center",
         },
         {
+          id: "JmlGzLbhPersentase",
+          label: "%",
+          alignCenter: "center",
+        },
+        {
           id: "JmlObes",
           label: "Jumlah Obes",
+          alignCenter: "center",
+        },
+        {
+          id: "JmlObesPersentase",
+          label: "%",
           alignCenter: "center",
         },
         {
@@ -276,8 +326,18 @@ class DataCocGizi extends Component {
           alignCenter: "center",
         },
         {
+          id: "JmlBBNPersentase",
+          label: "%",
+          alignCenter: "center",
+        },
+        {
           id: "JmlBBL",
           label: "Jumlah BBL",
+          alignCenter: "center",
+        },
+        {
+          id: "JmlBBLPersentase",
+          label: "%",
           alignCenter: "center",
         },
         {
@@ -443,22 +503,33 @@ class DataCocGizi extends Component {
                             JmlBalitaLess59Bln,
                             JmlBalitaNaikBB,
                             JmlSPDK,
+                            JmlSPDKPersentase,
                             JmlPDK,
+                            JmlPDKPersentase,
                             JmlTNM,
+                            JmlTNMPersentase,
                             JmlTG,
+                            JmlTGPersentase,
                             JmlGibur,
+                            JmlGiburPersentase,
                             JmlGirang,
+                            JmlGirangPersentase,
                             JmlNML,
+                            JmlNMLPersentase,
                             JmlRGzLbh,
+                            JmlRGzLbhPersentase,
                             JmlGzLbh,
+                            JmlGzLbhPersentase,
                             JmlObes,
+                            JmlObesPersentase,
                             JmlBBSK,
                             JmlBBSKPersentase,
                             JmlBBK,
                             JmlBBKPersentase,
                             JmlBBN,
-                            //JmlBBNPersentase,
+                            JmlBBNPersentase,
                             JmlBBL,
+                            JmlBBLPersentase,
                             JmlBMLA,
                             JmlBMKEK,
                             JmlBMKEKPersentase,
@@ -633,7 +704,41 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
+                                    {/* {JmlSPDKPersentase} */}
+                                    {`${JmlSPDKPersentase.toFixed(0)} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
                                     {JmlPDK}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {/* {JmlPDKPersentase} */}
+                                    {`${JmlPDKPersentase.toFixed(0)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -665,7 +770,41 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
+                                    {/* {JmlTNMPersentase} */}
+                                    {`${JmlTNMPersentase.toFixed(0)} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
                                     {JmlTG}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {/* {JmlTGPersentase} */}
+                                    {`${JmlTGPersentase.toFixed(0)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -697,7 +836,41 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
+                                    {/* {JmlGiburPersentase} */}
+                                    {`${JmlGiburPersentase.toFixed(0)} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
                                     {JmlGirang}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {/* {JmlGirangPersentase} */}
+                                    {`${JmlGirangPersentase.toFixed(0)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -729,7 +902,41 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
+                                    {/* {JmlNMLPersentase} */}
+                                    {`${JmlNMLPersentase.toFixed(0)} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
                                     {JmlRGzLbh}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {/* {JmlRGzLbhPersentase} */}
+                                    {`${JmlRGzLbhPersentase.toFixed(0)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -761,6 +968,23 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
+                                    {/* {JmlGzLbhPersentase} */}
+                                    {`${JmlGzLbhPersentase.toFixed(0)} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
                                     {JmlObes}
                                   </Typography>
                                 </Stack>
@@ -777,7 +1001,23 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {`${JmlBMKEKPersentase.toFixed(1)} %`} */}
+                                    {/* {JmlObesPersentase} */}
+                                    {`${JmlObesPersentase.toFixed(0)} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
                                     {JmlBBSK}
                                   </Typography>
                                 </Stack>
@@ -794,7 +1034,9 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {`${JmlBBSKPersentase.toFixed(1)} %`}
+                                    {/* {JmlBBSKPersentase} */}
+
+                                    {`${JmlBBSKPersentase.toFixed(0)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -826,8 +1068,8 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {JmlBBSKPersentase} */}
-                                    {`${JmlBBKPersentase.toFixed(1)} %`}
+                                    {/* {JmlBBKPersentase} */}
+                                    {`${JmlBBKPersentase.toFixed(0)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -859,7 +1101,41 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
+                                    {/* {JmlBBNPersentase} */}
+                                    {`${JmlBBNPersentase.toFixed(0)} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
                                     {JmlBBL}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {/* {JmlBBLPersentase} */}
+                                    {`${JmlBBLPersentase.toFixed(0)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -908,7 +1184,7 @@ class DataCocGizi extends Component {
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
                                     {/* {JmlBMKEKPersentase} */}
-                                    {`${JmlBMKEKPersentase.toFixed(1)} %`}
+                                    {`${JmlBMKEKPersentase.toFixed(0)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -941,7 +1217,7 @@ class DataCocGizi extends Component {
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
                                     {/* {JmlPMTKEKPersentase} */}
-                                    {`${JmlPMTKEKPersentase.toFixed(1)} %`}
+                                    {`${JmlPMTKEKPersentase.toFixed(0)} %`} */}
                                   </Typography>
                                 </Stack>
                               </TableCell>

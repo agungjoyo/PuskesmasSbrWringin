@@ -338,16 +338,77 @@ class InsertDataGizi extends Component {
                 JmlFe3: this.state.JmlFe3,
                 JmlFe1: this.state.JmlFe1,
                 JmlSPDK: this.state.JmlSPDK,
-                JmlSPDKPersentase: this.state.JmlSPDK,
+                JmlSPDKPersentase:
+                  (TempDataPersentaseJmlSPDK / this.state.JmlPDK +
+                    this.state.JmlTNM +
+                    this.state.JmlTG) *
+                  100,
                 JmlPDK: this.state.JmlPDK,
+                JmlPDKPersentase:
+                  (TempDataPersentaseJmlPDK / this.state.JmlSPDK +
+                    this.state.JmlTNM +
+                    this.state.JmlTG) *
+                  100,
                 JmlTNM: this.state.JmlTNM,
+                JmlTNMPersentase:
+                  (TempDataPersentaseJmlTNM / this.state.JmlSPDK +
+                    this.state.JmlPDK +
+                    this.state.JmlTG) *
+                  100,
                 JmlTG: this.state.JmlTG,
+                JmlTGPersentase:
+                  (TempDataPersentaseJmlTG / this.state.JmlSPDK +
+                    this.state.JmlPDK +
+                    this.state.JmlTNM) *
+                  100,
                 JmlGibur: this.state.JmlGibur,
+                JmlGiburPersentase:
+                  (TempDataPersentaseJmlGibur / this.state.JmlGirang +
+                    this.state.JmlNML +
+                    this.state.JmlRGzLbh +
+                    this.state.JmlGzLbh +
+                    this.state.JmlObes) *
+                  100,
                 JmlGirang: this.state.JmlGirang,
+                JmlGirangPersentase:
+                  (TempDataPersentaseJmlGirang / this.state.JmlGibur +
+                    this.state.JmlNML +
+                    this.state.JmlRGzLbh +
+                    this.state.JmlGzLbh +
+                    this.state.JmlObes) *
+                  100,
                 JmlNML: this.state.JmlNML,
+                JmlNMLPersentase:
+                  (TempDataPersentaseJmlNML / this.state.JmlGirang +
+                    this.state.JmlGibur +
+                    this.state.JmlRGzLbh +
+                    this.state.JmlGzLbh +
+                    this.state.JmlObes) *
+                  100,
                 JmlRGzLbh: this.state.JmlRGzLbh,
+                JmlRGzLbhPersentase:
+                  (TempDataPersentaseJmlRGzLbh / this.state.JmlGirang +
+                    this.state.JmlNML +
+                    this.state.JmlGibur +
+                    this.state.JmlGzLbh +
+                    this.state.JmlObes) *
+                  100,
                 JmlGzLbh: this.state.JmlGzLbh,
+                JmlGzLbhPersentase:
+                  (TempDataPersentaseJmlGzLbh / this.state.JmlGirang +
+                    this.state.JmlNML +
+                    this.state.JmlGibur +
+                    this.state.JmlRGzLbh +
+                    this.state.JmlObes) *
+                  100,
                 JmlObes: this.state.JmlObes,
+                JmlObesPersentase:
+                  (TempDataPersentaseJmlObes / this.state.JmlGirang +
+                    this.state.JmlNML +
+                    this.state.JmlGibur +
+                    this.state.JmlGzLbh +
+                    this.state.JmlRGzLbh) *
+                  100,
                 JmlBBSK: this.state.JmlBBSK,
                 JmlBBSKPersentase:
                   (TempDataPersentaseJmlBBSK / this.state.JmlBBK +
@@ -360,9 +421,29 @@ class InsertDataGizi extends Component {
                     this.state.JmlBBN +
                     this.state.JmlBBL) *
                   100,
+                JmlBBSKPersentase:
+                  (TempDataPersentaseJmlBBSK / this.state.JmlBBK +
+                    this.state.JmlBBN +
+                    this.state.JmlBBL) *
+                  100,
+                JmlBBK: this.state.JmlBBK,
+                JmlBBKPersentase:
+                  (TempDataPersentaseJmlBBK / this.state.JmlBBSK +
+                    this.state.JmlBBN +
+                    this.state.JmlBBL) *
+                  100,
                 JmlBBN: this.state.JmlBBN,
+                JmlBBNPersentase:
+                  (TempDataPersentaseJmlBBN / this.state.JmlBBSK +
+                    this.state.JmlBBK +
+                    this.state.JmlBBL) *
+                  100,
                 JmlBBL: this.state.JmlBBL,
-                JmlBMLA: this.state.JmlBMLA,
+                JmlBBLPersentase:
+                  (TempDataPersentaseJmlBBL / this.state.JmlBBSK +
+                    this.state.JmlBBK +
+                    this.state.JmlBBN) *
+                  100,
                 JmlBMKEK: this.state.JmlBMKEK,
                 JmlBMKEKPersentase:
                   (TempDataPersentaseJmlBMKEK / this.state.JmlBMLA) * 100,
@@ -533,16 +614,77 @@ class InsertDataGizi extends Component {
               JmlFe3: this.state.JmlFe3,
               JmlFe1: this.state.JmlFe1,
               JmlSPDK: this.state.JmlSPDK,
-              JmlSPDKPersentase: this.state.JmlSPDK,
+              JmlSPDKPersentase:
+                (TempDataPersentaseJmlSPDK / this.state.JmlPDK +
+                  this.state.JmlTNM +
+                  this.state.JmlTG) *
+                100,
               JmlPDK: this.state.JmlPDK,
+              JmlPDKPersentase:
+                (TempDataPersentaseJmlPDK / this.state.JmlSPDK +
+                  this.state.JmlTNM +
+                  this.state.JmlTG) *
+                100,
               JmlTNM: this.state.JmlTNM,
+              JmlTNMPersentase:
+                (TempDataPersentaseJmlTNM / this.state.JmlSPDK +
+                  this.state.JmlPDK +
+                  this.state.JmlTG) *
+                100,
               JmlTG: this.state.JmlTG,
+              JmlTGPersentase:
+                (TempDataPersentaseJmlTG / this.state.JmlSPDK +
+                  this.state.JmlPDK +
+                  this.state.JmlTNM) *
+                100,
               JmlGibur: this.state.JmlGibur,
+              JmlGiburPersentase:
+                (TempDataPersentaseJmlGibur / this.state.JmlGirang +
+                  this.state.JmlNML +
+                  this.state.JmlRGzLbh +
+                  this.state.JmlGzLbh +
+                  this.state.JmlObes) *
+                100,
               JmlGirang: this.state.JmlGirang,
+              JmlGirangPersentase:
+                (TempDataPersentaseJmlGirang / this.state.JmlGibur +
+                  this.state.JmlNML +
+                  this.state.JmlRGzLbh +
+                  this.state.JmlGzLbh +
+                  this.state.JmlObes) *
+                100,
               JmlNML: this.state.JmlNML,
+              JmlNMLPersentase:
+                (TempDataPersentaseJmlNML / this.state.JmlGirang +
+                  this.state.JmlGibur +
+                  this.state.JmlRGzLbh +
+                  this.state.JmlGzLbh +
+                  this.state.JmlObes) *
+                100,
               JmlRGzLbh: this.state.JmlRGzLbh,
+              JmlRGzLbhPersentase:
+                (TempDataPersentaseJmlRGzLbh / this.state.JmlGirang +
+                  this.state.JmlNML +
+                  this.state.JmlGibur +
+                  this.state.JmlGzLbh +
+                  this.state.JmlObes) *
+                100,
               JmlGzLbh: this.state.JmlGzLbh,
+              JmlGzLbhPersentase:
+                (TempDataPersentaseJmlGzLbh / this.state.JmlGirang +
+                  this.state.JmlNML +
+                  this.state.JmlGibur +
+                  this.state.JmlRGzLbh +
+                  this.state.JmlObes) *
+                100,
               JmlObes: this.state.JmlObes,
+              JmlObesPersentase:
+                (TempDataPersentaseJmlObes / this.state.JmlGirang +
+                  this.state.JmlNML +
+                  this.state.JmlGibur +
+                  this.state.JmlGzLbh +
+                  this.state.JmlRGzLbh) *
+                100,
               JmlBBSK: this.state.JmlBBSK,
               JmlBBSKPersentase:
                 (TempDataPersentaseJmlBBSK / this.state.JmlBBK +
@@ -556,7 +698,17 @@ class InsertDataGizi extends Component {
                   this.state.JmlBBL) *
                 100,
               JmlBBN: this.state.JmlBBN,
+              JmlBBNPersentase:
+                (TempDataPersentaseJmlBBN / this.state.JmlBBSK +
+                  this.state.JmlBBK +
+                  this.state.JmlBBL) *
+                100,
               JmlBBL: this.state.JmlBBL,
+              JmlBBLPersentase:
+                (TempDataPersentaseJmlBBL / this.state.JmlBBSK +
+                  this.state.JmlBBK +
+                  this.state.JmlBBN) *
+                100,
               JmlBMLA: this.state.JmlBMLA,
               JmlBMKEK: this.state.JmlBMKEK,
               JmlBMKEKPersentase:
