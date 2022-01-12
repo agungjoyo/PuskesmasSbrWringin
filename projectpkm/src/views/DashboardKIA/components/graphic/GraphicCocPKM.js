@@ -131,6 +131,26 @@ class GraphicCocPKM extends Component {
             "#000000",
           ],
         },
+        formatter: (value, data) => {
+          console.log(data);
+          if (data.seriesIndex == 2) {
+            let percentage = 0;
+            percentage =
+              (
+                (data.w.config.series[2].data[data.dataPointIndex] /
+                  data.w.config.series[0].data[data.dataPointIndex]) *
+                100
+              ).toFixed(1) + " %";
+            console.log(
+              data.w.config.series[2].data[data.dataPointIndex],
+              data.w.config.series[0].data[data.dataPointIndex],
+              data.dataPointIndex
+            );
+            return percentage;
+          } else {
+            return value;
+          }
+        },
       },
       grid: {
         show: false,
@@ -574,6 +594,7 @@ class GraphicCocPKM extends Component {
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
+    console.log(dataFinal);
     this.setState(
       {
         [event.target.name]: event.target.value,
@@ -706,7 +727,8 @@ class GraphicCocPKM extends Component {
                                 dataFinal[a].set[i].Bulan.toLowerCase() &&
                               this.state.yearIndex === dataFinal[a].set[i].Tahun
                             ) {
-                              sasaran = dataFinal[a].set[i].SasaranBayiTL;
+                              sasaran =
+                                dataFinal[a].set[i].SasaranKelahiranHidupTL;
                               sasaranBayiRisti =
                                 dataFinal[a].set[i].SasaranBayiRistiTL;
                               lahirHidupBulan =
@@ -881,7 +903,7 @@ class GraphicCocPKM extends Component {
                             dataFinal[a].set[i].Bulan.toLowerCase() &&
                           this.state.yearIndex === dataFinal[a].set[i].Tahun
                         ) {
-                          sasaran = dataFinal[a].set[i].SasaranBayiTL;
+                          sasaran = dataFinal[a].set[i].SasaranKelahiranHidupTL;
                           sasaranBayiRisti =
                             dataFinal[a].set[i].SasaranBayiRistiTL;
                           lahirHidupBulan =
@@ -1033,7 +1055,7 @@ class GraphicCocPKM extends Component {
                 this.state.yearIndex.toLowerCase() ===
                 dataFinal[a].set[i].Tahun.toLowerCase()
               ) {
-                sasaran = dataFinal[a].set[i].SasaranBayiTL;
+                sasaran = dataFinal[a].set[i].SasaranKelahiranHidupTL;
                 sasaranBayiRisti = dataFinal[a].set[i].SasaranBayiRistiTL;
                 lahirHidupYear =
                   lahirHidupYear + dataFinal[a].set[i].PencapaianLahirHidupTL;
@@ -1159,7 +1181,6 @@ class GraphicCocPKM extends Component {
     );
   };
   render() {
-    console.log(this.state);
     const { data } = this.props;
     if (data == undefined) {
       return <div>Loading...</div>;
