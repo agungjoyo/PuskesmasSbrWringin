@@ -43,24 +43,31 @@ class InsertData extends Component {
       PencapaianLahirHidupLK: "",
       PencapaianLahirHidupPR: "",
       PencapaianLahirHidupTL: "",
+      PencapaianLahirHidupPersentase: "",
       PencapaianLahirMatiLK: "",
       PencapaianLahirMatiPR: "",
       PencapaianLahirMatiTL: "",
+      PencapaianLahirMatiPersentase: "",
       PencapaianKNPertamaLK: "",
       PencapaianKNPertamaPR: "",
       PencapaianKNPertamaTL: "",
+      PencapaianKNPertamaPersentase: "",
       PencapaianKNKeduaLK: "",
       PencapaianKNKeduaPR: "",
       PencapaianKNKeduaTL: "",
+      PencapaianKNKeduaPersentase: "",
       PencapaianKNLengkapLK: "",
       PencapaianKNLengkapPR: "",
       PencapaianKNLengkapTL: "",
+      PencapaianKNLengkapPersentase: "",
       NeonatalKompLK: "",
       NeonatalKompPR: "",
       NeonatalKompTL: "",
+      NeonatalKompPersentase: "",
       KunjunganBayiParipurnaLK: "",
       KunjunganBayiParipurnaPR: "",
       KunjunganBayiParipurnaTL: "",
+      KunjunganBayiParipurnaPersentase: "",
       RumahTL: "",
       PosyanduTL: "",
       PolindesTL: "",
@@ -130,24 +137,31 @@ class InsertData extends Component {
               PencapaianLahirHidupLK: data[i][14],
               PencapaianLahirHidupPR: data[i][15],
               PencapaianLahirHidupTL: data[i][16],
+              // PencapaianLahirHidupPersentase: data[i][22],
               PencapaianLahirMatiLK: data[i][27],
               PencapaianLahirMatiPR: data[i][28],
               PencapaianLahirMatiTL: data[i][29],
+              // PencapaianLahirMatiPersentase: data[i][35],
               PencapaianKNPertamaLK: data[i][40],
               PencapaianKNPertamaPR: data[i][41],
               PencapaianKNPertamaTL: data[i][42],
+              // PencapaianKNPertamaPersentase: data[i][48],
               PencapaianKNKeduaLK: data[i][53],
               PencapaianKNKeduaPR: data[i][54],
               PencapaianKNKeduaTL: data[i][55],
+              // PencapaianKNKeduaPersentase: data[i][61],
               PencapaianKNLengkapLK: data[i][66],
               PencapaianKNLengkapPR: data[i][67],
               PencapaianKNLengkapTL: data[i][68],
+              // PencapaianKNLengkapPersentase: data[i][74],
               NeonatalKompLK: data[i][79],
               NeonatalKompPR: data[i][80],
               NeonatalKompTL: data[i][81],
+              // NeonatalKompPersentase: data[i][90],
               KunjunganBayiParipurnaLK: data[i][92],
               KunjunganBayiParipurnaPR: data[i][93],
               KunjunganBayiParipurnaTL: data[i][94],
+              // KunjunganBayiParipurnaPersentase: data[i][100],
             },
             () => {
               this.setState(
@@ -528,10 +542,10 @@ class InsertData extends Component {
   };
   render() {
     return (
-      <Page title="Dashboard | Minimal-UI">
+      <Page title="Dashboard | Imunisasi">
         <Container maxWidth="xl">
           <Box sx={{ pb: 5 }}>
-            <Typography variant="h4">Insert Data</Typography>
+            <Typography variant="h4">Insert Data KIA</Typography>
           </Box>
           <Grid container spacing={3}>
             <Grid

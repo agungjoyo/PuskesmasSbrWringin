@@ -45,7 +45,7 @@ class DataCoc extends Component {
     selected: [],
     orderBy: "name",
     filterName: "",
-    rowsPerPage: 5,
+    rowsPerPage: 6,
     isLoading: true,
   };
   render() {
@@ -90,22 +90,43 @@ class DataCoc extends Component {
             value.PencapaianLahirHidupTL?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
+            value.PencapaianLahirHidupPersentase?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
             value.PencapaianLahirMatiTL?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.PencapaianLahirMatiPersentase?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
             value.PencapaianKNPertamaTL?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
+            value.PencapaianKNPertamaPersentase?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
             value.PencapaianKNKeduaTL?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.PencapaianKNKeduaPersentase?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
             value.PencapaianKNLengkapTL?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
+            value.PencapaianKNLengkapPersentase?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
             value.NeonatalKompTL?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
+            value.NeonatalKompPersentase?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
             value.KunjunganBayiParipurnaTL?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.KunjunganBayiParipurnaPersentase?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
             value.Tahun?.toString().toLowerCase().includes(query.toLowerCase())
@@ -135,15 +156,40 @@ class DataCoc extends Component {
           alignCenter: "center",
         },
         {
+          id: "PencapaianLahirHidupPersentase",
+          label: "%",
+          alignCenter: "center",
+        },
+        {
           id: "PencapaianLahirMatiTL",
           label: "Bayi Lahir Mati",
           alignCenter: "center",
         },
+        {
+          id: "PencapaianLahirMatiPersentase",
+          label: "%",
+          alignCenter: "center",
+        },
         { id: "PencapaianKNPertamaTL", label: "KN 1", alignCenter: "center" },
+        {
+          id: "PencapaianKNPertamaPersentase",
+          label: "%",
+          alignCenter: "center",
+        },
         { id: "PencapaianKNKeduaTL", label: "KN 2", alignCenter: "center" },
+        {
+          id: "PencapaianKNKeduaPersentase",
+          label: "%",
+          alignCenter: "center",
+        },
         {
           id: "PencapaianKNLengkapTL",
           label: "KN Lengkap",
+          alignCenter: "center",
+        },
+        {
+          id: "PencapaianKNLengkapPersentase",
+          label: "%",
           alignCenter: "center",
         },
         {
@@ -152,8 +198,18 @@ class DataCoc extends Component {
           alignCenter: "center",
         },
         {
+          id: "NeonatalKompPersentase",
+          label: "%",
+          alignCenter: "center",
+        },
+        {
           id: "KunjunganBayiParipurnaTL",
           label: "Bayi Paripurna",
+          alignCenter: "center",
+        },
+        {
+          id: "KunjunganBayiParipurnaPersentase",
+          label: "%",
           alignCenter: "center",
         },
         { id: "" },
@@ -264,7 +320,7 @@ class DataCoc extends Component {
                   to="/dashboard/InsertData"
                   startIcon={<Icon icon={plusFill} />}
                 >
-                  New Data
+                  Tambah Data Baru
                 </Button>
               </div>
             </Stack>
@@ -302,12 +358,19 @@ class DataCoc extends Component {
                             Puskesmas,
                             SasaranBayiTL,
                             PencapaianLahirHidupTL,
+                            PencapaianLahirHidupPersentase,
                             PencapaianLahirMatiTL,
+                            PencapaianLahirMatiPersentase,
                             PencapaianKNPertamaTL,
+                            PencapaianKNPertamaPersentase,
                             PencapaianKNKeduaTL,
+                            PencapaianKNKeduaPersentase,
                             PencapaianKNLengkapTL,
+                            PencapaianKNLengkapPersentase,
                             NeonatalKompTL,
+                            NeonatalKompPersentase,
                             KunjunganBayiParipurnaTL,
+                            KunjunganBayiParipurnaPersentase,
                           } = row;
                           const isItemSelected =
                             this.state.selected.indexOf(Bulan) !== -1;
@@ -413,7 +476,43 @@ class DataCoc extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
+                                    {`${PencapaianLahirHidupPersentase.toFixed(
+                                      1
+                                    )} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
                                     {PencapaianLahirMatiTL}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {`${PencapaianLahirMatiPersentase.toFixed(
+                                      1
+                                    )} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -445,7 +544,43 @@ class DataCoc extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
+                                    {`${PencapaianKNPertamaPersentase.toFixed(
+                                      1
+                                    )} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
                                     {PencapaianKNKeduaTL}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {`${PencapaianKNKeduaPersentase.toFixed(
+                                      1
+                                    )} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -477,6 +612,24 @@ class DataCoc extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
+                                    {`${PencapaianKNLengkapPersentase.toFixed(
+                                      1
+                                    )} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
                                     {NeonatalKompTL}
                                   </Typography>
                                 </Stack>
@@ -493,7 +646,41 @@ class DataCoc extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
+                                    {`${NeonatalKompPersentase.toFixed(1)} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
                                     {KunjunganBayiParipurnaTL}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {`${KunjunganBayiParipurnaPersentase.toFixed(
+                                      1
+                                    )} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>

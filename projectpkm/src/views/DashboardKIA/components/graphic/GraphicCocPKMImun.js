@@ -267,7 +267,7 @@ class GraphicCocPKMImun extends Component {
   handleChangeBulan = () => {
     const { data } = this.props;
     console.log(this.state, data);
-    const desaTemp = [];
+    const desaTemp = ["PUSKESMAS SUMBER WRINGIN"];
     for (let i = 0; i < data.length; i++) {
       desaTemp.push(data[i].Puskesmas);
     }
@@ -412,6 +412,7 @@ class GraphicCocPKMImun extends Component {
     for (let i = 0; i < data.length; i++) {
       desaTemp.push(data[i].Puskesmas);
     }
+    desaTemp.push("PUSKESMAS SUMBER WRINGIN");
     const desa = Array.from(new Set(desaTemp));
     this.setState(
       {
@@ -691,12 +692,6 @@ class GraphicCocPKMImun extends Component {
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
-
-    // const desaTemp = [];
-    // for (let i = 0; i < data.length; i++) {
-    //   desaTemp.push(data[i].Puskesmas);
-    // }
-    // const desa = Array.from(new Set(desaTemp));
     this.setState(
       {
         [event.target.name]: event.target.value,
@@ -733,103 +728,760 @@ class GraphicCocPKMImun extends Component {
         let IPVThisMonthBulan = 0;
         let IDLThisMonthBulan = 0;
         let SasaranBayiBaruLahirBulan = 0;
-        for (let a = 0; a < dataFinal.length; a++) {
-          SasaranSurvivingInfantBulan = 0;
-          HBOLessOneDTMBulan = 0;
-          HBOLessOneWTMBulan = 0;
-          BCGThisMonthBulan = 0;
-          CampakRubellaTMBulan = 0;
-          Polio1ThisMonthBulan = 0;
-          DPTHB1ThisMonthBulan = 0;
-          Polio2ThisMonthBulan = 0;
-          DPTHB2ThisMonthBulan = 0;
-          Polio3ThisMonthBulan = 0;
-          DPTHB3ThisMonthBulan = 0;
-          Polio4ThisMonthBulan = 0;
-          IPVThisMonthBulan = 0;
-          IDLThisMonthBulan = 0;
-          SasaranBayiBaruLahirBulan = 0;
-          // for (let b = 0; b < this.state.desaIndex.length; b++) {
-          //   if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
-          //     for (let i = 0; i < dataFinal[i].set.length; i++) {
-          //       if (
-          //         this.state.monthIndex.toLowerCase() ===
-          //           dataFinal[a].set[i].Bulan.toLowerCase() &&
-          //         this.state.yearIndex === dataFinal[a].set[i].Tahun
-          //       ) {
-          for (let b = 0; b < this.state.desaIndex.length; b++) {
-            if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
-              for (let i = 0; i < dataFinal[i].set.length; i++) {
-                for (let c = 0; c < this.state.monthIndex.length; c++) {
-                  if (
-                    this.state.monthIndex[c]?.toLowerCase() ===
-                      dataFinal[a].set[i].Bulan.toLowerCase() &&
-                    this.state.yearIndex === dataFinal[a].set[i].Tahun
-                  ) {
-                    // console.log(a, dataFinal[a].set[i].SasaranBayiTL);
-                    SasaranBayiBaruLahirBulan =
-                      SasaranBayiBaruLahirBulan +
-                      dataFinal[a].set[i].SasaranBayiBaruLahir;
-                    SasaranSurvivingInfantBulan =
-                      SasaranSurvivingInfantBulan +
-                      dataFinal[a].set[i].SasaranSurvivingInfant;
-                    HBOLessOneDTMBulan =
-                      HBOLessOneDTMBulan + dataFinal[a].set[c].HBOLessOneDTM;
-                    HBOLessOneWTMBulan =
-                      HBOLessOneWTMBulan + dataFinal[a].set[c].HBOLessOneWTM;
-                    BCGThisMonthBulan =
-                      BCGThisMonthBulan + dataFinal[a].set[c].BCGThisMonth;
-                    CampakRubellaTMBulan =
-                      CampakRubellaTMBulan +
-                      dataFinal[a].set[c].CampakRubellaTM;
-                    Polio1ThisMonthBulan =
-                      Polio1ThisMonthBulan +
-                      dataFinal[a].set[c].Polio1ThisMonth;
-                    DPTHB1ThisMonthBulan =
-                      DPTHB1ThisMonthBulan +
-                      dataFinal[a].set[c].DPTHB1ThisMonth;
-                    Polio2ThisMonthBulan =
-                      Polio2ThisMonthBulan +
-                      dataFinal[a].set[c].Polio2ThisMonth;
-                    DPTHB2ThisMonthBulan =
-                      DPTHB2ThisMonthBulan +
-                      dataFinal[a].set[c].DPTHB2ThisMonth;
-                    Polio3ThisMonthBulan =
-                      Polio3ThisMonthBulan +
-                      dataFinal[a].set[c].Polio3ThisMonth;
-                    DPTHB3ThisMonthBulan =
-                      DPTHB3ThisMonthBulan +
-                      dataFinal[a].set[c].DPTHB3ThisMonth;
-                    Polio4ThisMonthBulan =
-                      Polio4ThisMonthBulan +
-                      dataFinal[a].set[c].Polio4ThisMonth;
-                    IPVThisMonthBulan =
-                      IPVThisMonthBulan + dataFinal[a].set[c].IPVThisMonth;
-                    IDLThisMonthBulan =
-                      IDLThisMonthBulan + dataFinal[a].set[c].IDLThisMonth;
+        if (this.state.desaIndex == "PUSKESMAS SUMBER WRINGIN") {
+          this.setState(
+            {
+              desaIndex: ["PUSKESMAS SUMBER WRINGIN"],
+            },
+            () => {
+              let FinalSeries1 = 0;
+              let FinalSeries2 = 0;
+              let FinalSeries3 = 0;
+              let FinalSeries4 = 0;
+              let FinalSeries5 = 0;
+              let FinalSeries6 = 0;
+              let FinalSeries7 = 0;
+              let FinalSeries8 = 0;
+              let FinalSeries9 = 0;
+              let FinalSeries10 = 0;
+              let FinalSeries11 = 0;
+              let FinalSeries12 = 0;
+              let FinalSeries13 = 0;
+              let FinalSeries14 = 0;
+              let FinalSeries15 = 0;
+              this.setState(
+                {
+                  series: [
+                    {
+                      name: "Sasaran BBL",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Sasaran SI",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "HBO < 24 Jam ",
+                      type: "column",
+                      data: [],
+                    },
+
+                    {
+                      name: "HBO 0-7 hari ",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "BCG ",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Polio-1 ",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "DPTHB-1 ",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Polio-2 ",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "DPTHB-2 ",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Polio-3 ",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "DPTHB-3 ",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Polio-4 ",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "IPV ",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Campak-Rubella ",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "IDL ",
+                      type: "column",
+                      data: [],
+                    },
+                  ],
+                  options: {
+                    ...this.state.options,
+                    dataLabels: {
+                      ...this.state.options.dataLabels,
+                      offsetY: -20,
+                      offsetX: 0,
+                    },
+                    plotOptions: {
+                      ...this.state.options.plotOptions,
+                      bar: {
+                        ...this.state.options.plotOptions.bar,
+                        horizontal: false,
+                      },
+                    },
+                    xaxis: {
+                      ...this.state.options.xaxis,
+                      categories: [],
+                    },
+                  },
+                },
+                () => {
+                  for (let a = 0; a < dataFinal.length; a++) {
+                    SasaranSurvivingInfantBulan = 0;
+                    HBOLessOneDTMBulan = 0;
+                    HBOLessOneWTMBulan = 0;
+                    BCGThisMonthBulan = 0;
+                    CampakRubellaTMBulan = 0;
+                    Polio1ThisMonthBulan = 0;
+                    DPTHB1ThisMonthBulan = 0;
+                    Polio2ThisMonthBulan = 0;
+                    DPTHB2ThisMonthBulan = 0;
+                    Polio3ThisMonthBulan = 0;
+                    DPTHB3ThisMonthBulan = 0;
+                    Polio4ThisMonthBulan = 0;
+                    IPVThisMonthBulan = 0;
+                    IDLThisMonthBulan = 0;
+                    SasaranBayiBaruLahirBulan = 0;
+                    for (let b = 0; b < this.state.desa.length; b++) {
+                      if (dataFinal[a].Puskesmas == this.state.desa[b]) {
+                        for (let i = 0; i < dataFinal[i].set.length; i++) {
+                          for (
+                            let c = 0;
+                            c < this.state.monthIndex.length;
+                            c++
+                          ) {
+                            if (
+                              this.state.monthIndex[c]?.toLowerCase() ===
+                                dataFinal[a].set[i].Bulan.toLowerCase() &&
+                              this.state.yearIndex === dataFinal[a].set[i].Tahun
+                            ) {
+                              SasaranBayiBaruLahirBulan =
+                                SasaranBayiBaruLahirBulan +
+                                dataFinal[a].set[i].SasaranBayiBaruLahir;
+                              SasaranSurvivingInfantBulan =
+                                SasaranSurvivingInfantBulan +
+                                dataFinal[a].set[i].SasaranSurvivingInfant;
+                              HBOLessOneDTMBulan =
+                                HBOLessOneDTMBulan +
+                                dataFinal[a].set[c].HBOLessOneDTM;
+                              HBOLessOneWTMBulan =
+                                HBOLessOneWTMBulan +
+                                dataFinal[a].set[c].HBOLessOneWTM;
+                              BCGThisMonthBulan =
+                                BCGThisMonthBulan +
+                                dataFinal[a].set[c].BCGThisMonth;
+                              CampakRubellaTMBulan =
+                                CampakRubellaTMBulan +
+                                dataFinal[a].set[c].CampakRubellaTM;
+                              Polio1ThisMonthBulan =
+                                Polio1ThisMonthBulan +
+                                dataFinal[a].set[c].Polio1ThisMonth;
+                              DPTHB1ThisMonthBulan =
+                                DPTHB1ThisMonthBulan +
+                                dataFinal[a].set[c].DPTHB1ThisMonth;
+                              Polio2ThisMonthBulan =
+                                Polio2ThisMonthBulan +
+                                dataFinal[a].set[c].Polio2ThisMonth;
+                              DPTHB2ThisMonthBulan =
+                                DPTHB2ThisMonthBulan +
+                                dataFinal[a].set[c].DPTHB2ThisMonth;
+                              Polio3ThisMonthBulan =
+                                Polio3ThisMonthBulan +
+                                dataFinal[a].set[c].Polio3ThisMonth;
+                              DPTHB3ThisMonthBulan =
+                                DPTHB3ThisMonthBulan +
+                                dataFinal[a].set[c].DPTHB3ThisMonth;
+                              Polio4ThisMonthBulan =
+                                Polio4ThisMonthBulan +
+                                dataFinal[a].set[c].Polio4ThisMonth;
+                              IPVThisMonthBulan =
+                                IPVThisMonthBulan +
+                                dataFinal[a].set[c].IPVThisMonth;
+                              IDLThisMonthBulan =
+                                IDLThisMonthBulan +
+                                dataFinal[a].set[c].IDLThisMonth;
+                            }
+                          }
+                        }
+                        series1.push(SasaranBayiBaruLahirBulan);
+                        series2.push(SasaranSurvivingInfantBulan);
+                        series3.push(HBOLessOneDTMBulan);
+                        series4.push(HBOLessOneWTMBulan);
+                        series5.push(BCGThisMonthBulan);
+                        series6.push(CampakRubellaTMBulan);
+                        series7.push(Polio1ThisMonthBulan);
+                        series8.push(DPTHB1ThisMonthBulan);
+                        series9.push(Polio2ThisMonthBulan);
+                        series10.push(DPTHB2ThisMonthBulan);
+                        series11.push(Polio3ThisMonthBulan);
+                        series12.push(DPTHB3ThisMonthBulan);
+                        series13.push(Polio4ThisMonthBulan);
+                        series14.push(IPVThisMonthBulan);
+                        series15.push(IDLThisMonthBulan);
+                      }
+                    }
+                  }
+                  for (let s1 = 0; s1 < series1.length; s1++) {
+                    FinalSeries1 = FinalSeries1 + series1[s1];
+                  }
+                  for (let s2 = 0; s2 < series2.length; s2++) {
+                    FinalSeries2 = FinalSeries2 + series2[s2];
+                  }
+                  for (let s3 = 0; s3 < series3.length; s3++) {
+                    FinalSeries3 = FinalSeries3 + series3[s3];
+                  }
+                  for (let s4 = 0; s4 < series4.length; s4++) {
+                    FinalSeries4 = FinalSeries4 + series4[s4];
+                  }
+                  for (let s5 = 0; s5 < series5.length; s5++) {
+                    FinalSeries5 = FinalSeries5 + series5[s5];
+                  }
+                  for (let s6 = 0; s6 < series6.length; s6++) {
+                    FinalSeries6 = FinalSeries6 + series6[s6];
+                  }
+                  for (let s7 = 0; s7 < series7.length; s7++) {
+                    FinalSeries7 = FinalSeries7 + series7[s7];
+                  }
+                  for (let s8 = 0; s8 < series8.length; s8++) {
+                    FinalSeries8 = FinalSeries8 + series8[s8];
+                  }
+                  for (let s9 = 0; s9 < series9.length; s9++) {
+                    FinalSeries9 = FinalSeries9 + series9[s9];
+                  }
+                  for (let s10 = 0; s10 < series10.length; s10++) {
+                    FinalSeries10 = FinalSeries10 + series10[s10];
+                  }
+                  for (let s11 = 0; s11 < series11.length; s11++) {
+                    FinalSeries11 = FinalSeries11 + series11[s11];
+                  }
+                  for (let s12 = 0; s12 < series12.length; s12++) {
+                    FinalSeries12 = FinalSeries12 + series12[s12];
+                  }
+                  for (let s13 = 0; s13 < series13.length; s13++) {
+                    FinalSeries13 = FinalSeries13 + series13[s13];
+                  }
+                  for (let s14 = 0; s14 < series14.length; s14++) {
+                    FinalSeries14 = FinalSeries14 + series14[s14];
+                  }
+                  for (let s15 = 0; s15 < series15.length; s15++) {
+                    FinalSeries15 = FinalSeries15 + series15[s15];
+                  }
+
+                  this.setState({
+                    series: [
+                      {
+                        name: "Sasaran BBL",
+                        type: "column",
+                        data: [FinalSeries1],
+                      },
+                      {
+                        name: "Sasaran SI",
+                        type: "column",
+                        data: [FinalSeries2],
+                      },
+                      {
+                        name: "HBO < 24 Jam ",
+                        type: "column",
+                        data: [FinalSeries3],
+                      },
+
+                      {
+                        name: "HBO 0-7 hari ",
+                        type: "column",
+                        data: [FinalSeries4],
+                      },
+                      {
+                        name: "BCG ",
+                        type: "column",
+                        data: [FinalSeries5],
+                      },
+                      {
+                        name: "Polio-1 ",
+                        type: "column",
+                        data: [FinalSeries6],
+                      },
+                      {
+                        name: "DPTHB-1 ",
+                        type: "column",
+                        data: [FinalSeries7],
+                      },
+                      {
+                        name: "Polio-2 ",
+                        type: "column",
+                        data: [FinalSeries8],
+                      },
+                      {
+                        name: "DPTHB-2 ",
+                        type: "column",
+                        data: [FinalSeries9],
+                      },
+                      {
+                        name: "Polio-3 ",
+                        type: "column",
+                        data: [FinalSeries10],
+                      },
+                      {
+                        name: "DPTHB-3 ",
+                        type: "column",
+                        data: [FinalSeries11],
+                      },
+                      {
+                        name: "Polio-4 ",
+                        type: "column",
+                        data: [FinalSeries12],
+                      },
+                      {
+                        name: "IPV ",
+                        type: "column",
+                        data: [FinalSeries13],
+                      },
+                      {
+                        name: "Campak-Rubella ",
+                        type: "column",
+                        data: [FinalSeries14],
+                      },
+                      {
+                        name: "IDL ",
+                        type: "column",
+                        data: [FinalSeries15],
+                      },
+                    ],
+                    options: {
+                      ...this.state.options,
+                      xaxis: {
+                        ...this.state.options.xaxis,
+                        categories: ["PUSKESMAS SUMBER WRINGIN"],
+                      },
+                    },
+                  });
+                }
+              );
+            }
+          );
+        } else {
+          const deletePuskesmas = _.differenceWith(
+            this.state.desaIndex,
+            ["PUSKESMAS SUMBER WRINGIN"],
+            _.isEqual
+          );
+          this.setState(
+            {
+              desaIndex: deletePuskesmas,
+              options: {
+                ...this.state.options,
+                dataLabels: {
+                  ...this.state.options.dataLabels,
+                  offsetY: -20,
+                  offsetX: 0,
+                },
+                plotOptions: {
+                  ...this.state.options.plotOptions,
+                  bar: {
+                    ...this.state.options.plotOptions.bar,
+                    horizontal: false,
+                  },
+                },
+                xaxis: {
+                  ...this.state.options.xaxis,
+                  categories: [],
+                },
+              },
+            },
+            () => {
+              for (let a = 0; a < dataFinal.length; a++) {
+                SasaranSurvivingInfantBulan = 0;
+                HBOLessOneDTMBulan = 0;
+                HBOLessOneWTMBulan = 0;
+                BCGThisMonthBulan = 0;
+                CampakRubellaTMBulan = 0;
+                Polio1ThisMonthBulan = 0;
+                DPTHB1ThisMonthBulan = 0;
+                Polio2ThisMonthBulan = 0;
+                DPTHB2ThisMonthBulan = 0;
+                Polio3ThisMonthBulan = 0;
+                DPTHB3ThisMonthBulan = 0;
+                Polio4ThisMonthBulan = 0;
+                IPVThisMonthBulan = 0;
+                IDLThisMonthBulan = 0;
+                SasaranBayiBaruLahirBulan = 0;
+                for (let b = 0; b < this.state.desaIndex.length; b++) {
+                  if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
+                    for (let i = 0; i < dataFinal[i].set.length; i++) {
+                      for (let c = 0; c < this.state.monthIndex.length; c++) {
+                        if (
+                          this.state.monthIndex[c]?.toLowerCase() ===
+                            dataFinal[a].set[i].Bulan.toLowerCase() &&
+                          this.state.yearIndex === dataFinal[a].set[i].Tahun
+                        ) {
+                          SasaranBayiBaruLahirBulan =
+                            SasaranBayiBaruLahirBulan +
+                            dataFinal[a].set[i].SasaranBayiBaruLahir;
+                          SasaranSurvivingInfantBulan =
+                            SasaranSurvivingInfantBulan +
+                            dataFinal[a].set[i].SasaranSurvivingInfant;
+                          HBOLessOneDTMBulan =
+                            HBOLessOneDTMBulan +
+                            dataFinal[a].set[c].HBOLessOneDTM;
+                          HBOLessOneWTMBulan =
+                            HBOLessOneWTMBulan +
+                            dataFinal[a].set[c].HBOLessOneWTM;
+                          BCGThisMonthBulan =
+                            BCGThisMonthBulan +
+                            dataFinal[a].set[c].BCGThisMonth;
+                          CampakRubellaTMBulan =
+                            CampakRubellaTMBulan +
+                            dataFinal[a].set[c].CampakRubellaTM;
+                          Polio1ThisMonthBulan =
+                            Polio1ThisMonthBulan +
+                            dataFinal[a].set[c].Polio1ThisMonth;
+                          DPTHB1ThisMonthBulan =
+                            DPTHB1ThisMonthBulan +
+                            dataFinal[a].set[c].DPTHB1ThisMonth;
+                          Polio2ThisMonthBulan =
+                            Polio2ThisMonthBulan +
+                            dataFinal[a].set[c].Polio2ThisMonth;
+                          DPTHB2ThisMonthBulan =
+                            DPTHB2ThisMonthBulan +
+                            dataFinal[a].set[c].DPTHB2ThisMonth;
+                          Polio3ThisMonthBulan =
+                            Polio3ThisMonthBulan +
+                            dataFinal[a].set[c].Polio3ThisMonth;
+                          DPTHB3ThisMonthBulan =
+                            DPTHB3ThisMonthBulan +
+                            dataFinal[a].set[c].DPTHB3ThisMonth;
+                          Polio4ThisMonthBulan =
+                            Polio4ThisMonthBulan +
+                            dataFinal[a].set[c].Polio4ThisMonth;
+                          IPVThisMonthBulan =
+                            IPVThisMonthBulan +
+                            dataFinal[a].set[c].IPVThisMonth;
+                          IDLThisMonthBulan =
+                            IDLThisMonthBulan +
+                            dataFinal[a].set[c].IDLThisMonth;
+                        }
+                      }
+                    }
+                    series1.push(SasaranBayiBaruLahirBulan);
+                    series2.push(SasaranSurvivingInfantBulan);
+                    series3.push(HBOLessOneDTMBulan);
+                    series4.push(HBOLessOneWTMBulan);
+                    series5.push(BCGThisMonthBulan);
+                    series6.push(CampakRubellaTMBulan);
+                    series7.push(Polio1ThisMonthBulan);
+                    series8.push(DPTHB1ThisMonthBulan);
+                    series9.push(Polio2ThisMonthBulan);
+                    series10.push(DPTHB2ThisMonthBulan);
+                    series11.push(Polio3ThisMonthBulan);
+                    series12.push(DPTHB3ThisMonthBulan);
+                    series13.push(Polio4ThisMonthBulan);
+                    series14.push(IPVThisMonthBulan);
+                    series15.push(IDLThisMonthBulan);
+                    category.push(dataFinal[a].Puskesmas);
                   }
                 }
               }
-              series2.push(SasaranSurvivingInfantBulan);
-              series3.push(HBOLessOneDTMBulan);
-              series4.push(HBOLessOneWTMBulan);
-              series5.push(BCGThisMonthBulan);
-              series6.push(CampakRubellaTMBulan);
-              series7.push(Polio1ThisMonthBulan);
-              series8.push(DPTHB1ThisMonthBulan);
-              series9.push(Polio2ThisMonthBulan);
-              series10.push(DPTHB2ThisMonthBulan);
-              series11.push(Polio3ThisMonthBulan);
-              series12.push(DPTHB3ThisMonthBulan);
-              series13.push(Polio4ThisMonthBulan);
-              series14.push(IPVThisMonthBulan);
-              series15.push(IDLThisMonthBulan);
-              series1.push(SasaranBayiBaruLahirBulan);
-              category.push(dataFinal[a].Puskesmas);
-              // console.log(series, series2);
+              this.setState({
+                series: [
+                  {
+                    name: "Sasaran BBL",
+                    type: "column",
+                    data: series1,
+                  },
+                  {
+                    name: "Sasaran SI",
+                    type: "column",
+                    data: series2,
+                  },
+                  {
+                    name: "HBO < 24 Jam ",
+                    type: "column",
+                    data: series3,
+                  },
+
+                  {
+                    name: "HBO 0-7 hari ",
+                    type: "column",
+                    data: series4,
+                  },
+                  {
+                    name: "BCG ",
+                    type: "column",
+                    data: series5,
+                  },
+                  {
+                    name: "Polio-1 ",
+                    type: "column",
+                    data: series6,
+                  },
+                  {
+                    name: "DPTHB-1 ",
+                    type: "column",
+                    data: series7,
+                  },
+                  {
+                    name: "Polio-2 ",
+                    type: "column",
+                    data: series8,
+                  },
+                  {
+                    name: "DPTHB-2 ",
+                    type: "column",
+                    data: series9,
+                  },
+                  {
+                    name: "Polio-3 ",
+                    type: "column",
+                    data: series10,
+                  },
+                  {
+                    name: "DPTHB-3 ",
+                    type: "column",
+                    data: series11,
+                  },
+                  {
+                    name: "Polio-4 ",
+                    type: "column",
+                    data: series12,
+                  },
+                  {
+                    name: "IPV ",
+                    type: "column",
+                    data: series13,
+                  },
+                  {
+                    name: "Campak-Rubella ",
+                    type: "column",
+                    data: series14,
+                  },
+                  {
+                    name: "IDL ",
+                    type: "column",
+                    data: series15,
+                  },
+                ],
+                options: {
+                  ...this.state.options,
+                  xaxis: {
+                    ...this.state.options.xaxis,
+                    categories: category,
+                  },
+                },
+              });
             }
+          );
+        }
+      }
+    );
+  };
+
+  handleGraphicTahunControl = (event) => {
+    let FinalSeries1 = 0;
+    let FinalSeries2 = 0;
+    let FinalSeries3 = 0;
+    let FinalSeries4 = 0;
+    let FinalSeries5 = 0;
+    let FinalSeries6 = 0;
+    let FinalSeries7 = 0;
+    let FinalSeries8 = 0;
+    let FinalSeries9 = 0;
+    let FinalSeries10 = 0;
+    let FinalSeries11 = 0;
+    let FinalSeries12 = 0;
+    let FinalSeries13 = 0;
+    let FinalSeries14 = 0;
+    let FinalSeries15 = 0;
+    this.setState(
+      {
+        yearIndex: event.target.value,
+      },
+      () => {
+        const { data } = this.props;
+        const dataFinal = _.chain(data)
+          .groupBy("Puskesmas")
+          .map((set, Puskesmas) => ({ set, Puskesmas }))
+          .value();
+        const desaTemp = [];
+        for (let c = 0; c < data.length; c++) {
+          desaTemp.push(data[c].Puskesmas);
+        }
+        const desa = Array.from(new Set(desaTemp));
+        // console.log(dataFinal, this.state, desa);
+        const series1 = [];
+        const series2 = [];
+        const series3 = [];
+        const series4 = [];
+        const series5 = [];
+        const series6 = [];
+        const series7 = [];
+        const series8 = [];
+        const series9 = [];
+        const series10 = [];
+        const series11 = [];
+        const series12 = [];
+        const series13 = [];
+        const series14 = [];
+        const series15 = [];
+        const category = [];
+        for (let a = 0; a < dataFinal.length; a++) {
+          let SasaranSurvivingInfantYear = 0;
+          let HBOLessOneDTMYear = 0;
+          let HBOLessOneWTMYear = 0;
+          let BCGThisMonthYear = 0;
+          let CampakRubellaTMYear = 0;
+          let Polio1ThisMonthYear = 0;
+          let DPTHB1ThisMonthYear = 0;
+          let Polio2ThisMonthYear = 0;
+          let DPTHB2ThisMonthYear = 0;
+          let Polio3ThisMonthYear = 0;
+          let DPTHB3ThisMonthYear = 0;
+          let Polio4ThisMonthYear = 0;
+          let IPVThisMonthYear = 0;
+          let IDLThisMonthYear = 0;
+          let SasaranBayiBaruLahirYear = 0;
+          if (dataFinal[a].Puskesmas == desa[a]) {
+            for (let c = 0; c < dataFinal[c].set.length; c++) {
+              if (
+                this.state.yearIndex.toLowerCase() ===
+                dataFinal[a].set[c].Tahun.toString()
+              ) {
+                // console.log(a, dataFinal[a].set[i].SasaranBayiTL);
+                SasaranSurvivingInfantYear =
+                  SasaranSurvivingInfantYear +
+                  dataFinal[a].set[c].SasaranSurvivingInfant;
+                HBOLessOneDTMYear =
+                  HBOLessOneDTMYear + dataFinal[a].set[c].HBOLessOneDTM;
+                HBOLessOneWTMYear =
+                  HBOLessOneWTMYear + dataFinal[a].set[c].HBOLessOneWTM;
+                BCGThisMonthYear =
+                  BCGThisMonthYear + dataFinal[a].set[c].BCGThisMonth;
+                CampakRubellaTMYear =
+                  CampakRubellaTMYear + dataFinal[a].set[c].CampakRubellaTM;
+                Polio1ThisMonthYear =
+                  Polio1ThisMonthYear + dataFinal[a].set[c].Polio1ThisMonth;
+                DPTHB1ThisMonthYear =
+                  DPTHB1ThisMonthYear + dataFinal[a].set[c].DPTHB1ThisMonth;
+                Polio2ThisMonthYear =
+                  Polio2ThisMonthYear + dataFinal[a].set[c].Polio2ThisMonth;
+                DPTHB2ThisMonthYear =
+                  DPTHB2ThisMonthYear + dataFinal[a].set[c].DPTHB2ThisMonth;
+                Polio3ThisMonthYear =
+                  Polio3ThisMonthYear + dataFinal[a].set[c].Polio3ThisMonth;
+                DPTHB3ThisMonthYear =
+                  DPTHB3ThisMonthYear + dataFinal[a].set[c].DPTHB3ThisMonth;
+                Polio4ThisMonthYear =
+                  Polio4ThisMonthYear + dataFinal[a].set[c].Polio4ThisMonth;
+                IPVThisMonthYear =
+                  IPVThisMonthYear + dataFinal[a].set[c].IPVThisMonth;
+                IDLThisMonthYear =
+                  IDLThisMonthYear + dataFinal[a].set[c].IDLThisMonth;
+                SasaranBayiBaruLahirYear =
+                  SasaranBayiBaruLahirYear +
+                  dataFinal[a].set[c].SasaranBayiBaruLahir;
+              }
+            }
+            series1.push(SasaranBayiBaruLahirYear);
+            series2.push(SasaranSurvivingInfantYear);
+            series3.push(HBOLessOneDTMYear);
+            series4.push(HBOLessOneWTMYear);
+            series5.push(BCGThisMonthYear);
+            series6.push(Polio1ThisMonthYear);
+            series7.push(DPTHB1ThisMonthYear);
+            series8.push(Polio2ThisMonthYear);
+            series9.push(DPTHB2ThisMonthYear);
+            series10.push(Polio3ThisMonthYear);
+            series11.push(DPTHB3ThisMonthYear);
+            series12.push(Polio4ThisMonthYear);
+            series13.push(IDLThisMonthYear);
+            series14.push(CampakRubellaTMYear);
+            series15.push(IPVThisMonthYear);
+            category.push(dataFinal[a].Puskesmas);
           }
         }
+        for (let s1 = 0; s1 < series1.length; s1++) {
+          FinalSeries1 = FinalSeries1 + series1[s1];
+        }
+        for (let s2 = 0; s2 < series2.length; s2++) {
+          FinalSeries2 = FinalSeries2 + series2[s2];
+        }
+        for (let s3 = 0; s3 < series3.length; s3++) {
+          FinalSeries3 = FinalSeries3 + series3[s3];
+        }
+        for (let s4 = 0; s4 < series4.length; s4++) {
+          FinalSeries4 = FinalSeries4 + series4[s4];
+        }
+        for (let s5 = 0; s5 < series5.length; s5++) {
+          FinalSeries5 = FinalSeries5 + series5[s5];
+        }
+        for (let s6 = 0; s6 < series6.length; s6++) {
+          FinalSeries6 = FinalSeries6 + series6[s6];
+        }
+        for (let s7 = 0; s7 < series7.length; s7++) {
+          FinalSeries7 = FinalSeries7 + series7[s7];
+        }
+        for (let s8 = 0; s8 < series8.length; s8++) {
+          FinalSeries8 = FinalSeries8 + series8[s8];
+        }
+        for (let s9 = 0; s9 < series9.length; s9++) {
+          FinalSeries9 = FinalSeries9 + series9[s9];
+        }
+        for (let s10 = 0; s10 < series10.length; s10++) {
+          FinalSeries10 = FinalSeries10 + series10[s10];
+        }
+        for (let s11 = 0; s11 < series11.length; s11++) {
+          FinalSeries11 = FinalSeries11 + series11[s11];
+        }
+        for (let s12 = 0; s12 < series12.length; s12++) {
+          FinalSeries12 = FinalSeries12 + series12[s12];
+        }
+        for (let s13 = 0; s13 < series13.length; s13++) {
+          FinalSeries13 = FinalSeries13 + series13[s13];
+        }
+        for (let s14 = 0; s14 < series14.length; s14++) {
+          FinalSeries14 = FinalSeries14 + series14[s14];
+        }
+        for (let s15 = 0; s15 < series15.length; s15++) {
+          FinalSeries15 = FinalSeries15 + series15[s15];
+        }
+        series1.push(FinalSeries1);
+        series2.push(FinalSeries2);
+        series3.push(FinalSeries3);
+        series4.push(FinalSeries4);
+        series5.push(FinalSeries5);
+        series6.push(FinalSeries6);
+        series7.push(FinalSeries7);
+        series8.push(FinalSeries8);
+        series9.push(FinalSeries9);
+        series10.push(FinalSeries10);
+        series11.push(FinalSeries11);
+        series12.push(FinalSeries12);
+        series13.push(FinalSeries13);
+        series14.push(FinalSeries14);
+        series15.push(FinalSeries15);
+        category.push("PUSKESMAS SUMBER WRINGIN");
         this.setState({
           series: [
             {
@@ -920,207 +1572,8 @@ class GraphicCocPKMImun extends Component {
       }
     );
   };
-  handleGraphicTahunControl = (event) => {
-    this.setState(
-      {
-        yearIndex: event.target.value,
-      },
-      () => {
-        const { data } = this.props;
-        const dataFinal = _.chain(data)
-          .groupBy("Puskesmas")
-          .map((set, Puskesmas) => ({ set, Puskesmas }))
-          .value();
-        const desaTemp = [];
-        for (let c = 0; c < data.length; c++) {
-          desaTemp.push(data[c].Puskesmas);
-        }
-        const desa = Array.from(new Set(desaTemp));
-        // console.log(dataFinal, this.state, desa);
-        const series = [];
-        const series2 = [];
-        const series3 = [];
-        const series4 = [];
-        const series5 = [];
-        const series6 = [];
-        const series7 = [];
-        const series8 = [];
-        const series9 = [];
-        const series10 = [];
-        const series11 = [];
-        const series12 = [];
-        const series13 = [];
-        const series14 = [];
-        const series15 = [];
-        const category = [];
-        for (let a = 0; a < dataFinal.length; a++) {
-          let SasaranSurvivingInfantYear = 0;
-          let HBOLessOneDTMYear = 0;
-          let HBOLessOneWTMYear = 0;
-          let BCGThisMonthYear = 0;
-          let CampakRubellaTMYear = 0;
-          let Polio1ThisMonthYear = 0;
-          let DPTHB1ThisMonthYear = 0;
-          let Polio2ThisMonthYear = 0;
-          let DPTHB2ThisMonthYear = 0;
-          let Polio3ThisMonthYear = 0;
-          let DPTHB3ThisMonthYear = 0;
-          let Polio4ThisMonthYear = 0;
-          let IPVThisMonthYear = 0;
-          let IDLThisMonthYear = 0;
-          let SasaranBayiBaruLahirYear = 0;
-          if (dataFinal[a].Puskesmas == desa[a]) {
-            for (let c = 0; c < dataFinal[c].set.length; c++) {
-              if (
-                this.state.yearIndex.toLowerCase() ===
-                dataFinal[a].set[c].Tahun.toString()
-              ) {
-                // console.log(a, dataFinal[a].set[i].SasaranBayiTL);
-                SasaranSurvivingInfantYear =
-                  SasaranSurvivingInfantYear +
-                  dataFinal[a].set[c].SasaranSurvivingInfant;
-                HBOLessOneDTMYear =
-                  HBOLessOneDTMYear + dataFinal[a].set[c].HBOLessOneDTM;
-                HBOLessOneWTMYear =
-                  HBOLessOneWTMYear + dataFinal[a].set[c].HBOLessOneWTM;
-                BCGThisMonthYear =
-                  BCGThisMonthYear + dataFinal[a].set[c].BCGThisMonth;
-                CampakRubellaTMYear =
-                  CampakRubellaTMYear + dataFinal[a].set[c].CampakRubellaTM;
-                Polio1ThisMonthYear =
-                  Polio1ThisMonthYear + dataFinal[a].set[c].Polio1ThisMonth;
-                DPTHB1ThisMonthYear =
-                  DPTHB1ThisMonthYear + dataFinal[a].set[c].DPTHB1ThisMonth;
-                Polio2ThisMonthYear =
-                  Polio2ThisMonthYear + dataFinal[a].set[c].Polio2ThisMonth;
-                DPTHB2ThisMonthYear =
-                  DPTHB2ThisMonthYear + dataFinal[a].set[c].DPTHB2ThisMonth;
-                Polio3ThisMonthYear =
-                  Polio3ThisMonthYear + dataFinal[a].set[c].Polio3ThisMonth;
-                DPTHB3ThisMonthYear =
-                  DPTHB3ThisMonthYear + dataFinal[a].set[c].DPTHB3ThisMonth;
-                Polio4ThisMonthYear =
-                  Polio4ThisMonthYear + dataFinal[a].set[c].Polio4ThisMonth;
-                IPVThisMonthYear =
-                  IPVThisMonthYear + dataFinal[a].set[c].IPVThisMonth;
-                IDLThisMonthYear =
-                  IDLThisMonthYear + dataFinal[a].set[c].IDLThisMonth;
-                SasaranBayiBaruLahirYear =
-                  SasaranBayiBaruLahirYear +
-                  dataFinal[a].set[c].SasaranBayiBaruLahir;
-              }
-            }
-            series.push(SasaranBayiBaruLahirYear);
-            series2.push(SasaranSurvivingInfantYear);
-            series3.push(HBOLessOneDTMYear);
-            series4.push(HBOLessOneWTMYear);
-            series5.push(BCGThisMonthYear);
-            series6.push(CampakRubellaTMYear);
-            series7.push(Polio1ThisMonthYear);
-            series8.push(DPTHB1ThisMonthYear);
-            series9.push(Polio2ThisMonthYear);
-            series10.push(DPTHB2ThisMonthYear);
-            series11.push(Polio3ThisMonthYear);
-            series12.push(DPTHB3ThisMonthYear);
-            series13.push(Polio4ThisMonthYear);
-            series14.push(IPVThisMonthYear);
-            series15.push(IDLThisMonthYear);
-
-            category.push(dataFinal[a].Puskesmas);
-            // console.log(series, series2);
-          }
-        }
-        this.setState({
-          series: [
-            {
-              name: "Sasaran BBL",
-              type: "column",
-              data: series,
-            },
-            {
-              name: "Sasaran SI",
-              type: "column",
-              data: series2,
-            },
-            {
-              name: "HBO < 24 Jam ",
-              type: "column",
-              data: series3,
-            },
-
-            {
-              name: "HBO 0-7 hari ",
-              type: "column",
-              data: series4,
-            },
-            {
-              name: "BCG ",
-              type: "column",
-              data: series5,
-            },
-            {
-              name: "Polio-1 ",
-              type: "column",
-              data: series6,
-            },
-            {
-              name: "DPTHB-1 ",
-              type: "column",
-              data: series7,
-            },
-            {
-              name: "Polio-2 ",
-              type: "column",
-              data: series8,
-            },
-            {
-              name: "DPTHB-2 ",
-              type: "column",
-              data: series9,
-            },
-            {
-              name: "Polio-3 ",
-              type: "column",
-              data: series10,
-            },
-            {
-              name: "DPTHB-3 ",
-              type: "column",
-              data: series11,
-            },
-            {
-              name: "Polio-4 ",
-              type: "column",
-              data: series12,
-            },
-            {
-              name: "IPV ",
-              type: "column",
-              data: series13,
-            },
-            {
-              name: "Campak-Rubella ",
-              type: "column",
-              data: series14,
-            },
-            {
-              name: "IDL ",
-              type: "column",
-              data: series15,
-            },
-          ],
-          options: {
-            ...this.state.options,
-            xaxis: {
-              ...this.state.options.xaxis,
-              categories: category,
-            },
-          },
-        });
-      }
-    );
-  };
   render() {
+    console.log(this.state);
     const { data } = this.props;
     if (data == undefined) {
       return <div>Loading...</div>;
@@ -1128,7 +1581,7 @@ class GraphicCocPKMImun extends Component {
       return (
         <RootStyle>
           <CardHeader
-            title="Program Imunisasi"
+            title="KIA Progress"
             sx={{ typography: "caption" }}
             style={{
               marginBottom: 20,
@@ -1144,7 +1597,7 @@ class GraphicCocPKMImun extends Component {
                 variant="outlined"
                 onClick={this.handleChangeBulan}
                 style={{ justifyContent: "center" }}
-                sx={{ width: 1, ml: 2 }}
+                sx={{ width: 0.95, ml: 2 }}
               >
                 Grafik Bulan
               </Button>
@@ -1155,7 +1608,7 @@ class GraphicCocPKMImun extends Component {
                 variant="outlined"
                 onClick={this.handleChangeTahun}
                 style={{ justifyContent: "center" }}
-                sx={{ width: 1, mr: 2 }}
+                sx={{ width: 0.95, mr: 1 }}
               >
                 Grafik Tahun
               </Button>

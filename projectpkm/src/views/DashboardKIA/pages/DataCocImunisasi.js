@@ -38,7 +38,7 @@ class DataCocImun extends Component {
     selected: [],
     orderBy: "name",
     filterName: "",
-    rowsPerPage: 5,
+    rowsPerPage: 6,
     isLoading: true,
   };
   render() {
@@ -194,30 +194,55 @@ class DataCocImun extends Component {
           label: "HBO < 24 Jam",
           alignCenter: "center",
         },
-
+        {
+          id: "HBOLessOneDTMPersentase",
+          label: "%",
+          alignCenter: "center",
+        },
         {
           id: "HBOLessOneWTM",
           label: "HBO 0-7 hari",
           alignCenter: "center",
         },
-
+        {
+          id: "HBOLessOneWTMPersentase",
+          label: "%",
+          alignCenter: "center",
+        },
         { id: "BCGThisMonth", label: "BCG", alignCenter: "center" },
-
+        {
+          id: "BCGPersentase",
+          label: "%",
+          alignCenter: "center",
+        },
         {
           id: "Polio1ThisMonth",
           label: "Polio 1",
           alignCenter: "center",
         },
-
+        {
+          id: "Polio1Persentase",
+          label: "%",
+          alignCenter: "center",
+        },
         {
           id: "DPTHB1ThisMonth",
           label: "DPTHB-1",
           alignCenter: "center",
         },
-
+        {
+          id: "DPTHB1Persentase",
+          label: "%",
+          alignCenter: "center",
+        },
         {
           id: "Polio2ThisMonth",
           label: "Polio 2",
+          alignCenter: "center",
+        },
+        {
+          id: "Polio2Persentase",
+          label: "%",
           alignCenter: "center",
         },
         {
@@ -225,36 +250,65 @@ class DataCocImun extends Component {
           label: "DPTHB-2",
           alignCenter: "center",
         },
-
+        {
+          id: "DPTHB2Persentase",
+          label: "%",
+          alignCenter: "center",
+        },
         {
           id: "Polio3ThisMonth",
           label: "Polio 3",
           alignCenter: "center",
         },
-
+        {
+          id: "Polio3Persentase",
+          label: "%",
+          alignCenter: "center",
+        },
         {
           id: "DPTHB3ThisMonth",
           label: "DPTHB-3",
           alignCenter: "center",
         },
-
+        {
+          id: "DPTHB3Persentase",
+          label: "%",
+          alignCenter: "center",
+        },
         {
           id: "Polio4ThisMonth",
           label: "Polio 4",
           alignCenter: "center",
         },
-
+        {
+          id: "Polio4Persentase",
+          label: "%",
+          alignCenter: "center",
+        },
         { id: "IPVThisMonth", label: "IPV", alignCenter: "center" },
-
+        {
+          id: "IPVPersentase",
+          label: "%",
+          alignCenter: "center",
+        },
         {
           id: "CampakRubellaTM",
           label: "Campak-Rubella",
           alignCenter: "center",
         },
-
+        {
+          id: "CampakPersentase",
+          label: "%",
+          alignCenter: "center",
+        },
         {
           id: "IDLThisMonth",
           label: "IDL",
+          alignCenter: "center",
+        },
+        {
+          id: "IDLPersentase",
+          label: "%",
           alignCenter: "center",
         },
         { id: "" },
@@ -388,30 +442,43 @@ class DataCocImun extends Component {
                             SasaranSurvivingInfant,
                             //HBOLessOneDLM,
                             HBOLessOneDTM,
+                            HBOLessOneDTMPersentase,
                             //HBOLessOneWLM,
                             HBOLessOneWTM,
+                            HBOLessOneWTMPersentase,
                             //BCGLastMonth,
                             BCGThisMonth,
+                            BCGPersentase,
                             //CampakRubellaLM,
                             CampakRubellaTM,
+                            CampakPersentase,
                             //Polio1LastMonth,
                             Polio1ThisMonth,
+                            Polio1Persentase,
                             // DPTHB1LastMonth,
                             DPTHB1ThisMonth,
+                            DPTHB1Persentase,
                             // Polio2LastMonth,
                             Polio2ThisMonth,
+                            Polio2Persentase,
                             // DPTHB2LastMonth,
                             DPTHB2ThisMonth,
+                            DPTHB2Persentase,
                             // Polio3LastMonth,
                             Polio3ThisMonth,
+                            Polio3Persentase,
                             // DPTHB3LastMonth,
                             DPTHB3ThisMonth,
+                            DPTHB3Persentase,
                             // Polio4LastMonth,
                             Polio4ThisMonth,
+                            Polio4Persentase,
                             // IPVLastMonth,
                             IPVThisMonth,
+                            IPVPersentase,
                             //IDLLastMonth,
                             IDLThisMonth,
+                            IDLPersentase,
                           } = row;
                           const isItemSelected =
                             this.state.selected.indexOf(Bulan) !== -1;
@@ -523,11 +590,10 @@ class DataCocImun extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {BCGThisMonth}
+                                    {HBOLessOneDTM}
                                   </Typography>
                                 </Stack>
                               </TableCell>
-
                               <TableCell
                                 align="center"
                                 style={{ width: "max-content" }}
@@ -542,7 +608,7 @@ class DataCocImun extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {HBOLessOneDTM}
+                                    {`${HBOLessOneDTMPersentase.toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -565,7 +631,60 @@ class DataCocImun extends Component {
                                   </Typography>
                                 </Stack>
                               </TableCell>
-
+                              <TableCell
+                                align="center"
+                                style={{ width: "max-content" }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {`${HBOLessOneWTMPersentase.toFixed(1)} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell
+                                align="center"
+                                style={{ width: "max-content" }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {BCGThisMonth}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell
+                                align="center"
+                                style={{ width: "max-content" }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {`${BCGPersentase.toFixed(1)} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
                               <TableCell
                                 align="center"
                                 style={{ width: "max-content" }}
@@ -584,7 +703,25 @@ class DataCocImun extends Component {
                                   </Typography>
                                 </Stack>
                               </TableCell>
-
+                              <TableCell
+                                align="center"
+                                style={{ width: "max-content" }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {/* {Polio1Persentase} */}
+                                    {`${Polio1Persentase.toFixed(1)} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
                               <TableCell
                                 align="center"
                                 style={{ width: "max-content" }}
@@ -603,7 +740,6 @@ class DataCocImun extends Component {
                                   </Typography>
                                 </Stack>
                               </TableCell>
-
                               <TableCell
                                 align="center"
                                 style={{ width: "max-content" }}
@@ -618,30 +754,11 @@ class DataCocImun extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {DPTHB2ThisMonth}
+                                    {/* {DPTHB1Persentase} */}
+                                    {`${DPTHB1Persentase.toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
-
-                              <TableCell
-                                align="center"
-                                style={{ width: "max-content" }}
-                              >
-                                <Stack
-                                  direction="row"
-                                  alignItems="center"
-                                  spacing={2}
-                                >
-                                  <Typography
-                                    variant="body1"
-                                    noWrap
-                                    style={{ flexGrow: 1, textAlign: "center" }}
-                                  >
-                                    {DPTHB3ThisMonth}
-                                  </Typography>
-                                </Stack>
-                              </TableCell>
-
                               <TableCell
                                 align="center"
                                 style={{ width: "max-content" }}
@@ -660,7 +777,60 @@ class DataCocImun extends Component {
                                   </Typography>
                                 </Stack>
                               </TableCell>
-
+                              <TableCell
+                                align="center"
+                                style={{ width: "max-content" }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {`${HBOLessOneDTMPersentase.toFixed(1)} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell
+                                align="center"
+                                style={{ width: "max-content" }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {DPTHB2ThisMonth}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell
+                                align="center"
+                                style={{ width: "max-content" }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {`${DPTHB2Persentase.toFixed(1)} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
                               <TableCell
                                 align="center"
                                 style={{ width: "max-content" }}
@@ -676,6 +846,60 @@ class DataCocImun extends Component {
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
                                     {Polio3ThisMonth}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell
+                                align="center"
+                                style={{ width: "max-content" }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {`${Polio3Persentase.toFixed(1)} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell
+                                align="center"
+                                style={{ width: "max-content" }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {DPTHB3ThisMonth}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell
+                                align="center"
+                                style={{ width: "max-content" }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {`${DPTHB3Persentase.toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -713,11 +937,10 @@ class DataCocImun extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {CampakRubellaTM}
+                                    {`${Polio4Persentase.toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
-
                               <TableCell
                                 align="center"
                                 style={{ width: "max-content" }}
@@ -751,11 +974,85 @@ class DataCocImun extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
+                                    {`${IPVPersentase.toFixed(1)} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell
+                                align="center"
+                                style={{ width: "max-content" }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {CampakRubellaTM}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+
+                              <TableCell
+                                align="center"
+                                style={{ width: "max-content" }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {`${CampakPersentase.toFixed(1)} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+
+                              <TableCell
+                                align="center"
+                                style={{ width: "max-content" }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
                                     {IDLThisMonth}
                                   </Typography>
                                 </Stack>
                               </TableCell>
 
+                              <TableCell
+                                align="center"
+                                style={{ width: "max-content" }}
+                              >
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {`${IDLPersentase.toFixed(1)} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
                               <TableCell align="right">
                                 <UserMoreMenuImunisasi />
                               </TableCell>

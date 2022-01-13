@@ -181,7 +181,7 @@ class User extends Component {
                 window.alert("Nomer Tidak Valid !");
                 this.setState({ isSubmitting: false });
               } else {
-                window.alert("Data Sudah Lengkap !");
+                window.alert("Data Berhasil Ditambahkan !");
                 const dataFinalFix = {
                   Name: this.state.Name,
                   Email: this.state.Email,
@@ -193,7 +193,7 @@ class User extends Component {
                 };
                 console.log(dataFinalFix);
                 this.props.signUp(dataFinalFix);
-                return <Navigate to="/dashboard" />;
+                return <Navigate to="/dashboard/user" />;
               }
             }
           );
@@ -664,7 +664,7 @@ class User extends Component {
               </Scrollbar>
 
               <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
+                rowsPerPageOptions={[2, 5, 10, 25]}
                 component="div"
                 count={data.length}
                 rowsPerPage={this.state.rowsPerPage}

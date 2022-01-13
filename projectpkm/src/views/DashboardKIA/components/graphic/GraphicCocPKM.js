@@ -131,6 +131,26 @@ class GraphicCocPKM extends Component {
             "#000000",
           ],
         },
+        formatter: (value, data) => {
+          console.log(data);
+          if (data.seriesIndex == 2) {
+            let percentage = 0;
+            percentage =
+              (
+                (data.w.config.series[2].data[data.dataPointIndex] /
+                  data.w.config.series[0].data[data.dataPointIndex]) *
+                100
+              ).toFixed(1) + " %";
+            console.log(
+              data.w.config.series[2].data[data.dataPointIndex],
+              data.w.config.series[0].data[data.dataPointIndex],
+              data.dataPointIndex
+            );
+            return percentage;
+          } else {
+            return value;
+          }
+        },
       },
       grid: {
         show: false,
@@ -220,7 +240,7 @@ class GraphicCocPKM extends Component {
   }
   handleChangeBulan = () => {
     const { data } = this.props;
-    const desaTemp = [];
+    const desaTemp = ["PUSKESMAS SUMBER WRINGIN"];
     for (let i = 0; i < data.length; i++) {
       desaTemp.push(data[i].Puskesmas);
     }
@@ -328,6 +348,7 @@ class GraphicCocPKM extends Component {
     for (let i = 0; i < data.length; i++) {
       desaTemp.push(data[i].Puskesmas);
     }
+    desaTemp.push("PUSKESMAS SUMBER WRINGIN");
     const desa = Array.from(new Set(desaTemp));
     this.setState(
       {
@@ -573,6 +594,7 @@ class GraphicCocPKM extends Component {
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
+    console.log(dataFinal);
     this.setState(
       {
         [event.target.name]: event.target.value,
@@ -597,122 +619,401 @@ class GraphicCocPKM extends Component {
         let KNlengkapBulan = 0;
         let KNkomplikasiBulan = 0;
         let KunjunganBayiParipurnaBulan = 0;
-        for (let a = 0; a < dataFinal.length; a++) {
-          sasaran = 0;
-          sasaranBayiRisti = 0;
-          lahirHidupBulan = 0;
-          lahirMatiBulan = 0;
-          KN1Bulan = 0;
-          KN2Bulan = 0;
-          KNlengkapBulan = 0;
-          KNkomplikasiBulan = 0;
-          KunjunganBayiParipurnaBulan = 0;
-          for (let b = 0; b < this.state.desaIndex.length; b++) {
-            if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
-              for (let i = 0; i < dataFinal[i].set.length; i++) {
-                for (let c = 0; c < this.state.monthIndex.length; c++) {
-                  if (
-                    this.state.monthIndex[c]?.toLowerCase() ===
-                      dataFinal[a].set[i].Bulan.toLowerCase() &&
-                    this.state.yearIndex === dataFinal[a].set[i].Tahun
-                  ) {
-                    sasaran = dataFinal[a].set[i].SasaranBayiTL;
-                    sasaranBayiRisti = dataFinal[a].set[i].SasaranBayiRistiTL;
-                    lahirHidupBulan =
-                      lahirHidupBulan +
-                      dataFinal[a].set[c].PencapaianLahirHidupTL;
-                    lahirMatiBulan =
-                      lahirMatiBulan +
-                      dataFinal[a].set[c].PencapaianLahirMatiTL;
-                    KN1Bulan =
-                      KN1Bulan + dataFinal[a].set[c].PencapaianKNPertamaTL;
-                    KN2Bulan =
-                      KN2Bulan + dataFinal[a].set[c].PencapaianKNKeduaTL;
-                    KNlengkapBulan =
-                      KNlengkapBulan +
-                      dataFinal[a].set[c].PencapaianKNLengkapTL;
-                    KNkomplikasiBulan =
-                      KNkomplikasiBulan +
-                      dataFinal[a].set[c].PencapaianKNLengkapTL;
-                    KunjunganBayiParipurnaBulan =
-                      KunjunganBayiParipurnaBulan +
-                      dataFinal[a].set[c].KunjunganBayiParipurnaTL;
+        if (this.state.desaIndex == "PUSKESMAS SUMBER WRINGIN") {
+          this.setState(
+            {
+              desaIndex: ["PUSKESMAS SUMBER WRINGIN"],
+            },
+            () => {
+              let FinalSeries1 = 0;
+              let FinalSeries2 = 0;
+              let FinalSeries3 = 0;
+              let FinalSeries4 = 0;
+              let FinalSeries5 = 0;
+              let FinalSeries6 = 0;
+              let FinalSeries7 = 0;
+              let FinalSeries8 = 0;
+              let FinalSeries9 = 0;
+              this.setState(
+                {
+                  series: [
+                    {
+                      name: "Sasaran",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Sasaran Bayi Risti",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Lahir Hidup",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Lahir Mati",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "KN Pertama",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "KN Kedua",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "KN Lengkap",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "KN Komplikasi",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Kunjungan Bayi Paripurna",
+                      type: "column",
+                      data: [],
+                    },
+                  ],
+                  options: {
+                    ...this.state.options,
+                    dataLabels: {
+                      ...this.state.options.dataLabels,
+                      offsetY: -20,
+                      offsetX: 0,
+                    },
+                    plotOptions: {
+                      ...this.state.options.plotOptions,
+                      bar: {
+                        ...this.state.options.plotOptions.bar,
+                        horizontal: false,
+                      },
+                    },
+                    xaxis: {
+                      ...this.state.options.xaxis,
+                      categories: [],
+                    },
+                  },
+                },
+                () => {
+                  for (let a = 0; a < dataFinal.length; a++) {
+                    sasaran = 0;
+                    sasaranBayiRisti = 0;
+                    lahirHidupBulan = 0;
+                    lahirMatiBulan = 0;
+                    KN1Bulan = 0;
+                    KN2Bulan = 0;
+                    KNlengkapBulan = 0;
+                    KNkomplikasiBulan = 0;
+                    KunjunganBayiParipurnaBulan = 0;
+                    for (let b = 0; b < this.state.desa.length; b++) {
+                      if (dataFinal[a].Puskesmas == this.state.desa[b]) {
+                        for (let i = 0; i < dataFinal[i].set.length; i++) {
+                          for (
+                            let c = 0;
+                            c < this.state.monthIndex.length;
+                            c++
+                          ) {
+                            if (
+                              this.state.monthIndex[c]?.toLowerCase() ===
+                                dataFinal[a].set[i].Bulan.toLowerCase() &&
+                              this.state.yearIndex === dataFinal[a].set[i].Tahun
+                            ) {
+                              sasaran =
+                                dataFinal[a].set[i].SasaranKelahiranHidupTL;
+                              sasaranBayiRisti =
+                                dataFinal[a].set[i].SasaranBayiRistiTL;
+                              lahirHidupBulan =
+                                lahirHidupBulan +
+                                dataFinal[a].set[c].PencapaianLahirHidupTL;
+                              lahirMatiBulan =
+                                lahirMatiBulan +
+                                dataFinal[a].set[c].PencapaianLahirMatiTL;
+                              KN1Bulan =
+                                KN1Bulan +
+                                dataFinal[a].set[c].PencapaianKNPertamaTL;
+                              KN2Bulan =
+                                KN2Bulan +
+                                dataFinal[a].set[c].PencapaianKNKeduaTL;
+                              KNlengkapBulan =
+                                KNlengkapBulan +
+                                dataFinal[a].set[c].PencapaianKNLengkapTL;
+                              KNkomplikasiBulan =
+                                KNkomplikasiBulan +
+                                dataFinal[a].set[c].PencapaianKNLengkapTL;
+                              KunjunganBayiParipurnaBulan =
+                                KunjunganBayiParipurnaBulan +
+                                dataFinal[a].set[c].KunjunganBayiParipurnaTL;
+                            }
+                          }
+                        }
+                        series1.push(sasaran);
+                        series2.push(sasaranBayiRisti);
+                        series3.push(lahirHidupBulan);
+                        series4.push(lahirMatiBulan);
+                        series5.push(KN1Bulan);
+                        series6.push(KN2Bulan);
+                        series7.push(KNlengkapBulan);
+                        series8.push(KNkomplikasiBulan);
+                        series9.push(KunjunganBayiParipurnaBulan);
+                      }
+                    }
+                  }
+                  for (let s1 = 0; s1 < series1.length; s1++) {
+                    FinalSeries1 = FinalSeries1 + series1[s1];
+                  }
+                  for (let s2 = 0; s2 < series2.length; s2++) {
+                    FinalSeries2 = FinalSeries2 + series2[s2];
+                  }
+                  for (let s3 = 0; s3 < series3.length; s3++) {
+                    FinalSeries3 = FinalSeries3 + series3[s3];
+                  }
+                  for (let s4 = 0; s4 < series4.length; s4++) {
+                    FinalSeries4 = FinalSeries4 + series4[s4];
+                  }
+                  for (let s5 = 0; s5 < series5.length; s5++) {
+                    FinalSeries5 = FinalSeries5 + series5[s5];
+                  }
+                  for (let s6 = 0; s6 < series6.length; s6++) {
+                    FinalSeries6 = FinalSeries6 + series6[s6];
+                  }
+                  for (let s7 = 0; s7 < series7.length; s7++) {
+                    FinalSeries7 = FinalSeries7 + series7[s7];
+                  }
+                  for (let s8 = 0; s8 < series8.length; s8++) {
+                    FinalSeries8 = FinalSeries8 + series8[s8];
+                  }
+                  for (let s9 = 0; s9 < series9.length; s9++) {
+                    FinalSeries9 = FinalSeries9 + series9[s9];
+                  }
+                  this.setState({
+                    series: [
+                      {
+                        name: "Sasaran",
+                        type: "column",
+                        data: [FinalSeries1],
+                      },
+                      {
+                        name: "Sasaran Bayi Risti",
+                        type: "column",
+                        data: [FinalSeries2],
+                      },
+                      {
+                        name: "Lahir Hidup",
+                        type: "column",
+                        data: [FinalSeries3],
+                      },
+                      {
+                        name: "Lahir Mati",
+                        type: "column",
+                        data: [FinalSeries4],
+                      },
+                      {
+                        name: "KN Pertama",
+                        type: "column",
+                        data: [FinalSeries5],
+                      },
+                      {
+                        name: "KN Kedua",
+                        type: "column",
+                        data: [FinalSeries6],
+                      },
+                      {
+                        name: "KN Lengkap",
+                        type: "column",
+                        data: [FinalSeries7],
+                      },
+                      {
+                        name: "KN Komplikasi",
+                        type: "column",
+                        data: [FinalSeries8],
+                      },
+                      {
+                        name: "Kunjungan Bayi Paripurna",
+                        type: "column",
+                        data: [FinalSeries9],
+                      },
+                    ],
+                    options: {
+                      ...this.state.options,
+                      xaxis: {
+                        ...this.state.options.xaxis,
+                        categories: ["PUSKESMAS SUMBER WRINGIN"],
+                      },
+                    },
+                  });
+                }
+              );
+            }
+          );
+        } else {
+          const deletePuskesmas = _.differenceWith(
+            this.state.desaIndex,
+            ["PUSKESMAS SUMBER WRINGIN"],
+            _.isEqual
+          );
+          this.setState(
+            {
+              desaIndex: deletePuskesmas,
+              options: {
+                ...this.state.options,
+                dataLabels: {
+                  ...this.state.options.dataLabels,
+                  offsetY: -20,
+                  offsetX: 0,
+                },
+                plotOptions: {
+                  ...this.state.options.plotOptions,
+                  bar: {
+                    ...this.state.options.plotOptions.bar,
+                    horizontal: false,
+                  },
+                },
+                xaxis: {
+                  ...this.state.options.xaxis,
+                  categories: [],
+                },
+              },
+            },
+            () => {
+              for (let a = 0; a < dataFinal.length; a++) {
+                sasaran = 0;
+                sasaranBayiRisti = 0;
+                lahirHidupBulan = 0;
+                lahirMatiBulan = 0;
+                KN1Bulan = 0;
+                KN2Bulan = 0;
+                KNlengkapBulan = 0;
+                KNkomplikasiBulan = 0;
+                KunjunganBayiParipurnaBulan = 0;
+                for (let b = 0; b < this.state.desaIndex.length; b++) {
+                  if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
+                    for (let i = 0; i < dataFinal[i].set.length; i++) {
+                      for (let c = 0; c < this.state.monthIndex.length; c++) {
+                        if (
+                          this.state.monthIndex[c]?.toLowerCase() ===
+                            dataFinal[a].set[i].Bulan.toLowerCase() &&
+                          this.state.yearIndex === dataFinal[a].set[i].Tahun
+                        ) {
+                          sasaran = dataFinal[a].set[i].SasaranKelahiranHidupTL;
+                          sasaranBayiRisti =
+                            dataFinal[a].set[i].SasaranBayiRistiTL;
+                          lahirHidupBulan =
+                            lahirHidupBulan +
+                            dataFinal[a].set[c].PencapaianLahirHidupTL;
+                          lahirMatiBulan =
+                            lahirMatiBulan +
+                            dataFinal[a].set[c].PencapaianLahirMatiTL;
+                          KN1Bulan =
+                            KN1Bulan +
+                            dataFinal[a].set[c].PencapaianKNPertamaTL;
+                          KN2Bulan =
+                            KN2Bulan + dataFinal[a].set[c].PencapaianKNKeduaTL;
+                          KNlengkapBulan =
+                            KNlengkapBulan +
+                            dataFinal[a].set[c].PencapaianKNLengkapTL;
+                          KNkomplikasiBulan =
+                            KNkomplikasiBulan +
+                            dataFinal[a].set[c].PencapaianKNLengkapTL;
+                          KunjunganBayiParipurnaBulan =
+                            KunjunganBayiParipurnaBulan +
+                            dataFinal[a].set[c].KunjunganBayiParipurnaTL;
+                        }
+                      }
+                    }
+                    series1.push(sasaran);
+                    series2.push(sasaranBayiRisti);
+                    series3.push(lahirHidupBulan);
+                    series4.push(lahirMatiBulan);
+                    series5.push(KN1Bulan);
+                    series6.push(KN2Bulan);
+                    series7.push(KNlengkapBulan);
+                    series8.push(KNkomplikasiBulan);
+                    series9.push(KunjunganBayiParipurnaBulan);
+                    category.push(dataFinal[a].Puskesmas);
                   }
                 }
               }
-              series1.push(sasaran);
-              series2.push(sasaranBayiRisti);
-              series3.push(lahirHidupBulan);
-              series4.push(lahirMatiBulan);
-              series5.push(KN1Bulan);
-              series6.push(KN2Bulan);
-              series7.push(KNlengkapBulan);
-              series8.push(KNkomplikasiBulan);
-              series9.push(KunjunganBayiParipurnaBulan);
-              category.push(dataFinal[a].Puskesmas);
+              this.setState({
+                series: [
+                  {
+                    name: "Sasaran",
+                    type: "column",
+                    data: series1,
+                  },
+                  {
+                    name: "Sasaran Bayi Risti",
+                    type: "column",
+                    data: series2,
+                  },
+                  {
+                    name: "Lahir Hidup",
+                    type: "column",
+                    data: series3,
+                  },
+                  {
+                    name: "Lahir Mati",
+                    type: "column",
+                    data: series4,
+                  },
+                  {
+                    name: "KN Pertama",
+                    type: "column",
+                    data: series5,
+                  },
+                  {
+                    name: "KN Kedua",
+                    type: "column",
+                    data: series6,
+                  },
+                  {
+                    name: "KN Lengkap",
+                    type: "column",
+                    data: series7,
+                  },
+                  {
+                    name: "KN Komplikasi",
+                    type: "column",
+                    data: series8,
+                  },
+                  {
+                    name: "Kunjungan Bayi Paripurna",
+                    type: "column",
+                    data: series9,
+                  },
+                ],
+                options: {
+                  ...this.state.options,
+                  xaxis: {
+                    ...this.state.options.xaxis,
+                    categories: category,
+                  },
+                },
+              });
             }
-          }
+          );
         }
-        this.setState({
-          series: [
-            {
-              name: "Sasaran",
-              type: "column",
-              data: series1,
-            },
-            {
-              name: "Sasaran Bayi Risti",
-              type: "column",
-              data: series2,
-            },
-            {
-              name: "Lahir Hidup",
-              type: "column",
-              data: series3,
-            },
-            {
-              name: "Lahir Mati",
-              type: "column",
-              data: series4,
-            },
-            {
-              name: "KN Pertama",
-              type: "column",
-              data: series5,
-            },
-            {
-              name: "KN Kedua",
-              type: "column",
-              data: series6,
-            },
-            {
-              name: "KN Lengkap",
-              type: "column",
-              data: series7,
-            },
-            {
-              name: "KN Komplikasi",
-              type: "column",
-              data: series8,
-            },
-            {
-              name: "Kunjungan Bayi Paripurna",
-              type: "column",
-              data: series9,
-            },
-          ],
-          options: {
-            ...this.state.options,
-            xaxis: {
-              ...this.state.options.xaxis,
-              categories: category,
-            },
-          },
-        });
       }
     );
   };
   handleGraphicTahunControl = (event) => {
+    let FinalSeries1 = 0;
+    let FinalSeries2 = 0;
+    let FinalSeries3 = 0;
+    let FinalSeries4 = 0;
+    let FinalSeries5 = 0;
+    let FinalSeries6 = 0;
+    let FinalSeries7 = 0;
+    let FinalSeries8 = 0;
+    let FinalSeries9 = 0;
     this.setState(
       {
         yearIndex: event.target.value,
@@ -754,7 +1055,7 @@ class GraphicCocPKM extends Component {
                 this.state.yearIndex.toLowerCase() ===
                 dataFinal[a].set[i].Tahun.toLowerCase()
               ) {
-                sasaran = dataFinal[a].set[i].SasaranBayiTL;
+                sasaran = dataFinal[a].set[i].SasaranKelahiranHidupTL;
                 sasaranBayiRisti = dataFinal[a].set[i].SasaranBayiRistiTL;
                 lahirHidupYear =
                   lahirHidupYear + dataFinal[a].set[i].PencapaianLahirHidupTL;
@@ -783,6 +1084,43 @@ class GraphicCocPKM extends Component {
             category.push(dataFinal[a].Puskesmas);
           }
         }
+        for (let s1 = 0; s1 < series1.length; s1++) {
+          FinalSeries1 = FinalSeries1 + series1[s1];
+        }
+        for (let s2 = 0; s2 < series2.length; s2++) {
+          FinalSeries2 = FinalSeries2 + series2[s2];
+        }
+        for (let s3 = 0; s3 < series3.length; s3++) {
+          FinalSeries3 = FinalSeries3 + series3[s3];
+        }
+        for (let s4 = 0; s4 < series4.length; s4++) {
+          FinalSeries4 = FinalSeries4 + series4[s4];
+        }
+        for (let s5 = 0; s5 < series5.length; s5++) {
+          FinalSeries5 = FinalSeries5 + series5[s5];
+        }
+        for (let s6 = 0; s6 < series6.length; s6++) {
+          FinalSeries6 = FinalSeries6 + series6[s6];
+        }
+        for (let s7 = 0; s7 < series7.length; s7++) {
+          FinalSeries7 = FinalSeries7 + series7[s7];
+        }
+        for (let s8 = 0; s8 < series8.length; s8++) {
+          FinalSeries8 = FinalSeries8 + series8[s8];
+        }
+        for (let s9 = 0; s9 < series9.length; s9++) {
+          FinalSeries9 = FinalSeries9 + series9[s9];
+        }
+        series1.push(FinalSeries1);
+        series2.push(FinalSeries2);
+        series3.push(FinalSeries3);
+        series4.push(FinalSeries4);
+        series5.push(FinalSeries5);
+        series6.push(FinalSeries6);
+        series7.push(FinalSeries7);
+        series8.push(FinalSeries8);
+        series9.push(FinalSeries9);
+        category.push("PUSKESMAS SUMBER WRINGIN");
         this.setState({
           series: [
             {
