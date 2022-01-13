@@ -22,6 +22,11 @@ class InsertData extends Component {
     super();
     this.state = {
       files: [],
+      whereEmpty: {
+        Desa: "",
+        Value: [],
+        isEmpty: false,
+      },
       isDuplicate: false,
       Tahun: "",
       Bulan: "",
@@ -145,192 +150,371 @@ class InsertData extends Component {
               KunjunganBayiParipurnaTL: data[i][94],
             },
             () => {
-              this.setState({
-                RumahTL: data[15][16],
-                PosyanduTL: data[16][16],
-                PolindesTL: data[17][16],
-                PustuTL: data[18][16],
-                PuskesmasTL: data[19][16],
-                BPSTL: data[20][16],
-                RSUTL: data[21][16],
-                LuarWilayahTL: data[22][16],
-                RumahTLMati: data[15][29],
-                PosyanduTLMati: data[16][29],
-                PolindesTLMati: data[17][29],
-                PustuTLMati: data[18][29],
-                PuskesmasTLMati: data[19][29],
-                BPSTLMati: data[20][29],
-                RSUTLMati: data[21][29],
-                LuarWilayahTLMati: data[22][29],
-              });
+              this.setState(
+                {
+                  RumahTL: data[15][16],
+                  PosyanduTL: data[16][16],
+                  PolindesTL: data[17][16],
+                  PustuTL: data[18][16],
+                  PuskesmasTL: data[19][16],
+                  BPSTL: data[20][16],
+                  RSUTL: data[21][16],
+                  LuarWilayahTL: data[22][16],
+                  RumahTLMati: data[15][29],
+                  PosyanduTLMati: data[16][29],
+                  PolindesTLMati: data[17][29],
+                  PustuTLMati: data[18][29],
+                  PuskesmasTLMati: data[19][29],
+                  BPSTLMati: data[20][29],
+                  RSUTLMati: data[21][29],
+                  LuarWilayahTLMati: data[22][29],
+                },
+                () => {
+                  const dataCheck = [
+                    this.state.Tahun,
+                    this.state.Bulan,
+                    this.state.Puskesmas,
+                    this.state.SasaranKelahiranHidupLK,
+                    this.state.SasaranKelahiranHidupPR,
+                    this.state.SasaranKelahiranHidupTL,
+                    this.state.SasaranBayiRistiLK,
+                    this.state.SasaranBayiRistiPR,
+                    this.state.SasaranBayiRistiTL,
+                    this.state.SasaranBayiLK,
+                    this.state.SasaranBayiPR,
+                    this.state.SasaranBayiTL,
+                    this.state.PencapaianLahirHidupLK,
+                    this.state.PencapaianLahirHidupPR,
+                    this.state.PencapaianLahirHidupTL,
+                    this.state.PencapaianLahirMatiLK,
+                    this.state.PencapaianLahirMatiPR,
+                    this.state.PencapaianLahirMatiTL,
+                    this.state.PencapaianKNPertamaLK,
+                    this.state.PencapaianKNPertamaPR,
+                    this.state.PencapaianKNPertamaTL,
+                    this.state.PencapaianKNKeduaLK,
+                    this.state.PencapaianKNKeduaPR,
+                    this.state.PencapaianKNKeduaTL,
+                    this.state.PencapaianKNLengkapLK,
+                    this.state.PencapaianKNLengkapPR,
+                    this.state.PencapaianKNLengkapTL,
+                    this.state.NeonatalKompLK,
+                    this.state.NeonatalKompPR,
+                    this.state.NeonatalKompTL,
+                    this.state.KunjunganBayiParipurnaLK,
+                    this.state.KunjunganBayiParipurnaPR,
+                    this.state.KunjunganBayiParipurnaTL,
+                    this.state.RumahTL,
+                    this.state.PosyanduTL,
+                    this.state.PolindesTL,
+                    this.state.PustuTL,
+                    this.state.PuskesmasTL,
+                    this.state.BPSTL,
+                    this.state.RSUTL,
+                    this.state.LuarWilayahTL,
+                    this.state.RumahTLMati,
+                    this.state.PosyanduTLMati,
+                    this.state.PolindesTLMati,
+                    this.state.PustuTLMati,
+                    this.state.PuskesmasTLMati,
+                    this.state.BPSTLMati,
+                    this.state.RSUTLMati,
+                    this.state.LuarWilayahTLMati,
+                  ];
+                  const dataCheckName = [
+                    "Tahun",
+                    "Bulan",
+                    "Puskesmas",
+                    "Sasaran Kelahiran Hidup  Laki - laki",
+                    "Sasaran Kelahiran Hidup Perempuan",
+                    "Sasaran Kelahiran Hidup Total",
+                    "Sasaran Bayi Risti Laki - laki",
+                    "Sasaran Bayi Risti Perempuan",
+                    "Sasaran Bayi Risti Total",
+                    "Sasaran Bayi Laki - laki",
+                    "Sasaran Bayi Perempuan",
+                    "Sasaran Bayi Total",
+                    "Pencapaian Lahir Hidup Laki - laki",
+                    "Pencapaian Lahir Hidup Perempuan",
+                    "Pencapaian Lahir Hidup Total",
+                    "Pencapaian Lahir Mati Laki - laki",
+                    "Pencapaian Lahir Mati Perempuan",
+                    "Pencapaian Lahir Mati Total",
+                    "Pencapaian KN Pertama Laki - laki",
+                    "Pencapaian KN Pertama Perempuan",
+                    "Pencapaian KN Pertama Total",
+                    "Pencapaian KN Kedua Laki - laki",
+                    "Pencapaian KN Kedua Perempuan",
+                    "Pencapaian KN Kedua Total",
+                    "Pencapaian KN Lengkap Laki - laki",
+                    "Pencapaian KN Lengkap Perempuan",
+                    "Pencapaian KN Lengkap Total",
+                    "Neonatal Komplikasi Laki - laki",
+                    "Neonatal Komplikasi Perempuan",
+                    "Neonatal Komplikasi Total",
+                    "Kunjungan Bayi Paripurna Laki - laki",
+                    "Kunjungan Bayi Paripurna Perempuan",
+                    "Kunjungan Bayi Paripurna Total",
+                    "Rumah Total",
+                    "Posyandu Total",
+                    "Polindes Total",
+                    "Pustu Total",
+                    "Puskesmas Total",
+                    "BPS Total",
+                    "RSU Total",
+                    "Luar Wilayah Total",
+                    "Rumah Total Mati",
+                    "Posyandu Total Mati",
+                    "Polindes Total Mati",
+                    "Pustu Total Mati",
+                    "Puskesmas Total Mati",
+                    "BPS Total Mati",
+                    "RSU Total Mati",
+                    "Luar Wilayah Total Mati",
+                  ];
+                  const whereEmpty = {
+                    Desa: [],
+                    Where: [],
+                    Empty: "false",
+                  };
+                  for (let check = 0; check < dataCheck.length; check++) {
+                    if (dataCheck[check] == undefined) {
+                      whereEmpty.Desa.push(dataCheck[2]);
+                      whereEmpty.Where.push(dataCheckName[check]);
+                      whereEmpty.Empty = "true";
+                    }
+                  }
+                  this.setState(
+                    {
+                      whereEmpty: whereEmpty,
+                    },
+                    () => {
+                      const dataCocFinal = _.filter(dataCoc, {
+                        Puskesmas: this.state.Puskesmas,
+                      });
+                      const dataCocFinalKIA = _.filter(COCKIA, {
+                        Puskesmas: this.state.Puskesmas,
+                      });
+                      const dataCocCompare = _.filter(dataCocFinal, {
+                        Bulan: this.state.Bulan,
+                      });
+                      const dataCocCompareKIA = _.filter(dataCocFinalKIA, {
+                        Bulan: this.state.Bulan,
+                      });
+                      if (this.state.whereEmpty.Empty == "true") {
+                        window.alert(
+                          "Data Kurang Lengkap di " +
+                            this.state.whereEmpty.Where +
+                            " Pada Desa " +
+                            this.state.whereEmpty.Desa
+                        );
+                      } else {
+                        if (dataCocCompare.length == 1) {
+                          this.setState({ isDuplicate: true });
+                          if (
+                            confirm(
+                              "Apakah Anda Ingin Merubah Data " +
+                                this.state.Puskesmas +
+                                " Pada " +
+                                this.state.Bulan +
+                                " " +
+                                this.state.Tahun +
+                                "?"
+                            ) == true
+                          ) {
+                            const dataCocKIA = {
+                              Tahun: this.state.Tahun,
+                              Bulan: this.state.Bulan,
+                              Puskesmas: this.state.Puskesmas,
+                              RumahTL: this.state.RumahTL,
+                              PosyanduTL: this.state.PosyanduTL,
+                              PolindesTL: this.state.PolindesTL,
+                              PustuTL: this.state.PustuTL,
+                              PuskesmasTL: this.state.PuskesmasTL,
+                              BPSTL: this.state.BPSTL,
+                              RSUTL: this.state.RSUTL,
+                              LuarWilayahTL: this.state.LuarWilayahTL,
+                              RumahTLMati: this.state.RumahTLMati,
+                              PosyanduTLMati: this.state.PosyanduTLMati,
+                              PolindesTLMati: this.state.PolindesTLMati,
+                              PustuTLMati: this.state.PustuTLMati,
+                              PuskesmasTLMati: this.state.PuskesmasTLMati,
+                              BPSTLMati: this.state.BPSTLMati,
+                              RSUTLMati: this.state.RSUTLMati,
+                              LuarWilayahTLMati: this.state.LuarWilayahTLMati,
+                            };
+                            const dataKIA = {
+                              Tahun: this.state.Tahun,
+                              Bulan: this.state.Bulan,
+                              Puskesmas: this.state.Puskesmas,
+                              SasaranKelahiranHidupLK:
+                                this.state.SasaranKelahiranHidupLK,
+                              SasaranKelahiranHidupPR:
+                                this.state.SasaranKelahiranHidupPR,
+                              SasaranKelahiranHidupTL:
+                                this.state.SasaranKelahiranHidupTL,
+                              SasaranBayiRistiLK: this.state.SasaranBayiRistiLK,
+                              SasaranBayiRistiPR: this.state.SasaranBayiRistiPR,
+                              SasaranBayiRistiTL: this.state.SasaranBayiRistiTL,
+                              SasaranBayiLK: this.state.SasaranBayiLK,
+                              SasaranBayiPR: this.state.SasaranBayiPR,
+                              SasaranBayiTL: this.state.SasaranBayiTL,
+                              PencapaianLahirHidupLK:
+                                this.state.PencapaianLahirHidupTL,
+                              PencapaianLahirHidupPR:
+                                this.state.PencapaianLahirHidupPR,
+                              PencapaianLahirHidupTL:
+                                this.state.PencapaianLahirHidupTL,
+                              PencapaianLahirMatiLK:
+                                this.state.PencapaianLahirMatiLK,
+                              PencapaianLahirMatiPR:
+                                this.state.PencapaianLahirMatiPR,
+                              PencapaianLahirMatiTL:
+                                this.state.PencapaianLahirMatiTL,
+                              PencapaianKNPertamaLK:
+                                this.state.PencapaianKNPertamaLK,
+                              PencapaianKNPertamaPR:
+                                this.state.PencapaianKNPertamaPR,
+                              PencapaianKNPertamaTL:
+                                this.state.PencapaianKNPertamaTL,
+                              PencapaianKNKeduaLK:
+                                this.state.PencapaianKNKeduaLK,
+                              PencapaianKNKeduaPR:
+                                this.state.PencapaianKNKeduaPR,
+                              PencapaianKNKeduaTL:
+                                this.state.PencapaianKNKeduaTL,
+                              PencapaianKNLengkapLK:
+                                this.state.PencapaianKNLengkapLK,
+                              PencapaianKNLengkapPR:
+                                this.state.PencapaianKNLengkapPR,
+                              PencapaianKNLengkapTL:
+                                this.state.PencapaianKNLengkapTL,
+                              NeonatalKompLK: this.state.NeonatalKompLK,
+                              NeonatalKompPR: this.state.NeonatalKompPR,
+                              NeonatalKompTL: this.state.NeonatalKompTL,
+                              KunjunganBayiParipurnaLK:
+                                this.state.KunjunganBayiParipurnaLK,
+                              KunjunganBayiParipurnaPR:
+                                this.state.KunjunganBayiParipurnaPR,
+                              KunjunganBayiParipurnaTL:
+                                this.state.KunjunganBayiParipurnaTL,
+                            };
+                            console.log(dataKIA, dataCocKIA);
+                            this.props.DataCocEdit(
+                              dataCocCompare[0].id,
+                              dataKIA
+                            );
+                            if (dataCocCompareKIA.length == 1) {
+                              this.props.DataCocKIAEdit(
+                                dataCocCompareKIA[0].id,
+                                dataCocKIA
+                              );
+                            } else {
+                              this.props.addDataKIACoc(dataCocKIA);
+                            }
+                          } else {
+                            window.alert(
+                              "Anda Telah Membatalkan Pengubahan Data"
+                            );
+                          }
+                        } else {
+                          this.setState({ isDuplicate: false });
+                          console.log(this.state.isDuplicate);
+                          window.alert(
+                            "Entry Success in " +
+                              this.state.Bulan +
+                              " " +
+                              this.state.Tahun +
+                              " for " +
+                              this.state.Puskesmas
+                          );
+                          const dataCocKIA = {
+                            Tahun: this.state.Tahun,
+                            Bulan: this.state.Bulan,
+                            Puskesmas: this.state.Puskesmas,
+                            RumahTL: this.state.RumahTL,
+                            PosyanduTL: this.state.PosyanduTL,
+                            PolindesTL: this.state.PolindesTL,
+                            PustuTL: this.state.PustuTL,
+                            PuskesmasTL: this.state.PuskesmasTL,
+                            BPSTL: this.state.BPSTL,
+                            RSUTL: this.state.RSUTL,
+                            LuarWilayahTL: this.state.LuarWilayahTL,
+                            RumahTLMati: this.state.RumahTLMati,
+                            PosyanduTLMati: this.state.PosyanduTLMati,
+                            PolindesTLMati: this.state.PolindesTLMati,
+                            PustuTLMati: this.state.PustuTLMati,
+                            PuskesmasTLMati: this.state.PuskesmasTLMati,
+                            BPSTLMati: this.state.BPSTLMati,
+                            RSUTLMati: this.state.RSUTLMati,
+                            LuarWilayahTLMati: this.state.LuarWilayahTLMati,
+                          };
+                          const dataKIA = {
+                            Tahun: this.state.Tahun,
+                            Bulan: this.state.Bulan,
+                            Puskesmas: this.state.Puskesmas,
+                            SasaranKelahiranHidupLK:
+                              this.state.SasaranKelahiranHidupLK,
+                            SasaranKelahiranHidupPR:
+                              this.state.SasaranKelahiranHidupPR,
+                            SasaranKelahiranHidupTL:
+                              this.state.SasaranKelahiranHidupTL,
+                            SasaranBayiRistiLK: this.state.SasaranBayiRistiLK,
+                            SasaranBayiRistiPR: this.state.SasaranBayiRistiPR,
+                            SasaranBayiRistiTL: this.state.SasaranBayiRistiTL,
+                            SasaranBayiLK: this.state.SasaranBayiLK,
+                            SasaranBayiPR: this.state.SasaranBayiPR,
+                            SasaranBayiTL: this.state.SasaranBayiTL,
+                            PencapaianLahirHidupLK:
+                              this.state.PencapaianLahirHidupTL,
+                            PencapaianLahirHidupPR:
+                              this.state.PencapaianLahirHidupPR,
+                            PencapaianLahirHidupTL:
+                              this.state.PencapaianLahirHidupTL,
+                            PencapaianLahirMatiLK:
+                              this.state.PencapaianLahirMatiLK,
+                            PencapaianLahirMatiPR:
+                              this.state.PencapaianLahirMatiPR,
+                            PencapaianLahirMatiTL:
+                              this.state.PencapaianLahirMatiTL,
+                            PencapaianKNPertamaLK:
+                              this.state.PencapaianKNPertamaLK,
+                            PencapaianKNPertamaPR:
+                              this.state.PencapaianKNPertamaPR,
+                            PencapaianKNPertamaTL:
+                              this.state.PencapaianKNPertamaTL,
+                            PencapaianKNKeduaLK: this.state.PencapaianKNKeduaLK,
+                            PencapaianKNKeduaPR: this.state.PencapaianKNKeduaPR,
+                            PencapaianKNKeduaTL: this.state.PencapaianKNKeduaTL,
+                            PencapaianKNLengkapLK:
+                              this.state.PencapaianKNLengkapLK,
+                            PencapaianKNLengkapPR:
+                              this.state.PencapaianKNLengkapPR,
+                            PencapaianKNLengkapTL:
+                              this.state.PencapaianKNLengkapTL,
+                            NeonatalKompLK: this.state.NeonatalKompLK,
+                            NeonatalKompPR: this.state.NeonatalKompPR,
+                            NeonatalKompTL: this.state.NeonatalKompTL,
+                            KunjunganBayiParipurnaLK:
+                              this.state.KunjunganBayiParipurnaLK,
+                            KunjunganBayiParipurnaPR:
+                              this.state.KunjunganBayiParipurnaPR,
+                            KunjunganBayiParipurnaTL:
+                              this.state.KunjunganBayiParipurnaTL,
+                          };
+                          console.log(dataKIA, dataCocKIA);
+                          this.props.addDataCoc(dataKIA);
+                          this.props.addDataKIACoc(dataCocKIA);
+                        }
+                      }
+                      return <Navigate to="./InsertData" />;
+                    }
+                  );
+                }
+              );
             }
           );
-          const dataCocFinal = _.filter(dataCoc, {
-            Puskesmas: this.state.Puskesmas,
-          });
-          const dataCocFinalKIA = _.filter(COCKIA, {
-            Puskesmas: this.state.Puskesmas,
-          });
-          const dataCocCompare = _.filter(dataCocFinal, {
-            Bulan: this.state.Bulan,
-          });
-          const dataCocCompareKIA = _.filter(dataCocFinalKIA, {
-            Bulan: this.state.Bulan,
-          });
-          console.log(dataCocCompareKIA);
-          if (dataCocCompare.length == 1) {
-            this.setState({ isDuplicate: true });
-            if (
-              confirm(
-                "Apakah Anda Ingin Merubah Data " +
-                  this.state.Puskesmas +
-                  " Pada " +
-                  this.state.Bulan +
-                  " " +
-                  this.state.Tahun +
-                  "?"
-              ) == true
-            ) {
-              console.log("True");
-              const dataCocKIA = {
-                Tahun: this.state.Tahun,
-                Bulan: this.state.Bulan,
-                Puskesmas: this.state.Puskesmas,
-                RumahTL: this.state.RumahTL,
-                PosyanduTL: this.state.PosyanduTL,
-                PolindesTL: this.state.PolindesTL,
-                PustuTL: this.state.PustuTL,
-                PuskesmasTL: this.state.PuskesmasTL,
-                BPSTL: this.state.BPSTL,
-                RSUTL: this.state.RSUTL,
-                LuarWilayahTL: this.state.LuarWilayahTL,
-                RumahTLMati: this.state.RumahTLMati,
-                PosyanduTLMati: this.state.PosyanduTLMati,
-                PolindesTLMati: this.state.PolindesTLMati,
-                PustuTLMati: this.state.PustuTLMati,
-                PuskesmasTLMati: this.state.PuskesmasTLMati,
-                BPSTLMati: this.state.BPSTLMati,
-                RSUTLMati: this.state.RSUTLMati,
-                LuarWilayahTLMati: this.state.LuarWilayahTLMati,
-              };
-              const dataKIA = {
-                Tahun: this.state.Tahun,
-                Bulan: this.state.Bulan,
-                Puskesmas: this.state.Puskesmas,
-                SasaranKelahiranHidupLK: this.state.SasaranKelahiranHidupLK,
-                SasaranKelahiranHidupPR: this.state.SasaranKelahiranHidupPR,
-                SasaranKelahiranHidupTL: this.state.SasaranKelahiranHidupTL,
-                SasaranBayiRistiLK: this.state.SasaranBayiRistiLK,
-                SasaranBayiRistiPR: this.state.SasaranBayiRistiPR,
-                SasaranBayiRistiTL: this.state.SasaranBayiRistiTL,
-                SasaranBayiLK: this.state.SasaranBayiLK,
-                SasaranBayiPR: this.state.SasaranBayiPR,
-                SasaranBayiTL: this.state.SasaranBayiTL,
-                PencapaianLahirHidupLK: this.state.PencapaianLahirHidupTL,
-                PencapaianLahirHidupPR: this.state.PencapaianLahirHidupPR,
-                PencapaianLahirHidupTL: this.state.PencapaianLahirHidupTL,
-                PencapaianLahirMatiLK: this.state.PencapaianLahirMatiLK,
-                PencapaianLahirMatiPR: this.state.PencapaianLahirMatiPR,
-                PencapaianLahirMatiTL: this.state.PencapaianLahirMatiTL,
-                PencapaianKNPertamaLK: this.state.PencapaianKNPertamaLK,
-                PencapaianKNPertamaPR: this.state.PencapaianKNPertamaPR,
-                PencapaianKNPertamaTL: this.state.PencapaianKNPertamaTL,
-                PencapaianKNKeduaLK: this.state.PencapaianKNKeduaLK,
-                PencapaianKNKeduaPR: this.state.PencapaianKNKeduaPR,
-                PencapaianKNKeduaTL: this.state.PencapaianKNKeduaTL,
-                PencapaianKNLengkapLK: this.state.PencapaianKNLengkapLK,
-                PencapaianKNLengkapPR: this.state.PencapaianKNLengkapPR,
-                PencapaianKNLengkapTL: this.state.PencapaianKNLengkapTL,
-                NeonatalKompLK: this.state.NeonatalKompLK,
-                NeonatalKompPR: this.state.NeonatalKompPR,
-                NeonatalKompTL: this.state.NeonatalKompTL,
-                KunjunganBayiParipurnaLK: this.state.KunjunganBayiParipurnaLK,
-                KunjunganBayiParipurnaPR: this.state.KunjunganBayiParipurnaPR,
-                KunjunganBayiParipurnaTL: this.state.KunjunganBayiParipurnaTL,
-              };
-              console.log(dataKIA, dataCocKIA);
-              this.props.DataCocEdit(dataCocCompare[0].id, dataKIA);
-              if (dataCocCompareKIA.length == 1) {
-                this.props.DataCocKIAEdit(dataCocCompareKIA[0].id, dataCocKIA);
-              } else {
-                this.props.addDataKIACoc(dataCocKIA);
-              }
-            } else {
-              window.alert("Anda Telah Membatalkan Pengubahan Data");
-            }
-          } else {
-            this.setState({ isDuplicate: false });
-            console.log(this.state.isDuplicate);
-            window.alert(
-              "Entry Success in " +
-                this.state.Bulan +
-                " " +
-                this.state.Tahun +
-                " for " +
-                this.state.Puskesmas
-            );
-            const dataCocKIA = {
-              Tahun: this.state.Tahun,
-              Bulan: this.state.Bulan,
-              Puskesmas: this.state.Puskesmas,
-              RumahTL: this.state.RumahTL,
-              PosyanduTL: this.state.PosyanduTL,
-              PolindesTL: this.state.PolindesTL,
-              PustuTL: this.state.PustuTL,
-              PuskesmasTL: this.state.PuskesmasTL,
-              BPSTL: this.state.BPSTL,
-              RSUTL: this.state.RSUTL,
-              LuarWilayahTL: this.state.LuarWilayahTL,
-              RumahTLMati: this.state.RumahTLMati,
-              PosyanduTLMati: this.state.PosyanduTLMati,
-              PolindesTLMati: this.state.PolindesTLMati,
-              PustuTLMati: this.state.PustuTLMati,
-              PuskesmasTLMati: this.state.PuskesmasTLMati,
-              BPSTLMati: this.state.BPSTLMati,
-              RSUTLMati: this.state.RSUTLMati,
-              LuarWilayahTLMati: this.state.LuarWilayahTLMati,
-            };
-            const dataKIA = {
-              Tahun: this.state.Tahun,
-              Bulan: this.state.Bulan,
-              Puskesmas: this.state.Puskesmas,
-              SasaranKelahiranHidupLK: this.state.SasaranKelahiranHidupLK,
-              SasaranKelahiranHidupPR: this.state.SasaranKelahiranHidupPR,
-              SasaranKelahiranHidupTL: this.state.SasaranKelahiranHidupTL,
-              SasaranBayiRistiLK: this.state.SasaranBayiRistiLK,
-              SasaranBayiRistiPR: this.state.SasaranBayiRistiPR,
-              SasaranBayiRistiTL: this.state.SasaranBayiRistiTL,
-              SasaranBayiLK: this.state.SasaranBayiLK,
-              SasaranBayiPR: this.state.SasaranBayiPR,
-              SasaranBayiTL: this.state.SasaranBayiTL,
-              PencapaianLahirHidupLK: this.state.PencapaianLahirHidupTL,
-              PencapaianLahirHidupPR: this.state.PencapaianLahirHidupPR,
-              PencapaianLahirHidupTL: this.state.PencapaianLahirHidupTL,
-              PencapaianLahirMatiLK: this.state.PencapaianLahirMatiLK,
-              PencapaianLahirMatiPR: this.state.PencapaianLahirMatiPR,
-              PencapaianLahirMatiTL: this.state.PencapaianLahirMatiTL,
-              PencapaianKNPertamaLK: this.state.PencapaianKNPertamaLK,
-              PencapaianKNPertamaPR: this.state.PencapaianKNPertamaPR,
-              PencapaianKNPertamaTL: this.state.PencapaianKNPertamaTL,
-              PencapaianKNKeduaLK: this.state.PencapaianKNKeduaLK,
-              PencapaianKNKeduaPR: this.state.PencapaianKNKeduaPR,
-              PencapaianKNKeduaTL: this.state.PencapaianKNKeduaTL,
-              PencapaianKNLengkapLK: this.state.PencapaianKNLengkapLK,
-              PencapaianKNLengkapPR: this.state.PencapaianKNLengkapPR,
-              PencapaianKNLengkapTL: this.state.PencapaianKNLengkapTL,
-              NeonatalKompLK: this.state.NeonatalKompLK,
-              NeonatalKompPR: this.state.NeonatalKompPR,
-              NeonatalKompTL: this.state.NeonatalKompTL,
-              KunjunganBayiParipurnaLK: this.state.KunjunganBayiParipurnaLK,
-              KunjunganBayiParipurnaPR: this.state.KunjunganBayiParipurnaPR,
-              KunjunganBayiParipurnaTL: this.state.KunjunganBayiParipurnaTL,
-            };
-            console.log(dataKIA, dataCocKIA);
-            this.props.addDataCoc(dataKIA);
-            this.props.addDataKIACoc(dataCocKIA);
-          }
         }
-        return <Navigate to="./InsertData" />;
       };
 
       fileReader.onerror = (error) => {
