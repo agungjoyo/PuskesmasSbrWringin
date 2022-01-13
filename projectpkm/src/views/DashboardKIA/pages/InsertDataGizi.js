@@ -149,7 +149,7 @@ class InsertDataGizi extends Component {
           } else {
             this.setState(
               {
-                Tahun: yearFix,
+                Tahun: finalTemp,
                 Bulan: dateSplit[3],
                 Puskesmas: data[3][d],
                 JumlahBalitaKMS: data[13][d],
@@ -314,17 +314,17 @@ class InsertDataGizi extends Component {
                           };
 
                           // console.log(finalDataCoc.Bulan);
-                          this.props.DataCocEditGizi(
-                            dataCocCompare[0].id,
-                            finalDataCoc
-                          );
+                          // this.props.DataCocEditGizi(
+                          //   dataCocCompare[0].id,
+                          //   finalDataCoc
+                          // );
 
                           // console.log(finalData, dataCocCompare[0].id);
                           // console.log(files, isDuplicate);
-                          this.props.DataCocEditGizi(
-                            dataCocCompare[0].id,
-                            finalData
-                          );
+                          // this.props.DataCocEditGizi(
+                          //   dataCocCompare[0].id,
+                          //   finalData
+                          // );
                           // if (dataVitA.length == undefined){
                           //   this.setState({JmlVitAMr = 0})
                           // }
@@ -377,7 +377,7 @@ class InsertDataGizi extends Component {
                         };
                         // console.log(finalDataCoc);
 
-                        this.props.addDataCocGizi(finalDataCoc);
+                        // this.props.addDataCocGizi(finalDataCoc);
                       }
                     }
                     return <Navigate to="./InsertDataGizi" />;
