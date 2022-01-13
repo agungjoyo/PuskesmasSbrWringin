@@ -704,8 +704,10 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {JmlSPDKPersentase} */}
-                                    {`${JmlSPDKPersentase.toFixed(0)} %`}
+                                    {`${(
+                                      (JmlSPDK / JmlPDK + JmlTNM + JmlTG) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -737,8 +739,10 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {JmlPDKPersentase} */}
-                                    {`${JmlPDKPersentase.toFixed(0)} %`}
+                                    {`${(
+                                      (JmlPDK / JmlSPDK + JmlTNM + JmlTG) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -770,8 +774,10 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {JmlTNMPersentase} */}
-                                    {`${JmlTNMPersentase.toFixed(0)} %`}
+                                    {`${(
+                                      (JmlTNM / JmlPDK + JmlSPDK + JmlTG) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -803,8 +809,10 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {JmlTGPersentase} */}
-                                    {`${JmlTGPersentase.toFixed(0)} %`}
+                                    {`${(
+                                      (JmlTG / JmlPDK + JmlTNM + JmlSPDK) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -836,8 +844,14 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {JmlGiburPersentase} */}
-                                    {`${JmlGiburPersentase.toFixed(0)} %`}
+                                    {`${(
+                                      (JmlGibur / JmlGirang +
+                                        JmlNML +
+                                        JmlRGzLbh +
+                                        JmlGzLbh +
+                                        JmlObes) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -869,8 +883,14 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {JmlGirangPersentase} */}
-                                    {`${JmlGirangPersentase.toFixed(0)} %`}
+                                    {`${(
+                                      (JmlGirang / JmlGibur +
+                                        JmlNML +
+                                        JmlRGzLbh +
+                                        JmlGzLbh +
+                                        JmlObes) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -902,8 +922,14 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {JmlNMLPersentase} */}
-                                    {`${JmlNMLPersentase.toFixed(0)} %`}
+                                    {`${(
+                                      (JmlNML / JmlGirang +
+                                        JmlGibur +
+                                        JmlRGzLbh +
+                                        JmlGzLbh +
+                                        JmlObes) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -935,8 +961,14 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {JmlRGzLbhPersentase} */}
-                                    {`${JmlRGzLbhPersentase.toFixed(0)} %`}
+                                    {`${(
+                                      (JmlRGzLbh / JmlGirang +
+                                        JmlGibur +
+                                        JmlNML +
+                                        JmlGzLbh +
+                                        JmlObes) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -968,8 +1000,14 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {JmlGzLbhPersentase} */}
-                                    {`${JmlGzLbhPersentase.toFixed(0)} %`}
+                                    {`${(
+                                      (JmlGzLbh / JmlGirang +
+                                        JmlGibur +
+                                        JmlRGzLbh +
+                                        JmlNML +
+                                        JmlObes) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -1001,8 +1039,14 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {JmlObesPersentase} */}
-                                    {`${JmlObesPersentase.toFixed(0)} %`}
+                                    {`${(
+                                      (JmlObes / JmlGirang +
+                                        JmlGibur +
+                                        JmlRGzLbh +
+                                        JmlGzLbh +
+                                        JmlNML) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -1034,9 +1078,10 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {JmlBBSKPersentase} */}
-
-                                    {`${JmlBBSKPersentase.toFixed(0)} %`}
+                                    {`${(
+                                      (JmlBBSK / JmlBBK + JmlBBN + JmlBBL) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -1068,8 +1113,10 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {JmlBBKPersentase} */}
-                                    {`${JmlBBKPersentase.toFixed(0)} %`}
+                                    {`${(
+                                      (JmlBBK / JmlBBSK + JmlBBN + JmlBBL) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -1101,8 +1148,10 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {JmlBBNPersentase} */}
-                                    {`${JmlBBNPersentase.toFixed(0)} %`}
+                                    {`${(
+                                      (JmlBBN / JmlBBK + JmlBBSK + JmlBBL) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -1134,8 +1183,10 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {JmlBBLPersentase} */}
-                                    {`${JmlBBLPersentase.toFixed(0)} %`}
+                                    {`${(
+                                      (JmlBBL / JmlBBK + JmlBBN + JmlBBSK) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -1183,8 +1234,9 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {JmlBMKEKPersentase} */}
-                                    {`${JmlBMKEKPersentase.toFixed(0)} %`}
+                                    {`${((JmlBMKEK / JmlBMLA) * 100).toFixed(
+                                      1
+                                    )} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -1216,8 +1268,9 @@ class DataCocGizi extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {/* {JmlPMTKEKPersentase} */}
-                                    {`${JmlPMTKEKPersentase.toFixed(0)} %`} */}
+                                    {`${((JmlPMTKEK / JmlBMKEK) * 100).toFixed(
+                                      1
+                                    )} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>

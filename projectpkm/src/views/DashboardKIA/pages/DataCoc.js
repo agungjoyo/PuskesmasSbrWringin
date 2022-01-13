@@ -357,6 +357,7 @@ class DataCoc extends Component {
                             Bulan,
                             Puskesmas,
                             SasaranBayiTL,
+                            SasaranKelahiranHidupTL,
                             PencapaianLahirHidupTL,
                             PencapaianLahirHidupPersentase,
                             PencapaianLahirMatiTL,
@@ -476,9 +477,11 @@ class DataCoc extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {`${PencapaianLahirHidupPersentase.toFixed(
-                                      1
-                                    )} %`}
+                                    {`${(
+                                      (PencapaianLahirHidupTL /
+                                        SasaranKelahiranHidupTL) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -510,9 +513,11 @@ class DataCoc extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {`${PencapaianLahirMatiPersentase.toFixed(
-                                      1
-                                    )} %`}
+                                    {`${(
+                                      (PencapaianLahirMatiTL /
+                                        SasaranKelahiranHidupTL) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -544,9 +549,11 @@ class DataCoc extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {`${PencapaianKNPertamaPersentase.toFixed(
-                                      1
-                                    )} %`}
+                                    {`${(
+                                      (PencapaianKNPertamaTL /
+                                        SasaranKelahiranHidupTL) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -578,9 +585,11 @@ class DataCoc extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {`${PencapaianKNKeduaPersentase.toFixed(
-                                      1
-                                    )} %`}
+                                    {`${(
+                                      (PencapaianKNKeduaTL /
+                                        SasaranKelahiranHidupTL) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -612,9 +621,11 @@ class DataCoc extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {`${PencapaianKNLengkapPersentase.toFixed(
-                                      1
-                                    )} %`}
+                                    {`${(
+                                      (PencapaianKNLengkapTL /
+                                        SasaranKelahiranHidupTL) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -646,7 +657,11 @@ class DataCoc extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {`${NeonatalKompPersentase.toFixed(1)} %`}
+                                    {`${(
+                                      (NeonatalKompTL /
+                                        SasaranKelahiranHidupTL) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
@@ -678,9 +693,11 @@ class DataCoc extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {`${KunjunganBayiParipurnaPersentase.toFixed(
-                                      1
-                                    )} %`}
+                                    {`${(
+                                      (KunjunganBayiParipurnaTL /
+                                        SasaranKelahiranHidupTL) *
+                                      100
+                                    ).toFixed(1)} %`}
                                   </Typography>
                                 </Stack>
                               </TableCell>
