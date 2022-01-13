@@ -48,6 +48,8 @@ class GraphicCocPKM extends Component {
     ],
     yearIndex: "",
     year: [],
+    ChangeIndex: "",
+    Change: ["Number", "Persentase"],
     desaIndex: [],
     desa: [],
     options: {
@@ -131,25 +133,8 @@ class GraphicCocPKM extends Component {
             "#000000",
           ],
         },
-        formatter: (value, data) => {
-          console.log(data);
-          if (data.seriesIndex == 2) {
-            let percentage = 0;
-            percentage =
-              (
-                (data.w.config.series[2].data[data.dataPointIndex] /
-                  data.w.config.series[0].data[data.dataPointIndex]) *
-                100
-              ).toFixed(1) + " %";
-            console.log(
-              data.w.config.series[2].data[data.dataPointIndex],
-              data.w.config.series[0].data[data.dataPointIndex],
-              data.dataPointIndex
-            );
-            return percentage;
-          } else {
-            return value;
-          }
+        formatter: (value) => {
+          return value;
         },
       },
       grid: {
@@ -234,6 +219,14 @@ class GraphicCocPKM extends Component {
     return {
       fontWeight:
         yearIndex?.indexOf(year) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
+  getStylesChange(Change, ChangeIndex, theme) {
+    return {
+      fontWeight:
+        ChangeIndex?.indexOf(Change) === -1
           ? theme.typography.fontWeightRegular
           : theme.typography.fontWeightMedium,
     };
@@ -547,6 +540,31 @@ class GraphicCocPKM extends Component {
             ))}
           </Select>
         </FormControl>
+        <FormControl sx={{ m: 1, minWidth: 100 }}>
+          <InputLabel id="demo-simple-select-helper-label">Index</InputLabel>
+          <Select
+            labelId="demo-simple-select-helper-label"
+            id="demo-simple-select-helper"
+            value={this.state.ChangeIndex}
+            onChange={this.handleChange}
+            label="ChangeIndex"
+            name="ChangeIndex"
+          >
+            {this.state.Change.map((Change) => (
+              <MenuItem
+                key={Change}
+                value={Change}
+                style={this.getStylesChange(
+                  this.state.Change,
+                  this.state.ChangeIndex,
+                  this.props.theme
+                )}
+              >
+                {Change}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
     );
   };
@@ -619,6 +637,43 @@ class GraphicCocPKM extends Component {
         let KNlengkapBulan = 0;
         let KNkomplikasiBulan = 0;
         let KunjunganBayiParipurnaBulan = 0;
+        if (this.state.ChangeIndex == "Persentase") {
+          console.log("true");
+          this.setState({
+            options: {
+              ...this.state.options,
+              dataLabels: {
+                ...this.state.options.dataLabels,
+                formatter: (value, data) => {
+                  if (data.seriesIndex == 2) {
+                    let percentage = 0;
+                    percentage =
+                      (
+                        (data.w.config.series[2].data[data.dataPointIndex] /
+                          data.w.config.series[0].data[data.dataPointIndex]) *
+                        100
+                      ).toFixed(1) + " %";
+                    return percentage;
+                  } else {
+                    return value;
+                  }
+                },
+              },
+            },
+          });
+        } else {
+          this.setState({
+            options: {
+              ...this.state.options,
+              dataLabels: {
+                ...this.state.options.dataLabels,
+                formatter: (value, data) => {
+                  return value;
+                },
+              },
+            },
+          });
+        }
         if (this.state.desaIndex == "PUSKESMAS SUMBER WRINGIN") {
           this.setState(
             {
@@ -1182,6 +1237,7 @@ class GraphicCocPKM extends Component {
   };
   render() {
     const { data } = this.props;
+    console.log(this.state);
     if (data == undefined) {
       return <div>Loading...</div>;
     } else {
