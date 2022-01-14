@@ -182,6 +182,66 @@ export const DataCocK1Edit = (id, dataK1Coc) => {
       });
   };
 };
+export const addDataKB = (dataKB) => {
+  // return (dispatch, getState) => {}
+  return (dispatch, getState, { getFirestore }) => {
+    // make async call to database
+    const firestore = getFirestore();
+    firestore
+      .collection("KB")
+      .add({
+        ...dataKB,
+        createdAt: new Date(),
+      })
+      .then(() => {
+        dispatch({ type: "ADD_DATA_KB", dataKB });
+      })
+      .catch((err) => {
+        dispatch({ type: "ADD_DATA_KB_ERROR", err });
+      });
+  };
+};
+export const removeDataKB = (id) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("KB")
+      .doc(id)
+      .delete()
+      .then(() => {
+        dispatch({ type: "DATA_KB_REMOVED", KB });
+      })
+      .catch((err) => {
+        dispatch({ type: "DATA_KB_REMOVED_ERROR", err });
+      });
+  };
+};
+export const DataKBEdit = (id, dataKB) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("KB")
+      .doc(id)
+      .delete()
+      .then(() => {
+        firestore
+          .collection("KB")
+          .add({
+            ...dataKB,
+            createdAt: new Date(),
+          })
+          .then(() => {
+            dispatch({ type: "DATA_KB_EDITED", dataKB });
+          })
+          .catch((err) => {
+            dispatch({ type: "DATA_KB_EDITED_ERROR", err });
+          });
+      })
+      .catch((err) => {
+        dispatch({ type: "DATA_KB_EDITED_ERROR", err });
+      });
+  };
+};
 export const removeDataTripleCoc = (id) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();

@@ -316,11 +316,20 @@ class DataCoc extends Component {
                 </Button>
                 <Button
                   variant="contained"
+                  sx={{ mr: 2 }}
                   component={RouterLink}
                   to="/dashboard/InsertData"
                   startIcon={<Icon icon={plusFill} />}
                 >
                   Tambah Data Baru
+                </Button>
+                <Button
+                  variant="contained"
+                  component={RouterLink}
+                  to="/dashboard/InsertDataKB"
+                  startIcon={<Icon icon={plusFill} />}
+                >
+                  Tambah Data KB
                 </Button>
               </div>
             </Stack>

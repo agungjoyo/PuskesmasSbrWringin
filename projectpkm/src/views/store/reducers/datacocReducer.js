@@ -20,6 +20,24 @@ const datacocReducer = (state = initState, action) => {
     case "DATA_COC_EDITED_ERROR":
       console.log("Data COC Error", action.dataCoc);
       return state;
+    case "ADD_DATA_KB":
+      console.log("Created Data KB", action.dataKB);
+      return state;
+    case "ADD_DATA_KB_ERROR":
+      console.log("Data KB Error", action.dataKB);
+      return state;
+    case "DATA_KB_REMOVED":
+      console.log("Data KB REMOVED", action.id);
+      return state;
+    case "DATA_KB_REMOVED_ERROR":
+      console.log("Data KB Error", action.id);
+      return state;
+    case "DATA_KB_EDITED":
+      console.log("Data KB Edited", action.dataKB);
+      return state;
+    case "DATA_KB_EDITED_ERROR":
+      console.log("Data KB Error", action.dataKB);
+      return state;
     case "ADD_DATA_COC_KIA":
       console.log("Created Data COC KIA", action.dataKIACoc);
       return state;

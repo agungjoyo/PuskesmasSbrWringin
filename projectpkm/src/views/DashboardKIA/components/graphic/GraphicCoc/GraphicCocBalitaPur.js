@@ -51,6 +51,8 @@ class GraphicCocBalitaPur extends Component {
     year: [],
     desaIndex: [],
     desa: [],
+    ChangeIndex: "",
+    Change: ["Number", "Persentase"],
     options: {
       stroke: { width: [3, 3, 3, 3, 3, 3] },
       chart: {
@@ -136,33 +138,17 @@ class GraphicCocBalitaPur extends Component {
     },
     series: [
       {
-        name: "Neonatal Komplikasi Laki - Laki",
+        name: "Balita Paripurna",
         type: "column",
         data: [],
       },
       {
-        name: "Neonatal Komplikasi Perempuan",
+        name: "Vitamin A Balita",
         type: "column",
         data: [],
       },
       {
-        name: "Neonatal Komplikasi Total",
-        type: "column",
-        data: [],
-      },
-
-      {
-        name: "Kunjungan Bayi Paripurna Laki - Laki",
-        type: "column",
-        data: [],
-      },
-      {
-        name: "Kunjungan Bayi Paripurna Perempuan",
-        type: "column",
-        data: [],
-      },
-      {
-        name: "Kunjungan Bayi Paripurna Total",
+        name: "Imunisasi Lanjutan",
         type: "column",
         data: [],
       },
@@ -192,13 +178,22 @@ class GraphicCocBalitaPur extends Component {
           : theme.typography.fontWeightMedium,
     };
   }
+  getStylesChange(Change, ChangeIndex, theme) {
+    return {
+      fontWeight:
+        ChangeIndex?.indexOf(Change) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
   handleChangeBulan = () => {
-    const { KIA } = this.props;
-    const desaTemp = [];
-    for (let i = 0; i < KIA.length; i++) {
-      desaTemp.push(KIA[i].Puskesmas);
+    const { TripleEliminasi, K1 } = this.props;
+    const desaTemp = ["PUSKESMAS SUMBER WRINGIN"];
+    for (let i = 0; i < TripleEliminasi.length; i++) {
+      desaTemp.push(TripleEliminasi[i].Puskesmas.replace(/ /g, ""));
     }
     const desa = Array.from(new Set(desaTemp));
+    console.log(desa);
     this.setState(
       {
         monthIndex: [],
@@ -263,7 +258,7 @@ class GraphicCocBalitaPur extends Component {
       },
       () => {
         const yearList = [];
-        const yearTemp = _.chain(KIA)
+        const yearTemp = _.chain(TripleEliminasi)
           .groupBy("Tahun")
           .map((set, Tahun) => ({ set, Tahun }))
           .value();
@@ -392,12 +387,46 @@ class GraphicCocBalitaPur extends Component {
             ))}
           </Select>
         </FormControl>
+
+        <FormControl sx={{ m: 1, minWidth: 100 }}>
+          <InputLabel id="demo-simple-select-helper-label">Index</InputLabel>
+          <Select
+            labelId="demo-simple-select-helper-label"
+            id="demo-simple-select-helper"
+            value={this.state.ChangeIndex}
+            onChange={this.handleChange}
+            label="ChangeIndex"
+            name="ChangeIndex"
+          >
+            {this.state.Change.map((Change) => (
+              <MenuItem
+                key={Change}
+                value={Change}
+                style={this.getStylesChange(
+                  this.state.Change,
+                  this.state.ChangeIndex,
+                  this.props.theme
+                )}
+              >
+                {Change}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
     );
   };
   handleChange = (event) => {
-    const { KIA } = this.props;
-    const dataFinal = _.chain(KIA)
+    const { TripleEliminasi, K1, Gizi } = this.props;
+    const dataFinalTripleEliminasi = _.chain(TripleEliminasi)
+      .groupBy("Puskesmas")
+      .map((set, Puskesmas) => ({ set, Puskesmas }))
+      .value();
+    const dataFinalK1 = _.chain(K1)
+      .groupBy("Puskesmas")
+      .map((set, Puskesmas) => ({ set, Puskesmas }))
+      .value();
+    const dataFinalGizi = _.chain(Gizi)
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
@@ -411,94 +440,606 @@ class GraphicCocBalitaPur extends Component {
         const series3 = [];
         const series4 = [];
         const series5 = [];
-        const series6 = [];
+        const Temp = [];
         let category = [];
-        let kompLk = 0;
-        let kompPr = 0;
-        let kompTl = 0;
-        let kBPLk = 0;
-        let kBPPr = 0;
-        let kBPTl = 0;
-        for (let a = 0; a < dataFinal.length; a++) {
-          kompLk = 0;
-          kompPr = 0;
-          kompTl = 0;
-          kBPLk = 0;
-          kBPPr = 0;
-          kBPTl = 0;
-          for (let b = 0; b < this.state.desaIndex.length; b++) {
-            if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
-              for (let i = 0; i < dataFinal[i].set.length; i++) {
-                for (let c = 0; c < this.state.monthIndex.length; c++) {
-                  if (
-                    this.state.monthIndex[c]?.toLowerCase() ===
-                      dataFinal[a].set[i].Bulan.toLowerCase() &&
-                    this.state.yearIndex === dataFinal[a].set[i].Tahun
+        let k1 = 0;
+        let fe1 = 0;
+        let tripleEliminasi = 0;
+        let k4Spm = 0;
+        let Linakes = 0;
+
+        if (this.state.desaIndex == "PUSKESMAS SUMBER WRINGIN") {
+          this.setState(
+            {
+              desaIndex: ["PUSKESMAS SUMBER WRINGIN"],
+            },
+            () => {
+              let FinalSeries1 = 0;
+              let FinalSeries2 = 0;
+              let FinalSeries3 = 0;
+              let FinalSeries4 = 0;
+              let FinalSeries5 = 0;
+              let FinalSasaran = 0;
+              let Sasaran = [];
+              this.setState(
+                {
+                  series: [
+                    {
+                      name: "K1 Bumil",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "FE-1",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Triple Eliminasi",
+                      type: "column",
+                      data: [],
+                    },
+
+                    {
+                      name: "K4 SPM",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Linakes",
+                      type: "column",
+                      data: [],
+                    },
+                  ],
+                  options: {
+                    ...this.state.options,
+                    dataLabels: {
+                      ...this.state.options.dataLabels,
+                      offsetY: -20,
+                      offsetX: 0,
+                    },
+                    plotOptions: {
+                      ...this.state.options.plotOptions,
+                      bar: {
+                        ...this.state.options.plotOptions.bar,
+                        horizontal: false,
+                      },
+                    },
+                    xaxis: {
+                      ...this.state.options.xaxis,
+                      categories: [],
+                    },
+                  },
+                },
+                () => {
+                  for (let a = 0; a < this.state.desaIndex.length; a++) {
+                    k1 = 0;
+                    fe1 = 0;
+                    tripleEliminasi = 0;
+                    k4Spm = 0;
+                    Linakes = 0;
+                    Sasaran = 0;
+                    for (let h = 0; h < this.state.monthIndex.length; h++) {
+                      for (
+                        let b = 0;
+                        b < dataFinalTripleEliminasi.length;
+                        b++
+                      ) {
+                        for (
+                          let e = 0;
+                          e < dataFinalTripleEliminasi[b].set.length;
+                          e++
+                        ) {
+                          if (
+                            this.state.monthIndex[h].toLowerCase() ===
+                              dataFinalTripleEliminasi[b].set[
+                                e
+                              ].Bulan.toLowerCase() &&
+                            this.state.yearIndex ===
+                              dataFinalTripleEliminasi[b].set[e].Tahun
+                          ) {
+                            k1 =
+                              k1 + dataFinalTripleEliminasi[b].set[e].K1Bumil;
+                            tripleEliminasi =
+                              tripleEliminasi +
+                              dataFinalTripleEliminasi[b].set[e].BumilTesHIV;
+                          }
+                        }
+                        //   category.push(dataFinalTripleEliminasi[a].Puskesmas);\
+                      }
+                      for (let c = 0; c < dataFinalK1.length; c++) {
+                        for (let f = 0; f < dataFinalK1[c].set.length; f++) {
+                          if (
+                            this.state.monthIndex[h].toLowerCase() ===
+                              dataFinalK1[c].set[f].Bulan.toLowerCase() &&
+                            this.state.yearIndex === dataFinalK1[c].set[f].Tahun
+                          ) {
+                            k4Spm = k4Spm + dataFinalK1[c].set[f].K4SPMBumil;
+                            Linakes = Linakes + dataFinalK1[c].set[f].Linakes;
+                            Temp.push(dataFinalK1[c].set[f].SasaranBumil);
+                          }
+                        }
+                      }
+                      for (let d = 0; d < dataFinalGizi.length; d++) {
+                        for (let g = 0; g < dataFinalGizi[d].set.length; g++) {
+                          if (
+                            this.state.monthIndex[h].toLowerCase() ===
+                              dataFinalGizi[d].set[g].Bulan.toLowerCase() &&
+                            this.state.yearIndex ===
+                              dataFinalGizi[d].set[g].Tahun
+                          ) {
+                            fe1 = fe1 + dataFinalGizi[d].set[g].JmlFe1;
+                          }
+                        }
+                      }
+                    }
+                    series1.push(k1);
+                    series3.push(tripleEliminasi);
+                    series2.push(fe1);
+                    series4.push(k4Spm);
+                    series5.push(Linakes);
+                    console.log(Temp);
+                    category.push(this.state.desaIndex[a]);
+                  }
+                  for (let s1 = 0; s1 < series1.length; s1++) {
+                    FinalSeries1 = FinalSeries1 + series1[s1];
+                  }
+                  for (let s2 = 0; s2 < series2.length; s2++) {
+                    FinalSeries2 = FinalSeries2 + series2[s2];
+                  }
+                  for (let s3 = 0; s3 < series3.length; s3++) {
+                    FinalSeries3 = FinalSeries3 + series3[s3];
+                  }
+                  for (let s4 = 0; s4 < series4.length; s4++) {
+                    FinalSeries4 = FinalSeries4 + series4[s4];
+                  }
+                  for (let s5 = 0; s5 < series5.length; s5++) {
+                    FinalSeries5 = FinalSeries5 + series5[s5];
+                  }
+                  const SasaranTemp = Array.from(new Set(Temp));
+                  for (
+                    let Sasaran = 0;
+                    Sasaran < SasaranTemp.length;
+                    Sasaran++
                   ) {
-                    kompLk = kompLk + dataFinal[a].set[i].NeonatalKompLK;
-                    kompPr = kompPr + dataFinal[a].set[i].NeonatalKompPR;
-                    kompTl = kompTl + dataFinal[a].set[i].NeonatalKompTL;
-                    kBPLk =
-                      kBPLk + dataFinal[a].set[i].KunjunganBayiParipurnaLK;
-                    kBPPr =
-                      kBPPr + dataFinal[a].set[i].KunjunganBayiParipurnaPR;
-                    kBPTl =
-                      kBPTl + dataFinal[a].set[i].KunjunganBayiParipurnaTL;
+                    FinalSasaran = FinalSasaran + SasaranTemp[Sasaran];
+                  }
+                  if (this.state.ChangeIndex == "Persentase") {
+                    this.setState(
+                      {
+                        series: [
+                          {
+                            name: "K1 Bumil",
+                            type: "column",
+                            data: [FinalSeries1],
+                          },
+                          {
+                            name: "FE-1",
+                            type: "column",
+                            data: [FinalSeries2],
+                          },
+                          {
+                            name: "Triple Eliminasi",
+                            type: "column",
+                            data: [FinalSeries3],
+                          },
+
+                          {
+                            name: "K4 SPM",
+                            type: "column",
+                            data: [FinalSeries4],
+                          },
+                          {
+                            name: "Linakes",
+                            type: "column",
+                            data: [FinalSeries5],
+                          },
+                        ],
+                        options: {
+                          ...this.state.options,
+                          dataLabels: {
+                            ...this.state.options.dataLabels,
+                            formatter: (value, data) => {
+                              console.log(data);
+                              if (data.seriesIndex == 0) {
+                                let percentage = 0;
+                                percentage =
+                                  (
+                                    (data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ] /
+                                      FinalSasaran) *
+                                    100
+                                  ).toFixed(1) + " %";
+                                return percentage;
+                              } else if (data.seriesIndex == 1) {
+                                let percentage = 0;
+                                percentage =
+                                  (
+                                    (data.w.config.series[1].data[
+                                      data.dataPointIndex
+                                    ] /
+                                      FinalSasaran) *
+                                    100
+                                  ).toFixed(1) + " %";
+                                return percentage;
+                              } else if (data.seriesIndex === 2) {
+                                let percentage = 0;
+                                percentage =
+                                  (
+                                    (data.w.config.series[2].data[
+                                      data.dataPointIndex
+                                    ] /
+                                      FinalSasaran) *
+                                    100
+                                  ).toFixed(1) + " %";
+                                return percentage;
+                              } else if (data.seriesIndex == 3) {
+                                let percentage = 0;
+                                percentage =
+                                  (
+                                    (data.w.config.series[3].data[
+                                      data.dataPointIndex
+                                    ] /
+                                      FinalSasaran) *
+                                    100
+                                  ).toFixed(1) + " %";
+                                return percentage;
+                              } else if (data.seriesIndex == 4) {
+                                let percentage = 0;
+                                percentage =
+                                  (
+                                    (data.w.config.series[4].data[
+                                      data.dataPointIndex
+                                    ] /
+                                      FinalSasaran) *
+                                    100
+                                  ).toFixed(1) + " %";
+                                return percentage;
+                              } else {
+                                return value;
+                              }
+                            },
+                          },
+                          xaxis: {
+                            ...this.state.options.xaxis,
+                            categories: category,
+                          },
+                          yaxis: {
+                            ...this.state.options.yaxis,
+                            max: 100,
+                          },
+                        },
+                      },
+                      () => {}
+                    );
+                  } else {
+                    this.setState(
+                      {
+                        series: [
+                          {
+                            name: "K1 Bumil",
+                            type: "column",
+                            data: [FinalSeries1],
+                          },
+                          {
+                            name: "FE-1",
+                            type: "column",
+                            data: [FinalSeries2],
+                          },
+                          {
+                            name: "Triple Eliminasi",
+                            type: "column",
+                            data: [FinalSeries3],
+                          },
+
+                          {
+                            name: "K4 SPM",
+                            type: "column",
+                            data: [FinalSeries4],
+                          },
+                          {
+                            name: "Linakes",
+                            type: "column",
+                            data: [FinalSeries5],
+                          },
+                        ],
+                        options: {
+                          ...this.state.options,
+                          dataLabels: {
+                            ...this.state.options.dataLabels,
+                            formatter: (value, data) => {
+                              console.log(data);
+                              return value;
+                            },
+                          },
+                          xaxis: {
+                            ...this.state.options.xaxis,
+                            categories: category,
+                          },
+                          yaxis: {
+                            ...this.state.options.yaxis,
+                            max: FinalSasaran,
+                          },
+                        },
+                      },
+                      () => {}
+                    );
                   }
                 }
-              }
-              series1.push(kompLk);
-              series2.push(kompPr);
-              series3.push(kompTl);
-              series4.push(kBPLk);
-              series5.push(kBPPr);
-              series6.push(kBPTl);
-              category.push(dataFinal[a].Puskesmas);
+              );
             }
-          }
-        }
-        this.setState({
-          series: [
+          );
+        } else {
+          const deletePuskesmas = _.differenceWith(
+            this.state.desaIndex,
+            ["PUSKESMAS SUMBER WRINGIN"],
+            _.isEqual
+          );
+          this.setState(
             {
-              name: "Neonatal Komplikasi Laki - Laki",
-              type: "column",
-              data: series1,
+              desaIndex: deletePuskesmas,
+              options: {
+                ...this.state.options,
+                dataLabels: {
+                  ...this.state.options.dataLabels,
+                  offsetY: -20,
+                  offsetX: 0,
+                },
+                plotOptions: {
+                  ...this.state.options.plotOptions,
+                  bar: {
+                    ...this.state.options.plotOptions.bar,
+                    horizontal: false,
+                  },
+                },
+                xaxis: {
+                  ...this.state.options.xaxis,
+                  categories: [],
+                },
+              },
             },
-            {
-              name: "Neonatal Komplikasi Perempuan",
-              type: "column",
-              data: series2,
-            },
-            {
-              name: "Neonatal Komplikasi Total",
-              type: "column",
-              data: series3,
-            },
+            () => {
+              let Sasaran = 0;
+              for (let a = 0; a < this.state.desaIndex.length; a++) {
+                k1 = 0;
+                fe1 = 0;
+                tripleEliminasi = 0;
+                k4Spm = 0;
+                Linakes = 0;
+                for (let h = 0; h < this.state.monthIndex.length; h++) {
+                  for (let b = 0; b < dataFinalTripleEliminasi.length; b++) {
+                    if (
+                      dataFinalTripleEliminasi[b].Puskesmas.replace(
+                        / /g,
+                        ""
+                      ).toLowerCase() == this.state.desaIndex[a].toLowerCase()
+                    ) {
+                      for (
+                        let e = 0;
+                        e < dataFinalTripleEliminasi[b].set.length;
+                        e++
+                      ) {
+                        if (
+                          this.state.monthIndex[h].toLowerCase() ===
+                            dataFinalTripleEliminasi[b].set[
+                              e
+                            ].Bulan.toLowerCase() &&
+                          this.state.yearIndex ===
+                            dataFinalTripleEliminasi[b].set[e].Tahun
+                        ) {
+                          k1 = k1 + dataFinalTripleEliminasi[b].set[e].K1Bumil;
+                          tripleEliminasi =
+                            tripleEliminasi +
+                            dataFinalTripleEliminasi[b].set[e].BumilTesHIV;
+                        }
+                      }
+                    }
+                    //   category.push(dataFinalTripleEliminasi[a].Puskesmas);\
+                  }
+                  for (let c = 0; c < dataFinalK1.length; c++) {
+                    if (
+                      dataFinalK1[c].Puskesmas.replace(
+                        / /g,
+                        ""
+                      ).toLowerCase() == this.state.desaIndex[a].toLowerCase()
+                    ) {
+                      for (let f = 0; f < dataFinalK1[c].set.length; f++) {
+                        if (
+                          this.state.monthIndex[h].toLowerCase() ===
+                            dataFinalK1[c].set[f].Bulan.toLowerCase() &&
+                          this.state.yearIndex === dataFinalK1[c].set[f].Tahun
+                        ) {
+                          k4Spm = k4Spm + dataFinalK1[c].set[f].K4SPMBumil;
+                          Linakes = Linakes + dataFinalK1[c].set[f].Linakes;
+                          Sasaran = dataFinalK1[c].set[f].SasaranBumil;
+                        }
+                      }
+                    }
+                  }
+                  for (let d = 0; d < dataFinalGizi.length; d++) {
+                    if (
+                      dataFinalGizi[d].Puskesmas.replace(
+                        / /g,
+                        ""
+                      ).toLowerCase() == this.state.desaIndex[a].toLowerCase()
+                    ) {
+                      for (let g = 0; g < dataFinalGizi[d].set.length; g++) {
+                        if (
+                          this.state.monthIndex[h].toLowerCase() ===
+                            dataFinalGizi[d].set[g].Bulan.toLowerCase() &&
+                          this.state.yearIndex === dataFinalGizi[d].set[g].Tahun
+                        ) {
+                          fe1 = fe1 + dataFinalGizi[d].set[g].JmlFe1;
+                        }
+                      }
+                    }
+                  }
+                }
+                series1.push(k1);
+                series3.push(tripleEliminasi);
+                series2.push(fe1);
+                series4.push(k4Spm);
+                series5.push(Linakes);
+                category.push(this.state.desaIndex[a]);
+              }
+              if (this.state.ChangeIndex == "Persentase") {
+                this.setState(
+                  {
+                    series: [
+                      {
+                        name: "K1 Bumil",
+                        type: "column",
+                        data: series1,
+                      },
+                      {
+                        name: "FE-1",
+                        type: "column",
+                        data: series2,
+                      },
+                      {
+                        name: "Triple Eliminasi",
+                        type: "column",
+                        data: series3,
+                      },
 
-            {
-              name: "Kunjungan Bayi Paripurna Laki - Laki",
-              type: "column",
-              data: series4,
-            },
-            {
-              name: "Kunjungan Bayi Paripurna Perempuan",
-              type: "column",
-              data: series5,
-            },
-            {
-              name: "Kunjungan Bayi Paripurna Total",
-              type: "column",
-              data: series6,
-            },
-          ],
-          options: {
-            ...this.state.options,
-            xaxis: {
-              ...this.state.options.xaxis,
-              categories: category,
-            },
-          },
-        });
+                      {
+                        name: "K4 SPM",
+                        type: "column",
+                        data: series4,
+                      },
+                      {
+                        name: "Linakes",
+                        type: "column",
+                        data: series5,
+                      },
+                    ],
+                    options: {
+                      ...this.state.options,
+                      dataLabels: {
+                        ...this.state.options.dataLabels,
+                        formatter: (value, data) => {
+                          console.log(data);
+                          if (data.seriesIndex == 0) {
+                            let percentage = 0;
+                            percentage =
+                              (
+                                (data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ] /
+                                  Sasaran) *
+                                100
+                              ).toFixed(1) + " %";
+                            return percentage;
+                          } else if (data.seriesIndex == 1) {
+                            let percentage = 0;
+                            percentage =
+                              (
+                                (data.w.config.series[1].data[
+                                  data.dataPointIndex
+                                ] /
+                                  Sasaran) *
+                                100
+                              ).toFixed(1) + " %";
+                            return percentage;
+                          } else if (data.seriesIndex == 2) {
+                            let percentage = 0;
+                            percentage =
+                              (
+                                (data.w.config.series[2].data[
+                                  data.dataPointIndex
+                                ] /
+                                  Sasaran) *
+                                100
+                              ).toFixed(1) + " %";
+                            return percentage;
+                          } else if (data.seriesIndex == 3) {
+                            let percentage = 0;
+                            percentage =
+                              (
+                                (data.w.config.series[3].data[
+                                  data.dataPointIndex
+                                ] /
+                                  Sasaran) *
+                                100
+                              ).toFixed(1) + " %";
+                            return percentage;
+                          } else if (data.seriesIndex == 4) {
+                            let percentage = 0;
+                            percentage =
+                              (
+                                (data.w.config.series[4].data[
+                                  data.dataPointIndex
+                                ] /
+                                  Sasaran) *
+                                100
+                              ).toFixed(1) + " %";
+                            return percentage;
+                          } else {
+                            return value;
+                          }
+                        },
+                      },
+                      xaxis: {
+                        ...this.state.options.xaxis,
+                        categories: category,
+                      },
+                    },
+                  },
+                  () => {}
+                );
+              } else {
+                this.setState(
+                  {
+                    series: [
+                      {
+                        name: "K1 Bumil",
+                        type: "column",
+                        data: series1,
+                      },
+                      {
+                        name: "FE-1",
+                        type: "column",
+                        data: series2,
+                      },
+                      {
+                        name: "Triple Eliminasi",
+                        type: "column",
+                        data: series3,
+                      },
+
+                      {
+                        name: "K4 SPM",
+                        type: "column",
+                        data: series4,
+                      },
+                      {
+                        name: "Linakes",
+                        type: "column",
+                        data: series5,
+                      },
+                    ],
+                    options: {
+                      ...this.state.options,
+                      dataLabels: {
+                        ...this.state.options.dataLabels,
+                        formatter: (value, data) => {
+                          console.log(data);
+                          return value;
+                        },
+                      },
+                      xaxis: {
+                        ...this.state.options.xaxis,
+                        categories: category,
+                      },
+                    },
+                  },
+                  () => {}
+                );
+              }
+            }
+          );
+        }
       }
     );
   };

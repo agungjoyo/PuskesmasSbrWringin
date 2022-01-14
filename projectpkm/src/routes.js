@@ -23,6 +23,7 @@ import DataCocGiziFinal from "views/DashboardKIA/pages/DataCocGiziFinal";
 import DataIndikatorIbu from "views/DashboardKIA/pages/DataIndikatorIbu";
 import InsertData from "views/DashboardKIA/pages/InsertData";
 import InsertTripleEliminasiKIA from "views/DashboardKIA/pages/InsertTripleEliminasiKIA";
+import InsertDataKB from "views/DashboardKIA/pages/InsertDataKB";
 import InsertDataImunisasi from "views/DashboardKIA/pages/InsertDataImunisasi";
 import InsertDataGizi from "views/DashboardKIA/pages/InsertDataGizi";
 import InsertDataK1 from "views/DashboardKIA/pages/InsertDataK1";
@@ -53,6 +54,7 @@ export default function Router() {
           path: "InsertTripleEliminasiKIA",
           element: <InsertTripleEliminasiKIA />,
         },
+        { path: "InsertDataKB", element: <InsertDataKB /> },
         { path: "InsertDataImunisasi", element: <InsertDataImunisasi /> },
         { path: "InsertDataGizi", element: <InsertDataGizi /> },
         { path: "InsertDataK1", element: <InsertDataK1 /> },
