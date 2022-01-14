@@ -294,6 +294,7 @@ class InsertDataGizi extends Component {
                             JmlBalitaNaikBB: this.state.JmlBalitaNaikBB,
                             JmlFe3: this.state.JmlFe3,
                             JmlFe1: this.state.JmlFe1,
+                            JmlVitAMr: this.state.JmlVitAMr,
                             JmlSPDK: this.state.JmlSPDK,
                             JmlPDK: this.state.JmlPDK,
                             JmlTNM: this.state.JmlTNM,
@@ -314,20 +315,11 @@ class InsertDataGizi extends Component {
                           };
 
                           // console.log(finalDataCoc.Bulan);
-                          // this.props.DataCocEditGizi(
-                          //   dataCocCompare[0].id,
-                          //   finalDataCoc
-                          // );
-
-                          // console.log(finalData, dataCocCompare[0].id);
-                          // console.log(files, isDuplicate);
-                          // this.props.DataCocEditGizi(
-                          //   dataCocCompare[0].id,
-                          //   finalData
-                          // );
-                          // if (dataVitA.length == undefined){
-                          //   this.setState({JmlVitAMr = 0})
-                          // }
+                          this.props.DataCocEditGizi(
+                            dataCocCompare[0].id,
+                            finalDataCoc
+                          );
+                          console.log(finalData, dataCocCompare[0].id);
                         } else {
                           window.alert(
                             "Anda Telah Membatalkan Pengubahan Data"
@@ -357,6 +349,7 @@ class InsertDataGizi extends Component {
                           JmlBalitaNaikBB: this.state.JmlBalitaNaikBB,
                           JmlFe3: this.state.JmlFe3,
                           JmlFe1: this.state.JmlFe1,
+                          JmlVitAMr: this.state.JmlVitAMr,
                           JmlSPDK: this.state.JmlSPDK,
                           JmlPDK: this.state.JmlPDK,
                           JmlTNM: this.state.JmlTNM,
@@ -377,7 +370,7 @@ class InsertDataGizi extends Component {
                         };
                         // console.log(finalDataCoc);
 
-                        // this.props.addDataCocGizi(finalDataCoc);
+                        this.props.addDataCocGizi(finalDataCoc);
                       }
                     }
                     return <Navigate to="./InsertDataGizi" />;
