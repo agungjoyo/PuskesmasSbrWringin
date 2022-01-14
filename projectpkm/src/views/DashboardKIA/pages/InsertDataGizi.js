@@ -116,36 +116,237 @@ class InsertDataGizi extends Component {
         // for (var i = 0; i < 6; i++) {
         for (let d = 4; d < 10; d++) {
           if (data[89][d] == undefined) {
-            this.setState({
-              Tahun: finalTemp,
-              Bulan: dateSplit[3],
-              Puskesmas: data[3][d],
-              JumlahBalitaKMS: data[13][d],
-              JumlahBadutaLess23Bln: data[16][d],
-              JmlBalitaLess2359Bln: data[19][d],
-              JmlBalitaLess59Bln: data[22][d],
-              JmlBalitaNaikBB: data[25][d],
-              JmlFe1: data[138][d],
-              JmlFe3: data[139][d],
-              JmlVitAMr: 0,
-              JmlSPDK: data[55][d],
-              JmlPDK: data[58][d],
-              JmlTNM: data[61][d],
-              JmlTG: data[64][d],
-              JmlGibur: data[67][d],
-              JmlGirang: data[70][d],
-              JmlNML: data[73][d],
-              JmlRGzLbh: data[76][d],
-              JmlGzLbh: data[79][d],
-              JmlObes: data[82][d],
-              JmlBBSK: data[43][d],
-              JmlBBK: data[46][d],
-              JmlBBN: data[49][d],
-              JmlBBL: data[52][d],
-              JmlBMLA: data[142][d],
-              JmlBMKEK: data[143][d],
-              JmlPMTKEK: data[144][d],
-            });
+            this.setState(
+              {
+                Tahun: finalTemp,
+                Bulan: dateSplit[3],
+                Puskesmas: data[3][d],
+                JumlahBalitaKMS: data[13][d],
+                JumlahBadutaLess23Bln: data[16][d],
+                JmlBalitaLess2359Bln: data[19][d],
+                JmlBalitaLess59Bln: data[22][d],
+                JmlBalitaNaikBB: data[25][d],
+                JmlFe1: data[138][d],
+                JmlFe3: data[139][d],
+                JmlVitAMr: 0,
+                JmlSPDK: data[55][d],
+                JmlPDK: data[58][d],
+                JmlTNM: data[61][d],
+                JmlTG: data[64][d],
+                JmlGibur: data[67][d],
+                JmlGirang: data[70][d],
+                JmlNML: data[73][d],
+                JmlRGzLbh: data[76][d],
+                JmlGzLbh: data[79][d],
+                JmlObes: data[82][d],
+                JmlBBSK: data[43][d],
+                JmlBBK: data[46][d],
+                JmlBBN: data[49][d],
+                JmlBBL: data[52][d],
+                JmlBMLA: data[142][d],
+                JmlBMKEK: data[143][d],
+                JmlPMTKEK: data[144][d],
+              },
+              () => {
+                const dataCheckGizi = [
+                  this.state.Bulan,
+                  this.state.Puskesmas,
+                  this.state.JumlahBalitaKMS,
+                  this.state.JumlahBadutaLess23Bln,
+                  this.state.JmlBalitaLess2359Bln,
+                  this.state.JmlBalitaLess59Bln,
+                  this.state.JmlBalitaNaikBB,
+                  this.state.JmlSPDK,
+                  this.state.JmlPDK,
+                  this.state.JmlTNM,
+                  this.state.JmlTG,
+                  this.state.JmlGibur,
+                  this.state.JmlGirang,
+                  this.state.JmlNML,
+                  this.state.JmlRGzLbh,
+                  this.state.JmlGzLbh,
+                  this.state.JmlObes,
+                  this.state.JmlBBSK,
+                  this.state.JmlBBK,
+                  this.state.JmlBBN,
+                  this.state.JmlBBL,
+                  this.state.JmlBMLA,
+                  this.state.JmlBMKEK,
+                  this.state.JmlPMTKEK,
+                ];
+
+                const dataCheckName = [
+                  "Bulan",
+                  "Puskesmas",
+                  "Jumlah Balita KMS",
+                  "Jumlah baduta (0-23 bln) yang ditimbang",
+                  "Jumlah balita (24-59 bln) yang ditimbang",
+                  "Jumlah balita (0-59 bln) yang ditimbang",
+                  "Jumlah Balita Naik BB",
+                  "Jumlah S.PDK",
+                  "Jumlah PDK",
+                  "Jumlah TNM",
+                  "Jumlah TG",
+                  "Jumlah Gibur",
+                  "Jumlah Girang",
+                  "Jumlah NML",
+                  "Jumlah RGzLbh",
+                  "Jumlah GzLbh",
+                  "Jumlah Obes",
+                  "Jumlah BBSK",
+                  "Jumlah BBK",
+                  "Jumlah BBN",
+                  "Jumlah BBL",
+                  "Jumlah BMLA",
+                  "Jumlah BMKEK",
+                  "Jumlah PMTKEK",
+                ];
+                const whereEmpty = {
+                  Desa: [],
+                  Where: [],
+                  Empty: "false",
+                };
+                for (let check = 0; check < dataCheckGizi.length; check++) {
+                  if (dataCheckGizi[check] == undefined) {
+                    whereEmpty.Desa.push(dataCheckGizi[2]);
+                    whereEmpty.Where.push(dataCheckName[check]);
+                    whereEmpty.Empty = "true";
+                  }
+                }
+                this.setState(
+                  {
+                    whereEmpty: whereEmpty,
+                  },
+                  () => {
+                    const dataCocFinal = _.filter(dataCocGizi, {
+                      Puskesmas: this.state.Puskesmas,
+                    });
+                    const dataCocCompare = _.filter(dataCocFinal, {
+                      Bulan: this.state.Bulan,
+                    });
+                    console.log(dataCocCompare);
+                    if (this.state.whereEmpty.Empty == "true") {
+                      window.alert(
+                        "Data Kurang Lengkap di " +
+                          this.state.whereEmpty.Where +
+                          " Pada Desa " +
+                          this.state.whereEmpty.Desa
+                      );
+                    } else {
+                      if (dataCocCompare.length == 1) {
+                        this.setState({ isDuplicate: true });
+                        console.log(this.state.isDuplicate);
+                        if (
+                          confirm(
+                            "Apakah Anda Ingin Merubah Data " +
+                              this.state.Puskesmas +
+                              " Pada " +
+                              this.state.Bulan +
+                              " " +
+                              this.state.Tahun +
+                              "?"
+                          ) == true
+                        ) {
+                          // console.log("True");
+                          const { files, isDuplicate, ...finalData } =
+                            this.state;
+                          const finalDataCoc = {
+                            Tahun: this.state.Tahun,
+                            Bulan: this.state.Bulan,
+                            Puskesmas: this.state.Puskesmas,
+                            JumlahBalitaKMS: this.state.JumlahBalitaKMS,
+                            JumlahBadutaLess23Bln:
+                              this.state.JumlahBadutaLess23Bln,
+                            JmlBalitaLess2359Bln:
+                              this.state.JmlBalitaLess2359Bln,
+                            JmlBalitaLess59Bln: this.state.JmlBalitaLess59Bln,
+                            JmlBalitaNaikBB: this.state.JmlBalitaNaikBB,
+                            JmlFe3: this.state.JmlFe3,
+                            JmlFe1: this.state.JmlFe1,
+                            JmlVitAMr: this.state.JmlVitAMr,
+                            JmlSPDK: this.state.JmlSPDK,
+                            JmlPDK: this.state.JmlPDK,
+                            JmlTNM: this.state.JmlTNM,
+                            JmlTG: this.state.JmlTG,
+                            JmlGibur: this.state.JmlGibur,
+                            JmlGirang: this.state.JmlGirang,
+                            JmlNML: this.state.JmlNML,
+                            JmlRGzLbh: this.state.JmlRGzLbh,
+                            JmlGzLbh: this.state.JmlGzLbh,
+                            JmlObes: this.state.JmlObes,
+                            JmlBBSK: this.state.JmlBBSK,
+                            JmlBBK: this.state.JmlBBK,
+                            JmlBBK: this.state.JmlBBK,
+                            JmlBBN: this.state.JmlBBN,
+                            JmlBBL: this.state.JmlBBL,
+                            JmlBMKEK: this.state.JmlBMKEK,
+                            JmlPMTKEK: this.state.JmlPMTKEK,
+                          };
+
+                          // console.log(finalDataCoc.Bulan);
+                          this.props.DataCocEditGizi(
+                            dataCocCompare[0].id,
+                            finalDataCoc
+                          );
+                          console.log(finalData, dataCocCompare[0].id);
+                        } else {
+                          window.alert(
+                            "Anda Telah Membatalkan Pengubahan Data"
+                          );
+                        }
+                      } else {
+                        this.setState({ isDuplicate: false });
+                        console.log(this.state.isDuplicate);
+                        window.alert(
+                          "Entry Success in " +
+                            this.state.Bulan +
+                            " " +
+                            this.state.Tahun +
+                            " for " +
+                            this.state.Puskesmas
+                        );
+                        const { files, ...finalData } = this.state;
+                        const finalDataCoc = {
+                          Tahun: this.state.Tahun,
+                          Bulan: this.state.Bulan,
+                          Puskesmas: this.state.Puskesmas,
+                          JumlahBalitaKMS: this.state.JumlahBalitaKMS,
+                          JumlahBadutaLess23Bln:
+                            this.state.JumlahBadutaLess23Bln,
+                          JmlBalitaLess2359Bln: this.state.JmlBalitaLess2359Bln,
+                          JmlBalitaLess59Bln: this.state.JmlBalitaLess59Bln,
+                          JmlBalitaNaikBB: this.state.JmlBalitaNaikBB,
+                          JmlFe3: this.state.JmlFe3,
+                          JmlFe1: this.state.JmlFe1,
+                          JmlVitAMr: this.state.JmlVitAMr,
+                          JmlSPDK: this.state.JmlSPDK,
+                          JmlPDK: this.state.JmlPDK,
+                          JmlTNM: this.state.JmlTNM,
+                          JmlTG: this.state.JmlTG,
+                          JmlGibur: this.state.JmlGibur,
+                          JmlGirang: this.state.JmlGirang,
+                          JmlNML: this.state.JmlNML,
+                          JmlRGzLbh: this.state.JmlRGzLbh,
+                          JmlGzLbh: this.state.JmlGzLbh,
+                          JmlObes: this.state.JmlObes,
+                          JmlBBSK: this.state.JmlBBSK,
+                          JmlBBK: this.state.JmlBBK,
+                          JmlBBN: this.state.JmlBBN,
+                          JmlBBL: this.state.JmlBBL,
+                          JmlBMLA: this.state.JmlBMLA,
+                          JmlBMKEK: this.state.JmlBMKEK,
+                          JmlPMTKEK: this.state.JmlPMTKEK,
+                        };
+                        // console.log(finalDataCoc);
+
+                        this.props.addDataCocGizi(finalDataCoc);
+                      }
+                    }
+                    return <Navigate to="./InsertDataGizi" />;
+                  }
+                );
+              }
+            );
           } else {
             this.setState(
               {
