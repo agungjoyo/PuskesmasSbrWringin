@@ -48,6 +48,8 @@ class GraphicCocPKMImun extends Component {
     year: [],
     desaIndex: [],
     desa: [],
+    ChangeIndex: "",
+    Change: ["Number", "Persentase"],
     options: {
       stroke: { width: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3] },
       chart: {
