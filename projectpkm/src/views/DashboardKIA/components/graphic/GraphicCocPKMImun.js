@@ -264,6 +264,14 @@ class GraphicCocPKMImun extends Component {
           : theme.typography.fontWeightMedium,
     };
   }
+  getStylesChange(Change, ChangeIndex, theme) {
+    return {
+      fontWeight:
+        ChangeIndex?.indexOf(Change) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
   handleChangeBulan = () => {
     const { data } = this.props;
     console.log(this.state, data);
@@ -613,10 +621,11 @@ class GraphicCocPKMImun extends Component {
         <FormControl sx={{ m: 1, minWidth: 100 }}>
           <InputLabel id="demo-simple-select-helper-label">Desa</InputLabel>
           <Select
+            value={this.state.desaIndex}
             onChange={this.handleChange}
             name="desaIndex"
             label="Desa"
-            value={this.state.desaIndex}
+            //========================Multiple========================
             labelId="demo-multiple-chip-label"
             id="demo-multiple-chip"
             multiple
@@ -629,6 +638,7 @@ class GraphicCocPKMImun extends Component {
               </Box>
             )}
             MenuProps={MenuProps}
+            //=========================================================
           >
             {this.state.desa.map((desa) => (
               <MenuItem
@@ -641,6 +651,31 @@ class GraphicCocPKMImun extends Component {
                 )}
               >
                 {desa}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl sx={{ m: 1, minWidth: 100 }}>
+          <InputLabel id="demo-simple-select-helper-label">Index</InputLabel>
+          <Select
+            labelId="demo-simple-select-helper-label"
+            id="demo-simple-select-helper"
+            value={this.state.ChangeIndex}
+            onChange={this.handleChange}
+            label="ChangeIndex"
+            name="ChangeIndex"
+          >
+            {this.state.Change.map((Change) => (
+              <MenuItem
+                key={Change}
+                value={Change}
+                style={this.getStylesChange(
+                  this.state.Change,
+                  this.state.ChangeIndex,
+                  this.props.theme
+                )}
+              >
+                {Change}
               </MenuItem>
             ))}
           </Select>
@@ -692,6 +727,7 @@ class GraphicCocPKMImun extends Component {
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
+    console.log(dataFinal);
     this.setState(
       {
         [event.target.name]: event.target.value,
@@ -851,6 +887,7 @@ class GraphicCocPKMImun extends Component {
                 },
                 () => {
                   for (let a = 0; a < dataFinal.length; a++) {
+                    SasaranBayiBaruLahirBulan = 0;
                     SasaranSurvivingInfantBulan = 0;
                     HBOLessOneDTMBulan = 0;
                     HBOLessOneWTMBulan = 0;
@@ -865,7 +902,6 @@ class GraphicCocPKMImun extends Component {
                     Polio4ThisMonthBulan = 0;
                     IPVThisMonthBulan = 0;
                     IDLThisMonthBulan = 0;
-                    SasaranBayiBaruLahirBulan = 0;
                     for (let b = 0; b < this.state.desa.length; b++) {
                       if (dataFinal[a].Puskesmas == this.state.desa[b]) {
                         for (let i = 0; i < dataFinal[i].set.length; i++) {
@@ -972,112 +1008,321 @@ class GraphicCocPKMImun extends Component {
                   for (let s9 = 0; s9 < series9.length; s9++) {
                     FinalSeries9 = FinalSeries9 + series9[s9];
                   }
-                  for (let s10 = 0; s10 < series10.length; s10++) {
-                    FinalSeries10 = FinalSeries10 + series10[s10];
-                  }
-                  for (let s11 = 0; s11 < series11.length; s11++) {
-                    FinalSeries11 = FinalSeries11 + series11[s11];
-                  }
-                  for (let s12 = 0; s12 < series12.length; s12++) {
-                    FinalSeries12 = FinalSeries12 + series12[s12];
-                  }
-                  for (let s13 = 0; s13 < series13.length; s13++) {
-                    FinalSeries13 = FinalSeries13 + series13[s13];
-                  }
-                  for (let s14 = 0; s14 < series14.length; s14++) {
-                    FinalSeries14 = FinalSeries14 + series14[s14];
-                  }
-                  for (let s15 = 0; s15 < series15.length; s15++) {
-                    FinalSeries15 = FinalSeries15 + series15[s15];
-                  }
+                  if (this.state.ChangeIndex == "Persentase") {
+                    this.setState({
+                      series: [
+                        {
+                          name: "Sasaran BBL",
+                          type: "column",
+                          data: [FinalSeries1],
+                        },
+                        {
+                          name: "Sasaran SI",
+                          type: "column",
+                          data: [FinalSeries2],
+                        },
+                        {
+                          name: "HBO < 24 Jam ",
+                          type: "column",
+                          data: [FinalSeries3],
+                        },
 
-                  this.setState({
-                    series: [
-                      {
-                        name: "Sasaran BBL",
-                        type: "column",
-                        data: [FinalSeries1],
+                        {
+                          name: "HBO 0-7 hari ",
+                          type: "column",
+                          data: [FinalSeries4],
+                        },
+                        {
+                          name: "BCG ",
+                          type: "column",
+                          data: [FinalSeries5],
+                        },
+                        {
+                          name: "Polio-1 ",
+                          type: "column",
+                          data: [FinalSeries6],
+                        },
+                        {
+                          name: "DPTHB-1 ",
+                          type: "column",
+                          data: [FinalSeries7],
+                        },
+                        {
+                          name: "Polio-2 ",
+                          type: "column",
+                          data: [FinalSeries8],
+                        },
+                        {
+                          name: "DPTHB-2 ",
+                          type: "column",
+                          data: [FinalSeries9],
+                        },
+                        {
+                          name: "Polio-3 ",
+                          type: "column",
+                          data: [FinalSeries10],
+                        },
+                        {
+                          name: "DPTHB-3 ",
+                          type: "column",
+                          data: [FinalSeries11],
+                        },
+                        {
+                          name: "Polio-4 ",
+                          type: "column",
+                          data: [FinalSeries12],
+                        },
+                        {
+                          name: "IPV ",
+                          type: "column",
+                          data: [FinalSeries13],
+                        },
+                        {
+                          name: "Campak-Rubella ",
+                          type: "column",
+                          data: [FinalSeries14],
+                        },
+                        {
+                          name: "IDL ",
+                          type: "column",
+                          data: [FinalSeries15],
+                        },
+                      ],
+                      options: {
+                        ...this.state.options,
+                        dataLabels: {
+                          ...this.state.options.dataLabels,
+                          formatter: (value, data) => {
+                            if (
+                              data.seriesIndex == 2 ||
+                              data.seriesIndex == 3 ||
+                              data.seriesIndex == 4 ||
+                              data.seriesIndex == 5 ||
+                              data.seriesIndex == 6 ||
+                              data.seriesIndex == 7 ||
+                              data.seriesIndex == 8 ||
+                              data.seriesIndex == 9 ||
+                              data.seriesIndex == 10 ||
+                              data.seriesIndex == 11 ||
+                              data.seriesIndex == 12 ||
+                              data.seriesIndex == 13 ||
+                              data.seriesIndex == 14 ||
+                              data.seriesIndex == 15 ||
+                              data.seriesIndex == 16
+                            ) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[2].data[
+                                    data.dataPointIndex
+                                  ] /
+                                    data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ]) *
+                                  100
+                                ).toFixed(1) + " %";
+                              (
+                                (data.w.config.series[3].data[
+                                  data.dataPointIndex
+                                ] /
+                                  data.w.config.series[0].data[
+                                    data.dataPointIndex
+                                  ]) *
+                                100
+                              ).toFixed(1) + " %";
+                              (
+                                (data.w.config.series[4].data[
+                                  data.dataPointIndex
+                                ] /
+                                  data.w.config.series[0].data[
+                                    data.dataPointIndex
+                                  ]) *
+                                100
+                              ).toFixed(1) + " %";
+                              (
+                                (data.w.config.series[5].data[
+                                  data.dataPointIndex
+                                ] /
+                                  data.w.config.series[0].data[
+                                    data.dataPointIndex
+                                  ]) *
+                                100
+                              ).toFixed(1) + " %";
+                              (
+                                (data.w.config.series[6].data[
+                                  data.dataPointIndex
+                                ] /
+                                  data.w.config.series[0].data[
+                                    data.dataPointIndex
+                                  ]) *
+                                100
+                              ).toFixed(1) + " %";
+                              (
+                                (data.w.config.series[7].data[
+                                  data.dataPointIndex
+                                ] /
+                                  data.w.config.series[0].data[
+                                    data.dataPointIndex
+                                  ]) *
+                                100
+                              ).toFixed(1) + " %";
+                              (
+                                (data.w.config.series[8].data[
+                                  data.dataPointIndex
+                                ] /
+                                  data.w.config.series[0].data[
+                                    data.dataPointIndex
+                                  ]) *
+                                100
+                              ).toFixed(1) + " %";
+                              (
+                                (data.w.config.series[9].data[
+                                  data.dataPointIndex
+                                ] /
+                                  data.w.config.series[0].data[
+                                    data.dataPointIndex
+                                  ]) *
+                                100
+                              ).toFixed(1) + " %";
+                              (
+                                (data.w.config.series[10].data[
+                                  data.dataPointIndex
+                                ] /
+                                  data.w.config.series[0].data[
+                                    data.dataPointIndex
+                                  ]) *
+                                100
+                              ).toFixed(1) + " %";
+                              (
+                                (data.w.config.series[11].data[
+                                  data.dataPointIndex
+                                ] /
+                                  data.w.config.series[0].data[
+                                    data.dataPointIndex
+                                  ]) *
+                                100
+                              ).toFixed(1) + " %";
+                              (
+                                (data.w.config.series[12].data[
+                                  data.dataPointIndex
+                                ] /
+                                  data.w.config.series[0].data[
+                                    data.dataPointIndex
+                                  ]) *
+                                100
+                              ).toFixed(1) + " %";
+                              (
+                                (data.w.config.series[13].data[
+                                  data.dataPointIndex
+                                ] /
+                                  data.w.config.series[0].data[
+                                    data.dataPointIndex
+                                  ]) *
+                                100
+                              ).toFixed(1) + " %";
+                              (
+                                (data.w.config.series[14].data[
+                                  data.dataPointIndex
+                                ] /
+                                  data.w.config.series[0].data[
+                                    data.dataPointIndex
+                                  ]) *
+                                100
+                              ).toFixed(1) + " %";
+                              (
+                                (data.w.config.series[15].data[
+                                  data.dataPointIndex
+                                ] /
+                                  data.w.config.series[0].data[
+                                    data.dataPointIndex
+                                  ]) *
+                                100
+                              ).toFixed(1) + " %";
+                              (
+                                (data.w.config.series[16].data[
+                                  data.dataPointIndex
+                                ] /
+                                  data.w.config.series[0].data[
+                                    data.dataPointIndex
+                                  ]) *
+                                100
+                              ).toFixed(1) + " %";
+                              return percentage;
+                            } else {
+                              return value;
+                            }
+                          },
+                        },
+                        xaxis: {
+                          ...this.state.options.xaxis,
+                          categories: ["PUSKESMAS SUMBER WRINGIN"],
+                        },
                       },
-                      {
-                        name: "Sasaran SI",
-                        type: "column",
-                        data: [FinalSeries2],
+                    });
+                  } else {
+                    this.setState({
+                      series: [
+                        {
+                          name: "Sasaran",
+                          type: "column",
+                          data: [FinalSeries1],
+                        },
+                        {
+                          name: "Sasaran Bayi Risti",
+                          type: "column",
+                          data: [FinalSeries2],
+                        },
+                        {
+                          name: "Lahir Hidup",
+                          type: "column",
+                          data: [FinalSeries3],
+                        },
+                        {
+                          name: "Lahir Mati",
+                          type: "column",
+                          data: [FinalSeries4],
+                        },
+                        {
+                          name: "KN Pertama",
+                          type: "column",
+                          data: [FinalSeries5],
+                        },
+                        {
+                          name: "KN Kedua",
+                          type: "column",
+                          data: [FinalSeries6],
+                        },
+                        {
+                          name: "KN Lengkap",
+                          type: "column",
+                          data: [FinalSeries7],
+                        },
+                        {
+                          name: "KN Komplikasi",
+                          type: "column",
+                          data: [FinalSeries8],
+                        },
+                        {
+                          name: "Kunjungan Bayi Paripurna",
+                          type: "column",
+                          data: [FinalSeries9],
+                        },
+                      ],
+                      options: {
+                        ...this.state.options,
+                        dataLabels: {
+                          ...this.state.options.dataLabels,
+                          formatter: (value, data) => {
+                            return value;
+                          },
+                        },
+                        xaxis: {
+                          ...this.state.options.xaxis,
+                          categories: ["PUSKESMAS SUMBER WRINGIN"],
+                        },
                       },
-                      {
-                        name: "HBO < 24 Jam ",
-                        type: "column",
-                        data: [FinalSeries3],
-                      },
-
-                      {
-                        name: "HBO 0-7 hari ",
-                        type: "column",
-                        data: [FinalSeries4],
-                      },
-                      {
-                        name: "BCG ",
-                        type: "column",
-                        data: [FinalSeries5],
-                      },
-                      {
-                        name: "Polio-1 ",
-                        type: "column",
-                        data: [FinalSeries6],
-                      },
-                      {
-                        name: "DPTHB-1 ",
-                        type: "column",
-                        data: [FinalSeries7],
-                      },
-                      {
-                        name: "Polio-2 ",
-                        type: "column",
-                        data: [FinalSeries8],
-                      },
-                      {
-                        name: "DPTHB-2 ",
-                        type: "column",
-                        data: [FinalSeries9],
-                      },
-                      {
-                        name: "Polio-3 ",
-                        type: "column",
-                        data: [FinalSeries10],
-                      },
-                      {
-                        name: "DPTHB-3 ",
-                        type: "column",
-                        data: [FinalSeries11],
-                      },
-                      {
-                        name: "Polio-4 ",
-                        type: "column",
-                        data: [FinalSeries12],
-                      },
-                      {
-                        name: "IPV ",
-                        type: "column",
-                        data: [FinalSeries13],
-                      },
-                      {
-                        name: "Campak-Rubella ",
-                        type: "column",
-                        data: [FinalSeries14],
-                      },
-                      {
-                        name: "IDL ",
-                        type: "column",
-                        data: [FinalSeries15],
-                      },
-                    ],
-                    options: {
-                      ...this.state.options,
-                      xaxis: {
-                        ...this.state.options.xaxis,
-                        categories: ["PUSKESMAS SUMBER WRINGIN"],
-                      },
-                    },
-                  });
+                    });
+                  }
                 }
               );
             }
@@ -1113,6 +1358,7 @@ class GraphicCocPKMImun extends Component {
             },
             () => {
               for (let a = 0; a < dataFinal.length; a++) {
+                SasaranBayiBaruLahirBulan = 0;
                 SasaranSurvivingInfantBulan = 0;
                 HBOLessOneDTMBulan = 0;
                 HBOLessOneWTMBulan = 0;
@@ -1127,7 +1373,7 @@ class GraphicCocPKMImun extends Component {
                 Polio4ThisMonthBulan = 0;
                 IPVThisMonthBulan = 0;
                 IDLThisMonthBulan = 0;
-                SasaranBayiBaruLahirBulan = 0;
+
                 for (let b = 0; b < this.state.desaIndex.length; b++) {
                   if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
                     for (let i = 0; i < dataFinal[i].set.length; i++) {
@@ -1200,104 +1446,219 @@ class GraphicCocPKMImun extends Component {
                     series13.push(Polio4ThisMonthBulan);
                     series14.push(IPVThisMonthBulan);
                     series15.push(IDLThisMonthBulan);
-                    category.push(dataFinal[a].Puskesmas);
                   }
                 }
               }
-              this.setState({
-                series: [
-                  {
-                    name: "Sasaran BBL",
-                    type: "column",
-                    data: series1,
-                  },
-                  {
-                    name: "Sasaran SI",
-                    type: "column",
-                    data: series2,
-                  },
-                  {
-                    name: "HBO < 24 Jam ",
-                    type: "column",
-                    data: series3,
-                  },
+              if (this.state.ChangeIndex == "Persentase") {
+                this.setState({
+                  series: [
+                    {
+                      name: "Sasaran BBL",
+                      type: "column",
+                      data: series1,
+                    },
+                    {
+                      name: "Sasaran SI",
+                      type: "column",
+                      data: series2,
+                    },
+                    {
+                      name: "HBO < 24 Jam ",
+                      type: "column",
+                      data: series3,
+                    },
 
-                  {
-                    name: "HBO 0-7 hari ",
-                    type: "column",
-                    data: series4,
+                    {
+                      name: "HBO 0-7 hari ",
+                      type: "column",
+                      data: series4,
+                    },
+                    {
+                      name: "BCG ",
+                      type: "column",
+                      data: series5,
+                    },
+                    {
+                      name: "Polio-1 ",
+                      type: "column",
+                      data: series6,
+                    },
+                    {
+                      name: "DPTHB-1 ",
+                      type: "column",
+                      data: series7,
+                    },
+                    {
+                      name: "Polio-2 ",
+                      type: "column",
+                      data: series8,
+                    },
+                    {
+                      name: "DPTHB-2 ",
+                      type: "column",
+                      data: series9,
+                    },
+                    {
+                      name: "Polio-3 ",
+                      type: "column",
+                      data: series10,
+                    },
+                    {
+                      name: "DPTHB-3 ",
+                      type: "column",
+                      data: series11,
+                    },
+                    {
+                      name: "Polio-4 ",
+                      type: "column",
+                      data: series12,
+                    },
+                    {
+                      name: "IPV ",
+                      type: "column",
+                      data: series13,
+                    },
+                    {
+                      name: "Campak-Rubella ",
+                      type: "column",
+                      data: series14,
+                    },
+                    {
+                      name: "IDL ",
+                      type: "column",
+                      data: series15,
+                    },
+                  ],
+                  options: {
+                    ...this.state.options,
+                    dataLabels: {
+                      ...this.state.options.dataLabels,
+                      formatter: (value, data) => {
+                        if (data.seriesIndex == 2) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[2].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else {
+                          return value;
+                        }
+                      },
+                    },
+                    xaxis: {
+                      ...this.state.options.xaxis,
+                      categories: category,
+                    },
                   },
-                  {
-                    name: "BCG ",
-                    type: "column",
-                    data: series5,
+                });
+              } else {
+                this.setState({
+                  series: [
+                    {
+                      name: "Sasaran BBL",
+                      type: "column",
+                      data: series1,
+                    },
+                    {
+                      name: "Sasaran SI",
+                      type: "column",
+                      data: series2,
+                    },
+                    {
+                      name: "HBO < 24 Jam ",
+                      type: "column",
+                      data: series3,
+                    },
+
+                    {
+                      name: "HBO 0-7 hari ",
+                      type: "column",
+                      data: series4,
+                    },
+                    {
+                      name: "BCG ",
+                      type: "column",
+                      data: series5,
+                    },
+                    {
+                      name: "Polio-1 ",
+                      type: "column",
+                      data: series6,
+                    },
+                    {
+                      name: "DPTHB-1 ",
+                      type: "column",
+                      data: series7,
+                    },
+                    {
+                      name: "Polio-2 ",
+                      type: "column",
+                      data: series8,
+                    },
+                    {
+                      name: "DPTHB-2 ",
+                      type: "column",
+                      data: series9,
+                    },
+                    {
+                      name: "Polio-3 ",
+                      type: "column",
+                      data: series10,
+                    },
+                    {
+                      name: "DPTHB-3 ",
+                      type: "column",
+                      data: series11,
+                    },
+                    {
+                      name: "Polio-4 ",
+                      type: "column",
+                      data: series12,
+                    },
+                    {
+                      name: "IPV ",
+                      type: "column",
+                      data: series13,
+                    },
+                    {
+                      name: "Campak-Rubella ",
+                      type: "column",
+                      data: series14,
+                    },
+                    {
+                      name: "IDL ",
+                      type: "column",
+                      data: series15,
+                    },
+                  ],
+                  options: {
+                    ...this.state.options,
+                    dataLabels: {
+                      ...this.state.options.dataLabels,
+                      formatter: (value, data) => {
+                        return value;
+                      },
+                    },
+                    xaxis: {
+                      ...this.state.options.xaxis,
+                      categories: category,
+                    },
                   },
-                  {
-                    name: "Polio-1 ",
-                    type: "column",
-                    data: series6,
-                  },
-                  {
-                    name: "DPTHB-1 ",
-                    type: "column",
-                    data: series7,
-                  },
-                  {
-                    name: "Polio-2 ",
-                    type: "column",
-                    data: series8,
-                  },
-                  {
-                    name: "DPTHB-2 ",
-                    type: "column",
-                    data: series9,
-                  },
-                  {
-                    name: "Polio-3 ",
-                    type: "column",
-                    data: series10,
-                  },
-                  {
-                    name: "DPTHB-3 ",
-                    type: "column",
-                    data: series11,
-                  },
-                  {
-                    name: "Polio-4 ",
-                    type: "column",
-                    data: series12,
-                  },
-                  {
-                    name: "IPV ",
-                    type: "column",
-                    data: series13,
-                  },
-                  {
-                    name: "Campak-Rubella ",
-                    type: "column",
-                    data: series14,
-                  },
-                  {
-                    name: "IDL ",
-                    type: "column",
-                    data: series15,
-                  },
-                ],
-                options: {
-                  ...this.state.options,
-                  xaxis: {
-                    ...this.state.options.xaxis,
-                    categories: category,
-                  },
-                },
-              });
+                });
+              }
             }
           );
         }
       }
     );
   };
-
   handleGraphicTahunControl = (event) => {
     let FinalSeries1 = 0;
     let FinalSeries2 = 0;
