@@ -133,9 +133,9 @@ class GraphicCocPKM extends Component {
             "#000000",
           ],
         },
-        formatter: (value) => {
-          return value;
-        },
+        // formatter: (value) => {
+        //   return value;
+        // },
       },
       grid: {
         show: false,
@@ -637,43 +637,6 @@ class GraphicCocPKM extends Component {
         let KNlengkapBulan = 0;
         let KNkomplikasiBulan = 0;
         let KunjunganBayiParipurnaBulan = 0;
-        if (this.state.ChangeIndex == "Persentase") {
-          console.log("true");
-          this.setState({
-            options: {
-              ...this.state.options,
-              dataLabels: {
-                ...this.state.options.dataLabels,
-                formatter: (value, data) => {
-                  if (data.seriesIndex == 2) {
-                    let percentage = 0;
-                    percentage =
-                      (
-                        (data.w.config.series[2].data[data.dataPointIndex] /
-                          data.w.config.series[0].data[data.dataPointIndex]) *
-                        100
-                      ).toFixed(1) + " %";
-                    return percentage;
-                  } else {
-                    return value;
-                  }
-                },
-              },
-            },
-          });
-        } else {
-          this.setState({
-            options: {
-              ...this.state.options,
-              dataLabels: {
-                ...this.state.options.dataLabels,
-                formatter: (value, data) => {
-                  return value;
-                },
-              },
-            },
-          });
-        }
         if (this.state.desaIndex == "PUSKESMAS SUMBER WRINGIN") {
           this.setState(
             {
@@ -849,62 +812,148 @@ class GraphicCocPKM extends Component {
                   for (let s9 = 0; s9 < series9.length; s9++) {
                     FinalSeries9 = FinalSeries9 + series9[s9];
                   }
-                  this.setState({
-                    series: [
-                      {
-                        name: "Sasaran",
-                        type: "column",
-                        data: [FinalSeries1],
+                  if (this.state.ChangeIndex == "Persentase") {
+                    this.setState({
+                      series: [
+                        {
+                          name: "Sasaran",
+                          type: "column",
+                          data: [FinalSeries1],
+                        },
+                        {
+                          name: "Sasaran Bayi Risti",
+                          type: "column",
+                          data: [FinalSeries2],
+                        },
+                        {
+                          name: "Lahir Hidup",
+                          type: "column",
+                          data: [FinalSeries3],
+                        },
+                        {
+                          name: "Lahir Mati",
+                          type: "column",
+                          data: [FinalSeries4],
+                        },
+                        {
+                          name: "KN Pertama",
+                          type: "column",
+                          data: [FinalSeries5],
+                        },
+                        {
+                          name: "KN Kedua",
+                          type: "column",
+                          data: [FinalSeries6],
+                        },
+                        {
+                          name: "KN Lengkap",
+                          type: "column",
+                          data: [FinalSeries7],
+                        },
+                        {
+                          name: "KN Komplikasi",
+                          type: "column",
+                          data: [FinalSeries8],
+                        },
+                        {
+                          name: "Kunjungan Bayi Paripurna",
+                          type: "column",
+                          data: [FinalSeries9],
+                        },
+                      ],
+                      options: {
+                        ...this.state.options,
+                        dataLabels: {
+                          ...this.state.options.dataLabels,
+                          formatter: (value, data) => {
+                            if (data.seriesIndex == 2) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[2].data[
+                                    data.dataPointIndex
+                                  ] /
+                                    data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ]) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else {
+                              return value;
+                            }
+                          },
+                        },
+                        xaxis: {
+                          ...this.state.options.xaxis,
+                          categories: ["PUSKESMAS SUMBER WRINGIN"],
+                        },
                       },
-                      {
-                        name: "Sasaran Bayi Risti",
-                        type: "column",
-                        data: [FinalSeries2],
+                    });
+                  } else {
+                    this.setState({
+                      series: [
+                        {
+                          name: "Sasaran",
+                          type: "column",
+                          data: [FinalSeries1],
+                        },
+                        {
+                          name: "Sasaran Bayi Risti",
+                          type: "column",
+                          data: [FinalSeries2],
+                        },
+                        {
+                          name: "Lahir Hidup",
+                          type: "column",
+                          data: [FinalSeries3],
+                        },
+                        {
+                          name: "Lahir Mati",
+                          type: "column",
+                          data: [FinalSeries4],
+                        },
+                        {
+                          name: "KN Pertama",
+                          type: "column",
+                          data: [FinalSeries5],
+                        },
+                        {
+                          name: "KN Kedua",
+                          type: "column",
+                          data: [FinalSeries6],
+                        },
+                        {
+                          name: "KN Lengkap",
+                          type: "column",
+                          data: [FinalSeries7],
+                        },
+                        {
+                          name: "KN Komplikasi",
+                          type: "column",
+                          data: [FinalSeries8],
+                        },
+                        {
+                          name: "Kunjungan Bayi Paripurna",
+                          type: "column",
+                          data: [FinalSeries9],
+                        },
+                      ],
+                      options: {
+                        ...this.state.options,
+                        dataLabels: {
+                          ...this.state.options.dataLabels,
+                          formatter: (value, data) => {
+                            return value;
+                          },
+                        },
+                        xaxis: {
+                          ...this.state.options.xaxis,
+                          categories: ["PUSKESMAS SUMBER WRINGIN"],
+                        },
                       },
-                      {
-                        name: "Lahir Hidup",
-                        type: "column",
-                        data: [FinalSeries3],
-                      },
-                      {
-                        name: "Lahir Mati",
-                        type: "column",
-                        data: [FinalSeries4],
-                      },
-                      {
-                        name: "KN Pertama",
-                        type: "column",
-                        data: [FinalSeries5],
-                      },
-                      {
-                        name: "KN Kedua",
-                        type: "column",
-                        data: [FinalSeries6],
-                      },
-                      {
-                        name: "KN Lengkap",
-                        type: "column",
-                        data: [FinalSeries7],
-                      },
-                      {
-                        name: "KN Komplikasi",
-                        type: "column",
-                        data: [FinalSeries8],
-                      },
-                      {
-                        name: "Kunjungan Bayi Paripurna",
-                        type: "column",
-                        data: [FinalSeries9],
-                      },
-                    ],
-                    options: {
-                      ...this.state.options,
-                      xaxis: {
-                        ...this.state.options.xaxis,
-                        categories: ["PUSKESMAS SUMBER WRINGIN"],
-                      },
-                    },
-                  });
+                    });
+                  }
                 }
               );
             }
@@ -997,62 +1046,148 @@ class GraphicCocPKM extends Component {
                   }
                 }
               }
-              this.setState({
-                series: [
-                  {
-                    name: "Sasaran",
-                    type: "column",
-                    data: series1,
+              if (this.state.ChangeIndex == "Persentase") {
+                this.setState({
+                  series: [
+                    {
+                      name: "Sasaran",
+                      type: "column",
+                      data: series1,
+                    },
+                    {
+                      name: "Sasaran Bayi Risti",
+                      type: "column",
+                      data: series2,
+                    },
+                    {
+                      name: "Lahir Hidup",
+                      type: "column",
+                      data: series3,
+                    },
+                    {
+                      name: "Lahir Mati",
+                      type: "column",
+                      data: series4,
+                    },
+                    {
+                      name: "KN Pertama",
+                      type: "column",
+                      data: series5,
+                    },
+                    {
+                      name: "KN Kedua",
+                      type: "column",
+                      data: series6,
+                    },
+                    {
+                      name: "KN Lengkap",
+                      type: "column",
+                      data: series7,
+                    },
+                    {
+                      name: "KN Komplikasi",
+                      type: "column",
+                      data: series8,
+                    },
+                    {
+                      name: "Kunjungan Bayi Paripurna",
+                      type: "column",
+                      data: series9,
+                    },
+                  ],
+                  options: {
+                    ...this.state.options,
+                    dataLabels: {
+                      ...this.state.options.dataLabels,
+                      formatter: (value, data) => {
+                        if (data.seriesIndex == 2) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[2].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else {
+                          return value;
+                        }
+                      },
+                    },
+                    xaxis: {
+                      ...this.state.options.xaxis,
+                      categories: category,
+                    },
                   },
-                  {
-                    name: "Sasaran Bayi Risti",
-                    type: "column",
-                    data: series2,
+                });
+              } else {
+                this.setState({
+                  series: [
+                    {
+                      name: "Sasaran",
+                      type: "column",
+                      data: series1,
+                    },
+                    {
+                      name: "Sasaran Bayi Risti",
+                      type: "column",
+                      data: series2,
+                    },
+                    {
+                      name: "Lahir Hidup",
+                      type: "column",
+                      data: series3,
+                    },
+                    {
+                      name: "Lahir Mati",
+                      type: "column",
+                      data: series4,
+                    },
+                    {
+                      name: "KN Pertama",
+                      type: "column",
+                      data: series5,
+                    },
+                    {
+                      name: "KN Kedua",
+                      type: "column",
+                      data: series6,
+                    },
+                    {
+                      name: "KN Lengkap",
+                      type: "column",
+                      data: series7,
+                    },
+                    {
+                      name: "KN Komplikasi",
+                      type: "column",
+                      data: series8,
+                    },
+                    {
+                      name: "Kunjungan Bayi Paripurna",
+                      type: "column",
+                      data: series9,
+                    },
+                  ],
+                  options: {
+                    ...this.state.options,
+                    dataLabels: {
+                      ...this.state.options.dataLabels,
+                      formatter: (value, data) => {
+                        return value;
+                      },
+                    },
+                    xaxis: {
+                      ...this.state.options.xaxis,
+                      categories: category,
+                    },
                   },
-                  {
-                    name: "Lahir Hidup",
-                    type: "column",
-                    data: series3,
-                  },
-                  {
-                    name: "Lahir Mati",
-                    type: "column",
-                    data: series4,
-                  },
-                  {
-                    name: "KN Pertama",
-                    type: "column",
-                    data: series5,
-                  },
-                  {
-                    name: "KN Kedua",
-                    type: "column",
-                    data: series6,
-                  },
-                  {
-                    name: "KN Lengkap",
-                    type: "column",
-                    data: series7,
-                  },
-                  {
-                    name: "KN Komplikasi",
-                    type: "column",
-                    data: series8,
-                  },
-                  {
-                    name: "Kunjungan Bayi Paripurna",
-                    type: "column",
-                    data: series9,
-                  },
-                ],
-                options: {
-                  ...this.state.options,
-                  xaxis: {
-                    ...this.state.options.xaxis,
-                    categories: category,
-                  },
-                },
-              });
+                });
+              }
             }
           );
         }

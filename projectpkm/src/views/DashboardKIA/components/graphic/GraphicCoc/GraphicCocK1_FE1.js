@@ -49,6 +49,8 @@ class GraphicCocK1_FE1 extends Component {
     ],
     yearIndex: "",
     year: [],
+    ChangeIndex: "",
+    Change: ["Number", "Persentase"],
     desaIndex: [],
     desa: [],
     options: {
@@ -119,6 +121,9 @@ class GraphicCocK1_FE1 extends Component {
             "#000000",
           ],
         },
+        formatter: (value) => {
+          return value;
+        },
       },
       grid: {
         show: false,
@@ -183,6 +188,14 @@ class GraphicCocK1_FE1 extends Component {
     return {
       fontWeight:
         yearIndex?.indexOf(year) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
+  getStylesChange(Change, ChangeIndex, theme) {
+    return {
+      fontWeight:
+        ChangeIndex?.indexOf(Change) === -1
           ? theme.typography.fontWeightRegular
           : theme.typography.fontWeightMedium,
     };
@@ -388,6 +401,32 @@ class GraphicCocK1_FE1 extends Component {
             ))}
           </Select>
         </FormControl>
+
+        <FormControl sx={{ m: 1, minWidth: 100 }}>
+          <InputLabel id="demo-simple-select-helper-label">Index</InputLabel>
+          <Select
+            labelId="demo-simple-select-helper-label"
+            id="demo-simple-select-helper"
+            value={this.state.ChangeIndex}
+            onChange={this.handleChange}
+            label="ChangeIndex"
+            name="ChangeIndex"
+          >
+            {this.state.Change.map((Change) => (
+              <MenuItem
+                key={Change}
+                value={Change}
+                style={this.getStylesChange(
+                  this.state.Change,
+                  this.state.ChangeIndex,
+                  this.props.theme
+                )}
+              >
+                {Change}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
     );
   };
@@ -421,6 +460,46 @@ class GraphicCocK1_FE1 extends Component {
         let tripleEliminasi = 0;
         let k4Spm = 0;
         let Linakes = 0;
+        if (this.state.ChangeIndex == "Persentase") {
+          console.log(this.state.ChangeIndex == "Persentase");
+          this.setState({
+            options: {
+              ...this.state.options,
+              dataLabels: {
+                ...this.state.options.dataLabels,
+                formatter: (value, data) => {
+                  console.log(data);
+                  if (data.seriesIndex == 2) {
+                    let percentage = 0;
+                    percentage =
+                      (
+                        (data.w.config.series[2].data[data.dataPointIndex] /
+                          data.w.config.series[0].data[data.dataPointIndex]) *
+                        100
+                      ).toFixed(1) + " %";
+                    return percentage;
+                  } else {
+                    console.log(data);
+                    return value;
+                  }
+                },
+              },
+            },
+          });
+        } else {
+          this.setState({
+            options: {
+              ...this.state.options,
+              dataLabels: {
+                ...this.state.options.dataLabels,
+                formatter: (value, data) => {
+                  console.log(data);
+                  return value;
+                },
+              },
+            },
+          });
+        }
         for (let a = 0; a < this.state.desaIndex.length; a++) {
           k1 = 0;
           fe1 = 0;
@@ -540,6 +619,7 @@ class GraphicCocK1_FE1 extends Component {
     );
   };
   render() {
+    console.log(this.state);
     if (this.props.firebase.auth.isLoaded == false) {
       return <div>Loading...</div>;
     } else {
