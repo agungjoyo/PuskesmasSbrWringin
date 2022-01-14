@@ -5,12 +5,14 @@ import ReactApexChart from "react-apexcharts";
 import { styled } from "@mui/material/styles";
 import { Card, CardHeader, Box, Button, Grid } from "@mui/material";
 import { withTheme } from "@material-ui/core/styles";
+import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import Chip from "@mui/material/Chip";
+//
+// import { BaseOptionChart } from "../../charts";
 // database
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -46,10 +48,10 @@ class GraphicCocPKMImun extends Component {
     ],
     yearIndex: "",
     year: [],
-    desaIndex: [],
-    desa: [],
     ChangeIndex: "",
     Change: ["Number", "Persentase"],
+    desaIndex: [],
+    desa: [],
     options: {
       stroke: { width: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3] },
       chart: {
@@ -276,13 +278,11 @@ class GraphicCocPKMImun extends Component {
   }
   handleChangeBulan = () => {
     const { data } = this.props;
-    console.log(this.state, data);
     const desaTemp = ["PUSKESMAS SUMBER WRINGIN"];
     for (let i = 0; i < data.length; i++) {
       desaTemp.push(data[i].Puskesmas);
     }
     const desa = Array.from(new Set(desaTemp));
-    console.log(this.state);
     this.setState(
       {
         monthIndex: [],
@@ -751,6 +751,7 @@ class GraphicCocPKMImun extends Component {
         const series14 = [];
         const series15 = [];
         let category = [];
+        let SasaranBayiBaruLahirBulan = 0;
         let SasaranSurvivingInfantBulan = 0;
         let HBOLessOneDTMBulan = 0;
         let HBOLessOneWTMBulan = 0;
@@ -765,7 +766,6 @@ class GraphicCocPKMImun extends Component {
         let Polio4ThisMonthBulan = 0;
         let IPVThisMonthBulan = 0;
         let IDLThisMonthBulan = 0;
-        let SasaranBayiBaruLahirBulan = 0;
         if (this.state.desaIndex == "PUSKESMAS SUMBER WRINGIN") {
           this.setState(
             {
@@ -1010,6 +1010,24 @@ class GraphicCocPKMImun extends Component {
                   for (let s9 = 0; s9 < series9.length; s9++) {
                     FinalSeries9 = FinalSeries9 + series9[s9];
                   }
+                  for (let s10 = 0; s10 < series10.length; s10++) {
+                    FinalSeries10 = FinalSeries10 + series10[s10];
+                  }
+                  for (let s11 = 0; s11 < series11.length; s11++) {
+                    FinalSeries11 = FinalSeries11 + series11[s11];
+                  }
+                  for (let s12 = 0; s12 < series12.length; s12++) {
+                    FinalSeries12 = FinalSeries12 + series12[s12];
+                  }
+                  for (let s13 = 0; s13 < series13.length; s13++) {
+                    FinalSeries13 = FinalSeries13 + series13[s13];
+                  }
+                  for (let s14 = 0; s14 < series14.length; s14++) {
+                    FinalSeries14 = FinalSeries14 + series14[s14];
+                  }
+                  for (let s15 = 0; s15 < series15.length; s15++) {
+                    FinalSeries15 = FinalSeries15 + series15[s15];
+                  }
                   if (this.state.ChangeIndex == "Persentase") {
                     this.setState({
                       series: [
@@ -1095,23 +1113,20 @@ class GraphicCocPKMImun extends Component {
                         dataLabels: {
                           ...this.state.options.dataLabels,
                           formatter: (value, data) => {
-                            if (
-                              data.seriesIndex == 2 ||
-                              data.seriesIndex == 3 ||
-                              data.seriesIndex == 4 ||
-                              data.seriesIndex == 5 ||
-                              data.seriesIndex == 6 ||
-                              data.seriesIndex == 7 ||
-                              data.seriesIndex == 8 ||
-                              data.seriesIndex == 9 ||
-                              data.seriesIndex == 10 ||
-                              data.seriesIndex == 11 ||
-                              data.seriesIndex == 12 ||
-                              data.seriesIndex == 13 ||
-                              data.seriesIndex == 14 ||
-                              data.seriesIndex == 15 ||
-                              data.seriesIndex == 16
-                            ) {
+                            if (data.seriesIndex == 1) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[1].data[
+                                    data.dataPointIndex
+                                  ] /
+                                    data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ]) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else if (data.seriesIndex == 2) {
                               let percentage = 0;
                               percentage =
                                 (
@@ -1122,9 +1137,15 @@ class GraphicCocPKMImun extends Component {
                                       data.dataPointIndex
                                     ]) *
                                   100
-                                ).toFixed(1) + " %" ||
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else if (data.seriesIndex == 3) {
+                              let percentage = 0;
+                            } else if (data.seriesIndex == 4) {
+                              let percentage = 0;
+                              percentage =
                                 (
-                                  (data.w.config.series[3].data[
+                                  (data.w.config.series[4].data[
                                     data.dataPointIndex
                                   ] /
                                     data.w.config.series[0].data[
@@ -1132,123 +1153,136 @@ class GraphicCocPKMImun extends Component {
                                     ]) *
                                   100
                                 ).toFixed(1) + " %";
-                              (
-                                (data.w.config.series[4].data[
-                                  data.dataPointIndex
-                                ] /
-                                  data.w.config.series[0].data[
+                              return percentage;
+                            } else if (data.seriesIndex == 5) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[5].data[
                                     data.dataPointIndex
-                                  ]) *
-                                100
-                              ).toFixed(1) + " %";
-                              (
-                                (data.w.config.series[5].data[
-                                  data.dataPointIndex
-                                ] /
-                                  data.w.config.series[0].data[
+                                  ] /
+                                    data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ]) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else if (data.seriesIndex == 6) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[6].data[
                                     data.dataPointIndex
-                                  ]) *
-                                100
-                              ).toFixed(1) + " %";
-                              (
-                                (data.w.config.series[6].data[
-                                  data.dataPointIndex
-                                ] /
-                                  data.w.config.series[0].data[
+                                  ] /
+                                    data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ]) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else if (data.seriesIndex == 7) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[7].data[
                                     data.dataPointIndex
-                                  ]) *
-                                100
-                              ).toFixed(1) + " %";
-                              (
-                                (data.w.config.series[7].data[
-                                  data.dataPointIndex
-                                ] /
-                                  data.w.config.series[0].data[
+                                  ] /
+                                    data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ]) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else if (data.seriesIndex == 8) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[8].data[
                                     data.dataPointIndex
-                                  ]) *
-                                100
-                              ).toFixed(1) + " %";
-                              (
-                                (data.w.config.series[8].data[
-                                  data.dataPointIndex
-                                ] /
-                                  data.w.config.series[0].data[
+                                  ] /
+                                    data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ]) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else if (data.seriesIndex == 9) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[9].data[
                                     data.dataPointIndex
-                                  ]) *
-                                100
-                              ).toFixed(1) + " %";
-                              (
-                                (data.w.config.series[9].data[
-                                  data.dataPointIndex
-                                ] /
-                                  data.w.config.series[0].data[
+                                  ] /
+                                    data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ]) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else if (data.seriesIndex == 10) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[10].data[
                                     data.dataPointIndex
-                                  ]) *
-                                100
-                              ).toFixed(1) + " %";
-                              (
-                                (data.w.config.series[10].data[
-                                  data.dataPointIndex
-                                ] /
-                                  data.w.config.series[0].data[
+                                  ] /
+                                    data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ]) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else if (data.seriesIndex == 11) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[11].data[
                                     data.dataPointIndex
-                                  ]) *
-                                100
-                              ).toFixed(1) + " %";
-                              (
-                                (data.w.config.series[11].data[
-                                  data.dataPointIndex
-                                ] /
-                                  data.w.config.series[0].data[
+                                  ] /
+                                    data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ]) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else if (data.seriesIndex == 12) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[12].data[
                                     data.dataPointIndex
-                                  ]) *
-                                100
-                              ).toFixed(1) + " %";
-                              (
-                                (data.w.config.series[12].data[
-                                  data.dataPointIndex
-                                ] /
-                                  data.w.config.series[0].data[
+                                  ] /
+                                    data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ]) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else if (data.seriesIndex == 13) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[13].data[
                                     data.dataPointIndex
-                                  ]) *
-                                100
-                              ).toFixed(1) + " %";
-                              (
-                                (data.w.config.series[13].data[
-                                  data.dataPointIndex
-                                ] /
-                                  data.w.config.series[0].data[
+                                  ] /
+                                    data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ]) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else if (data.seriesIndex == 14) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[14].data[
                                     data.dataPointIndex
-                                  ]) *
-                                100
-                              ).toFixed(1) + " %";
-                              (
-                                (data.w.config.series[14].data[
-                                  data.dataPointIndex
-                                ] /
-                                  data.w.config.series[0].data[
-                                    data.dataPointIndex
-                                  ]) *
-                                100
-                              ).toFixed(1) + " %";
-                              (
-                                (data.w.config.series[15].data[
-                                  data.dataPointIndex
-                                ] /
-                                  data.w.config.series[0].data[
-                                    data.dataPointIndex
-                                  ]) *
-                                100
-                              ).toFixed(1) + " %";
-                              (
-                                (data.w.config.series[16].data[
-                                  data.dataPointIndex
-                                ] /
-                                  data.w.config.series[0].data[
-                                    data.dataPointIndex
-                                  ]) *
-                                100
-                              ).toFixed(1) + " %";
+                                  ] /
+                                    data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ]) *
+                                  100
+                                ).toFixed(1) + " %";
                               return percentage;
                             } else {
                               return value;
@@ -1265,49 +1299,80 @@ class GraphicCocPKMImun extends Component {
                     this.setState({
                       series: [
                         {
-                          name: "Sasaran",
+                          name: "Sasaran BBL",
                           type: "column",
                           data: [FinalSeries1],
                         },
                         {
-                          name: "Sasaran Bayi Risti",
+                          name: "Sasaran SI",
                           type: "column",
                           data: [FinalSeries2],
                         },
                         {
-                          name: "Lahir Hidup",
+                          name: "HBO < 24 Jam ",
                           type: "column",
                           data: [FinalSeries3],
                         },
+
                         {
-                          name: "Lahir Mati",
+                          name: "HBO 0-7 hari ",
                           type: "column",
                           data: [FinalSeries4],
                         },
                         {
-                          name: "KN Pertama",
+                          name: "BCG ",
                           type: "column",
                           data: [FinalSeries5],
                         },
                         {
-                          name: "KN Kedua",
+                          name: "Polio-1 ",
                           type: "column",
                           data: [FinalSeries6],
                         },
                         {
-                          name: "KN Lengkap",
+                          name: "DPTHB-1 ",
                           type: "column",
                           data: [FinalSeries7],
                         },
                         {
-                          name: "KN Komplikasi",
+                          name: "Polio-2 ",
                           type: "column",
                           data: [FinalSeries8],
                         },
                         {
-                          name: "Kunjungan Bayi Paripurna",
+                          name: "DPTHB-2 ",
                           type: "column",
                           data: [FinalSeries9],
+                        },
+                        {
+                          name: "Polio-3 ",
+                          type: "column",
+                          data: [FinalSeries10],
+                        },
+                        {
+                          name: "DPTHB-3 ",
+                          type: "column",
+                          data: [FinalSeries11],
+                        },
+                        {
+                          name: "Polio-4 ",
+                          type: "column",
+                          data: [FinalSeries12],
+                        },
+                        {
+                          name: "IPV ",
+                          type: "column",
+                          data: [FinalSeries13],
+                        },
+                        {
+                          name: "Campak-Rubella ",
+                          type: "column",
+                          data: [FinalSeries14],
+                        },
+                        {
+                          name: "IDL ",
+                          type: "column",
+                          data: [FinalSeries15],
                         },
                       ],
                       options: {
@@ -1375,7 +1440,6 @@ class GraphicCocPKMImun extends Component {
                 Polio4ThisMonthBulan = 0;
                 IPVThisMonthBulan = 0;
                 IDLThisMonthBulan = 0;
-
                 for (let b = 0; b < this.state.desaIndex.length; b++) {
                   if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
                     for (let i = 0; i < dataFinal[i].set.length; i++) {
@@ -1448,6 +1512,7 @@ class GraphicCocPKMImun extends Component {
                     series13.push(Polio4ThisMonthBulan);
                     series14.push(IPVThisMonthBulan);
                     series15.push(IDLThisMonthBulan);
+                    category.push(dataFinal[a].Puskesmas);
                   }
                 }
               }
@@ -1541,6 +1606,188 @@ class GraphicCocPKMImun extends Component {
                           percentage =
                             (
                               (data.w.config.series[2].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 3) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[3].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 4) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[4].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 5) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[5].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 6) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[6].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 7) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[7].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 8) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[8].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 9) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[9].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 10) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[10].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 11) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[11].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 12) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[12].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 13) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[13].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 14) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[14].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 15) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[15].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 16) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[16].data[
                                 data.dataPointIndex
                               ] /
                                 data.w.config.series[0].data[
@@ -1688,11 +1935,10 @@ class GraphicCocPKMImun extends Component {
           .map((set, Puskesmas) => ({ set, Puskesmas }))
           .value();
         const desaTemp = [];
-        for (let c = 0; c < data.length; c++) {
-          desaTemp.push(data[c].Puskesmas);
+        for (let i = 0; i < data.length; i++) {
+          desaTemp.push(data[i].Puskesmas);
         }
         const desa = Array.from(new Set(desaTemp));
-        // console.log(dataFinal, this.state, desa);
         const series1 = [];
         const series2 = [];
         const series3 = [];
@@ -1708,8 +1954,9 @@ class GraphicCocPKMImun extends Component {
         const series13 = [];
         const series14 = [];
         const series15 = [];
-        const category = [];
+        let category = [];
         for (let a = 0; a < dataFinal.length; a++) {
+          let SasaranBayiBaruLahirYear = 0;
           let SasaranSurvivingInfantYear = 0;
           let HBOLessOneDTMYear = 0;
           let HBOLessOneWTMYear = 0;
@@ -1724,14 +1971,13 @@ class GraphicCocPKMImun extends Component {
           let Polio4ThisMonthYear = 0;
           let IPVThisMonthYear = 0;
           let IDLThisMonthYear = 0;
-          let SasaranBayiBaruLahirYear = 0;
+
           if (dataFinal[a].Puskesmas == desa[a]) {
-            for (let c = 0; c < dataFinal[c].set.length; c++) {
+            for (let i = 0; i < dataFinal[i].set.length; i++) {
               if (
                 this.state.yearIndex.toLowerCase() ===
-                dataFinal[a].set[c].Tahun.toString()
+                dataFinal[a].set[i].Tahun.toLowerCase()
               ) {
-                // console.log(a, dataFinal[a].set[i].SasaranBayiTL);
                 SasaranSurvivingInfantYear =
                   SasaranSurvivingInfantYear +
                   dataFinal[a].set[c].SasaranSurvivingInfant;
@@ -1936,7 +2182,6 @@ class GraphicCocPKMImun extends Component {
     );
   };
   render() {
-    console.log(this.state);
     const { data } = this.props;
     if (data == undefined) {
       return <div>Loading...</div>;
@@ -1944,7 +2189,7 @@ class GraphicCocPKMImun extends Component {
       return (
         <RootStyle>
           <CardHeader
-            title="KIA Progress"
+            title="Grafik Imunisasi"
             sx={{ typography: "caption" }}
             style={{
               marginBottom: 20,
