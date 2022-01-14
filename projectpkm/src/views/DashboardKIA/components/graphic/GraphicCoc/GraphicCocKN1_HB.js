@@ -136,33 +136,17 @@ class GraphicCocKN1_HB extends Component {
     },
     series: [
       {
-        name: "Neonatal Komplikasi Laki - Laki",
+        name: "KN 1",
         type: "column",
         data: [],
       },
       {
-        name: "Neonatal Komplikasi Perempuan",
+        name: "HB Uniject",
         type: "column",
         data: [],
       },
       {
-        name: "Neonatal Komplikasi Total",
-        type: "column",
-        data: [],
-      },
-
-      {
-        name: "Kunjungan Bayi Paripurna Laki - Laki",
-        type: "column",
-        data: [],
-      },
-      {
-        name: "Kunjungan Bayi Paripurna Perempuan",
-        type: "column",
-        data: [],
-      },
-      {
-        name: "Kunjungan Bayi Paripurna Total",
+        name: "KN Lengkap",
         type: "column",
         data: [],
       },
