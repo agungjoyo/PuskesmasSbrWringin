@@ -1434,7 +1434,6 @@ class GraphicCocPKM extends Component {
   };
   render() {
     const { data } = this.props;
-    console.log(this.state);
     if (data == undefined) {
       return <div>Loading...</div>;
     } else {
