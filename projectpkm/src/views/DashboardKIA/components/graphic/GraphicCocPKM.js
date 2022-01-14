@@ -898,10 +898,10 @@ class GraphicCocPKM extends Component {
                               let percentage = 0;
                               percentage =
                                 (
-                                  (data.w.config.series[0].data[
+                                  (data.w.config.series[4].data[
                                     data.dataPointIndex
                                   ] /
-                                    data.w.config.series[4].data[
+                                    data.w.config.series[0].data[
                                       data.dataPointIndex
                                     ]) *
                                   100

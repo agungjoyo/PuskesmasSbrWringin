@@ -1122,16 +1122,16 @@ class GraphicCocPKMImun extends Component {
                                       data.dataPointIndex
                                     ]) *
                                   100
-                                ).toFixed(1) + " %";
-                              (
-                                (data.w.config.series[3].data[
-                                  data.dataPointIndex
-                                ] /
-                                  data.w.config.series[0].data[
+                                ).toFixed(1) + " %" ||
+                                (
+                                  (data.w.config.series[3].data[
                                     data.dataPointIndex
-                                  ]) *
-                                100
-                              ).toFixed(1) + " %";
+                                  ] /
+                                    data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ]) *
+                                  100
+                                ).toFixed(1) + " %";
                               (
                                 (data.w.config.series[4].data[
                                   data.dataPointIndex
