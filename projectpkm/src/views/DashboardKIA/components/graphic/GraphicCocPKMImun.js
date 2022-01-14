@@ -1113,20 +1113,7 @@ class GraphicCocPKMImun extends Component {
                         dataLabels: {
                           ...this.state.options.dataLabels,
                           formatter: (value, data) => {
-                            if (data.seriesIndex == 1) {
-                              let percentage = 0;
-                              percentage =
-                                (
-                                  (data.w.config.series[1].data[
-                                    data.dataPointIndex
-                                  ] /
-                                    data.w.config.series[0].data[
-                                      data.dataPointIndex
-                                    ]) *
-                                  100
-                                ).toFixed(1) + " %";
-                              return percentage;
-                            } else if (data.seriesIndex == 2) {
+                            if (data.seriesIndex == 2) {
                               let percentage = 0;
                               percentage =
                                 (
@@ -1141,6 +1128,17 @@ class GraphicCocPKMImun extends Component {
                               return percentage;
                             } else if (data.seriesIndex == 3) {
                               let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[3].data[
+                                    data.dataPointIndex
+                                  ] /
+                                    data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ]) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
                             } else if (data.seriesIndex == 4) {
                               let percentage = 0;
                               percentage =
