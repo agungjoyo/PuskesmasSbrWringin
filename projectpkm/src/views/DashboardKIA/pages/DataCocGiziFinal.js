@@ -80,9 +80,15 @@ class DataCocGiziFinal extends Component {
           return (
             value.Bulan?.toLowerCase().includes(query.toLowerCase()) ||
             value.Puskesmas?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlFe3?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlFe1?.toLowerCase().includes(query.toLowerCase()) ||
-            value.JmlVitAMr?.toLowerCase().includes(query.toLowerCase()) ||
+            value.JmlFe3?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlFe1?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            value.JmlVitAMr?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
             value.Tahun?.toString().toLowerCase().includes(query.toLowerCase())
           );
         });

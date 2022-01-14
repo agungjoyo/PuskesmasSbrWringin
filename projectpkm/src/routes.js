@@ -27,10 +27,12 @@ import InsertDataKB from "views/DashboardKIA/pages/InsertDataKB";
 import InsertDataImunisasi from "views/DashboardKIA/pages/InsertDataImunisasi";
 import InsertDataGizi from "views/DashboardKIA/pages/InsertDataGizi";
 import InsertDataK1 from "views/DashboardKIA/pages/InsertDataK1";
+import InsertDataParipurna from "views/DashboardKIA/pages/InsertDataParipurna";
 import Graphic from "views/DashboardKIA/pages/Graphic";
 import GraphicImun from "views/DashboardKIA/pages/GraphicImun";
 import GraphicGizi from "views/DashboardKIA/pages/GraphicGizi";
 import IndexGraphicCoc from "views/DashboardKIA/pages/IndexGraphicCoc";
+import InsertDataIL from "views/DashboardKIA/pages/InsertDataIL";
 
 export default function Router() {
   return useRoutes([
@@ -56,8 +58,10 @@ export default function Router() {
         },
         { path: "InsertDataKB", element: <InsertDataKB /> },
         { path: "InsertDataImunisasi", element: <InsertDataImunisasi /> },
+        { path: "InsertDataIL", element: <InsertDataIL /> },
         { path: "InsertDataGizi", element: <InsertDataGizi /> },
         { path: "InsertDataK1", element: <InsertDataK1 /> },
+        { path: "InsertDataParipurna", element: <InsertDataParipurna /> },
         { path: "graphic/coc", element: <IndexGraphicCoc /> },
         { path: "graphic/kia", element: <Graphic /> },
         { path: "graphic/imunisasi", element: <GraphicImun /> },

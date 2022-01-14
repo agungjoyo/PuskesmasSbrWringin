@@ -303,3 +303,67 @@ export const DataCocTripleKIAEdit = (id, FinalData) => {
       });
   };
 };
+
+export const addDataParipurna = (dataParipurna) => {
+  // return (dispatch, getState) => {}
+  return (dispatch, getState, { getFirestore }) => {
+    // make async call to database
+    const firestore = getFirestore();
+    firestore
+      .collection("BaliParipurna")
+      .add({
+        ...dataParipurna,
+        createdAt: new Date(),
+      })
+      .then(() => {
+        dispatch({ type: "ADD_DATA_COC_BALITA_PARIPURNA", dataParipurna });
+      })
+      .catch((err) => {
+        dispatch({ type: "ADD_DATA_COC_BALITA_PARIPURNA_ERROR", err });
+      });
+  };
+};
+export const removeDataParipurna = (id) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("BaliParipurna")
+      .doc(id)
+      .delete()
+      .then(() => {
+        dispatch({ type: "DATA_COC_BALITA_PARIPURNA_REMOVED", id });
+      })
+      .catch((err) => {
+        dispatch({ type: "DATA_COC_REMOVED_BALITA_PARIPURNA_ERROR", err });
+      });
+  };
+};
+export const DataCocparipurnaEdit = (id, dataParipurna) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("BaliParipurna")
+      .doc(id)
+      .delete()
+      .then(() => {
+        firestore
+          .collection("BaliParipurna")
+          .add({
+            ...dataParipurna,
+            createdAt: new Date(),
+          })
+          .then(() => {
+            dispatch({
+              type: "DATA_COC_BALITA_PARIPURNA_EDITED",
+              dataParipurna,
+            });
+          })
+          .catch((err) => {
+            dispatch({ type: "DATA_COC_BALITA_PARIPURNA_EDITED_ERROR", err });
+          });
+      })
+      .catch((err) => {
+        dispatch({ type: "DATA_COC_BALITA_PARIPURNA_EDITED_ERROR", err });
+      });
+  };
+};

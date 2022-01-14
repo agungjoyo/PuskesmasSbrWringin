@@ -321,7 +321,16 @@ class DataCoc extends Component {
                   to="/dashboard/InsertData"
                   startIcon={<Icon icon={plusFill} />}
                 >
-                  Tambah Data Baru
+                  Tambah Data PWS NEO
+                </Button>
+                <Button
+                  variant="contained"
+                  sx={{ mr: 2 }}
+                  component={RouterLink}
+                  to="/dashboard/InsertDataParipurna"
+                  startIcon={<Icon icon={plusFill} />}
+                >
+                  Tambah Data PWS APRAS
                 </Button>
                 <Button
                   variant="contained"

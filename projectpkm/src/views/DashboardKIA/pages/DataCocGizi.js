@@ -705,7 +705,7 @@ class DataCocGizi extends Component {
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
                                     {`${(
-                                      (JmlSPDK / JmlPDK + JmlTNM + JmlTG) *
+                                      (JmlSPDK / (JmlPDK + JmlTNM + JmlTG)) *
                                       100
                                     ).toFixed(1)} %`}
                                   </Typography>
@@ -740,7 +740,7 @@ class DataCocGizi extends Component {
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
                                     {`${(
-                                      (JmlPDK / JmlSPDK + JmlTNM + JmlTG) *
+                                      (JmlPDK / (JmlSPDK + JmlTNM + JmlTG)) *
                                       100
                                     ).toFixed(1)} %`}
                                   </Typography>
@@ -775,7 +775,7 @@ class DataCocGizi extends Component {
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
                                     {`${(
-                                      (JmlTNM / JmlPDK + JmlSPDK + JmlTG) *
+                                      (JmlTNM / (JmlPDK + JmlSPDK + JmlTG)) *
                                       100
                                     ).toFixed(1)} %`}
                                   </Typography>
@@ -810,7 +810,7 @@ class DataCocGizi extends Component {
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
                                     {`${(
-                                      (JmlTG / JmlPDK + JmlTNM + JmlSPDK) *
+                                      (JmlTG / (JmlPDK + JmlTNM + JmlSPDK)) *
                                       100
                                     ).toFixed(1)} %`}
                                   </Typography>
@@ -845,11 +845,12 @@ class DataCocGizi extends Component {
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
                                     {`${(
-                                      (JmlGibur / JmlGirang +
-                                        JmlNML +
-                                        JmlRGzLbh +
-                                        JmlGzLbh +
-                                        JmlObes) *
+                                      (JmlGibur /
+                                        (JmlGirang +
+                                          JmlNML +
+                                          JmlRGzLbh +
+                                          JmlGzLbh +
+                                          JmlObes)) *
                                       100
                                     ).toFixed(1)} %`}
                                   </Typography>
