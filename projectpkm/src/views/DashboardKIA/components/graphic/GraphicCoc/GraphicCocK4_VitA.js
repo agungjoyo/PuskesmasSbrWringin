@@ -136,33 +136,27 @@ class GraphicCocK4_VitA extends Component {
     },
     series: [
       {
-        name: "Neonatal Komplikasi Laki - Laki",
+        name: "K4 SPM",
         type: "column",
         data: [],
       },
       {
-        name: "Neonatal Komplikasi Perempuan",
+        name: "FE 3",
         type: "column",
         data: [],
       },
       {
-        name: "Neonatal Komplikasi Total",
-        type: "column",
-        data: [],
-      },
-
-      {
-        name: "Kunjungan Bayi Paripurna Laki - Laki",
+        name: "Bulin",
         type: "column",
         data: [],
       },
       {
-        name: "Kunjungan Bayi Paripurna Perempuan",
+        name: "Vitamin A Bufas",
         type: "column",
         data: [],
       },
       {
-        name: "Kunjungan Bayi Paripurna Total",
+        name: "KB Pasca Bersalin",
         type: "column",
         data: [],
       },
@@ -193,10 +187,10 @@ class GraphicCocK4_VitA extends Component {
     };
   }
   handleChangeBulan = () => {
-    const { KIA } = this.props;
-    const desaTemp = [];
-    for (let i = 0; i < KIA.length; i++) {
-      desaTemp.push(KIA[i].Puskesmas);
+    const { KB } = this.props;
+    const desaTemp = ["PUSKESMAS SUMBER WRINGIN"];
+    for (let i = 0; i < KB.length; i++) {
+      desaTemp.push(KB[i].Puskesmas.replace(/ /g, ""));
     }
     const desa = Array.from(new Set(desaTemp));
     this.setState(
@@ -207,33 +201,27 @@ class GraphicCocK4_VitA extends Component {
         desa: desa,
         series: [
           {
-            name: "Neonatal Komplikasi Laki - Laki",
+            name: "K4 SPM",
             type: "column",
             data: [],
           },
           {
-            name: "Neonatal Komplikasi Perempuan",
+            name: "FE 3",
             type: "column",
             data: [],
           },
           {
-            name: "Neonatal Komplikasi Total",
-            type: "column",
-            data: [],
-          },
-
-          {
-            name: "Kunjungan Bayi Paripurna Laki - Laki",
+            name: "Bulin",
             type: "column",
             data: [],
           },
           {
-            name: "Kunjungan Bayi Paripurna Perempuan",
+            name: "Vitamin A Bufas",
             type: "column",
             data: [],
           },
           {
-            name: "Kunjungan Bayi Paripurna Total",
+            name: "KB Pasca Bersalin",
             type: "column",
             data: [],
           },
@@ -263,7 +251,7 @@ class GraphicCocK4_VitA extends Component {
       },
       () => {
         const yearList = [];
-        const yearTemp = _.chain(KIA)
+        const yearTemp = _.chain(KB)
           .groupBy("Tahun")
           .map((set, Tahun) => ({ set, Tahun }))
           .value();
@@ -396,8 +384,16 @@ class GraphicCocK4_VitA extends Component {
     );
   };
   handleChange = (event) => {
-    const { KIA } = this.props;
-    const dataFinal = _.chain(KIA)
+    const { K1, Gizi, KB } = this.props;
+    const dataK1 = _.chain(K1)
+      .groupBy("Puskesmas")
+      .map((set, Puskesmas) => ({ set, Puskesmas }))
+      .value();
+    const dataGizi = _.chain(Gizi)
+      .groupBy("Puskesmas")
+      .map((set, Puskesmas) => ({ set, Puskesmas }))
+      .value();
+    const dataKB = _.chain(KB)
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
@@ -411,100 +407,504 @@ class GraphicCocK4_VitA extends Component {
         const series3 = [];
         const series4 = [];
         const series5 = [];
-        const series6 = [];
         let category = [];
-        let kompLk = 0;
-        let kompPr = 0;
-        let kompTl = 0;
-        let kBPLk = 0;
-        let kBPPr = 0;
-        let kBPTl = 0;
-        for (let a = 0; a < dataFinal.length; a++) {
-          kompLk = 0;
-          kompPr = 0;
-          kompTl = 0;
-          kBPLk = 0;
-          kBPPr = 0;
-          kBPTl = 0;
-          for (let b = 0; b < this.state.desaIndex.length; b++) {
-            if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
-              for (let i = 0; i < dataFinal[i].set.length; i++) {
-                for (let c = 0; c < this.state.monthIndex.length; c++) {
-                  if (
-                    this.state.monthIndex[c]?.toLowerCase() ===
-                      dataFinal[a].set[i].Bulan.toLowerCase() &&
-                    this.state.yearIndex === dataFinal[a].set[i].Tahun
-                  ) {
-                    kompLk = kompLk + dataFinal[a].set[i].NeonatalKompLK;
-                    kompPr = kompPr + dataFinal[a].set[i].NeonatalKompPR;
-                    kompTl = kompTl + dataFinal[a].set[i].NeonatalKompTL;
-                    kBPLk =
-                      kBPLk + dataFinal[a].set[i].KunjunganBayiParipurnaLK;
-                    kBPPr =
-                      kBPPr + dataFinal[a].set[i].KunjunganBayiParipurnaPR;
-                    kBPTl =
-                      kBPTl + dataFinal[a].set[i].KunjunganBayiParipurnaTL;
+        let k4 = 0;
+        let fe3 = 0;
+        let bulin = 0;
+        let VitA = 0;
+        let Kb = 0;
+
+        if (this.state.desaIndex == "PUSKESMAS SUMBER WRINGIN") {
+          this.setState(
+            {
+              desaIndex: ["PUSKESMAS SUMBER WRINGIN"],
+            },
+            () => {
+              let FinalSeries1 = 0;
+              let FinalSeries2 = 0;
+              let FinalSeries3 = 0;
+              let FinalSeries4 = 0;
+              let FinalSeries5 = 0;
+              this.setState(
+                {
+                  series: [
+                    {
+                      name: "K4 SPM",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "FE 3",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Bulin",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Vitamin A Bufas",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "KB Pasca Bersalin",
+                      type: "column",
+                      data: [],
+                    },
+                  ],
+                  options: {
+                    ...this.state.options,
+                    dataLabels: {
+                      ...this.state.options.dataLabels,
+                      offsetY: -20,
+                      offsetX: 0,
+                    },
+                    plotOptions: {
+                      ...this.state.options.plotOptions,
+                      bar: {
+                        ...this.state.options.plotOptions.bar,
+                        horizontal: false,
+                      },
+                    },
+                    xaxis: {
+                      ...this.state.options.xaxis,
+                      categories: [],
+                    },
+                  },
+                },
+                () => {
+                  for (let a = 0; a < this.state.desaIndex.length; a++) {
+                    k4 = 0;
+                    fe3 = 0;
+                    bulin = 0;
+                    VitA = 0;
+                    Kb = 0;
+                    for (let h = 0; h < this.state.monthIndex.length; h++) {
+                      for (let b = 0; b < dataK1.length; b++) {
+                        for (let e = 0; e < dataK1[b].set.length; e++) {
+                          if (
+                            this.state.monthIndex[h].toLowerCase() ===
+                              dataK1[b].set[e].Bulan.toLowerCase() &&
+                            this.state.yearIndex === dataK1[b].set[e].Tahun
+                          ) {
+                            k4 = k4 + dataK1[b].set[e].K4SPMBumil;
+                            bulin = bulin;
+                          }
+                        }
+                        //   category.push(dataFinalTripleEliminasi[a].Puskesmas);\
+                      }
+                      for (let c = 0; c < dataGizi.length; c++) {
+                        for (let f = 0; f < dataGizi[c].set.length; f++) {
+                          if (
+                            this.state.monthIndex[h].toLowerCase() ===
+                              dataGizi[c].set[f].Bulan.toLowerCase() &&
+                            this.state.yearIndex === dataGizi[c].set[f].Tahun
+                          ) {
+                            VitA = VitA + dataGizi[c].set[f].JmlVitAMr;
+                            fe3 = fe3 + dataGizi[c].set[f].JmlFe3;
+                          }
+                        }
+                      }
+                      for (let d = 0; d < dataKB.length; d++) {
+                        for (let g = 0; g < dataKB[d].set.length; g++) {
+                          if (
+                            this.state.monthIndex[h].toLowerCase() ===
+                              dataKB[d].set[g].Bulan.toLowerCase() &&
+                            this.state.yearIndex === dataKB[d].set[g].Tahun
+                          ) {
+                            Kb = Kb + dataKB[d].set[g].KBPascaSalin;
+                          }
+                        }
+                      }
+                    }
+                    series1.push(k4);
+                    series2.push(fe3);
+                    series3.push(VitA);
+                    series4.push(k4);
+                    series5.push(Kb);
+                    category.push(this.state.desaIndex[a]);
+                  }
+                  for (let s1 = 0; s1 < series1.length; s1++) {
+                    FinalSeries1 = FinalSeries1 + series1[s1];
+                  }
+                  for (let s2 = 0; s2 < series2.length; s2++) {
+                    FinalSeries2 = FinalSeries2 + series2[s2];
+                  }
+                  for (let s3 = 0; s3 < series3.length; s3++) {
+                    FinalSeries3 = FinalSeries3 + series3[s3];
+                  }
+                  for (let s4 = 0; s4 < series4.length; s4++) {
+                    FinalSeries4 = FinalSeries4 + series4[s4];
+                  }
+                  for (let s5 = 0; s5 < series5.length; s5++) {
+                    FinalSeries5 = FinalSeries5 + series5[s5];
+                  }
+                  if (this.state.ChangeIndex == "Persentase") {
+                    this.setState(
+                      {
+                        series: [
+                          {
+                            name: "K4 SPM",
+                            type: "column",
+                            data: [FinalSeries1],
+                          },
+                          {
+                            name: "FE 3",
+                            type: "column",
+                            data: [FinalSeries2],
+                          },
+                          {
+                            name: "Bulin",
+                            type: "column",
+                            data: [FinalSeries3],
+                          },
+                          {
+                            name: "Vitamin A Bufas",
+                            type: "column",
+                            data: [FinalSeries4],
+                          },
+                          {
+                            name: "KB Pasca Bersalin",
+                            type: "column",
+                            data: [FinalSeries5],
+                          },
+                        ],
+                        options: {
+                          ...this.state.options,
+                          dataLabels: {
+                            ...this.state.options.dataLabels,
+                            formatter: (value, data) => {
+                              return value;
+                              // console.log(data);
+                              // if (data.seriesIndex == 0) {
+                              //   let percentage = 0;
+                              //   percentage =
+                              //     (
+                              //       (data.w.config.series[0].data[
+                              //         data.dataPointIndex
+                              //       ] /
+                              //         FinalSasaran) *
+                              //       100
+                              //     ).toFixed(1) + " %";
+                              //   return percentage;
+                              // } else if (data.seriesIndex == 1) {
+                              //   let percentage = 0;
+                              //   percentage =
+                              //     (
+                              //       (data.w.config.series[1].data[
+                              //         data.dataPointIndex
+                              //       ] /
+                              //         FinalSasaran) *
+                              //       100
+                              //     ).toFixed(1) + " %";
+                              //   return percentage;
+                              // } else if (data.seriesIndex === 2) {
+                              //   let percentage = 0;
+                              //   percentage =
+                              //     (
+                              //       (data.w.config.series[2].data[
+                              //         data.dataPointIndex
+                              //       ] /
+                              //         FinalSasaran) *
+                              //       100
+                              //     ).toFixed(1) + " %";
+                              //   return percentage;
+                              // } else {
+                              //   return value;
+                              // }
+                            },
+                          },
+                          xaxis: {
+                            ...this.state.options.xaxis,
+                            categories: category,
+                          },
+                          // yaxis: {
+                          //   ...this.state.options.yaxis,
+                          //   max: 100,
+                          // },
+                        },
+                      },
+                      () => {}
+                    );
+                  } else {
+                    this.setState(
+                      {
+                        series: [
+                          {
+                            name: "K4 SPM",
+                            type: "column",
+                            data: [FinalSeries1],
+                          },
+                          {
+                            name: "FE 3",
+                            type: "column",
+                            data: [FinalSeries2],
+                          },
+                          {
+                            name: "Bulin",
+                            type: "column",
+                            data: [FinalSeries3],
+                          },
+                          {
+                            name: "Vitamin A Bufas",
+                            type: "column",
+                            data: [FinalSeries4],
+                          },
+                          {
+                            name: "KB Pasca Bersalin",
+                            type: "column",
+                            data: [FinalSeries5],
+                          },
+                        ],
+                        options: {
+                          ...this.state.options,
+                          dataLabels: {
+                            ...this.state.options.dataLabels,
+                            formatter: (value, data) => {
+                              console.log(data);
+                              return value;
+                            },
+                          },
+                          xaxis: {
+                            ...this.state.options.xaxis,
+                            categories: category,
+                          },
+                          // yaxis: {
+                          //   ...this.state.options.yaxis,
+                          //   max: FinalSasaran,
+                          // },
+                        },
+                      },
+                      () => {}
+                    );
                   }
                 }
-              }
-              series1.push(kompLk);
-              series2.push(kompPr);
-              series3.push(kompTl);
-              series4.push(kBPLk);
-              series5.push(kBPPr);
-              series6.push(kBPTl);
-              category.push(dataFinal[a].Puskesmas);
+              );
             }
-          }
+          );
+        } else {
+          const deletePuskesmas = _.differenceWith(
+            this.state.desaIndex,
+            ["PUSKESMAS SUMBER WRINGIN"],
+            _.isEqual
+          );
+          this.setState(
+            {
+              desaIndex: deletePuskesmas,
+              options: {
+                ...this.state.options,
+                dataLabels: {
+                  ...this.state.options.dataLabels,
+                  offsetY: -20,
+                  offsetX: 0,
+                },
+                plotOptions: {
+                  ...this.state.options.plotOptions,
+                  bar: {
+                    ...this.state.options.plotOptions.bar,
+                    horizontal: false,
+                  },
+                },
+                xaxis: {
+                  ...this.state.options.xaxis,
+                  categories: [],
+                },
+              },
+            },
+            () => {
+              for (let a = 0; a < this.state.desaIndex.length; a++) {
+                k4 = 0;
+                fe3 = 0;
+                bulin = 0;
+                VitA = 0;
+                Kb = 0;
+                for (let h = 0; h < this.state.monthIndex.length; h++) {
+                  for (let b = 0; b < dataK1.length; b++) {
+                    for (let e = 0; e < dataK1[b].set.length; e++) {
+                      if (
+                        this.state.monthIndex[h].toLowerCase() ===
+                          dataK1[b].set[e].Bulan.toLowerCase() &&
+                        this.state.yearIndex === dataK1[b].set[e].Tahun
+                      ) {
+                        k4 = k4 + dataK1[b].set[e].K4SPMBumil;
+                        bulin = bulin;
+                      }
+                    }
+                    //   category.push(dataFinalTripleEliminasi[a].Puskesmas);\
+                  }
+                  for (let c = 0; c < dataGizi.length; c++) {
+                    for (let f = 0; f < dataGizi[c].set.length; f++) {
+                      if (
+                        this.state.monthIndex[h].toLowerCase() ===
+                          dataGizi[c].set[f].Bulan.toLowerCase() &&
+                        this.state.yearIndex === dataGizi[c].set[f].Tahun
+                      ) {
+                        VitA = VitA + dataGizi[c].set[f].JmlVitAMr;
+                        fe3 = fe3 + dataGizi[c].set[f].JmlFe3;
+                      }
+                    }
+                  }
+                  for (let d = 0; d < dataKB.length; d++) {
+                    for (let g = 0; g < dataKB[d].set.length; g++) {
+                      if (
+                        this.state.monthIndex[h].toLowerCase() ===
+                          dataKB[d].set[g].Bulan.toLowerCase() &&
+                        this.state.yearIndex === dataKB[d].set[g].Tahun
+                      ) {
+                        Kb = Kb + dataKB[d].set[g].KBPascaSalin;
+                      }
+                    }
+                  }
+                }
+                series1.push(k4);
+                series2.push(fe3);
+                series3.push(VitA);
+                series4.push(k4);
+                series5.push(Kb);
+                category.push(this.state.desaIndex[a]);
+              }
+              if (this.state.ChangeIndex == "Persentase") {
+                this.setState(
+                  {
+                    series: [
+                      {
+                        name: "K4 SPM",
+                        type: "column",
+                        data: series1,
+                      },
+                      {
+                        name: "FE 3",
+                        type: "column",
+                        data: series2,
+                      },
+                      {
+                        name: "Bulin",
+                        type: "column",
+                        data: series3,
+                      },
+                      {
+                        name: "Vitamin A Bufas",
+                        type: "column",
+                        data: series4,
+                      },
+                      {
+                        name: "KB Pasca Bersalin",
+                        type: "column",
+                        data: series5,
+                      },
+                    ],
+                    options: {
+                      ...this.state.options,
+                      dataLabels: {
+                        ...this.state.options.dataLabels,
+                        formatter: (value, data) => {
+                          return value;
+                          // console.log(data);
+                          // if (data.seriesIndex == 0) {
+                          //   let percentage = 0;
+                          //   percentage =
+                          //     (
+                          //       (data.w.config.series[0].data[
+                          //         data.dataPointIndex
+                          //       ] /
+                          //         Sasaran) *
+                          //       100
+                          //     ).toFixed(1) + " %";
+                          //   return percentage;
+                          // } else if (data.seriesIndex == 1) {
+                          //   let percentage = 0;
+                          //   percentage =
+                          //     (
+                          //       (data.w.config.series[1].data[
+                          //         data.dataPointIndex
+                          //       ] /
+                          //         Sasaran) *
+                          //       100
+                          //     ).toFixed(1) + " %";
+                          //   return percentage;
+                          // } else if (data.seriesIndex == 2) {
+                          //   let percentage = 0;
+                          //   percentage =
+                          //     (
+                          //       (data.w.config.series[2].data[
+                          //         data.dataPointIndex
+                          //       ] /
+                          //         Sasaran) *
+                          //       100
+                          //     ).toFixed(1) + " %";
+                          //   return percentage;
+                          // } else {
+                          //   return value;
+                          // }
+                        },
+                      },
+                      xaxis: {
+                        ...this.state.options.xaxis,
+                        categories: category,
+                      },
+                    },
+                  },
+                  () => {}
+                );
+              } else {
+                this.setState(
+                  {
+                    series: [
+                      {
+                        name: "K4 SPM",
+                        type: "column",
+                        data: series1,
+                      },
+                      {
+                        name: "FE 3",
+                        type: "column",
+                        data: series2,
+                      },
+                      {
+                        name: "Bulin",
+                        type: "column",
+                        data: series3,
+                      },
+                      {
+                        name: "Vitamin A Bufas",
+                        type: "column",
+                        data: series4,
+                      },
+                      {
+                        name: "KB Pasca Bersalin",
+                        type: "column",
+                        data: series5,
+                      },
+                    ],
+                    options: {
+                      ...this.state.options,
+                      dataLabels: {
+                        ...this.state.options.dataLabels,
+                        formatter: (value, data) => {
+                          console.log(data);
+                          return value;
+                        },
+                      },
+                      xaxis: {
+                        ...this.state.options.xaxis,
+                        categories: category,
+                      },
+                    },
+                  },
+                  () => {}
+                );
+              }
+            }
+          );
         }
-        this.setState({
-          series: [
-            {
-              name: "Neonatal Komplikasi Laki - Laki",
-              type: "column",
-              data: series1,
-            },
-            {
-              name: "Neonatal Komplikasi Perempuan",
-              type: "column",
-              data: series2,
-            },
-            {
-              name: "Neonatal Komplikasi Total",
-              type: "column",
-              data: series3,
-            },
-
-            {
-              name: "Kunjungan Bayi Paripurna Laki - Laki",
-              type: "column",
-              data: series4,
-            },
-            {
-              name: "Kunjungan Bayi Paripurna Perempuan",
-              type: "column",
-              data: series5,
-            },
-            {
-              name: "Kunjungan Bayi Paripurna Total",
-              type: "column",
-              data: series6,
-            },
-          ],
-          options: {
-            ...this.state.options,
-            xaxis: {
-              ...this.state.options.xaxis,
-              categories: category,
-            },
-          },
-        });
       }
     );
   };
   render() {
-    const { KIA } = this.props;
-    if (KIA == undefined) {
+    const { auth } = this.props;
+    if (auth.isLoaded == false) {
       return <div>Loading...</div>;
     } else {
       return (
@@ -540,9 +940,9 @@ class GraphicCocK4_VitA extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    KIA: state.firestore.ordered.KIA, //database
+    K1: state.firestore.ordered.K1, //database
     Gizi: state.firestore.ordered.Gizi, //database
-    Imunisasi: state.firestore.ordered.Imunisasi, //database
+    KB: state.firestore.ordered.KB, //database
     auth: state.firebase.auth,
   };
 };
@@ -550,9 +950,9 @@ const mapStateToProps = (state) => {
 export default compose(
   //database
   firestoreConnect([
-    { collection: "KIA" },
+    { collection: "K1" },
     { collection: "Gizi" },
-    { collection: "Imunisasi" },
+    { collection: "KB" },
   ]),
   connect(mapStateToProps),
   withTheme

@@ -178,9 +178,9 @@ class GraphicCocKN1_HB extends Component {
   }
   handleChangeBulan = () => {
     const { KIA } = this.props;
-    const desaTemp = [];
+    const desaTemp = ["PUSKESMAS SUMBER WRINGIN"];
     for (let i = 0; i < KIA.length; i++) {
-      desaTemp.push(KIA[i].Puskesmas);
+      desaTemp.push(KIA[i].Puskesmas.replace(/ /g, ""));
     }
     const desa = Array.from(new Set(desaTemp));
     this.setState(
@@ -191,33 +191,17 @@ class GraphicCocKN1_HB extends Component {
         desa: desa,
         series: [
           {
-            name: "Neonatal Komplikasi Laki - Laki",
+            name: "KN 1",
             type: "column",
             data: [],
           },
           {
-            name: "Neonatal Komplikasi Perempuan",
+            name: "HB Uniject",
             type: "column",
             data: [],
           },
           {
-            name: "Neonatal Komplikasi Total",
-            type: "column",
-            data: [],
-          },
-
-          {
-            name: "Kunjungan Bayi Paripurna Laki - Laki",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "Kunjungan Bayi Paripurna Perempuan",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "Kunjungan Bayi Paripurna Total",
+            name: "KN Lengkap",
             type: "column",
             data: [],
           },
@@ -380,8 +364,16 @@ class GraphicCocKN1_HB extends Component {
     );
   };
   handleChange = (event) => {
-    const { KIA } = this.props;
-    const dataFinal = _.chain(KIA)
+    const { KIA, Gizi, Imunisasi } = this.props;
+    const dataKIA = _.chain(KIA)
+      .groupBy("Puskesmas")
+      .map((set, Puskesmas) => ({ set, Puskesmas }))
+      .value();
+    const dataGizi = _.chain(Gizi)
+      .groupBy("Puskesmas")
+      .map((set, Puskesmas) => ({ set, Puskesmas }))
+      .value();
+    const dataImunisasi = _.chain(Imunisasi)
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
@@ -393,96 +385,451 @@ class GraphicCocKN1_HB extends Component {
         const series1 = [];
         const series2 = [];
         const series3 = [];
-        const series4 = [];
-        const series5 = [];
-        const series6 = [];
         let category = [];
-        let kompLk = 0;
-        let kompPr = 0;
-        let kompTl = 0;
-        let kBPLk = 0;
-        let kBPPr = 0;
-        let kBPTl = 0;
-        for (let a = 0; a < dataFinal.length; a++) {
-          kompLk = 0;
-          kompPr = 0;
-          kompTl = 0;
-          kBPLk = 0;
-          kBPPr = 0;
-          kBPTl = 0;
-          for (let b = 0; b < this.state.desaIndex.length; b++) {
-            if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
-              for (let i = 0; i < dataFinal[i].set.length; i++) {
-                for (let c = 0; c < this.state.monthIndex.length; c++) {
-                  if (
-                    this.state.monthIndex[c]?.toLowerCase() ===
-                      dataFinal[a].set[i].Bulan.toLowerCase() &&
-                    this.state.yearIndex === dataFinal[a].set[i].Tahun
-                  ) {
-                    kompLk = kompLk + dataFinal[a].set[i].NeonatalKompLK;
-                    kompPr = kompPr + dataFinal[a].set[i].NeonatalKompPR;
-                    kompTl = kompTl + dataFinal[a].set[i].NeonatalKompTL;
-                    kBPLk =
-                      kBPLk + dataFinal[a].set[i].KunjunganBayiParipurnaLK;
-                    kBPPr =
-                      kBPPr + dataFinal[a].set[i].KunjunganBayiParipurnaPR;
-                    kBPTl =
-                      kBPTl + dataFinal[a].set[i].KunjunganBayiParipurnaTL;
+        let kn1 = 0;
+        let HbUniject = 0;
+        let knLengkap = 0;
+
+        if (this.state.desaIndex == "PUSKESMAS SUMBER WRINGIN") {
+          this.setState(
+            {
+              desaIndex: ["PUSKESMAS SUMBER WRINGIN"],
+            },
+            () => {
+              let FinalSeries1 = 0;
+              let FinalSeries2 = 0;
+              let FinalSeries3 = 0;
+              this.setState(
+                {
+                  series: [
+                    {
+                      name: "Balita Paripurna",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Vitamin A1",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Imunisasi Lanjutan",
+                      type: "column",
+                      data: [],
+                    },
+                  ],
+                  options: {
+                    ...this.state.options,
+                    dataLabels: {
+                      ...this.state.options.dataLabels,
+                      offsetY: -20,
+                      offsetX: 0,
+                    },
+                    plotOptions: {
+                      ...this.state.options.plotOptions,
+                      bar: {
+                        ...this.state.options.plotOptions.bar,
+                        horizontal: false,
+                      },
+                    },
+                    xaxis: {
+                      ...this.state.options.xaxis,
+                      categories: [],
+                    },
+                  },
+                },
+                () => {
+                  for (let a = 0; a < this.state.desaIndex.length; a++) {
+                    kn1 = 0;
+                    HbUniject = 0;
+                    knLengkap = 0;
+                    for (let h = 0; h < this.state.monthIndex.length; h++) {
+                      for (let b = 0; b < dataKIA.length; b++) {
+                        for (let e = 0; e < dataKIA[b].set.length; e++) {
+                          if (
+                            this.state.monthIndex[h].toLowerCase() ===
+                              dataKIA[b].set[e].Bulan.toLowerCase() &&
+                            this.state.yearIndex === dataKIA[b].set[e].Tahun
+                          ) {
+                            kn1 = kn1 + dataKIA[b].set[e].PencapaianKNPertamaTL;
+                            HbUniject = HbUniject;
+                            knLengkap =
+                              knLengkap +
+                              dataKIA[b].set[e].PencapaianKNLengkapTL;
+                          }
+                        }
+                        //   category.push(dataFinalTripleEliminasi[a].Puskesmas);\
+                      }
+                      for (let c = 0; c < dataGizi.length; c++) {
+                        for (let f = 0; f < dataGizi[c].set.length; f++) {
+                          if (
+                            this.state.monthIndex[h].toLowerCase() ===
+                              dataGizi[c].set[f].Bulan.toLowerCase() &&
+                            this.state.yearIndex === dataGizi[c].set[f].Tahun
+                          ) {
+                            // VitA = VitA + dataGizi[c].set[f].JmlVitAMr;
+                          }
+                        }
+                      }
+                      for (let d = 0; d < dataImunisasi.length; d++) {
+                        for (let g = 0; g < dataImunisasi[d].set.length; g++) {
+                          if (
+                            this.state.monthIndex[h].toLowerCase() ===
+                              dataImunisasi[d].set[g].Bulan.toLowerCase() &&
+                            this.state.yearIndex ===
+                              dataImunisasi[d].set[g].Tahun
+                          ) {
+                            // Iml = Iml;
+                          }
+                        }
+                      }
+                    }
+                    series1.push(kn1);
+                    series2.push(HbUniject);
+                    series3.push(knLengkap);
+                    category.push(this.state.desaIndex[a]);
+                  }
+                  for (let s1 = 0; s1 < series1.length; s1++) {
+                    FinalSeries1 = FinalSeries1 + series1[s1];
+                  }
+                  for (let s2 = 0; s2 < series2.length; s2++) {
+                    FinalSeries2 = FinalSeries2 + series2[s2];
+                  }
+                  for (let s3 = 0; s3 < series3.length; s3++) {
+                    FinalSeries3 = FinalSeries3 + series3[s3];
+                  }
+                  if (this.state.ChangeIndex == "Persentase") {
+                    this.setState(
+                      {
+                        series: [
+                          {
+                            name: "KN 1",
+                            type: "column",
+                            data: [FinalSeries1],
+                          },
+                          {
+                            name: "HB Uniject",
+                            type: "column",
+                            data: [FinalSeries2],
+                          },
+                          {
+                            name: "KN Lengkap",
+                            type: "column",
+                            data: [FinalSeries3],
+                          },
+                        ],
+                        options: {
+                          ...this.state.options,
+                          dataLabels: {
+                            ...this.state.options.dataLabels,
+                            formatter: (value, data) => {
+                              return value;
+                              // console.log(data);
+                              // if (data.seriesIndex == 0) {
+                              //   let percentage = 0;
+                              //   percentage =
+                              //     (
+                              //       (data.w.config.series[0].data[
+                              //         data.dataPointIndex
+                              //       ] /
+                              //         FinalSasaran) *
+                              //       100
+                              //     ).toFixed(1) + " %";
+                              //   return percentage;
+                              // } else if (data.seriesIndex == 1) {
+                              //   let percentage = 0;
+                              //   percentage =
+                              //     (
+                              //       (data.w.config.series[1].data[
+                              //         data.dataPointIndex
+                              //       ] /
+                              //         FinalSasaran) *
+                              //       100
+                              //     ).toFixed(1) + " %";
+                              //   return percentage;
+                              // } else if (data.seriesIndex === 2) {
+                              //   let percentage = 0;
+                              //   percentage =
+                              //     (
+                              //       (data.w.config.series[2].data[
+                              //         data.dataPointIndex
+                              //       ] /
+                              //         FinalSasaran) *
+                              //       100
+                              //     ).toFixed(1) + " %";
+                              //   return percentage;
+                              // } else {
+                              //   return value;
+                              // }
+                            },
+                          },
+                          xaxis: {
+                            ...this.state.options.xaxis,
+                            categories: category,
+                          },
+                          // yaxis: {
+                          //   ...this.state.options.yaxis,
+                          //   max: 100,
+                          // },
+                        },
+                      },
+                      () => {}
+                    );
+                  } else {
+                    this.setState(
+                      {
+                        series: [
+                          {
+                            name: "KN 1",
+                            type: "column",
+                            data: [FinalSeries1],
+                          },
+                          {
+                            name: "HB Uniject",
+                            type: "column",
+                            data: [FinalSeries2],
+                          },
+                          {
+                            name: "KN Lengkap",
+                            type: "column",
+                            data: [FinalSeries3],
+                          },
+                        ],
+                        options: {
+                          ...this.state.options,
+                          dataLabels: {
+                            ...this.state.options.dataLabels,
+                            formatter: (value, data) => {
+                              console.log(data);
+                              return value;
+                            },
+                          },
+                          xaxis: {
+                            ...this.state.options.xaxis,
+                            categories: category,
+                          },
+                          // yaxis: {
+                          //   ...this.state.options.yaxis,
+                          //   max: FinalSasaran,
+                          // },
+                        },
+                      },
+                      () => {}
+                    );
                   }
                 }
-              }
-              series1.push(kompLk);
-              series2.push(kompPr);
-              series3.push(kompTl);
-              series4.push(kBPLk);
-              series5.push(kBPPr);
-              series6.push(kBPTl);
-              category.push(dataFinal[a].Puskesmas);
+              );
             }
-          }
+          );
+        } else {
+          const deletePuskesmas = _.differenceWith(
+            this.state.desaIndex,
+            ["PUSKESMAS SUMBER WRINGIN"],
+            _.isEqual
+          );
+          this.setState(
+            {
+              desaIndex: deletePuskesmas,
+              options: {
+                ...this.state.options,
+                dataLabels: {
+                  ...this.state.options.dataLabels,
+                  offsetY: -20,
+                  offsetX: 0,
+                },
+                plotOptions: {
+                  ...this.state.options.plotOptions,
+                  bar: {
+                    ...this.state.options.plotOptions.bar,
+                    horizontal: false,
+                  },
+                },
+                xaxis: {
+                  ...this.state.options.xaxis,
+                  categories: [],
+                },
+              },
+            },
+            () => {
+              for (let a = 0; a < this.state.desaIndex.length; a++) {
+                kn1 = 0;
+                HbUniject = 0;
+                knLengkap = 0;
+                for (let h = 0; h < this.state.monthIndex.length; h++) {
+                  for (let b = 0; b < dataKIA.length; b++) {
+                    if (
+                      dataKIA[b].Puskesmas.replace(/ /g, "").toLowerCase() ==
+                      this.state.desaIndex[a].toLowerCase()
+                    ) {
+                      for (let e = 0; e < dataKIA[b].set.length; e++) {
+                        if (
+                          this.state.monthIndex[h].toLowerCase() ===
+                            dataKIA[b].set[e].Bulan.toLowerCase() &&
+                          this.state.yearIndex === dataKIA[b].set[e].Tahun
+                        ) {
+                          kn1 = kn1 + dataKIA[b].set[e].PencapaianKNPertamaTL;
+                          HbUniject = HbUniject;
+                          knLengkap =
+                            knLengkap + dataKIA[b].set[e].PencapaianKNLengkapTL;
+                        }
+                      }
+                    }
+                    //   category.push(dataFinalTripleEliminasi[a].Puskesmas);\
+                  }
+                  for (let c = 0; c < dataGizi.length; c++) {
+                    if (
+                      dataGizi[c].Puskesmas.replace(/ /g, "").toLowerCase() ==
+                      this.state.desaIndex[a].toLowerCase()
+                    ) {
+                      for (let f = 0; f < dataGizi[c].set.length; f++) {
+                        if (
+                          this.state.monthIndex[h].toLowerCase() ===
+                            dataGizi[c].set[f].Bulan.toLowerCase() &&
+                          this.state.yearIndex === dataGizi[c].set[f].Tahun
+                        ) {
+                          // VitA = VitA + dataGizi[c].set[f].JmlVitAMr;
+                        }
+                      }
+                    }
+                  }
+                  for (let d = 0; d < dataImunisasi.length; d++) {
+                    if (
+                      dataImunisasi[d].Puskesmas.replace(
+                        / /g,
+                        ""
+                      ).toLowerCase() == this.state.desaIndex[a].toLowerCase()
+                    ) {
+                      for (let g = 0; g < dataImunisasi[d].set.length; g++) {
+                        if (
+                          this.state.monthIndex[h].toLowerCase() ===
+                            dataImunisasi[d].set[g].Bulan.toLowerCase() &&
+                          this.state.yearIndex === dataImunisasi[d].set[g].Tahun
+                        ) {
+                          // Iml = Iml;
+                        }
+                      }
+                    }
+                  }
+                }
+                series1.push(kn1);
+                series2.push(HbUniject);
+                series3.push(knLengkap);
+                category.push(this.state.desaIndex[a]);
+              }
+              if (this.state.ChangeIndex == "Persentase") {
+                this.setState(
+                  {
+                    series: [
+                      {
+                        name: "KN 1",
+                        type: "column",
+                        data: series1,
+                      },
+                      {
+                        name: "HB Uniject",
+                        type: "column",
+                        data: series2,
+                      },
+                      {
+                        name: "KN Lengkap",
+                        type: "column",
+                        data: series3,
+                      },
+                    ],
+                    options: {
+                      ...this.state.options,
+                      dataLabels: {
+                        ...this.state.options.dataLabels,
+                        formatter: (value, data) => {
+                          return value;
+                          // console.log(data);
+                          // if (data.seriesIndex == 0) {
+                          //   let percentage = 0;
+                          //   percentage =
+                          //     (
+                          //       (data.w.config.series[0].data[
+                          //         data.dataPointIndex
+                          //       ] /
+                          //         Sasaran) *
+                          //       100
+                          //     ).toFixed(1) + " %";
+                          //   return percentage;
+                          // } else if (data.seriesIndex == 1) {
+                          //   let percentage = 0;
+                          //   percentage =
+                          //     (
+                          //       (data.w.config.series[1].data[
+                          //         data.dataPointIndex
+                          //       ] /
+                          //         Sasaran) *
+                          //       100
+                          //     ).toFixed(1) + " %";
+                          //   return percentage;
+                          // } else if (data.seriesIndex == 2) {
+                          //   let percentage = 0;
+                          //   percentage =
+                          //     (
+                          //       (data.w.config.series[2].data[
+                          //         data.dataPointIndex
+                          //       ] /
+                          //         Sasaran) *
+                          //       100
+                          //     ).toFixed(1) + " %";
+                          //   return percentage;
+                          // } else {
+                          //   return value;
+                          // }
+                        },
+                      },
+                      xaxis: {
+                        ...this.state.options.xaxis,
+                        categories: category,
+                      },
+                    },
+                  },
+                  () => {}
+                );
+              } else {
+                this.setState(
+                  {
+                    series: [
+                      {
+                        name: "KN 1",
+                        type: "column",
+                        data: series1,
+                      },
+                      {
+                        name: "HB Uniject",
+                        type: "column",
+                        data: series2,
+                      },
+                      {
+                        name: "KN Lengkap",
+                        type: "column",
+                        data: series3,
+                      },
+                    ],
+                    options: {
+                      ...this.state.options,
+                      dataLabels: {
+                        ...this.state.options.dataLabels,
+                        formatter: (value, data) => {
+                          console.log(data);
+                          return value;
+                        },
+                      },
+                      xaxis: {
+                        ...this.state.options.xaxis,
+                        categories: category,
+                      },
+                    },
+                  },
+                  () => {}
+                );
+              }
+            }
+          );
         }
-        this.setState({
-          series: [
-            {
-              name: "Neonatal Komplikasi Laki - Laki",
-              type: "column",
-              data: series1,
-            },
-            {
-              name: "Neonatal Komplikasi Perempuan",
-              type: "column",
-              data: series2,
-            },
-            {
-              name: "Neonatal Komplikasi Total",
-              type: "column",
-              data: series3,
-            },
-
-            {
-              name: "Kunjungan Bayi Paripurna Laki - Laki",
-              type: "column",
-              data: series4,
-            },
-            {
-              name: "Kunjungan Bayi Paripurna Perempuan",
-              type: "column",
-              data: series5,
-            },
-            {
-              name: "Kunjungan Bayi Paripurna Total",
-              type: "column",
-              data: series6,
-            },
-          ],
-          options: {
-            ...this.state.options,
-            xaxis: {
-              ...this.state.options.xaxis,
-              categories: category,
-            },
-          },
-        });
       }
     );
   };

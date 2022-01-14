@@ -187,10 +187,10 @@ class GraphicCocBalitaPur extends Component {
     };
   }
   handleChangeBulan = () => {
-    const { TripleEliminasi, K1 } = this.props;
+    const { BaliParipurna } = this.props;
     const desaTemp = ["PUSKESMAS SUMBER WRINGIN"];
-    for (let i = 0; i < TripleEliminasi.length; i++) {
-      desaTemp.push(TripleEliminasi[i].Puskesmas.replace(/ /g, ""));
+    for (let i = 0; i < BaliParipurna.length; i++) {
+      desaTemp.push(BaliParipurna[i].Puskesmas.replace(/ /g, ""));
     }
     const desa = Array.from(new Set(desaTemp));
     console.log(desa);
@@ -202,33 +202,17 @@ class GraphicCocBalitaPur extends Component {
         desa: desa,
         series: [
           {
-            name: "Neonatal Komplikasi Laki - Laki",
+            name: "Balita Paripurna",
             type: "column",
             data: [],
           },
           {
-            name: "Neonatal Komplikasi Perempuan",
+            name: "Vitamin A Balita",
             type: "column",
             data: [],
           },
           {
-            name: "Neonatal Komplikasi Total",
-            type: "column",
-            data: [],
-          },
-
-          {
-            name: "Kunjungan Bayi Paripurna Laki - Laki",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "Kunjungan Bayi Paripurna Perempuan",
-            type: "column",
-            data: [],
-          },
-          {
-            name: "Kunjungan Bayi Paripurna Total",
+            name: "Imunisasi Lanjutan",
             type: "column",
             data: [],
           },
@@ -258,7 +242,7 @@ class GraphicCocBalitaPur extends Component {
       },
       () => {
         const yearList = [];
-        const yearTemp = _.chain(TripleEliminasi)
+        const yearTemp = _.chain(BaliParipurna)
           .groupBy("Tahun")
           .map((set, Tahun) => ({ set, Tahun }))
           .value();
@@ -388,7 +372,7 @@ class GraphicCocBalitaPur extends Component {
           </Select>
         </FormControl>
 
-        <FormControl sx={{ m: 1, minWidth: 100 }}>
+        {/* <FormControl sx={{ m: 1, minWidth: 100 }}>
           <InputLabel id="demo-simple-select-helper-label">Index</InputLabel>
           <Select
             labelId="demo-simple-select-helper-label"
@@ -412,21 +396,21 @@ class GraphicCocBalitaPur extends Component {
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </FormControl> */}
       </div>
     );
   };
   handleChange = (event) => {
-    const { TripleEliminasi, K1, Gizi } = this.props;
-    const dataFinalTripleEliminasi = _.chain(TripleEliminasi)
+    const { BaliParipurna, Gizi, Imunisasi } = this.props;
+    const dataBaliParipurna = _.chain(BaliParipurna)
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
-    const dataFinalK1 = _.chain(K1)
+    const dataGizi = _.chain(Gizi)
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
-    const dataFinalGizi = _.chain(Gizi)
+    const dataImunisasi = _.chain(Imunisasi)
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
@@ -438,15 +422,10 @@ class GraphicCocBalitaPur extends Component {
         const series1 = [];
         const series2 = [];
         const series3 = [];
-        const series4 = [];
-        const series5 = [];
-        const Temp = [];
         let category = [];
-        let k1 = 0;
-        let fe1 = 0;
-        let tripleEliminasi = 0;
-        let k4Spm = 0;
-        let Linakes = 0;
+        let BalitaParipurna = 0;
+        let VitA = 0;
+        let Iml = 0;
 
         if (this.state.desaIndex == "PUSKESMAS SUMBER WRINGIN") {
           this.setState(
@@ -457,36 +436,21 @@ class GraphicCocBalitaPur extends Component {
               let FinalSeries1 = 0;
               let FinalSeries2 = 0;
               let FinalSeries3 = 0;
-              let FinalSeries4 = 0;
-              let FinalSeries5 = 0;
-              let FinalSasaran = 0;
-              let Sasaran = [];
               this.setState(
                 {
                   series: [
                     {
-                      name: "K1 Bumil",
+                      name: "Balita Paripurna",
                       type: "column",
                       data: [],
                     },
                     {
-                      name: "FE-1",
+                      name: "Vitamin A1",
                       type: "column",
                       data: [],
                     },
                     {
-                      name: "Triple Eliminasi",
-                      type: "column",
-                      data: [],
-                    },
-
-                    {
-                      name: "K4 SPM",
-                      type: "column",
-                      data: [],
-                    },
-                    {
-                      name: "Linakes",
+                      name: "Imunisasi Lanjutan",
                       type: "column",
                       data: [],
                     },
@@ -513,72 +477,57 @@ class GraphicCocBalitaPur extends Component {
                 },
                 () => {
                   for (let a = 0; a < this.state.desaIndex.length; a++) {
-                    k1 = 0;
-                    fe1 = 0;
-                    tripleEliminasi = 0;
-                    k4Spm = 0;
-                    Linakes = 0;
-                    Sasaran = 0;
+                    BalitaParipurna = 0;
+                    VitA = 0;
+                    Iml = 0;
                     for (let h = 0; h < this.state.monthIndex.length; h++) {
-                      for (
-                        let b = 0;
-                        b < dataFinalTripleEliminasi.length;
-                        b++
-                      ) {
+                      for (let b = 0; b < dataBaliParipurna.length; b++) {
                         for (
                           let e = 0;
-                          e < dataFinalTripleEliminasi[b].set.length;
+                          e < dataBaliParipurna[b].set.length;
                           e++
                         ) {
                           if (
                             this.state.monthIndex[h].toLowerCase() ===
-                              dataFinalTripleEliminasi[b].set[
-                                e
-                              ].Bulan.toLowerCase() &&
+                              dataBaliParipurna[b].set[e].Bulan.toLowerCase() &&
                             this.state.yearIndex ===
-                              dataFinalTripleEliminasi[b].set[e].Tahun
+                              dataBaliParipurna[b].set[e].Tahun
                           ) {
-                            k1 =
-                              k1 + dataFinalTripleEliminasi[b].set[e].K1Bumil;
-                            tripleEliminasi =
-                              tripleEliminasi +
-                              dataFinalTripleEliminasi[b].set[e].BumilTesHIV;
+                            BalitaParipurna =
+                              BalitaParipurna +
+                              dataBaliParipurna[b].set[e]
+                                .PelayananBalitaKur59TL;
                           }
                         }
                         //   category.push(dataFinalTripleEliminasi[a].Puskesmas);\
                       }
-                      for (let c = 0; c < dataFinalK1.length; c++) {
-                        for (let f = 0; f < dataFinalK1[c].set.length; f++) {
+                      for (let c = 0; c < dataGizi.length; c++) {
+                        for (let f = 0; f < dataGizi[c].set.length; f++) {
                           if (
                             this.state.monthIndex[h].toLowerCase() ===
-                              dataFinalK1[c].set[f].Bulan.toLowerCase() &&
-                            this.state.yearIndex === dataFinalK1[c].set[f].Tahun
+                              dataGizi[c].set[f].Bulan.toLowerCase() &&
+                            this.state.yearIndex === dataGizi[c].set[f].Tahun
                           ) {
-                            k4Spm = k4Spm + dataFinalK1[c].set[f].K4SPMBumil;
-                            Linakes = Linakes + dataFinalK1[c].set[f].Linakes;
-                            Temp.push(dataFinalK1[c].set[f].SasaranBumil);
+                            VitA = VitA + dataGizi[c].set[f].JmlVitAMr;
                           }
                         }
                       }
-                      for (let d = 0; d < dataFinalGizi.length; d++) {
-                        for (let g = 0; g < dataFinalGizi[d].set.length; g++) {
+                      for (let d = 0; d < dataImunisasi.length; d++) {
+                        for (let g = 0; g < dataImunisasi[d].set.length; g++) {
                           if (
                             this.state.monthIndex[h].toLowerCase() ===
-                              dataFinalGizi[d].set[g].Bulan.toLowerCase() &&
+                              dataImunisasi[d].set[g].Bulan.toLowerCase() &&
                             this.state.yearIndex ===
-                              dataFinalGizi[d].set[g].Tahun
+                              dataImunisasi[d].set[g].Tahun
                           ) {
-                            fe1 = fe1 + dataFinalGizi[d].set[g].JmlFe1;
+                            Iml = Iml;
                           }
                         }
                       }
                     }
-                    series1.push(k1);
-                    series3.push(tripleEliminasi);
-                    series2.push(fe1);
-                    series4.push(k4Spm);
-                    series5.push(Linakes);
-                    console.log(Temp);
+                    series1.push(BalitaParipurna);
+                    series2.push(VitA);
+                    series3.push(Iml);
                     category.push(this.state.desaIndex[a]);
                   }
                   for (let s1 = 0; s1 < series1.length; s1++) {
@@ -590,49 +539,24 @@ class GraphicCocBalitaPur extends Component {
                   for (let s3 = 0; s3 < series3.length; s3++) {
                     FinalSeries3 = FinalSeries3 + series3[s3];
                   }
-                  for (let s4 = 0; s4 < series4.length; s4++) {
-                    FinalSeries4 = FinalSeries4 + series4[s4];
-                  }
-                  for (let s5 = 0; s5 < series5.length; s5++) {
-                    FinalSeries5 = FinalSeries5 + series5[s5];
-                  }
-                  const SasaranTemp = Array.from(new Set(Temp));
-                  for (
-                    let Sasaran = 0;
-                    Sasaran < SasaranTemp.length;
-                    Sasaran++
-                  ) {
-                    FinalSasaran = FinalSasaran + SasaranTemp[Sasaran];
-                  }
                   if (this.state.ChangeIndex == "Persentase") {
                     this.setState(
                       {
                         series: [
                           {
-                            name: "K1 Bumil",
+                            name: "Balita Paripurna",
                             type: "column",
                             data: [FinalSeries1],
                           },
                           {
-                            name: "FE-1",
+                            name: "Vitamin A1",
                             type: "column",
                             data: [FinalSeries2],
                           },
                           {
-                            name: "Triple Eliminasi",
+                            name: "Imunisasi Lanjutan",
                             type: "column",
                             data: [FinalSeries3],
-                          },
-
-                          {
-                            name: "K4 SPM",
-                            type: "column",
-                            data: [FinalSeries4],
-                          },
-                          {
-                            name: "Linakes",
-                            type: "column",
-                            data: [FinalSeries5],
                           },
                         ],
                         options: {
@@ -640,75 +564,54 @@ class GraphicCocBalitaPur extends Component {
                           dataLabels: {
                             ...this.state.options.dataLabels,
                             formatter: (value, data) => {
-                              console.log(data);
-                              if (data.seriesIndex == 0) {
-                                let percentage = 0;
-                                percentage =
-                                  (
-                                    (data.w.config.series[0].data[
-                                      data.dataPointIndex
-                                    ] /
-                                      FinalSasaran) *
-                                    100
-                                  ).toFixed(1) + " %";
-                                return percentage;
-                              } else if (data.seriesIndex == 1) {
-                                let percentage = 0;
-                                percentage =
-                                  (
-                                    (data.w.config.series[1].data[
-                                      data.dataPointIndex
-                                    ] /
-                                      FinalSasaran) *
-                                    100
-                                  ).toFixed(1) + " %";
-                                return percentage;
-                              } else if (data.seriesIndex === 2) {
-                                let percentage = 0;
-                                percentage =
-                                  (
-                                    (data.w.config.series[2].data[
-                                      data.dataPointIndex
-                                    ] /
-                                      FinalSasaran) *
-                                    100
-                                  ).toFixed(1) + " %";
-                                return percentage;
-                              } else if (data.seriesIndex == 3) {
-                                let percentage = 0;
-                                percentage =
-                                  (
-                                    (data.w.config.series[3].data[
-                                      data.dataPointIndex
-                                    ] /
-                                      FinalSasaran) *
-                                    100
-                                  ).toFixed(1) + " %";
-                                return percentage;
-                              } else if (data.seriesIndex == 4) {
-                                let percentage = 0;
-                                percentage =
-                                  (
-                                    (data.w.config.series[4].data[
-                                      data.dataPointIndex
-                                    ] /
-                                      FinalSasaran) *
-                                    100
-                                  ).toFixed(1) + " %";
-                                return percentage;
-                              } else {
-                                return value;
-                              }
+                              return value;
+                              // console.log(data);
+                              // if (data.seriesIndex == 0) {
+                              //   let percentage = 0;
+                              //   percentage =
+                              //     (
+                              //       (data.w.config.series[0].data[
+                              //         data.dataPointIndex
+                              //       ] /
+                              //         FinalSasaran) *
+                              //       100
+                              //     ).toFixed(1) + " %";
+                              //   return percentage;
+                              // } else if (data.seriesIndex == 1) {
+                              //   let percentage = 0;
+                              //   percentage =
+                              //     (
+                              //       (data.w.config.series[1].data[
+                              //         data.dataPointIndex
+                              //       ] /
+                              //         FinalSasaran) *
+                              //       100
+                              //     ).toFixed(1) + " %";
+                              //   return percentage;
+                              // } else if (data.seriesIndex === 2) {
+                              //   let percentage = 0;
+                              //   percentage =
+                              //     (
+                              //       (data.w.config.series[2].data[
+                              //         data.dataPointIndex
+                              //       ] /
+                              //         FinalSasaran) *
+                              //       100
+                              //     ).toFixed(1) + " %";
+                              //   return percentage;
+                              // } else {
+                              //   return value;
+                              // }
                             },
                           },
                           xaxis: {
                             ...this.state.options.xaxis,
                             categories: category,
                           },
-                          yaxis: {
-                            ...this.state.options.yaxis,
-                            max: 100,
-                          },
+                          // yaxis: {
+                          //   ...this.state.options.yaxis,
+                          //   max: 100,
+                          // },
                         },
                       },
                       () => {}
@@ -718,30 +621,19 @@ class GraphicCocBalitaPur extends Component {
                       {
                         series: [
                           {
-                            name: "K1 Bumil",
+                            name: "Balita Paripurna",
                             type: "column",
                             data: [FinalSeries1],
                           },
                           {
-                            name: "FE-1",
+                            name: "Vitamin A1",
                             type: "column",
                             data: [FinalSeries2],
                           },
                           {
-                            name: "Triple Eliminasi",
+                            name: "Imunisasi Lanjutan",
                             type: "column",
                             data: [FinalSeries3],
-                          },
-
-                          {
-                            name: "K4 SPM",
-                            type: "column",
-                            data: [FinalSeries4],
-                          },
-                          {
-                            name: "Linakes",
-                            type: "column",
-                            data: [FinalSeries5],
                           },
                         ],
                         options: {
@@ -757,10 +649,10 @@ class GraphicCocBalitaPur extends Component {
                             ...this.state.options.xaxis,
                             categories: category,
                           },
-                          yaxis: {
-                            ...this.state.options.yaxis,
-                            max: FinalSasaran,
-                          },
+                          // yaxis: {
+                          //   ...this.state.options.yaxis,
+                          //   max: FinalSasaran,
+                          // },
                         },
                       },
                       () => {}
@@ -800,87 +692,75 @@ class GraphicCocBalitaPur extends Component {
               },
             },
             () => {
-              let Sasaran = 0;
               for (let a = 0; a < this.state.desaIndex.length; a++) {
-                k1 = 0;
-                fe1 = 0;
-                tripleEliminasi = 0;
-                k4Spm = 0;
-                Linakes = 0;
+                BalitaParipurna = 0;
+                VitA = 0;
+                Iml = 0;
                 for (let h = 0; h < this.state.monthIndex.length; h++) {
-                  for (let b = 0; b < dataFinalTripleEliminasi.length; b++) {
+                  for (let b = 0; b < dataBaliParipurna.length; b++) {
                     if (
-                      dataFinalTripleEliminasi[b].Puskesmas.replace(
+                      dataBaliParipurna[b].Puskesmas.replace(
                         / /g,
                         ""
                       ).toLowerCase() == this.state.desaIndex[a].toLowerCase()
                     ) {
                       for (
                         let e = 0;
-                        e < dataFinalTripleEliminasi[b].set.length;
+                        e < dataBaliParipurna[b].set.length;
                         e++
                       ) {
                         if (
                           this.state.monthIndex[h].toLowerCase() ===
-                            dataFinalTripleEliminasi[b].set[
-                              e
-                            ].Bulan.toLowerCase() &&
+                            dataBaliParipurna[b].set[e].Bulan.toLowerCase() &&
                           this.state.yearIndex ===
-                            dataFinalTripleEliminasi[b].set[e].Tahun
+                            dataBaliParipurna[b].set[e].Tahun
                         ) {
-                          k1 = k1 + dataFinalTripleEliminasi[b].set[e].K1Bumil;
-                          tripleEliminasi =
-                            tripleEliminasi +
-                            dataFinalTripleEliminasi[b].set[e].BumilTesHIV;
+                          BalitaParipurna =
+                            BalitaParipurna +
+                            dataBaliParipurna[b].set[e].PelayananBalitaKur59TL;
                         }
                       }
                     }
                     //   category.push(dataFinalTripleEliminasi[a].Puskesmas);\
                   }
-                  for (let c = 0; c < dataFinalK1.length; c++) {
+                  for (let c = 0; c < dataGizi.length; c++) {
                     if (
-                      dataFinalK1[c].Puskesmas.replace(
-                        / /g,
-                        ""
-                      ).toLowerCase() == this.state.desaIndex[a].toLowerCase()
+                      dataGizi[c].Puskesmas.replace(/ /g, "").toLowerCase() ==
+                      this.state.desaIndex[a].toLowerCase()
                     ) {
-                      for (let f = 0; f < dataFinalK1[c].set.length; f++) {
+                      for (let f = 0; f < dataGizi[c].set.length; f++) {
                         if (
                           this.state.monthIndex[h].toLowerCase() ===
-                            dataFinalK1[c].set[f].Bulan.toLowerCase() &&
-                          this.state.yearIndex === dataFinalK1[c].set[f].Tahun
+                            dataGizi[c].set[f].Bulan.toLowerCase() &&
+                          this.state.yearIndex === dataGizi[c].set[f].Tahun
                         ) {
-                          k4Spm = k4Spm + dataFinalK1[c].set[f].K4SPMBumil;
-                          Linakes = Linakes + dataFinalK1[c].set[f].Linakes;
-                          Sasaran = dataFinalK1[c].set[f].SasaranBumil;
+                          VitA = VitA + dataGizi[c].set[f].JmlVitAMr;
                         }
                       }
                     }
                   }
-                  for (let d = 0; d < dataFinalGizi.length; d++) {
+                  for (let d = 0; d < dataImunisasi.length; d++) {
                     if (
-                      dataFinalGizi[d].Puskesmas.replace(
+                      dataImunisasi[d].Puskesmas.replace(
                         / /g,
                         ""
                       ).toLowerCase() == this.state.desaIndex[a].toLowerCase()
                     ) {
-                      for (let g = 0; g < dataFinalGizi[d].set.length; g++) {
+                      for (let g = 0; g < dataImunisasi[d].set.length; g++) {
                         if (
                           this.state.monthIndex[h].toLowerCase() ===
-                            dataFinalGizi[d].set[g].Bulan.toLowerCase() &&
-                          this.state.yearIndex === dataFinalGizi[d].set[g].Tahun
+                            dataImunisasi[d].set[g].Bulan.toLowerCase() &&
+                          this.state.yearIndex === dataImunisasi[d].set[g].Tahun
                         ) {
-                          fe1 = fe1 + dataFinalGizi[d].set[g].JmlFe1;
+                          Iml = Iml;
                         }
                       }
                     }
                   }
                 }
-                series1.push(k1);
-                series3.push(tripleEliminasi);
-                series2.push(fe1);
-                series4.push(k4Spm);
-                series5.push(Linakes);
+                series1.push(BalitaParipurna);
+                series2.push(VitA);
+                series3.push(Iml);
                 category.push(this.state.desaIndex[a]);
               }
               if (this.state.ChangeIndex == "Persentase") {
@@ -888,30 +768,19 @@ class GraphicCocBalitaPur extends Component {
                   {
                     series: [
                       {
-                        name: "K1 Bumil",
+                        name: "Balita Paripurna",
                         type: "column",
                         data: series1,
                       },
                       {
-                        name: "FE-1",
+                        name: "Vitamin A1",
                         type: "column",
                         data: series2,
                       },
                       {
-                        name: "Triple Eliminasi",
+                        name: "Imunisasi Lanjutan",
                         type: "column",
                         data: series3,
-                      },
-
-                      {
-                        name: "K4 SPM",
-                        type: "column",
-                        data: series4,
-                      },
-                      {
-                        name: "Linakes",
-                        type: "column",
-                        data: series5,
                       },
                     ],
                     options: {
@@ -919,65 +788,44 @@ class GraphicCocBalitaPur extends Component {
                       dataLabels: {
                         ...this.state.options.dataLabels,
                         formatter: (value, data) => {
-                          console.log(data);
-                          if (data.seriesIndex == 0) {
-                            let percentage = 0;
-                            percentage =
-                              (
-                                (data.w.config.series[0].data[
-                                  data.dataPointIndex
-                                ] /
-                                  Sasaran) *
-                                100
-                              ).toFixed(1) + " %";
-                            return percentage;
-                          } else if (data.seriesIndex == 1) {
-                            let percentage = 0;
-                            percentage =
-                              (
-                                (data.w.config.series[1].data[
-                                  data.dataPointIndex
-                                ] /
-                                  Sasaran) *
-                                100
-                              ).toFixed(1) + " %";
-                            return percentage;
-                          } else if (data.seriesIndex == 2) {
-                            let percentage = 0;
-                            percentage =
-                              (
-                                (data.w.config.series[2].data[
-                                  data.dataPointIndex
-                                ] /
-                                  Sasaran) *
-                                100
-                              ).toFixed(1) + " %";
-                            return percentage;
-                          } else if (data.seriesIndex == 3) {
-                            let percentage = 0;
-                            percentage =
-                              (
-                                (data.w.config.series[3].data[
-                                  data.dataPointIndex
-                                ] /
-                                  Sasaran) *
-                                100
-                              ).toFixed(1) + " %";
-                            return percentage;
-                          } else if (data.seriesIndex == 4) {
-                            let percentage = 0;
-                            percentage =
-                              (
-                                (data.w.config.series[4].data[
-                                  data.dataPointIndex
-                                ] /
-                                  Sasaran) *
-                                100
-                              ).toFixed(1) + " %";
-                            return percentage;
-                          } else {
-                            return value;
-                          }
+                          return value;
+                          // console.log(data);
+                          // if (data.seriesIndex == 0) {
+                          //   let percentage = 0;
+                          //   percentage =
+                          //     (
+                          //       (data.w.config.series[0].data[
+                          //         data.dataPointIndex
+                          //       ] /
+                          //         Sasaran) *
+                          //       100
+                          //     ).toFixed(1) + " %";
+                          //   return percentage;
+                          // } else if (data.seriesIndex == 1) {
+                          //   let percentage = 0;
+                          //   percentage =
+                          //     (
+                          //       (data.w.config.series[1].data[
+                          //         data.dataPointIndex
+                          //       ] /
+                          //         Sasaran) *
+                          //       100
+                          //     ).toFixed(1) + " %";
+                          //   return percentage;
+                          // } else if (data.seriesIndex == 2) {
+                          //   let percentage = 0;
+                          //   percentage =
+                          //     (
+                          //       (data.w.config.series[2].data[
+                          //         data.dataPointIndex
+                          //       ] /
+                          //         Sasaran) *
+                          //       100
+                          //     ).toFixed(1) + " %";
+                          //   return percentage;
+                          // } else {
+                          //   return value;
+                          // }
                         },
                       },
                       xaxis: {
@@ -993,30 +841,19 @@ class GraphicCocBalitaPur extends Component {
                   {
                     series: [
                       {
-                        name: "K1 Bumil",
+                        name: "Balita Paripurna",
                         type: "column",
                         data: series1,
                       },
                       {
-                        name: "FE-1",
+                        name: "Vitamin A1",
                         type: "column",
                         data: series2,
                       },
                       {
-                        name: "Triple Eliminasi",
+                        name: "Imunisasi Lanjutan",
                         type: "column",
                         data: series3,
-                      },
-
-                      {
-                        name: "K4 SPM",
-                        type: "column",
-                        data: series4,
-                      },
-                      {
-                        name: "Linakes",
-                        type: "column",
-                        data: series5,
                       },
                     ],
                     options: {
@@ -1044,8 +881,8 @@ class GraphicCocBalitaPur extends Component {
     );
   };
   render() {
-    const { KIA } = this.props;
-    if (KIA == undefined) {
+    const { auth } = this.props;
+    if (auth.isLoaded == false) {
       return <div>Loading...</div>;
     } else {
       return (
@@ -1081,7 +918,7 @@ class GraphicCocBalitaPur extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    KIA: state.firestore.ordered.KIA, //database
+    BaliParipurna: state.firestore.ordered.BaliParipurna, //database
     Gizi: state.firestore.ordered.Gizi, //database
     Imunisasi: state.firestore.ordered.Imunisasi, //database
     auth: state.firebase.auth,
@@ -1091,7 +928,7 @@ const mapStateToProps = (state) => {
 export default compose(
   //database
   firestoreConnect([
-    { collection: "KIA" },
+    { collection: "BaliParipurna" },
     { collection: "Gizi" },
     { collection: "Imunisasi" },
   ]),
