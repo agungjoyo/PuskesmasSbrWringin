@@ -33,6 +33,7 @@ class InsertDataGizi extends Component {
       JmlFe3: "",
       JmlFe1: "",
       JmlVitAMr: "",
+      JmlVitABr: "",
       JmlSPDK: "",
       JmlPDK: "",
       JmlTNM: "",
@@ -50,6 +51,13 @@ class InsertDataGizi extends Component {
       JmlBMLA: "",
       JmlBMKEK: "",
       JmlPMTKEK: "",
+      JmlIHHB: "",
+      JmlIHAN: "",
+      JmlNA: "",
+      JmlBLTGK: "",
+      JmlPMTGK: "",
+      JmlBBLR: "",
+      JmlIMD: "",
     };
   }
   round(value, exp) {
@@ -115,7 +123,7 @@ class InsertDataGizi extends Component {
 
         // for (var i = 0; i < 6; i++) {
         for (let d = 4; d < 10; d++) {
-          if (data[89][d] == undefined) {
+          if (data[89][d] == undefined || data[85][d]) {
             this.setState(
               {
                 Tahun: finalTemp,
@@ -129,6 +137,7 @@ class InsertDataGizi extends Component {
                 JmlFe1: data[138][d],
                 JmlFe3: data[139][d],
                 JmlVitAMr: 0,
+                JmlVitABr: 0,
                 JmlSPDK: data[55][d],
                 JmlPDK: data[58][d],
                 JmlTNM: data[61][d],
@@ -146,6 +155,13 @@ class InsertDataGizi extends Component {
                 JmlBMLA: data[142][d],
                 JmlBMKEK: data[143][d],
                 JmlPMTKEK: data[144][d],
+                JmlIHHB: data[145][d],
+                JmlIHAN: data[146][d],
+                JmlNA: data[149][d],
+                JmlBLTGK: data[150][d],
+                JmlPMTGK: data[151][d],
+                JmlBBLR: data[137][d],
+                JmlIMD: data[134][d],
               },
               () => {
                 const dataCheckGizi = [
@@ -173,6 +189,13 @@ class InsertDataGizi extends Component {
                   this.state.JmlBMLA,
                   this.state.JmlBMKEK,
                   this.state.JmlPMTKEK,
+                  this.state.JmlIHHB,
+                  this.state.JmlIHAN,
+                  this.state.JmlNA,
+                  this.state.JmlBLTGK,
+                  this.state.JmlPMTGK,
+                  this.state.JmlBBLR,
+                  this.state.JmlIMD,
                 ];
 
                 const dataCheckName = [
@@ -200,6 +223,13 @@ class InsertDataGizi extends Component {
                   "Jumlah BMLA",
                   "Jumlah BMKEK",
                   "Jumlah PMTKEK",
+                  "Jumlah IHHB",
+                  "Jumlah IHAN",
+                  "Jumlah NA",
+                  "Jumlah BLTGK",
+                  "Jumlah PMTGK",
+                  "Jumlah BBLR",
+                  "Jumlah IMD",
                 ];
                 const whereEmpty = {
                   Desa: [],
@@ -264,6 +294,7 @@ class InsertDataGizi extends Component {
                             JmlFe3: this.state.JmlFe3,
                             JmlFe1: this.state.JmlFe1,
                             JmlVitAMr: this.state.JmlVitAMr,
+                            JmlVitABr: this.state.JmlVitABr,
                             JmlSPDK: this.state.JmlSPDK,
                             JmlPDK: this.state.JmlPDK,
                             JmlTNM: this.state.JmlTNM,
@@ -281,9 +312,16 @@ class InsertDataGizi extends Component {
                             JmlBBL: this.state.JmlBBL,
                             JmlBMKEK: this.state.JmlBMKEK,
                             JmlPMTKEK: this.state.JmlPMTKEK,
+                            JmlIHHB: this.state.JmlIHHB,
+                            JmlIHAN: this.state.JmlIHAN,
+                            JmlNA: this.state.JmlNA,
+                            JmlBLTGK: this.state.JmlBLTGK,
+                            JmlPMTGK: this.state.JmlPMTGK,
+                            JmlBBLR: this.state.JmlBBLR,
+                            JmlIMD: this.state.JmlIMD,
                           };
 
-                          // console.log(finalDataCoc.Bulan);
+                          console.log(finalDataCoc.Bulan);
                           this.props.DataCocEditGizi(
                             dataCocCompare[0].id,
                             finalDataCoc
@@ -319,6 +357,7 @@ class InsertDataGizi extends Component {
                           JmlFe3: this.state.JmlFe3,
                           JmlFe1: this.state.JmlFe1,
                           JmlVitAMr: this.state.JmlVitAMr,
+                          JmlVitABr: this.state.JmlVitABr,
                           JmlSPDK: this.state.JmlSPDK,
                           JmlPDK: this.state.JmlPDK,
                           JmlTNM: this.state.JmlTNM,
@@ -336,6 +375,13 @@ class InsertDataGizi extends Component {
                           JmlBMLA: this.state.JmlBMLA,
                           JmlBMKEK: this.state.JmlBMKEK,
                           JmlPMTKEK: this.state.JmlPMTKEK,
+                          JmlIHHB: this.state.JmlIHHB,
+                          JmlIHAN: this.state.JmlIHAN,
+                          JmlNA: this.state.JmlNA,
+                          JmlBLTGK: this.state.JmlBLTGK,
+                          JmlPMTGK: this.state.JmlPMTGK,
+                          JmlBBLR: this.state.JmlBBLR,
+                          JmlIMD: this.state.JmlIMD,
                         };
                         // console.log(finalDataCoc);
 
@@ -361,6 +407,7 @@ class InsertDataGizi extends Component {
                 JmlFe1: data[138][d],
                 JmlFe3: data[139][d],
                 JmlVitAMr: data[89][d],
+                JmlVitABr: data[85][d],
                 JmlSPDK: data[55][d],
                 JmlPDK: data[58][d],
                 JmlTNM: data[61][d],
@@ -378,6 +425,13 @@ class InsertDataGizi extends Component {
                 JmlBMLA: data[142][d],
                 JmlBMKEK: data[143][d],
                 JmlPMTKEK: data[144][d],
+                JmlIHHB: data[145][d],
+                JmlIHAN: data[146][d],
+                JmlNA: data[149][d],
+                JmlBLTGK: data[150][d],
+                JmlPMTGK: data[151][d],
+                JmlBBLR: data[137][d],
+                JmlIMD: data[134][d],
               },
               () => {
                 const dataCheckGizi = [
@@ -405,6 +459,13 @@ class InsertDataGizi extends Component {
                   this.state.JmlBMLA,
                   this.state.JmlBMKEK,
                   this.state.JmlPMTKEK,
+                  this.state.JmlIHHB,
+                  this.state.JmlIHAN,
+                  this.state.JmlNA,
+                  this.state.JmlBLTGK,
+                  this.state.JmlPMTGK,
+                  this.state.JmlBBLR,
+                  this.state.JmlIMD,
                 ];
 
                 const dataCheckName = [
@@ -432,6 +493,14 @@ class InsertDataGizi extends Component {
                   "Jumlah BMLA",
                   "Jumlah BMKEK",
                   "Jumlah PMTKEK",
+                  "Jumlah PMTKEK",
+                  "Jumlah IHHB",
+                  "Jumlah IHAN",
+                  "Jumlah NA",
+                  "Jumlah BLTGK",
+                  "Jumlah PMTGK",
+                  "Jumlah BBLR",
+                  "Jumlah IMD",
                 ];
                 const whereEmpty = {
                   Desa: [],
@@ -496,6 +565,7 @@ class InsertDataGizi extends Component {
                             JmlFe3: this.state.JmlFe3,
                             JmlFe1: this.state.JmlFe1,
                             JmlVitAMr: this.state.JmlVitAMr,
+                            JmlVitABr: this.state.JmlVitABr,
                             JmlSPDK: this.state.JmlSPDK,
                             JmlPDK: this.state.JmlPDK,
                             JmlTNM: this.state.JmlTNM,
@@ -513,9 +583,16 @@ class InsertDataGizi extends Component {
                             JmlBBL: this.state.JmlBBL,
                             JmlBMKEK: this.state.JmlBMKEK,
                             JmlPMTKEK: this.state.JmlPMTKEK,
+                            JmlIHHB: this.state.JmlIHHB,
+                            JmlIHAN: this.state.JmlIHAN,
+                            JmlNA: this.state.JmlNA,
+                            JmlBLTGK: this.state.JmlBLTGK,
+                            JmlPMTGK: this.state.JmlPMTGK,
+                            JmlBBLR: this.state.JmlBBLR,
+                            JmlIMD: this.state.JmlIMD,
                           };
 
-                          // console.log(finalDataCoc.Bulan);
+                          console.log(finalDataCoc.Bulan);
                           this.props.DataCocEditGizi(
                             dataCocCompare[0].id,
                             finalDataCoc
@@ -551,6 +628,7 @@ class InsertDataGizi extends Component {
                           JmlFe3: this.state.JmlFe3,
                           JmlFe1: this.state.JmlFe1,
                           JmlVitAMr: this.state.JmlVitAMr,
+                          JmlVitABr: this.state.JmlVitABr,
                           JmlSPDK: this.state.JmlSPDK,
                           JmlPDK: this.state.JmlPDK,
                           JmlTNM: this.state.JmlTNM,
@@ -568,6 +646,13 @@ class InsertDataGizi extends Component {
                           JmlBMLA: this.state.JmlBMLA,
                           JmlBMKEK: this.state.JmlBMKEK,
                           JmlPMTKEK: this.state.JmlPMTKEK,
+                          JmlIHHB: this.state.JmlIHHB,
+                          JmlIHAN: this.state.JmlIHAN,
+                          JmlNA: this.state.JmlNA,
+                          JmlBLTGK: this.state.JmlBLTGK,
+                          JmlPMTGK: this.state.JmlPMTGK,
+                          JmlBBLR: this.state.JmlBBLR,
+                          JmlIMD: this.state.JmlIMD,
                         };
                         // console.log(finalDataCoc);
 

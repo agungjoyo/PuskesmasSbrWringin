@@ -163,6 +163,27 @@ class DataCocGizi extends Component {
             value.JmlPMTKEKPersentase?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
+              value.JmlIHHB?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+              value.JmlIHAN?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+              value.JmlNA?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+              value.JmlBLTGK?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+              value.JmlPMTGK?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+              value.JmlBBLR?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+              value.JmlIMD?.toString()
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
             value.Tahun?.toString().toLowerCase().includes(query.toLowerCase())
           );
         });
@@ -365,6 +386,41 @@ class DataCocGizi extends Component {
           label: "%",
           alignCenter: "center",
         },
+        {
+          id: "JmlIHHB",
+          label: "Jumlah IH-HB",
+          alignCenter: "center",
+        },
+        {
+          id: "JmlIHAN",
+          label: "Jumlah IH-AN",
+          alignCenter: "center",
+        },
+        {
+          id: "JmlNA",
+          label: "Jumlah NA",
+          alignCenter: "center",
+        },
+        {
+          id: "JmlBLTGK",
+          label: "Jumlah BLT-GK",
+          alignCenter: "center",
+        },
+        {
+          id: "JmlPMTGK",
+          label: "Jumlah PMT-GK",
+          alignCenter: "center",
+        },
+        {
+          id: "JmlBBLR",
+          label: "Jumlah BBLR",
+          alignCenter: "center",
+        },
+        {
+          id: "JmlIMD",
+          label: "Jumlah IMD",
+          alignCenter: "center",
+        },
         { id: "" },
       ];
 
@@ -535,6 +591,13 @@ class DataCocGizi extends Component {
                             JmlBMKEKPersentase,
                             JmlPMTKEK,
                             JmlPMTKEKPersentase,
+                            JmlIHHB, 
+                            JmlIHAN, 
+                            JmlNA, 
+                            JmlBLTGK, 
+                            JmlPMTGK, 
+                            JmlBBLR, 
+                            JmlIMD, 
                           } = row;
                           const isItemSelected =
                             this.state.selected.indexOf(Bulan) !== -1;
@@ -1272,6 +1335,118 @@ class DataCocGizi extends Component {
                                     {`${((JmlPMTKEK / JmlBMKEK) * 100).toFixed(
                                       1
                                     )} %`}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {JmlIHHB}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {JmlIHAN}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {JmlNA}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {JmlBLTGK}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {JmlPMTGK}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {JmlBBLR}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {JmlIMD}
                                   </Typography>
                                 </Stack>
                               </TableCell>
