@@ -410,7 +410,7 @@ class GraphicCocBalitaPur extends Component {
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
-    const dataImunisasi = _.chain(Imunisasi)
+    const dataImunisasiLanjutan = _.chain(ImunisasiLanjutan)
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
@@ -512,15 +512,27 @@ class GraphicCocBalitaPur extends Component {
                           }
                         }
                       }
-                      for (let d = 0; d < dataImunisasi.length; d++) {
-                        for (let g = 0; g < dataImunisasi[d].set.length; g++) {
+                      for (let d = 0; d < dataImunisasiLanjutan.length; d++) {
+                        for (
+                          let g = 0;
+                          g < dataImunisasiLanjutan[d].set.length;
+                          g++
+                        ) {
                           if (
                             this.state.monthIndex[h].toLowerCase() ===
-                              dataImunisasi[d].set[g].Bulan.toLowerCase() &&
+                              dataImunisasiLanjutan[d].set[
+                                g
+                              ].Bulan.toLowerCase() &&
                             this.state.yearIndex ===
-                              dataImunisasi[d].set[g].Tahun
+                              dataImunisasiLanjutan[d].set[g].Tahun
                           ) {
-                            Iml = Iml;
+                            Iml =
+                              Iml +
+                              ((dataImunisasiLanjutan[d].set[g].CampakKe2 +
+                                dataImunisasiLanjutan[d].set[g].CampakRubella2 +
+                                dataImunisasiLanjutan[d].set[g].DPTHBHibke4) /
+                                dataImunisasiLanjutan[d].set[g].SasaranBatita) *
+                                100;
                           }
                         }
                       }
@@ -739,21 +751,25 @@ class GraphicCocBalitaPur extends Component {
                       }
                     }
                   }
-                  for (let d = 0; d < dataImunisasi.length; d++) {
-                    if (
-                      dataImunisasi[d].Puskesmas.replace(
-                        / /g,
-                        ""
-                      ).toLowerCase() == this.state.desaIndex[a].toLowerCase()
+                  for (let d = 0; d < dataImunisasiLanjutan.length; d++) {
+                    for (
+                      let g = 0;
+                      g < dataImunisasiLanjutan[d].set.length;
+                      g++
                     ) {
-                      for (let g = 0; g < dataImunisasi[d].set.length; g++) {
-                        if (
-                          this.state.monthIndex[h].toLowerCase() ===
-                            dataImunisasi[d].set[g].Bulan.toLowerCase() &&
-                          this.state.yearIndex === dataImunisasi[d].set[g].Tahun
-                        ) {
-                          Iml = Iml;
-                        }
+                      if (
+                        this.state.monthIndex[h].toLowerCase() ===
+                          dataImunisasiLanjutan[d].set[g].Bulan.toLowerCase() &&
+                        this.state.yearIndex ===
+                          dataImunisasiLanjutan[d].set[g].Tahun
+                      ) {
+                        Iml =
+                          Iml +
+                          ((dataImunisasiLanjutan[d].set[g].CampakKe2 +
+                            dataImunisasiLanjutan[d].set[g].CampakRubella2 +
+                            dataImunisasiLanjutan[d].set[g].DPTHBHibke4) /
+                            dataImunisasiLanjutan[d].set[g].SasaranBatita) *
+                            100;
                       }
                     }
                   }
@@ -920,7 +936,7 @@ const mapStateToProps = (state) => {
   return {
     BaliParipurna: state.firestore.ordered.BaliParipurna, //database
     Gizi: state.firestore.ordered.Gizi, //database
-    Imunisasi: state.firestore.ordered.Imunisasi, //database
+    ImunisasiLanjutan: state.firestore.ordered.ImunisasiLanjutan, //database
     auth: state.firebase.auth,
   };
 };
@@ -930,7 +946,7 @@ export default compose(
   firestoreConnect([
     { collection: "BaliParipurna" },
     { collection: "Gizi" },
-    { collection: "Imunisasi" },
+    { collection: "ImunisasiLanjutan" },
   ]),
   connect(mapStateToProps),
   withTheme

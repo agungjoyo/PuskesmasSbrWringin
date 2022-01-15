@@ -33,6 +33,7 @@ import GraphicImun from "views/DashboardKIA/pages/GraphicImun";
 import GraphicGizi from "views/DashboardKIA/pages/GraphicGizi";
 import IndexGraphicCoc from "views/DashboardKIA/pages/IndexGraphicCoc";
 import InsertDataIL from "views/DashboardKIA/pages/InsertDataIL";
+import InsertDataBulin from "views/DashboardKIA/pages/InsertDataBulin";
 
 export default function Router() {
   return useRoutes([
@@ -55,6 +56,10 @@ export default function Router() {
         {
           path: "InsertTripleEliminasiKIA",
           element: <InsertTripleEliminasiKIA />,
+        },
+        {
+          path: "InsertDataBulin",
+          element: <InsertDataBulin />,
         },
         { path: "InsertDataKB", element: <InsertDataKB /> },
         { path: "InsertDataImunisasi", element: <InsertDataImunisasi /> },

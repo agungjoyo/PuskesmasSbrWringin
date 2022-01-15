@@ -434,7 +434,7 @@ class DataCocImun extends Component {
                             this.state.rowsPerPage
                         )
                         .map((row) => {
-                          const {
+                          let {
                             id,
                             Bulan,
                             Puskesmas,
@@ -482,7 +482,9 @@ class DataCocImun extends Component {
                           } = row;
                           const isItemSelected =
                             this.state.selected.indexOf(Bulan) !== -1;
-
+                          if (HBOLessOneDTMPersentase == undefined) {
+                            HBOLessOneDTMPersentase = 0;
+                          }
                           return (
                             <TableRow
                               hover

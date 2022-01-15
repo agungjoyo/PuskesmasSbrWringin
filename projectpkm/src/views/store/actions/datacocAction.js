@@ -304,6 +304,68 @@ export const DataCocTripleKIAEdit = (id, FinalData) => {
   };
 };
 
+export const removeDataBulin = (id) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("BULIN")
+      .doc(id)
+      .delete()
+      .then(() => {
+        dispatch({ type: "DATA_BULIN_KIA_REMOVED", id });
+      })
+      .catch((err) => {
+        dispatch({ type: "DATA_BULIN_KIA_REMOVED_ERROR", err });
+      });
+  };
+};
+export const addDataBulin = (FinalData) => {
+  // return (dispatch, getState) => {}
+  return (dispatch, getState, { getFirestore }) => {
+    // make async call to database
+    const firestore = getFirestore();
+    firestore
+      .collection("BULIN")
+      .add({
+        ...FinalData,
+        createdAt: new Date(),
+      })
+      .then(() => {
+        dispatch({ type: "ADD_DATA_BULIN_KIA", FinalData });
+      })
+      .catch((err) => {
+        dispatch({ type: "ADD_DATA_BULIN_KIA_ERROR", err });
+      });
+  };
+};
+
+export const DataBulinEdit = (id, FinalData) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("BULIN")
+      .doc(id)
+      .delete()
+      .then(() => {
+        firestore
+          .collection("BULIN")
+          .add({
+            ...FinalData,
+            createdAt: new Date(),
+          })
+          .then(() => {
+            dispatch({ type: "DATA_BULIN_KIA_EDITED", FinalData });
+          })
+          .catch((err) => {
+            dispatch({ type: "DATA_BULIN_KIA_EDITED_ERROR", err });
+          });
+      })
+      .catch((err) => {
+        dispatch({ type: "DATA_BULIN_EDITED_ERROR", err });
+      });
+  };
+};
+
 export const addDataParipurna = (dataParipurna) => {
   // return (dispatch, getState) => {}
   return (dispatch, getState, { getFirestore }) => {

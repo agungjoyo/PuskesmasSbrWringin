@@ -306,7 +306,7 @@ class DataCoc extends Component {
               </div>
               <div sx={{ justify: "flex-end" }}>
                 <Button
-                  sx={{ mr: 2 }}
+                  sx={{ mr: 2, mb: 2 }}
                   variant="contained"
                   component={RouterLink}
                   to="/dashboard/InsertTripleEliminasiKIA"
@@ -316,7 +316,7 @@ class DataCoc extends Component {
                 </Button>
                 <Button
                   variant="contained"
-                  sx={{ mr: 2 }}
+                  sx={{ mr: 2, mb: 2 }}
                   component={RouterLink}
                   to="/dashboard/InsertData"
                   startIcon={<Icon icon={plusFill} />}
@@ -325,7 +325,7 @@ class DataCoc extends Component {
                 </Button>
                 <Button
                   variant="contained"
-                  sx={{ mr: 2 }}
+                  sx={{ mr: 2, mb: 2 }}
                   component={RouterLink}
                   to="/dashboard/InsertDataParipurna"
                   startIcon={<Icon icon={plusFill} />}
@@ -333,12 +333,22 @@ class DataCoc extends Component {
                   Tambah Data PWS APRAS
                 </Button>
                 <Button
+                  sx={{ mr: 2, mb: 2, justify: "flex-end" }}
                   variant="contained"
                   component={RouterLink}
                   to="/dashboard/InsertDataKB"
                   startIcon={<Icon icon={plusFill} />}
                 >
                   Tambah Data KB
+                </Button>
+                <Button
+                  sx={{ mr: 2, mb: 2, justify: "flex-end" }}
+                  variant="contained"
+                  component={RouterLink}
+                  to="/dashboard/InsertDataBulin"
+                  startIcon={<Icon icon={plusFill} />}
+                >
+                  Tambah Data Bulin
                 </Button>
               </div>
             </Stack>
@@ -463,7 +473,7 @@ class DataCoc extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {SasaranBayiTL}
+                                    {SasaranKelahiranHidupTL}
                                   </Typography>
                                 </Stack>
                               </TableCell>

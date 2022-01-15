@@ -38,6 +38,24 @@ const datacocReducer = (state = initState, action) => {
     case "DATA_KB_EDITED_ERROR":
       console.log("Data KB Error", action.dataKB);
       return state;
+    case "ADD_DATA_BULIN":
+      console.log("Created Data KB", action.dataKB);
+      return state;
+    case "ADD_DATA_BULIN_ERROR":
+      console.log("Data KB Error", action.dataKB);
+      return state;
+    case "DATA_BULIN_REMOVED":
+      console.log("Data KB REMOVED", action.id);
+      return state;
+    case "DATA_BULIN_REMOVED_ERROR":
+      console.log("Data KB Error", action.id);
+      return state;
+    case "DATA_BULIN_EDITED":
+      console.log("Data KB Edited", action.dataKB);
+      return state;
+    case "DATA_BULIN_EDITED_ERROR":
+      console.log("Data KB Error", action.dataKB);
+      return state;
     case "ADD_DATA_COC_KIA":
       console.log("Created Data COC KIA", action.dataKIACoc);
       return state;

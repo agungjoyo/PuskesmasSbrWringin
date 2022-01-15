@@ -384,12 +384,16 @@ class GraphicCocK4_VitA extends Component {
     );
   };
   handleChange = (event) => {
-    const { K1, Gizi, KB } = this.props;
+    const { K1, Gizi, KB, BULIN } = this.props;
     const dataK1 = _.chain(K1)
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
     const dataGizi = _.chain(Gizi)
+      .groupBy("Puskesmas")
+      .map((set, Puskesmas) => ({ set, Puskesmas }))
+      .value();
+    const dataBulin = _.chain(BULIN)
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
@@ -490,7 +494,6 @@ class GraphicCocK4_VitA extends Component {
                             this.state.yearIndex === dataK1[b].set[e].Tahun
                           ) {
                             k4 = k4 + dataK1[b].set[e].K4SPMBumil;
-                            bulin = bulin;
                           }
                         }
                         //   category.push(dataFinalTripleEliminasi[a].Puskesmas);\
@@ -518,11 +521,22 @@ class GraphicCocK4_VitA extends Component {
                           }
                         }
                       }
+                      for (let y = 0; y < dataBulin.length; y++) {
+                        for (let z = 0; z < dataBulin[y].set.length; z++) {
+                          if (
+                            this.state.monthIndex[h].toLowerCase() ===
+                              dataBulin[y].set[z].Bulan.toLowerCase() &&
+                            this.state.yearIndex === dataBulin[y].set[z].Tahun
+                          ) {
+                            bulin = bulin + dataBulin[y].set[z].Bulin;
+                          }
+                        }
+                      }
                     }
                     series1.push(k4);
                     series2.push(fe3);
-                    series3.push(VitA);
-                    series4.push(k4);
+                    series3.push(bulin);
+                    series4.push(VitA);
                     series5.push(Kb);
                     category.push(this.state.desaIndex[a]);
                   }
@@ -943,6 +957,7 @@ const mapStateToProps = (state) => {
     K1: state.firestore.ordered.K1, //database
     Gizi: state.firestore.ordered.Gizi, //database
     KB: state.firestore.ordered.KB, //database
+    BULIN: state.firestore.ordered.BULIN, //database
     auth: state.firebase.auth,
   };
 };
@@ -953,6 +968,7 @@ export default compose(
     { collection: "K1" },
     { collection: "Gizi" },
     { collection: "KB" },
+    { collection: "BULIN" },
   ]),
   connect(mapStateToProps),
   withTheme
