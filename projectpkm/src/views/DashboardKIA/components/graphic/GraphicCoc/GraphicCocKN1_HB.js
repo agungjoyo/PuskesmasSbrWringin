@@ -452,7 +452,6 @@ class GraphicCocKN1_HB extends Component {
                             this.state.yearIndex === dataKIA[b].set[e].Tahun
                           ) {
                             kn1 = kn1 + dataKIA[b].set[e].PencapaianKNPertamaTL;
-                            HbUniject = HbUniject;
                             knLengkap =
                               knLengkap +
                               dataKIA[b].set[e].PencapaianKNLengkapTL;
@@ -479,7 +478,8 @@ class GraphicCocKN1_HB extends Component {
                             this.state.yearIndex ===
                               dataImunisasi[d].set[g].Tahun
                           ) {
-                            // Iml = Iml;
+                            HbUniject =
+                              HbUniject + dataImunisasi[d].set[g].HBOLessOneDTM;
                           }
                         }
                       }
@@ -668,7 +668,6 @@ class GraphicCocKN1_HB extends Component {
                           this.state.yearIndex === dataKIA[b].set[e].Tahun
                         ) {
                           kn1 = kn1 + dataKIA[b].set[e].PencapaianKNPertamaTL;
-                          HbUniject = HbUniject;
                           knLengkap =
                             knLengkap + dataKIA[b].set[e].PencapaianKNLengkapTL;
                         }
@@ -705,7 +704,8 @@ class GraphicCocKN1_HB extends Component {
                             dataImunisasi[d].set[g].Bulan.toLowerCase() &&
                           this.state.yearIndex === dataImunisasi[d].set[g].Tahun
                         ) {
-                          // Iml = Iml;
+                          HbUniject =
+                            HbUniject + dataImunisasi[d].set[g].HBOLessOneDTM;
                         }
                       }
                     }

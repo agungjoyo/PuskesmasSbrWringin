@@ -33,9 +33,9 @@ class Graphic extends Component {
             <Grid item xs={12} sm={12} md={12}>
               <GraphicCocK4_VitA />
             </Grid>
-            <Grid item xs={12} sm={12} md={12}>
+            {/* <Grid item xs={12} sm={12} md={12}>
               <GraphicCocKB />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} sm={12} md={12}>
               <GraphicCocKN1_HB />
             </Grid>
