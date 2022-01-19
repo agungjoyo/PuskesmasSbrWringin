@@ -733,7 +733,7 @@ class GraphicCocPKM extends Component {
                     KNkomplikasiBulan = 0;
                     KunjunganBayiParipurnaBulan = 0;
                     for (let b = 0; b < this.state.desa.length; b++) {
-                      if (dataFinal[a].Puskesmas == this.state.desa[b]) {
+                      if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
                         for (let i = 0; i < dataFinal[i].set.length; i++) {
                           for (
                             let c = 0;
@@ -751,25 +751,25 @@ class GraphicCocPKM extends Component {
                                 dataFinal[a].set[i].SasaranBayiRistiTL;
                               lahirHidupBulan =
                                 lahirHidupBulan +
-                                dataFinal[a].set[c].PencapaianLahirHidupTL;
+                                dataFinal[a].set[i].PencapaianLahirHidupTL;
                               lahirMatiBulan =
                                 lahirMatiBulan +
-                                dataFinal[a].set[c].PencapaianLahirMatiTL;
+                                dataFinal[a].set[i].PencapaianLahirMatiTL;
                               KN1Bulan =
                                 KN1Bulan +
-                                dataFinal[a].set[c].PencapaianKNPertamaTL;
+                                dataFinal[a].set[i].PencapaianKNPertamaTL;
                               KN2Bulan =
                                 KN2Bulan +
-                                dataFinal[a].set[c].PencapaianKNKeduaTL;
+                                dataFinal[a].set[i].PencapaianKNKeduaTL;
                               KNlengkapBulan =
                                 KNlengkapBulan +
-                                dataFinal[a].set[c].PencapaianKNLengkapTL;
+                                dataFinal[a].set[i].PencapaianKNLengkapTL;
                               KNkomplikasiBulan =
                                 KNkomplikasiBulan +
-                                dataFinal[a].set[c].PencapaianKNLengkapTL;
+                                dataFinal[a].set[i].PencapaianKNLengkapTL;
                               KunjunganBayiParipurnaBulan =
                                 KunjunganBayiParipurnaBulan +
-                                dataFinal[a].set[c].KunjunganBayiParipurnaTL;
+                                dataFinal[a].set[i].KunjunganBayiParipurnaTL;
                             }
                           }
                         }
@@ -1092,24 +1092,24 @@ class GraphicCocPKM extends Component {
                             dataFinal[a].set[i].SasaranBayiRistiTL;
                           lahirHidupBulan =
                             lahirHidupBulan +
-                            dataFinal[a].set[c].PencapaianLahirHidupTL;
+                            dataFinal[a].set[i].PencapaianLahirHidupTL;
                           lahirMatiBulan =
                             lahirMatiBulan +
-                            dataFinal[a].set[c].PencapaianLahirMatiTL;
+                            dataFinal[a].set[i].PencapaianLahirMatiTL;
                           KN1Bulan =
                             KN1Bulan +
-                            dataFinal[a].set[c].PencapaianKNPertamaTL;
+                            dataFinal[a].set[i].PencapaianKNPertamaTL;
                           KN2Bulan =
-                            KN2Bulan + dataFinal[a].set[c].PencapaianKNKeduaTL;
+                            KN2Bulan + dataFinal[a].set[i].PencapaianKNKeduaTL;
                           KNlengkapBulan =
                             KNlengkapBulan +
-                            dataFinal[a].set[c].PencapaianKNLengkapTL;
+                            dataFinal[a].set[i].PencapaianKNLengkapTL;
                           KNkomplikasiBulan =
                             KNkomplikasiBulan +
-                            dataFinal[a].set[c].PencapaianKNLengkapTL;
+                            dataFinal[a].set[i].PencapaianKNLengkapTL;
                           KunjunganBayiParipurnaBulan =
                             KunjunganBayiParipurnaBulan +
-                            dataFinal[a].set[c].KunjunganBayiParipurnaTL;
+                            dataFinal[a].set[i].KunjunganBayiParipurnaTL;
                         }
                       }
                     }
