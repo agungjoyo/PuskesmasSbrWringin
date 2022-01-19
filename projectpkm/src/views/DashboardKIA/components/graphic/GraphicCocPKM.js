@@ -733,7 +733,7 @@ class GraphicCocPKM extends Component {
                     KNkomplikasiBulan = 0;
                     KunjunganBayiParipurnaBulan = 0;
                     for (let b = 0; b < this.state.desa.length; b++) {
-                      if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
+                      if (dataFinal[a].Puskesmas == this.state.desa[b]) {
                         for (let i = 0; i < dataFinal[i].set.length; i++) {
                           for (
                             let c = 0;
