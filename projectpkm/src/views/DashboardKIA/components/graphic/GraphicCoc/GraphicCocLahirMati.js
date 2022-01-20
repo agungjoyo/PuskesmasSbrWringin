@@ -75,7 +75,7 @@ class GraphicCocLahirMati extends Component {
       plotOptions: {
         bar: {
           horizontal: true,
-          columnWidth: "35%",
+          columnWidth: "85%",
           borderRadius: 36,
           dataLabels: {
             position: "top",
