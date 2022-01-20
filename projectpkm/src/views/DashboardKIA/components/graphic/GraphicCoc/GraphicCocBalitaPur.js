@@ -190,7 +190,7 @@ class GraphicCocBalitaPur extends Component {
     const { BaliParipurna } = this.props;
     const desaTemp = ["PUSKESMAS SUMBER WRINGIN"];
     for (let i = 0; i < BaliParipurna.length; i++) {
-      desaTemp.push(BaliParipurna[i].Puskesmas.replace(/ /g, ""));
+      desaTemp.push(BaliParipurna[i].Puskesmas);
     }
     const desa = Array.from(new Set(desaTemp));
     console.log(desa);
@@ -401,7 +401,7 @@ class GraphicCocBalitaPur extends Component {
     );
   };
   handleChange = (event) => {
-    const { BaliParipurna, Gizi, Imunisasi } = this.props;
+    const { BaliParipurna, Gizi, ImunisasiLanjutan } = this.props;
     const dataBaliParipurna = _.chain(BaliParipurna)
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
@@ -528,11 +528,15 @@ class GraphicCocBalitaPur extends Component {
                           ) {
                             Iml =
                               Iml +
-                              ((dataImunisasiLanjutan[d].set[g].CampakKe2 +
-                                dataImunisasiLanjutan[d].set[g].CampakRubella2 +
-                                dataImunisasiLanjutan[d].set[g].DPTHBHibke4) /
-                                dataImunisasiLanjutan[d].set[g].SasaranBatita) *
-                                100;
+                              (
+                                ((dataImunisasiLanjutan[d].set[g].CampakKe2 +
+                                  dataImunisasiLanjutan[d].set[g]
+                                    .CampakRubella2 +
+                                  dataImunisasiLanjutan[d].set[g].DPTHBHibke4) /
+                                  dataImunisasiLanjutan[d].set[g]
+                                    .SasaranBatita) *
+                                100
+                              ).toFixed(1);
                           }
                         }
                       }
@@ -710,44 +714,38 @@ class GraphicCocBalitaPur extends Component {
                 Iml = 0;
                 for (let h = 0; h < this.state.monthIndex.length; h++) {
                   for (let b = 0; b < dataBaliParipurna.length; b++) {
-                    if (
-                      dataBaliParipurna[b].Puskesmas.replace(
-                        / /g,
-                        ""
-                      ).toLowerCase() == this.state.desaIndex[a].toLowerCase()
-                    ) {
-                      for (
-                        let e = 0;
-                        e < dataBaliParipurna[b].set.length;
-                        e++
+                    for (let e = 0; e < dataBaliParipurna[b].set.length; e++) {
+                      if (
+                        this.state.monthIndex[h].toLowerCase() ===
+                          dataBaliParipurna[b].set[e].Bulan.toLowerCase() &&
+                        this.state.yearIndex ===
+                          dataBaliParipurna[b].set[e].Tahun &&
+                        this.state.desaIndex[a].replace(/ /g, "") ==
+                          dataBaliParipurna[b].set[e].Puskesmas.replace(
+                            / /g,
+                            ""
+                          )
                       ) {
-                        if (
-                          this.state.monthIndex[h].toLowerCase() ===
-                            dataBaliParipurna[b].set[e].Bulan.toLowerCase() &&
-                          this.state.yearIndex ===
-                            dataBaliParipurna[b].set[e].Tahun
-                        ) {
-                          BalitaParipurna =
-                            BalitaParipurna +
-                            dataBaliParipurna[b].set[e].PelayananBalitaKur59TL;
-                        }
+                        BalitaParipurna =
+                          BalitaParipurna +
+                          dataBaliParipurna[b].set[e].PelayananBalitaKur59TL;
                       }
                     }
                     //   category.push(dataFinalTripleEliminasi[a].Puskesmas);\
                   }
                   for (let c = 0; c < dataGizi.length; c++) {
-                    if (
-                      dataGizi[c].Puskesmas.replace(/ /g, "").toLowerCase() ==
-                      this.state.desaIndex[a].toLowerCase()
-                    ) {
-                      for (let f = 0; f < dataGizi[c].set.length; f++) {
-                        if (
-                          this.state.monthIndex[h].toLowerCase() ===
-                            dataGizi[c].set[f].Bulan.toLowerCase() &&
-                          this.state.yearIndex === dataGizi[c].set[f].Tahun
-                        ) {
-                          VitA = VitA + dataGizi[c].set[f].JmlVitAMr;
-                        }
+                    for (let f = 0; f < dataGizi[c].set.length; f++) {
+                      if (
+                        this.state.monthIndex[h].toLowerCase() ===
+                          dataGizi[c].set[f].Bulan.toLowerCase() &&
+                        this.state.yearIndex === dataGizi[c].set[f].Tahun &&
+                        this.state.desaIndex[a].replace(/ /g, "") ==
+                          dataBaliParipurna[c].set[f].Puskesmas.replace(
+                            / /g,
+                            ""
+                          )
+                      ) {
+                        VitA = VitA + dataGizi[c].set[f].JmlVitAMr;
                       }
                     }
                   }
@@ -761,15 +759,22 @@ class GraphicCocBalitaPur extends Component {
                         this.state.monthIndex[h].toLowerCase() ===
                           dataImunisasiLanjutan[d].set[g].Bulan.toLowerCase() &&
                         this.state.yearIndex ===
-                          dataImunisasiLanjutan[d].set[g].Tahun
+                          dataImunisasiLanjutan[d].set[g].Tahun &&
+                        this.state.desaIndex[a].replace(/ /g, "") ==
+                          dataBaliParipurna[d].set[g].Puskesmas.replace(
+                            / /g,
+                            ""
+                          )
                       ) {
                         Iml =
                           Iml +
-                          ((dataImunisasiLanjutan[d].set[g].CampakKe2 +
-                            dataImunisasiLanjutan[d].set[g].CampakRubella2 +
-                            dataImunisasiLanjutan[d].set[g].DPTHBHibke4) /
-                            dataImunisasiLanjutan[d].set[g].SasaranBatita) *
-                            100;
+                          (
+                            ((dataImunisasiLanjutan[d].set[g].CampakKe2 +
+                              dataImunisasiLanjutan[d].set[g].CampakRubella2 +
+                              dataImunisasiLanjutan[d].set[g].DPTHBHibke4) /
+                              dataImunisasiLanjutan[d].set[g].SasaranBatita) *
+                            100
+                          ).toFixed(1);
                       }
                     }
                   }
