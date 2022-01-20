@@ -1193,6 +1193,86 @@ class GraphicCocPKM extends Component {
                               100
                             ).toFixed(1) + " %";
                           return percentage;
+                        } else if (data.seriesIndex == 2) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[2].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 3) {
+                          let percentage = 0;
+                        } else if (data.seriesIndex == 4) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[4].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 5) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[5].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 6) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[6].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 7) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[7].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 8) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[8].data[
+                                data.dataPointIndex
+                              ] /
+                                data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ]) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
                         } else {
                           return value;
                         }

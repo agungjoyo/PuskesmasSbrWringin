@@ -397,17 +397,27 @@ class DataCocImun extends Component {
                   Data Imunisasi
                 </Button>
               </div>
-              <Button
-                sx={{ justify: "flex-end" }}
-                variant="contained"
-                component={RouterLink}
-                to="/dashboard/InsertDataImunisasi"
-                startIcon={<Icon icon={plusFill} />}
-              >
-                Tambah Data
-              </Button>
+              <div sx={{ justify: "flex-end" }}>
+                <Button
+                  sx={{ mr: 2 }}
+                  variant="contained"
+                  component={RouterLink}
+                  to="/dashboard/InsertDataImunisasi"
+                  startIcon={<Icon icon={plusFill} />}
+                >
+                  Tambah Data PWS Imunisasi
+                </Button>
+                <Button
+                  variant="contained"
+                  sx={{ mr: 2 }}
+                  component={RouterLink}
+                  to="/dashboard/InsertDataIL"
+                  startIcon={<Icon icon={plusFill} />}
+                >
+                  Tambah Data Imunisasi Lanjutan
+                </Button>
+              </div>
             </Stack>
-
             <Card>
               <UserListToolbar
                 numSelected={this.state.selected.length}

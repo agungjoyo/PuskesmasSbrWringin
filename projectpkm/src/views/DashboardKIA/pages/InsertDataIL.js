@@ -17,7 +17,7 @@ import { firestoreConnect } from "react-redux-firebase";
 
 //import { initial } from "lodash";
 
-class InsertDataParipurna extends Component {
+class InsertDataIL extends Component {
   constructor() {
     super();
     this.state = {
@@ -47,7 +47,7 @@ class InsertDataParipurna extends Component {
   readExcell = (event) => {
     this.setState({ files: event });
     const file = this.state.files[0];
-    const { dataCocImun } = this.props;
+    const { dataCocImunLanjutan } = this.props;
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsBinaryString(file);
@@ -129,7 +129,7 @@ class InsertDataParipurna extends Component {
           this.setState({
             Tahun: finalTemp,
             Bulan: dateSplit[0],
-            Puskesmas: data[i][1],
+            Puskesmas: data[i][2],
             SasaranBatita: data[i][5],
             DPTHBHibke4: data[i][8],
             CampakKe2: data[i][11],
@@ -181,7 +181,7 @@ class InsertDataParipurna extends Component {
             );
             const { files, ...finalData } = this.state;
             console.log(files);
-            this.props.addDataParipurna(finalData);
+            this.props.addDataCocImunLanjutan(finalData);
           }
         }
         return <Navigate to="./InsertDataImun" />;
@@ -265,10 +265,10 @@ class InsertDataParipurna extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    adddataCocImunLanjutan: (dataCocImunLanjutan) =>
+    addDataCocImunLanjutan: (dataCocImunLanjutan) =>
       dispatch(addDataCocImunLanjutan(dataCocImunLanjutan)),
-    DataCocEditImunisasiLanjutan: (dataCocImunisasiLanjutan, id) =>
-      dispatch(DataCocEditImunisasiLanjutan(dataCocImunisasiLanjutan, id)),
+    DataCocEditImunisasi: (dataCocImunisasiL, id) =>
+      dispatch(DataCocEditImunisasi(dataCocImunisasiL, id)),
   };
 };
 
@@ -281,4 +281,4 @@ const mapStateToProps = (state) => {
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect([{ collection: "ImunisasiLanjutan" }])
-)(InsertDataParipurna);
+)(InsertDataIL);

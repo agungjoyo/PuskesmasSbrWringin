@@ -892,18 +892,32 @@ class GraphicCocPKMImun extends Component {
                     SasaranBayiBaruLahirBulan = 0;
                     SasaranSurvivingInfantBulan = 0;
                     HBOLessOneDTMBulan = 0;
+                    HBOLessOneDTMPersentase = 0;
                     HBOLessOneWTMBulan = 0;
+                    HBOLessOneWTMPersentase = 0;
                     BCGThisMonthBulan = 0;
-                    CampakRubellaTMBulan = 0;
+                    BCGPersentase = 0;
                     Polio1ThisMonthBulan = 0;
+                    Polio1Persentase = 0;
                     DPTHB1ThisMonthBulan = 0;
+                    DPTHB1Persentase = 0;
                     Polio2ThisMonthBulan = 0;
+                    Polio2Persentase = 0;
                     DPTHB2ThisMonthBulan = 0;
+                    DPTHB2Persentase = 0;
                     Polio3ThisMonthBulan = 0;
+                    Polio3Persentase = 0;
                     DPTHB3ThisMonthBulan = 0;
+                    DPTHB3Persentase = 0;
                     Polio4ThisMonthBulan = 0;
+                    Polio4Persentase = 0;
                     IPVThisMonthBulan = 0;
+                    IPVPersentase = 0;
+                    CampakRubellaTMBulan = 0;
+                    CampakPersentase = 0;
                     IDLThisMonthBulan = 0;
+                    IDLPersentase = 0;
+
                     for (let b = 0; b < this.state.desa.length; b++) {
                       if (dataFinal[a].Puskesmas == this.state.desa[b]) {
                         for (let i = 0; i < dataFinal[i].set.length; i++) {

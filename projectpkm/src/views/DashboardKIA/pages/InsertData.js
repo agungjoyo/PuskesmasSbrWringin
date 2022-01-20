@@ -43,6 +43,7 @@ class InsertData extends Component {
       PencapaianLahirHidupLK: "",
       PencapaianLahirHidupPR: "",
       PencapaianLahirHidupTL: "",
+      PencapaianLahirHidupTLKumulatif: "",
       PencapaianLahirHidupPersentase: "",
       PencapaianLahirMatiLK: "",
       PencapaianLahirMatiPR: "",
@@ -84,6 +85,8 @@ class InsertData extends Component {
       BPSTLMati: "",
       RSUTLMati: "",
       LuarWilayahTLMati: "",
+      TempDataLahirHidupKum: "",
+      TempDataLahirMatiKum: "",
     };
   }
   round(value, exp) {
@@ -115,6 +118,13 @@ class InsertData extends Component {
         resolve(data);
         console.log(data);
         const tahun = data[2][0];
+        let TempDataLahirHidupKum = 0;
+        let TempDataLahirMatiKum = 0;
+        let TempDataKNPertamaKum = 0;
+        let TempDataKNKeduaKum = 0;
+        let TempDataKNLengkapKum = 0;
+        let TempDataNeonatalKompKum = 0;
+        let TempDataKunjunganBayiParipurnaKum = 0;
         const dateSplit = tahun.split(" ");
         for (var i = 7; i < 13; i++) {
           const SasaranBayiRistiLKRound = this.round(data[i][5]);
@@ -306,6 +316,116 @@ class InsertData extends Component {
                       const dataCocFinal = _.filter(dataCoc, {
                         Puskesmas: this.state.Puskesmas,
                       });
+                      for (let z = 0; z < dataCocFinal.length; z++) {
+                        if (this.state.Bulan == "JANUARI") {
+                          TempDataLahirHidupKum = 0;
+                          TempDataLahirMatiKum = 0;
+                          TempDataKNPertamaKum = 0;
+                          TempDataKNKeduaKum = 0;
+                          TempDataKNLengkapKum = 0;
+                          TempDataNeonatalKompKum = 0;
+                          TempDataKunjunganBayiParipurnaKum = 0;
+                          console.log(TempDataLahirHidupKum, dataCocFinal);
+                        }
+                        if (this.state.Bulan == "FEBRUARI") {
+                          const dataLahirHidupKum = _.filter(dataCocFinal, {
+                            Bulan: "JANUARI",
+                          });
+                          const dataLahirMatiKum = _.filter(dataCocFinal, {
+                            Bulan: "JANUARI",
+                          });
+                          const dataKNPertamaKum = _.filter(dataCocFinal, {
+                            Bulan: "JANUARI",
+                          });
+                          const dataKNKeduaKum = _.filter(dataCocFinal, {
+                            Bulan: "JANUARI",
+                          });
+                          const dataKNLengkapKum = _.filter(dataCocFinal, {
+                            Bulan: "JANUARI",
+                          });
+                          const dataNeonatalKompKum = _.filter(dataCocFinal, {
+                            Bulan: "JANUARI",
+                          });
+                          const dataKunjunganBayiParipurnaKum = _.filter(
+                            dataCocFinal,
+                            {
+                              Bulan: "JANUARI",
+                            }
+                          );
+                          console.log(
+                            dataLahirHidupKum[0].PencapaianLahirHidupTL
+                          );
+                          TempDataLahirHidupKum =
+                            dataLahirHidupKum[0].PencapaianLahirHidupTL;
+                          TempDataLahirMatiKum =
+                            dataLahirMatiKum[0].PencapaianLahirHidupTL;
+                          TempDataKNPertamaKum =
+                            dataKNPertamaKum[0].PencapaianLahirHidupTL;
+                          TempDataKNKeduaKum =
+                            dataKNKeduaKum[0].PencapaianLahirHidupTL;
+                          TempDataKNLengkapKum =
+                            dataKNLengkapKum[0].PencapaianLahirHidupTL;
+                          TempDataNeonatalKompKum =
+                            dataNeonatalKompKum[0].PencapaianLahirHidupTL;
+                          TempDataKunjunganBayiParipurnaKum =
+                            dataKunjunganBayiParipurnaKum[0]
+                              .PencapaianLahirHidupTL;
+                        }
+                        if (this.state.Bulan == "MARET") {
+                          console.log("true");
+                          const dataLahirHidupKum = _.filter(dataCocFinal, {
+                            Bulan: "FEBRUARI",
+                          });
+                          const dataLahirMatiKum = _.filter(dataCocFinal, {
+                            Bulan: "FEBRUARI",
+                          });
+                          const dataKNPertamaKum = _.filter(dataCocFinal, {
+                            Bulan: "FEBRUARI",
+                          });
+                          const dataKNKeduaKum = _.filter(dataCocFinal, {
+                            Bulan: "FEBRUARI",
+                          });
+                          const dataKNLengkapKum = _.filter(dataCocFinal, {
+                            Bulan: "FEBRUARI",
+                          });
+                          const dataNeonatalKompKum = _.filter(dataCocFinal, {
+                            Bulan: "FEBRUARI",
+                          });
+                          const dataKunjunganBayiParipurnaKum = _.filter(
+                            dataCocFinal,
+                            {
+                              Bulan: "FEBRUARI",
+                            }
+                          );
+
+                          TempDataLahirHidupKum =
+                            dataLahirHidupKum[0].PencapaianLahirHidupTL;
+                          TempDataLahirMatiKum =
+                            dataLahirMatiKum[0].PencapaianLahirHidupTL;
+                          TempDataKNPertamaKum =
+                            dataKNPertamaKum[0].PencapaianLahirHidupTL;
+                          TempDataKNKeduaKum =
+                            dataKNKeduaKum[0].PencapaianLahirHidupTL;
+                          TempDataKNLengkapKum =
+                            dataKNLengkapKum[0].PencapaianLahirHidupTL;
+                          TempDataNeonatalKompKum =
+                            dataNeonatalKompKum[0].PencapaianLahirHidupTL;
+                          TempDataKunjunganBayiParipurnaKum =
+                            dataKunjunganBayiParipurnaKum[0]
+                              .PencapaianLahirHidupTL;
+                          this.setState({
+                            TempDataLahirHidupKum: TempDataLahirHidupKum,
+                            TempDataLahirMatiKum: TempDataLahirMatiKum,
+                            TempDataKNPertamaKum: TempDataKNPertamaKum,
+                            TempDataKNKeduaKum: TempDataKNKeduaKum,
+                            TempDataKNLengkapKum: PencapaianLahirHidupTL,
+                            TempDataNeonatalKompKum: PencapaianLahirHidupTL,
+                            TempDataKunjunganBayiParipurnaKum:
+                              TempDataKunjunganBayiParipurnaKum,
+                          });
+                          console.log(this.state);
+                        }
+                      }
                       const dataCocFinalKIA = _.filter(COCKIA, {
                         Puskesmas: this.state.Puskesmas,
                       });
@@ -374,58 +494,79 @@ class InsertData extends Component {
                               SasaranBayiPR: this.state.SasaranBayiPR,
                               SasaranBayiTL: this.state.SasaranBayiTL,
                               PencapaianLahirHidupLK:
-                                this.state.PencapaianLahirHidupTL,
+                                this.state.PencapaianLahirHidupLK,
                               PencapaianLahirHidupPR:
                                 this.state.PencapaianLahirHidupPR,
                               PencapaianLahirHidupTL:
                                 this.state.PencapaianLahirHidupTL,
+                              PencapaianLahirHidupTLKumulasi:
+                                this.state.PencapaianLahirHidupTL +
+                                TempDataLahirHidupKum,
                               PencapaianLahirMatiLK:
                                 this.state.PencapaianLahirMatiLK,
                               PencapaianLahirMatiPR:
                                 this.state.PencapaianLahirMatiPR,
                               PencapaianLahirMatiTL:
                                 this.state.PencapaianLahirMatiTL,
+                              PencapaianLahirMatiTLKumulasi:
+                                this.state.PencapaianLahirMatiTL +
+                                TempDataLahirMatiKum,
                               PencapaianKNPertamaLK:
                                 this.state.PencapaianKNPertamaLK,
                               PencapaianKNPertamaPR:
                                 this.state.PencapaianKNPertamaPR,
                               PencapaianKNPertamaTL:
                                 this.state.PencapaianKNPertamaTL,
+                              PencapaianKNPertamaTLKumulasi:
+                                this.state.PencapaianKNPertamaTL +
+                                TempDataKNPertamaKum,
                               PencapaianKNKeduaLK:
                                 this.state.PencapaianKNKeduaLK,
                               PencapaianKNKeduaPR:
                                 this.state.PencapaianKNKeduaPR,
                               PencapaianKNKeduaTL:
                                 this.state.PencapaianKNKeduaTL,
+                              PencapaianKNKeduaTLKumulasi:
+                                this.state.PencapaianKNKeduaTL +
+                                TempDataKNKeduaKum,
                               PencapaianKNLengkapLK:
                                 this.state.PencapaianKNLengkapLK,
                               PencapaianKNLengkapPR:
                                 this.state.PencapaianKNLengkapPR,
                               PencapaianKNLengkapTL:
                                 this.state.PencapaianKNLengkapTL,
+                              PencapaianKNLengkapTLkumulasi:
+                                this.state.PencapaianKNLengkapTL +
+                                TempDataKNLengkapKum,
                               NeonatalKompLK: this.state.NeonatalKompLK,
                               NeonatalKompPR: this.state.NeonatalKompPR,
                               NeonatalKompTL: this.state.NeonatalKompTL,
+                              NeonatalKompTLKumulasi:
+                                this.state.NeonatalKompTL +
+                                TempDataNeonatalKompKum,
                               KunjunganBayiParipurnaLK:
                                 this.state.KunjunganBayiParipurnaLK,
                               KunjunganBayiParipurnaPR:
                                 this.state.KunjunganBayiParipurnaPR,
                               KunjunganBayiParipurnaTL:
                                 this.state.KunjunganBayiParipurnaTL,
+                              KunjunganBayiParipurnaTLKumulasi:
+                                this.state.KunjunganBayiParipurnaTL +
+                                TempDataKunjunganBayiParipurnaKum,
                             };
                             console.log(dataKIA, dataCocKIA);
-                            this.props.DataCocEdit(
-                              dataCocCompare[0].id,
-                              dataKIA
-                            );
-                            if (dataCocCompareKIA.length == 1) {
-                              this.props.DataCocKIAEdit(
-                                dataCocCompareKIA[0].id,
-                                dataCocKIA
-                              );
-                            } else {
-                              this.props.addDataKIACoc(dataCocKIA);
-                            }
+                            // this.props.DataCocEdit(
+                            //   dataCocCompare[0].id,
+                            //   dataKIA
+                            // );
+                            // if (dataCocCompareKIA.length == 1) {
+                            //   this.props.DataCocKIAEdit(
+                            //     dataCocCompareKIA[0].id,
+                            //     dataCocKIA
+                            //   );
+                            // } else {
+                            //   this.props.addDataKIACoc(dataCocKIA);
+                            // }
                           } else {
                             window.alert(
                               "Anda Telah Membatalkan Pengubahan Data"
@@ -485,40 +626,61 @@ class InsertData extends Component {
                               this.state.PencapaianLahirHidupPR,
                             PencapaianLahirHidupTL:
                               this.state.PencapaianLahirHidupTL,
+                            PencapaianLahirHidupTLKumulasi:
+                              this.state.PencapaianLahirHidupTL +
+                              TempDataLahirHidupKum,
                             PencapaianLahirMatiLK:
                               this.state.PencapaianLahirMatiLK,
                             PencapaianLahirMatiPR:
                               this.state.PencapaianLahirMatiPR,
                             PencapaianLahirMatiTL:
                               this.state.PencapaianLahirMatiTL,
+                            PencapaianLahirMatiTLKumulasi:
+                              this.state.PencapaianLahirMatiTL +
+                              TempDataLahirMatiKum,
                             PencapaianKNPertamaLK:
                               this.state.PencapaianKNPertamaLK,
                             PencapaianKNPertamaPR:
                               this.state.PencapaianKNPertamaPR,
                             PencapaianKNPertamaTL:
                               this.state.PencapaianKNPertamaTL,
+                            PencapaianKNPertamaTLKumulasi:
+                              this.state.PencapaianKNPertamaTL +
+                              TempDataKNPertamaKum,
                             PencapaianKNKeduaLK: this.state.PencapaianKNKeduaLK,
                             PencapaianKNKeduaPR: this.state.PencapaianKNKeduaPR,
                             PencapaianKNKeduaTL: this.state.PencapaianKNKeduaTL,
+                            PencapaianKNKeduaTLKumulasi:
+                              this.state.PencapaianKNKeduaTL +
+                              TempDataKNKeduaKum,
                             PencapaianKNLengkapLK:
                               this.state.PencapaianKNLengkapLK,
                             PencapaianKNLengkapPR:
                               this.state.PencapaianKNLengkapPR,
                             PencapaianKNLengkapTL:
                               this.state.PencapaianKNLengkapTL,
+                            PencapaianKNLengkapTLkumulasi:
+                              this.state.PencapaianKNLengkapTL +
+                              TempDataKNLengkapKum,
                             NeonatalKompLK: this.state.NeonatalKompLK,
                             NeonatalKompPR: this.state.NeonatalKompPR,
                             NeonatalKompTL: this.state.NeonatalKompTL,
+                            NeonatalKompTLKumulasi:
+                              this.state.NeonatalKompTL +
+                              TempDataNeonatalKompKum,
                             KunjunganBayiParipurnaLK:
                               this.state.KunjunganBayiParipurnaLK,
                             KunjunganBayiParipurnaPR:
                               this.state.KunjunganBayiParipurnaPR,
                             KunjunganBayiParipurnaTL:
                               this.state.KunjunganBayiParipurnaTL,
+                            KunjunganBayiParipurnaTLKumulasi:
+                              this.state.KunjunganBayiParipurnaTL +
+                              TempDataKunjunganBayiParipurnaKum,
                           };
                           console.log(dataKIA, dataCocKIA);
-                          this.props.addDataCoc(dataKIA);
-                          this.props.addDataKIACoc(dataCocKIA);
+                          // this.props.addDataCoc(dataKIA);
+                          // this.props.addDataKIACoc(dataCocKIA);
                         }
                       }
                       return <Navigate to="./InsertData" />;

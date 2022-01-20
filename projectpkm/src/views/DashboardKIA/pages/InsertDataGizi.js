@@ -121,9 +121,9 @@ class InsertDataGizi extends Component {
         }
         const finalTemp = temp[0] + temp[1] + temp[2] + temp[3];
 
-        // for (var i = 0; i < 6; i++) {
+        // for (var i = 0; i < 6; i++) {|| data[86][d]
         for (let d = 4; d < 10; d++) {
-          if (data[89][d] == undefined || data[85][d]) {
+          if (data[89][d] == undefined) {
             this.setState(
               {
                 Tahun: finalTemp,
@@ -310,6 +310,7 @@ class InsertDataGizi extends Component {
                             JmlBBK: this.state.JmlBBK,
                             JmlBBN: this.state.JmlBBN,
                             JmlBBL: this.state.JmlBBL,
+                            JmlBMLA: this.state.JmlBMLA,
                             JmlBMKEK: this.state.JmlBMKEK,
                             JmlPMTKEK: this.state.JmlPMTKEK,
                             JmlIHHB: this.state.JmlIHHB,
@@ -407,7 +408,7 @@ class InsertDataGizi extends Component {
                 JmlFe1: data[138][d],
                 JmlFe3: data[139][d],
                 JmlVitAMr: data[89][d],
-                JmlVitABr: data[85][d],
+                JmlVitABr: data[86][d],
                 JmlSPDK: data[55][d],
                 JmlPDK: data[58][d],
                 JmlTNM: data[61][d],
@@ -581,6 +582,7 @@ class InsertDataGizi extends Component {
                             JmlBBK: this.state.JmlBBK,
                             JmlBBN: this.state.JmlBBN,
                             JmlBBL: this.state.JmlBBL,
+                            JmlBMLA: this.state.JmlBMLA,
                             JmlBMKEK: this.state.JmlBMKEK,
                             JmlPMTKEK: this.state.JmlPMTKEK,
                             JmlIHHB: this.state.JmlIHHB,

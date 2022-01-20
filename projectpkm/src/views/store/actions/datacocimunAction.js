@@ -92,7 +92,7 @@ export const removeDataCocImunisasiLanjutan = (id) => {
       });
   };
 };
-export const DataCocEditImunisasiLanjutan = (id, dataCocImunisasiLanjutan) => {
+export const DataCocEditImunisasiLanjutan = (id, dataCocImunisasiL) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     firestore
@@ -103,13 +103,13 @@ export const DataCocEditImunisasiLanjutan = (id, dataCocImunisasiLanjutan) => {
         firestore
           .collection("ImunisasiLanjutan")
           .add({
-            ...dataCocImunisasiLanjutan,
+            ...dataCocImunisasiL,
             createdAt: new Date(),
           })
           .then(() => {
             dispatch({
               type: "DATA_COC_IMUNISASI_LANJUTAN_EDITED",
-              dataCocImunisasiLanjutan,
+              dataCocImunisasiL,
             });
           })
           .catch((err) => {

@@ -546,7 +546,6 @@ class GraphicTBU extends Component {
               series2.push(JmlPDKBulan);
               series3.push(JmlTNMBulan);
               series4.push(JmlTGBulan);
-
               category.push(dataFinal[a].Puskesmas);
             }
           }
@@ -554,7 +553,7 @@ class GraphicTBU extends Component {
         this.setState({
           series: [
             {
-              name: "Jumlah S.PDK",
+              name: "Jumlah SPDK",
               type: "column",
               data: series1,
             },
@@ -630,7 +629,6 @@ class GraphicTBU extends Component {
             series2.push(JmlPDKYear);
             series3.push(JmlTNMYear);
             series4.push(JmlTGYear);
-
             category.push(dataFinal[a].Puskesmas);
             // console.log(series, series2);
           }
@@ -638,7 +636,7 @@ class GraphicTBU extends Component {
         this.setState({
           series: [
             {
-              name: "Jumlah S.PDK",
+              name: "Jumlah SPDK",
               type: "column",
               data: series,
             },
@@ -763,6 +761,7 @@ class GraphicTBU extends Component {
             series2.push(JmlPDKQuarter);
             series3.push(JmlTNMQuarter);
             series4.push(JmlTGQuarter);
+
             category.push(dataFinal[a].Puskesmas);
             // console.log(series, series2);
           }
@@ -770,7 +769,7 @@ class GraphicTBU extends Component {
         this.setState({
           series: [
             {
-              name: "Jumlah S.PDK",
+              name: "Jumlah SPDK",
               type: "column",
               data: series,
             },
@@ -815,7 +814,7 @@ class GraphicTBU extends Component {
     };
     return (
       <div>
-        <CardHeader title="Progress Gizi" />
+        <CardHeader title="Grafik TB/U" />
         <Box sx={{ p: 3, pb: 1 }} dir="ltr">
           <ReactApexChart
             type="bar"

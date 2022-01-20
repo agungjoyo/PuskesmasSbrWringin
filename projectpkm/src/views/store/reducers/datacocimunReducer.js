@@ -20,6 +20,36 @@ const datacocimunReducer = (state = initState, action) => {
     case "DATA_COC_IMUN_EDITED_ERROR":
       console.log("Data COC Error", action.dataCoc);
       return state;
+    case "ADD_DATA_COC_IMUN_LANJUTAN":
+      console.log(
+        "Created Data COC Imunisasi Lanjutan",
+        action.dataCocImunLanjutan
+      );
+      return state;
+    case "ADD_DATA_COC_IMUN_ERROR":
+      console.log(
+        "Data COC Imunisasi Lanjutan Error",
+        action.dataCocImunLanjutan
+      );
+      return state;
+    case "DATA_COC_IMUNISASI_LANJUTAN_REMOVED":
+      console.log("Data COC REMOVED", action.id);
+      return state;
+    case "DATA_COC_IMUNISASI_LANJUTAN_REMOVED_ERROR":
+      console.log("Data COC Error", action.id);
+      return state;
+    case "DATA_COC_IMUN_EDITED":
+      console.log(
+        "Data COC Imunisasi Lanjutan Edited",
+        action.dataCocImunisasiL
+      );
+      return state;
+    case "DATA_COC_IMUN_EDITED_ERROR":
+      console.log(
+        "Data COC Imunisasi Lanjutan Error",
+        action.dataCocImunisasiL
+      );
+      return state;
     default:
       return state;
   }

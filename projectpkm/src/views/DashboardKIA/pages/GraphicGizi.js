@@ -8,6 +8,9 @@ import GraphicTBU from "../components/graphic/GraphicGizi.js/GraphicTBU";
 import GraphicBBTB from "../components/graphic/GraphicGizi.js/GraphicBBTB";
 import GraphicBBU from "../components/graphic/GraphicGizi.js/GraphicBBU";
 import GraphicBUMKEK from "../components/graphic/GraphicGizi.js/GraphicBUMKEK";
+import GrafikProgis from "../components/graphic/GraphicGizi.js/GrafikProgis";
+import GrafikBagikur from "../components/graphic/GraphicGizi.js/GrafikBagikur";
+import GrafikBumilAnemia from "../components/graphic/GraphicGizi.js/GrafikBumilAnemia";
 
 class GraphicGizi extends Component {
   render() {
@@ -29,6 +32,15 @@ class GraphicGizi extends Component {
             </Grid>
             <Grid item xs={12} sm={12} md={12}>
               <GraphicBUMKEK />
+            </Grid>
+            <Grid item xs={12} sm={12} md={12}>
+              <GrafikProgis />
+            </Grid>
+            <Grid item xs={12} sm={12} md={12}>
+              <GrafikBagikur />
+            </Grid>
+            <Grid item xs={12} sm={12} md={12}>
+              <GrafikBumilAnemia />
             </Grid>
           </Grid>
         </Container>

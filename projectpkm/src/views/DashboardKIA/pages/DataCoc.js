@@ -90,43 +90,43 @@ class DataCoc extends Component {
             value.PencapaianLahirHidupTL?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
-            value.PencapaianLahirHidupPersentase?.toString()
+            value.PencapaianLahirHidupTLKumulatif?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
             value.PencapaianLahirMatiTL?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
-            value.PencapaianLahirMatiPersentase?.toString()
+            value.PencapaianLahirMatiTLKumulasi?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
             value.PencapaianKNPertamaTL?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
-            value.PencapaianKNPertamaPersentase?.toString()
+            value.PencapaianKNPertamaTLKumulasi?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
             value.PencapaianKNKeduaTL?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
-            value.PencapaianKNKeduaPersentase?.toString()
+            value.PencapaianKNKeduaTLKumulasi?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
             value.PencapaianKNLengkapTL?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
-            value.PencapaianKNLengkapPersentase?.toString()
+            value.PencapaianKNLengkapTLkumulasi?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
             value.NeonatalKompTL?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
-            value.NeonatalKompPersentase?.toString()
+            value.NeonatalKompTLKumulasi?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
             value.KunjunganBayiParipurnaTL?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
-            value.KunjunganBayiParipurnaPersentase?.toString()
+            value.KunjunganBayiParipurnaTLKumulasi?.toString()
               .toLowerCase()
               .includes(query.toLowerCase()) ||
             value.Tahun?.toString().toLowerCase().includes(query.toLowerCase())
@@ -149,14 +149,24 @@ class DataCoc extends Component {
       const TABLE_HEAD = [
         { id: "Bulan", label: "Bulan", alignCenter: "center" },
         { id: "Puskesmas", label: "Puskesmas", alignCenter: "center" },
-        { id: "SasaranBayiTL", label: "Sasaran", alignCenter: "center" },
+        {
+          id: "SasaranKelahiranHidupTL",
+          label: "Sasaran Kelahiran Hidup",
+          alignCenter: "center",
+        },
+        {
+          id: "SasaranBayiRistiTL",
+          label: "Sasaran Bayi Risti",
+          alignCenter: "center",
+        },
+        { id: "SasaranBayiTL", label: "Sasaran Bayi", alignCenter: "center" },
         {
           id: "PencapaianLahirHidupTL",
           label: "Bayi Lahir Hidup",
           alignCenter: "center",
         },
         {
-          id: "PencapaianLahirHidupPersentase",
+          id: "PencapaianLahirHidupTLKumulatif",
           label: "%",
           alignCenter: "center",
         },
@@ -166,19 +176,19 @@ class DataCoc extends Component {
           alignCenter: "center",
         },
         {
-          id: "PencapaianLahirMatiPersentase",
+          id: "PencapaianLahirMatiTLKumulasi",
           label: "%",
           alignCenter: "center",
         },
         { id: "PencapaianKNPertamaTL", label: "KN 1", alignCenter: "center" },
         {
-          id: "PencapaianKNPertamaPersentase",
+          id: "PencapaianKNPertamaTLKumulasi",
           label: "%",
           alignCenter: "center",
         },
         { id: "PencapaianKNKeduaTL", label: "KN 2", alignCenter: "center" },
         {
-          id: "PencapaianKNKeduaPersentase",
+          id: "PencapaianKNKeduaTLKumulasi",
           label: "%",
           alignCenter: "center",
         },
@@ -188,7 +198,7 @@ class DataCoc extends Component {
           alignCenter: "center",
         },
         {
-          id: "PencapaianKNLengkapPersentase",
+          id: "PencapaianKNLengkapTLkumulasi",
           label: "%",
           alignCenter: "center",
         },
@@ -198,7 +208,7 @@ class DataCoc extends Component {
           alignCenter: "center",
         },
         {
-          id: "NeonatalKompPersentase",
+          id: "NeonatalKompTLKumulasi",
           label: "%",
           alignCenter: "center",
         },
@@ -208,7 +218,7 @@ class DataCoc extends Component {
           alignCenter: "center",
         },
         {
-          id: "KunjunganBayiParipurnaPersentase",
+          id: "KunjunganBayiParipurnaTLKumulasi",
           label: "%",
           alignCenter: "center",
         },
@@ -312,7 +322,7 @@ class DataCoc extends Component {
                   to="/dashboard/InsertTripleEliminasiKIA"
                   startIcon={<Icon icon={plusFill} />}
                 >
-                  New Data Triple Eliminasi
+                  Tambah Data Triple Eliminasi
                 </Button>
                 <Button
                   variant="contained"
@@ -384,25 +394,28 @@ class DataCoc extends Component {
                             id,
                             Bulan,
                             Puskesmas,
-                            SasaranBayiTL,
                             SasaranKelahiranHidupTL,
+                            SasaranBayiRistiTL,
+                            SasaranBayiTL,
                             PencapaianLahirHidupTL,
-                            PencapaianLahirHidupPersentase,
+                            PencapaianLahirHidupTLKumulatif,
+                            TempDataLahirHidupKum,
                             PencapaianLahirMatiTL,
-                            PencapaianLahirMatiPersentase,
+                            PencapaianLahirMatiTLKumulasi,
                             PencapaianKNPertamaTL,
-                            PencapaianKNPertamaPersentase,
+                            PencapaianKNPertamaTLKumulasi,
                             PencapaianKNKeduaTL,
-                            PencapaianKNKeduaPersentase,
+                            PencapaianKNKeduaTLKumulasi,
                             PencapaianKNLengkapTL,
-                            PencapaianKNLengkapPersentase,
+                            PencapaianKNLengkapTLkumulasi,
                             NeonatalKompTL,
-                            NeonatalKompPersentase,
+                            NeonatalKompTLKumulasi,
                             KunjunganBayiParipurnaTL,
-                            KunjunganBayiParipurnaPersentase,
+                            KunjunganBayiParipurnaTLKumulasi,
                           } = row;
                           const isItemSelected =
                             this.state.selected.indexOf(Bulan) !== -1;
+                          console.log(TempDataLahirHidupKum);
 
                           return (
                             <TableRow
@@ -489,6 +502,38 @@ class DataCoc extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
+                                    {SasaranBayiRistiTL}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
+                                    {SasaranBayiTL}
+                                  </Typography>
+                                </Stack>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Stack
+                                  direction="row"
+                                  alignItems="center"
+                                  spacing={2}
+                                >
+                                  {/* <Avatar alt={name} src={avatarUrl} /> */}
+                                  <Typography
+                                    variant="body1"
+                                    noWrap
+                                    style={{ flexGrow: 1, textAlign: "center" }}
+                                  >
                                     {PencapaianLahirHidupTL}
                                   </Typography>
                                 </Stack>
@@ -506,7 +551,7 @@ class DataCoc extends Component {
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
                                     {`${(
-                                      (PencapaianLahirHidupTL /
+                                      (PencapaianLahirHidupTLKumulatif /
                                         SasaranKelahiranHidupTL) *
                                       100
                                     ).toFixed(1)} %`}
@@ -541,11 +586,7 @@ class DataCoc extends Component {
                                     noWrap
                                     style={{ flexGrow: 1, textAlign: "center" }}
                                   >
-                                    {`${(
-                                      (PencapaianLahirMatiTL /
-                                        SasaranKelahiranHidupTL) *
-                                      100
-                                    ).toFixed(1)} %`}
+                                    {PencapaianLahirMatiTLKumulasi}
                                   </Typography>
                                 </Stack>
                               </TableCell>
