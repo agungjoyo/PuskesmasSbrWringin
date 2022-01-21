@@ -17,7 +17,6 @@ import Chip from "@mui/material/Chip";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
-
 // ----------------------------------------------------------------------
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: "3px 3px 10px #9E9E9E",
@@ -49,10 +48,12 @@ class GraphicTBU extends Component {
     ],
     yearIndex: "",
     year: [],
+    ChangeIndex: "",
+    Change: ["Number", "Persentase"],
     desaIndex: [],
     desa: [],
     options: {
-      stroke: { width: [3, 3, 3, 3, 3, 3] },
+      stroke: { width: [3, 3, 3, 3, 3, 3, 3, 3, 3] },
       chart: {
         type: "bar",
         dropShadow: {
@@ -132,6 +133,9 @@ class GraphicTBU extends Component {
             "#000000",
           ],
         },
+        // formatter: (value) => {
+        //   return value;
+        // },
       },
       grid: {
         show: false,
@@ -194,9 +198,17 @@ class GraphicTBU extends Component {
           : theme.typography.fontWeightMedium,
     };
   }
+  getStylesChange(Change, ChangeIndex, theme) {
+    return {
+      fontWeight:
+        ChangeIndex?.indexOf(Change) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
   handleChangeBulan = () => {
     const { data } = this.props;
-    const desaTemp = [];
+    const desaTemp = ["PUSKESMAS SUMBER WRINGIN"];
     for (let i = 0; i < data.length; i++) {
       desaTemp.push(data[i].Puskesmas);
     }
@@ -279,6 +291,7 @@ class GraphicTBU extends Component {
     for (let i = 0; i < data.length; i++) {
       desaTemp.push(data[i].Puskesmas);
     }
+    desaTemp.push("PUSKESMAS SUMBER WRINGIN");
     const desa = Array.from(new Set(desaTemp));
     this.setState(
       {
@@ -452,6 +465,31 @@ class GraphicTBU extends Component {
             ))}
           </Select>
         </FormControl>
+        <FormControl sx={{ m: 1, minWidth: 100 }}>
+          <InputLabel id="demo-simple-select-helper-label">Index</InputLabel>
+          <Select
+            labelId="demo-simple-select-helper-label"
+            id="demo-simple-select-helper"
+            value={this.state.ChangeIndex}
+            onChange={this.handleChange}
+            label="ChangeIndex"
+            name="ChangeIndex"
+          >
+            {this.state.Change.map((Change) => (
+              <MenuItem
+                key={Change}
+                value={Change}
+                style={this.getStylesChange(
+                  this.state.Change,
+                  this.state.ChangeIndex,
+                  this.props.theme
+                )}
+              >
+                {Change}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
     );
   };
@@ -499,6 +537,7 @@ class GraphicTBU extends Component {
       .groupBy("Puskesmas")
       .map((set, Puskesmas) => ({ set, Puskesmas }))
       .value();
+    console.log(dataFinal);
     this.setState(
       {
         [event.target.name]: event.target.value,
@@ -513,78 +552,498 @@ class GraphicTBU extends Component {
         let JmlPDKBulan = 0;
         let JmlTNMBulan = 0;
         let JmlTGBulan = 0;
-        for (let a = 0; a < dataFinal.length; a++) {
-          JmlSPDKBulan = 0;
-          JmlPDKBulan = 0;
-          JmlTNMBulan = 0;
-          JmlTGBulan = 0;
-          for (let b = 0; b < this.state.desaIndex.length; b++) {
-            if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
-              for (let i = 0; i < dataFinal[i].set.length; i++) {
-                for (let c = 0; c < this.state.monthIndex.length; c++) {
-                  console.log(
-                    this.state.monthIndex[c]?.toLowerCase(),
-                    dataFinal[a].set[i].Bulan.toLowerCase(),
-                    this.state.yearIndex,
-                    dataFinal[a].set[i].Tahun.toString()
-                  );
-                  if (
-                    this.state.monthIndex[c]?.toLowerCase() ===
-                      dataFinal[a].set[i].Bulan.toLowerCase() &&
-                    this.state.yearIndex ===
-                      dataFinal[a].set[i].Tahun.toString()
-                  ) {
-                    console.log(a, b, c, i);
-                    JmlSPDKBulan = JmlSPDKBulan + dataFinal[a].set[c].JmlSPDK;
-                    JmlPDKBulan = JmlPDKBulan + dataFinal[a].set[c].JmlPDK;
-                    JmlTNMBulan = JmlTNMBulan + dataFinal[a].set[c].JmlTNM;
-                    JmlTGBulan = JmlTGBulan + dataFinal[a].set[c].JmlTG;
+        if (this.state.desaIndex == "PUSKESMAS SUMBER WRINGIN") {
+          this.setState(
+            {
+              desaIndex: ["PUSKESMAS SUMBER WRINGIN"],
+            },
+            () => {
+              let FinalSeries1 = 0;
+              let FinalSeries2 = 0;
+              let FinalSeries3 = 0;
+              let FinalSeries4 = 0;
+              this.setState(
+                {
+                  series: [
+                    {
+                      name: "Jumlah S.PDK",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Jumlah PDK",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Jumlah TNM",
+                      type: "column",
+                      data: [],
+                    },
+                    {
+                      name: "Jumlah TG",
+                      type: "column",
+                      data: [],
+                    },
+                  ],
+                  options: {
+                    ...this.state.options,
+                    dataLabels: {
+                      ...this.state.options.dataLabels,
+                      offsetY: -20,
+                      offsetX: 0,
+                    },
+                    plotOptions: {
+                      ...this.state.options.plotOptions,
+                      bar: {
+                        ...this.state.options.plotOptions.bar,
+                        horizontal: false,
+                      },
+                    },
+                    xaxis: {
+                      ...this.state.options.xaxis,
+                      categories: [],
+                    },
+                  },
+                },
+                () => {
+                  for (let a = 0; a < dataFinal.length; a++) {
+                    JmlSPDKBulan = 0;
+                    JmlPDKBulan = 0;
+                    JmlTNMBulan = 0;
+                    JmlTGBulan = 0;
+                    for (let b = 0; b < this.state.desa.length; b++) {
+                      if (dataFinal[a].Puskesmas == this.state.desa[b]) {
+                        for (let i = 0; i < dataFinal[i].set.length; i++) {
+                          for (
+                            let c = 0;
+                            c < this.state.monthIndex.length;
+                            c++
+                          ) {
+                            if (
+                              this.state.monthIndex[c]?.toLowerCase() ===
+                                dataFinal[a].set[i].Bulan.toLowerCase() &&
+                              this.state.yearIndex === dataFinal[a].set[i].Tahun
+                            ) {
+                              JmlSPDKBulan =
+                                JmlSPDKBulan + dataFinal[a].set[i].JmlSPDK;
+                              JmlPDKBulan =
+                                JmlPDKBulan + dataFinal[a].set[i].JmlPDK;
+                              JmlTNMBulan =
+                                JmlTNMBulan + dataFinal[a].set[i].JmlTNM;
+                              JmlTGBulan =
+                                JmlTGBulan + dataFinal[a].set[i].JmlTG;
+                            }
+                          }
+                        }
+                        series1.push(JmlSPDKBulan);
+                        series2.push(JmlPDKBulan);
+                        series3.push(JmlTNMBulan);
+                        series4.push(JmlTGBulan);
+                      }
+                    }
+                  }
+                  for (let s1 = 0; s1 < series1.length; s1++) {
+                    FinalSeries1 = FinalSeries1 + series1[s1];
+                  }
+                  for (let s2 = 0; s2 < series2.length; s2++) {
+                    FinalSeries2 = FinalSeries2 + series2[s2];
+                  }
+                  for (let s3 = 0; s3 < series3.length; s3++) {
+                    FinalSeries3 = FinalSeries3 + series3[s3];
+                  }
+                  for (let s4 = 0; s4 < series4.length; s4++) {
+                    FinalSeries4 = FinalSeries4 + series4[s4];
+                  }
+                  if (this.state.ChangeIndex == "Persentase") {
+                    this.setState({
+                      series: [
+                        {
+                          name: "Jumlah S.PDK",
+                          type: "column",
+                          data: [FinalSeries1],
+                        },
+                        {
+                          name: "Jumlah PDK",
+                          type: "column",
+                          data: [FinalSeries2],
+                        },
+                        {
+                          name: "Jumlah TNM",
+                          type: "column",
+                          data: [FinalSeries3],
+                        },
+                        {
+                          name: "Jumlah TG",
+                          type: "column",
+                          data: [FinalSeries4],
+                        },
+                      ],
+                      options: {
+                        ...this.state.options,
+                        dataLabels: {
+                          ...this.state.options.dataLabels,
+                          formatter: (value, data) => {
+                            if (data.seriesIndex == 0) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[0].data[
+                                    data.dataPointIndex
+                                  ] /
+                                    (data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ] +
+                                      data.w.config.series[1].data[
+                                        data.dataPointIndex
+                                      ] +
+                                      data.w.config.series[2].data[
+                                        data.dataPointIndex
+                                      ] +
+                                      data.w.config.series[3].data[
+                                        data.dataPointIndex
+                                      ])) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else if (data.seriesIndex == 1) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[1].data[
+                                    data.dataPointIndex
+                                  ] /
+                                    (data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ] +
+                                      data.w.config.series[1].data[
+                                        data.dataPointIndex
+                                      ] +
+                                      data.w.config.series[2].data[
+                                        data.dataPointIndex
+                                      ] +
+                                      data.w.config.series[3].data[
+                                        data.dataPointIndex
+                                      ])) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else if (data.seriesIndex == 2) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[2].data[
+                                    data.dataPointIndex
+                                  ] /
+                                    (data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ] +
+                                      data.w.config.series[1].data[
+                                        data.dataPointIndex
+                                      ] +
+                                      data.w.config.series[2].data[
+                                        data.dataPointIndex
+                                      ] +
+                                      data.w.config.series[3].data[
+                                        data.dataPointIndex
+                                      ])) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else {
+                              return value;
+                            }
+                          },
+                        },
+                        xaxis: {
+                          ...this.state.options.xaxis,
+                          categories: ["PUSKESMAS SUMBER WRINGIN"],
+                        },
+                      },
+                    });
+                  } else {
+                    this.setState({
+                      series: [
+                        {
+                          name: "Jumlah S.PDK",
+                          type: "column",
+                          data: [FinalSeries1],
+                        },
+                        {
+                          name: "Jumlah PDK",
+                          type: "column",
+                          data: [FinalSeries2],
+                        },
+                        {
+                          name: "Jumlah TNM",
+                          type: "column",
+                          data: [FinalSeries3],
+                        },
+                        {
+                          name: "Jumlah TG",
+                          type: "column",
+                          data: [FinalSeries4],
+                        },
+                      ],
+                      options: {
+                        ...this.state.options,
+                        dataLabels: {
+                          ...this.state.options.dataLabels,
+                          formatter: (value, data) => {
+                            return value;
+                          },
+                        },
+                        xaxis: {
+                          ...this.state.options.xaxis,
+                          categories: ["PUSKESMAS SUMBER WRINGIN"],
+                        },
+                      },
+                    });
+                  }
+                }
+              );
+            }
+          );
+        } else {
+          const deletePuskesmas = _.differenceWith(
+            this.state.desaIndex,
+            ["PUSKESMAS SUMBER WRINGIN"],
+            _.isEqual
+          );
+          this.setState(
+            {
+              desaIndex: deletePuskesmas,
+              options: {
+                ...this.state.options,
+                dataLabels: {
+                  ...this.state.options.dataLabels,
+                  offsetY: -20,
+                  offsetX: 0,
+                },
+                plotOptions: {
+                  ...this.state.options.plotOptions,
+                  bar: {
+                    ...this.state.options.plotOptions.bar,
+                    horizontal: false,
+                  },
+                },
+                xaxis: {
+                  ...this.state.options.xaxis,
+                  categories: [],
+                },
+              },
+            },
+            () => {
+              for (let a = 0; a < dataFinal.length; a++) {
+                JmlSPDKBulan = 0;
+                JmlPDKBulan = 0;
+                JmlTNMBulan = 0;
+                JmlTGBulan = 0;
+                for (let b = 0; b < this.state.desaIndex.length; b++) {
+                  if (dataFinal[a].Puskesmas == this.state.desaIndex[b]) {
+                    for (let i = 0; i < dataFinal[i].set.length; i++) {
+                      for (let c = 0; c < this.state.monthIndex.length; c++) {
+                        if (
+                          this.state.monthIndex[c]?.toLowerCase() ===
+                            dataFinal[a].set[i].Bulan.toLowerCase() &&
+                          this.state.yearIndex === dataFinal[a].set[i].Tahun
+                        ) {
+                          JmlSPDKBulan =
+                            JmlSPDKBulan + dataFinal[a].set[i].JmlSPDK;
+                          JmlPDKBulan =
+                            JmlPDKBulan + dataFinal[a].set[i].JmlPDK;
+                          JmlTNMBulan =
+                            JmlTNMBulan + dataFinal[a].set[i].JmlTNM;
+                          JmlTGBulan = JmlTGBulan + dataFinal[a].set[i].JmlTG;
+                        }
+                      }
+                    }
+                    series1.push(JmlSPDKBulan);
+                    series2.push(JmlPDKBulan);
+                    series3.push(JmlTNMBulan);
+                    series4.push(JmlTGBulan);
+                    category.push(dataFinal[a].Puskesmas);
                   }
                 }
               }
-              series1.push(JmlSPDKBulan);
-              series2.push(JmlPDKBulan);
-              series3.push(JmlTNMBulan);
-              series4.push(JmlTGBulan);
-              category.push(dataFinal[a].Puskesmas);
+              if (this.state.ChangeIndex == "Persentase") {
+                this.setState({
+                  series: [
+                    {
+                      name: "Jumlah S.PDK",
+                      type: "column",
+                      data: series1,
+                    },
+                    {
+                      name: "Jumlah PDK",
+                      type: "column",
+                      data: series2,
+                    },
+                    {
+                      name: "Jumlah TNM",
+                      type: "column",
+                      data: series3,
+                    },
+                    {
+                      name: "Jumlah TG",
+                      type: "column",
+                      data: series4,
+                    },
+                  ],
+                  options: {
+                    ...this.state.options,
+                    dataLabels: {
+                      ...this.state.options.dataLabels,
+                      formatter: (value, data) => {
+                        if (data.seriesIndex == 0) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[0].data[
+                                data.dataPointIndex
+                              ] /
+                                (data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ] +
+                                  data.w.config.series[1].data[
+                                    data.dataPointIndex
+                                  ] +
+                                  data.w.config.series[2].data[
+                                    data.dataPointIndex
+                                  ] +
+                                  data.w.config.series[3].data[
+                                    data.dataPointIndex
+                                  ])) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 1) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[1].data[
+                                data.dataPointIndex
+                              ] /
+                                (data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ] +
+                                  data.w.config.series[1].data[
+                                    data.dataPointIndex
+                                  ] +
+                                  data.w.config.series[2].data[
+                                    data.dataPointIndex
+                                  ] +
+                                  data.w.config.series[3].data[
+                                    data.dataPointIndex
+                                  ])) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 2) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[2].data[
+                                data.dataPointIndex
+                              ] /
+                                (data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ] +
+                                  data.w.config.series[1].data[
+                                    data.dataPointIndex
+                                  ] +
+                                  data.w.config.series[2].data[
+                                    data.dataPointIndex
+                                  ] +
+                                  data.w.config.series[3].data[
+                                    data.dataPointIndex
+                                  ])) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else if (data.seriesIndex == 3) {
+                          let percentage = 0;
+                          percentage =
+                            (
+                              (data.w.config.series[3].data[
+                                data.dataPointIndex
+                              ] /
+                                (data.w.config.series[0].data[
+                                  data.dataPointIndex
+                                ] +
+                                  data.w.config.series[1].data[
+                                    data.dataPointIndex
+                                  ] +
+                                  data.w.config.series[2].data[
+                                    data.dataPointIndex
+                                  ] +
+                                  data.w.config.series[3].data[
+                                    data.dataPointIndex
+                                  ])) *
+                              100
+                            ).toFixed(1) + " %";
+                          return percentage;
+                        } else {
+                          return value;
+                        }
+                      },
+                    },
+                    xaxis: {
+                      ...this.state.options.xaxis,
+                      categories: category,
+                    },
+                  },
+                });
+              } else {
+                this.setState({
+                  series: [
+                    {
+                      name: "Jumlah S.PDK",
+                      type: "column",
+                      data: series1,
+                    },
+                    {
+                      name: "Jumlah PDK",
+                      type: "column",
+                      data: series2,
+                    },
+                    {
+                      name: "Jumlah TNM",
+                      type: "column",
+                      data: series3,
+                    },
+                    {
+                      name: "Jumlah TG",
+                      type: "column",
+                      data: series4,
+                    },
+                  ],
+                  options: {
+                    ...this.state.options,
+                    dataLabels: {
+                      ...this.state.options.dataLabels,
+                      formatter: (value, data) => {
+                        return value;
+                      },
+                    },
+                    xaxis: {
+                      ...this.state.options.xaxis,
+                      categories: category,
+                    },
+                  },
+                });
+              }
             }
-          }
+          );
         }
-        this.setState({
-          series: [
-            {
-              name: "Jumlah SPDK",
-              type: "column",
-              data: series1,
-            },
-            {
-              name: "Jumlah PDK",
-              type: "column",
-              data: series2,
-            },
-            {
-              name: "Jumlah TNM",
-              type: "column",
-              data: series3,
-            },
-            {
-              name: "Jumlah TG",
-              type: "column",
-              data: series4,
-            },
-          ],
-          options: {
-            ...this.state.options,
-            xaxis: {
-              ...this.state.options.xaxis,
-              categories: category,
-            },
-          },
-        });
       }
     );
   };
   handleGraphicTahunControl = (event) => {
+    let FinalSeries1 = 0;
+    let FinalSeries2 = 0;
+    let FinalSeries3 = 0;
+    let FinalSeries4 = 0;
     this.setState(
       {
         yearIndex: event.target.value,
@@ -596,49 +1055,62 @@ class GraphicTBU extends Component {
           .map((set, Puskesmas) => ({ set, Puskesmas }))
           .value();
         const desaTemp = [];
-        for (let c = 0; c < data.length; c++) {
-          desaTemp.push(data[c].Puskesmas);
+        for (let i = 0; i < data.length; i++) {
+          desaTemp.push(data[i].Puskesmas);
         }
         const desa = Array.from(new Set(desaTemp));
-        // console.log(dataFinal, this.state, desa);
-        const series = [];
+        const series1 = [];
         const series2 = [];
         const series3 = [];
         const series4 = [];
-        const category = [];
+        let category = [];
         for (let a = 0; a < dataFinal.length; a++) {
-          var JmlSPDKYear = 0;
-          var JmlPDKYear = 0;
-          var JmlTNMYear = 0;
-          var JmlTGYear = 0;
+          let JmlSPDKYear = 0;
+          let JmlPDKYear = 0;
+          let JmlTNMYear = 0;
+          let JmlTGYear = 0;
           if (dataFinal[a].Puskesmas == desa[a]) {
-            for (let c = 0; c < dataFinal[c].set.length; c++) {
+            for (let i = 0; i < dataFinal[i].set.length; i++) {
               if (
                 this.state.yearIndex.toLowerCase() ===
-                dataFinal[a].set[c].Tahun.toString()
+                dataFinal[a].set[i].Tahun.toLowerCase()
               ) {
-                // console.log(a, dataFinal[a].set[i].SasaranBayiTL)
-                JmlSPDKYear = JmlSPDKYear + dataFinal[a].set[c].JmlSPDK;
-                JmlPDKYear = JmlPDKYear + dataFinal[a].set[c].JmlPDK;
-                JmlTNMYear = JmlTNMYear + dataFinal[a].set[c].JmlTNM;
-                JmlTGYear = JmlTGYear + dataFinal[a].set[c].JmlTG;
+                JmlSPDKYear = JmlSPDKYear + dataFinal[a].set[i].JmlSPDK;
+                JmlPDKYear = JmlPDKYear + dataFinal[a].set[i].JmlPDK;
+                JmlTNMYear = JmlTNMYear + dataFinal[a].set[i].JmlTNM;
+                JmlTGYear = JmlTGYear + dataFinal[a].set[i].JmlTG;
               }
             }
-
-            series.push(JmlSPDKYear);
+            series1.push(JmlSPDKYear);
             series2.push(JmlPDKYear);
             series3.push(JmlTNMYear);
             series4.push(JmlTGYear);
             category.push(dataFinal[a].Puskesmas);
-            // console.log(series, series2);
           }
         }
+        for (let s1 = 0; s1 < series1.length; s1++) {
+          FinalSeries1 = FinalSeries1 + series1[s1];
+        }
+        for (let s2 = 0; s2 < series2.length; s2++) {
+          FinalSeries2 = FinalSeries2 + series2[s2];
+        }
+        for (let s3 = 0; s3 < series3.length; s3++) {
+          FinalSeries3 = FinalSeries3 + series3[s3];
+        }
+        for (let s4 = 0; s4 < series4.length; s4++) {
+          FinalSeries4 = FinalSeries4 + series4[s4];
+        }
+        series1.push(FinalSeries1);
+        series2.push(FinalSeries2);
+        series3.push(FinalSeries3);
+        series4.push(FinalSeries4);
+        category.push("PUSKESMAS SUMBER WRINGIN");
         this.setState({
           series: [
             {
-              name: "Jumlah SPDK",
+              name: "Jumlah S.PDK",
               type: "column",
-              data: series,
+              data: series1,
             },
             {
               name: "Jumlah PDK",
@@ -710,156 +1182,10 @@ class GraphicTBU extends Component {
           </Grid>
           {this.state.showBulanGraphic ? <this.bulanGraphic /> : null}
           {this.state.showTahunGraphic ? <this.tahunGraphic /> : null}
-          {this.state.showChoiceGraphic ? <this.choiceGraphic /> : null}
         </RootStyle>
       );
     }
   }
-  handleQuarterChange = (event) => {
-    this.setState(
-      {
-        quarterIndex: event.target.value,
-      },
-      () => {
-        const { data } = this.props;
-        const dataFinal = _.chain(data)
-          .groupBy("Puskesmas")
-          .map((set, Puskesmas) => ({ set, Puskesmas }))
-          .value();
-        const desaTemp = [];
-        for (let i = 0; i < data.length; i++) {
-          desaTemp.push(data[i].Puskesmas);
-        }
-        const desa = Array.from(new Set(desaTemp));
-        // console.log(dataFinal, this.state, desa);
-        const series = [];
-        const series2 = [];
-        const series3 = [];
-        const series4 = [];
-        const category = [];
-        for (let a = 0; a < dataFinal.length; a++) {
-          var JmlSPDKQuarter = 0;
-          var JmlPDKQuarter = 0;
-          var JmlTNMQuarter = 0;
-          var JmlTGQuarter = 0;
-          if (dataFinal[a].Puskesmas == desa[a]) {
-            for (let i = 0; i < dataFinal[i].set.length; i++) {
-              for (let b = 0; b < this.state.quarterIndex.length; b++) {
-                if (
-                  this.state.quarterIndex[b].toLowerCase() ===
-                  dataFinal[a].set[i].Bulan.toLowerCase()
-                ) {
-                  // console.log(a, dataFinal[a].set[i].SasaranBayiTL)
-                  JmlSPDKQuarter = JmlSPDKQuarter + dataFinal[a].set[i].JmlSPDK;
-                  JmlPDKQuarter = JmlPDKQuarter + dataFinal[a].set[i].JmlPDK;
-                  JmlTNMQuarter = JmlTNMQuarter + dataFinal[a].set[i].JmlTNM;
-                  JmlTGQuarter = JmlTGQuarter + dataFinal[a].set[i].JmlTG;
-                }
-              }
-            }
-            series.push(JmlSPDKQuarter);
-            series2.push(JmlPDKQuarter);
-            series3.push(JmlTNMQuarter);
-            series4.push(JmlTGQuarter);
-
-            category.push(dataFinal[a].Puskesmas);
-            // console.log(series, series2);
-          }
-        }
-        this.setState({
-          series: [
-            {
-              name: "Jumlah SPDK",
-              type: "column",
-              data: series,
-            },
-            {
-              name: "Jumlah PDK",
-              type: "column",
-              data: series2,
-            },
-            {
-              name: "Jumlah TNM",
-              type: "column",
-              data: series3,
-            },
-            {
-              name: "Jumlah TG",
-              type: "column",
-              data: series4,
-            },
-          ],
-          options: {
-            ...this.state.options,
-            xaxis: {
-              ...this.state.options.xaxis,
-              categories: category,
-            },
-          },
-        });
-      }
-    );
-  };
-
-  choiceGraphic = () => {
-    const ITEM_HEIGHT = 48;
-    const ITEM_PADDING_TOP = 8;
-    const MenuProps = {
-      PaperProps: {
-        style: {
-          maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-          width: 250,
-        },
-      },
-    };
-    return (
-      <div>
-        <CardHeader title="Grafik TB/U" />
-        <Box sx={{ p: 3, pb: 1 }} dir="ltr">
-          <ReactApexChart
-            type="bar"
-            series={this.state.series}
-            options={this.state.options}
-            height={300}
-          />
-        </Box>
-        <FormControl sx={{ m: 1, minWidth: 100 }}>
-          <InputLabel id="demo-simple-select-helper-label">Bulan</InputLabel>
-          <Select
-            labelId="demo-multiple-chip-label"
-            id="demo-multiple-chip"
-            multiple
-            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-            renderValue={(selected) => (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                {selected.map((value) => (
-                  <Chip key={value} label={value} />
-                ))}
-              </Box>
-            )}
-            MenuProps={MenuProps}
-            value={this.state.quarterIndex}
-            onChange={this.handleQuarterChange}
-            //=========================================================
-          >
-            {this.state.month.map((month) => (
-              <MenuItem
-                key={month}
-                value={month}
-                style={this.getStyles(
-                  this.state.month,
-                  this.state.monthIndex,
-                  this.props.theme
-                )}
-              >
-                {month}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-    );
-  };
 }
 const mapStateToProps = (state) => {
   return {
