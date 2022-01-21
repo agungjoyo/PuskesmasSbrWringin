@@ -873,22 +873,22 @@ class GraphicBBU extends Component {
                     {
                       name: "Jumlah BBSK",
                       type: "column",
-                      data: [series1],
+                      data: series1,
                     },
                     {
                       name: "Jumlah BBK",
                       type: "column",
-                      data: [series2],
+                      data: series2,
                     },
                     {
                       name: "Jumlah BBN",
                       type: "column",
-                      data: [series3],
+                      data: series3,
                     },
                     {
                       name: "Jumlah BBL",
                       type: "column",
-                      data: [series4],
+                      data: series4,
                     },
                   ],
                   options: {
@@ -1001,22 +1001,22 @@ class GraphicBBU extends Component {
                     {
                       name: "Jumlah BBSK",
                       type: "column",
-                      data: [series1],
+                      data: series1,
                     },
                     {
                       name: "Jumlah BBK",
                       type: "column",
-                      data: [series2],
+                      data: series2,
                     },
                     {
                       name: "Jumlah BBN",
                       type: "column",
-                      data: [series3],
+                      data: series3,
                     },
                     {
                       name: "Jumlah BBL",
                       type: "column",
-                      data: [series4],
+                      data: series4,
                     },
                   ],
                   options: {

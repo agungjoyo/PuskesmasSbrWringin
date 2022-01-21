@@ -635,6 +635,151 @@ class GraphicCocPKMGizi extends Component {
                   for (let s5 = 0; s5 < series5.length; s5++) {
                     FinalSeries5 = FinalSeries5 + series5[s5];
                   }
+                  if (this.state.ChangeIndex == "Persentase") {
+                    this.setState({
+                      series: [
+                        {
+                          name: "Jumlah Balita (S)",
+                          type: "column",
+                          data: [FinalSeries1],
+                        },
+                        {
+                          name: "Jumlah Balita KMS (K)",
+                          type: "column",
+                          data: [FinalSeries1],
+                        },
+                        {
+                          name: "Jumlah Balita 0-59 Bln (D)",
+                          type: "column",
+                          data: [FinalSeries4],
+                        },
+                        {
+                          name: "Jumlah Balita Naik BB (N)",
+                          type: "column",
+                          data: [FinalSeries5],
+                        },
+                      ],
+                      options: {
+                        ...this.state.options,
+                        dataLabels: {
+                          ...this.state.options.dataLabels,
+                          formatter: (value, data) => {
+                            if (data.seriesIndex == 0) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[0].data[
+                                    data.dataPointIndex
+                                  ] /
+                                    (data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ] +
+                                      data.w.config.series[1].data[
+                                        data.dataPointIndex
+                                      ] +
+                                      data.w.config.series[2].data[
+                                        data.dataPointIndex
+                                      ] +
+                                      data.w.config.series[3].data[
+                                        data.dataPointIndex
+                                      ])) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else if (data.seriesIndex == 1) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[1].data[
+                                    data.dataPointIndex
+                                  ] /
+                                    (data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ] +
+                                      data.w.config.series[1].data[
+                                        data.dataPointIndex
+                                      ] +
+                                      data.w.config.series[2].data[
+                                        data.dataPointIndex
+                                      ] +
+                                      data.w.config.series[3].data[
+                                        data.dataPointIndex
+                                      ])) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else if (data.seriesIndex == 2) {
+                              let percentage = 0;
+                              percentage =
+                                (
+                                  (data.w.config.series[2].data[
+                                    data.dataPointIndex
+                                  ] /
+                                    (data.w.config.series[0].data[
+                                      data.dataPointIndex
+                                    ] +
+                                      data.w.config.series[1].data[
+                                        data.dataPointIndex
+                                      ] +
+                                      data.w.config.series[2].data[
+                                        data.dataPointIndex
+                                      ] +
+                                      data.w.config.series[3].data[
+                                        data.dataPointIndex
+                                      ])) *
+                                  100
+                                ).toFixed(1) + " %";
+                              return percentage;
+                            } else {
+                              return value;
+                            }
+                          },
+                        },
+                        xaxis: {
+                          ...this.state.options.xaxis,
+                          categories: ["PUSKESMAS SUMBER WRINGIN"],
+                        },
+                      },
+                    });
+                  } else {
+                    this.setState({
+                      series: [
+                        {
+                          name: "Jumlah Balita (S)",
+                          type: "column",
+                          data: [FinalSeries1],
+                        },
+                        {
+                          name: "Jumlah Balita KMS (K)",
+                          type: "column",
+                          data: [FinalSeries1],
+                        },
+                        {
+                          name: "Jumlah Balita 0-59 Bln (D)",
+                          type: "column",
+                          data: [FinalSeries4],
+                        },
+                        {
+                          name: "Jumlah Balita Naik BB (N)",
+                          type: "column",
+                          data: [FinalSeries5],
+                        },
+                      ],
+                      options: {
+                        ...this.state.options,
+                        dataLabels: {
+                          ...this.state.options.dataLabels,
+                          formatter: (value, data) => {
+                            return value;
+                          },
+                        },
+                        xaxis: {
+                          ...this.state.options.xaxis,
+                          categories: ["PUSKESMAS SUMBER WRINGIN"],
+                        },
+                      },
+                    });
+                  }
                 }
               );
             }
@@ -872,6 +1017,7 @@ class GraphicCocPKMGizi extends Component {
     );
   };
   render() {
+    console.log(this.state);
     const { data } = this.props;
     if (data == undefined) {
       return <div>Loading...</div>;
